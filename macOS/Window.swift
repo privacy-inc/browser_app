@@ -2,6 +2,7 @@ import AppKit
 
 final class Window: NSWindow, NSToolbarDelegate {
     private let search = NSToolbarItem.Identifier("search")
+    private weak var s: NSView?
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width / 2, height: NSScreen.main!.frame.height), styleMask:
@@ -17,10 +18,16 @@ final class Window: NSWindow, NSToolbarDelegate {
         toolbar!.insertItem(withItemIdentifier: search, at: 0)
 //        toolbar!.centeredItemIdentifier = search
 //        toolbar!.validateVisibleItems()
-        toolbar!.displayMode = .iconAndLabel
+//        toolbar!.displayMode = .labelOnly
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//            self.s!.heightAnchor.constraint(equalToConstant: 200).isActive = true
+//            self.s!.layer!.backgroundColor = NSColor.green.cgColor
+//            self.s!.superview!.heightAnchor.constraint(equalToConstant: 200).isActive = true
+        }
     }
     
     override func close() {
@@ -32,24 +39,43 @@ final class Window: NSWindow, NSToolbarDelegate {
         guard let item = toolbar.items.first(where: { $0.itemIdentifier == itemForItemIdentifier }) else {
             let item = NSToolbarItem(itemIdentifier: itemForItemIdentifier)
             
-            item.isEnabled = true
-            item.autovalidates = true
-            item.visibilityPriority = .high
-            item.validate()
-            item.toolTip = "ssda"
-            item.title = "sda"
-            item.label = "fdsdasda"
-            item.paletteLabel = "fdffgdfd"
-            item.target = self
-            item.action = #selector(some)
-            item.image = NSImage(named: "ios")
-            let search = NSSearchField(frame: .init(x: 0, y: 0, width: 100, height: 100))
-            search.controlSize = .large
-//            item.view = search
-            item.minSize.height = 100
-            item.minSize.width = 40
-            item.maxSize.height = 1000
-            item.maxSize.width = 9000
+//            item.isEnabled = true
+//            item.autovalidates = true
+//            item.visibilityPriority = .high
+//            item.validate()
+//            item.toolTip = "ssda"
+//            item.title = "sda"
+//            item.label = "fdsdasda"
+//            item.paletteLabel = "fdffgdfd"
+//            item.target = self
+//            item.action = #selector(some)
+//            item.image = NSImage(named: "ios")
+//            let search = NSSearchField(frame: .init(x: 0, y: 0, width: 100, height: 100))
+//            search.controlSize = .large
+            let search = NSView()
+            item.view = search
+            let inner = NSView()
+            inner.translatesAutoresizingMaskIntoConstraints = false
+            search.addSubview(inner)
+            inner.topAnchor.constraint(equalTo: search.topAnchor).isActive = true
+            inner.bottomAnchor.constraint(equalTo: search.bottomAnchor).isActive = true
+            inner.leftAnchor.constraint(equalTo: search.leftAnchor).isActive = true
+            inner.rightAnchor.constraint(equalTo: search.rightAnchor).isActive = true
+            inner.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            self.s = search
+            inner.wantsLayer = true
+            inner.layer!.backgroundColor = NSColor.blue.cgColor
+            search.translatesAutoresizingMaskIntoConstraints = false
+            search.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+            search.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            search.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            search.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+//            search.heightAnchor.constraint(greaterThanOrEqualToConstant: 200).isActive = true
+            
+//            item.minSize.height = 100
+//            item.minSize.width = 40
+//            item.maxSize.height = 1000
+//            item.maxSize.width = 9000
             return item
         }
         return item
