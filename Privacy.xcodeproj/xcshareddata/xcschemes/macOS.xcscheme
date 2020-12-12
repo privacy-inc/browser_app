@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CE5B10282583843200608726"
-               BuildableName = "macOS.app"
+               BuildableName = "Privacy.app"
                BlueprintName = "macOS"
                ReferencedContainer = "container:Privacy.xcodeproj">
             </BuildableReference>
@@ -45,7 +45,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE5B10282583843200608726"
-            BuildableName = "macOS.app"
+            BuildableName = "Privacy.app"
             BlueprintName = "macOS"
             ReferencedContainer = "container:Privacy.xcodeproj">
          </BuildableReference>
@@ -62,7 +62,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CE5B10282583843200608726"
-            BuildableName = "macOS.app"
+            BuildableName = "Privacy.app"
             BlueprintName = "macOS"
             ReferencedContainer = "container:Privacy.xcodeproj">
          </BuildableReference>
