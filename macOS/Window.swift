@@ -29,8 +29,12 @@ final class Window: NSWindow, NSToolbarDelegate {
     
     func toolbar(_ toolbar: NSToolbar, itemForItemIdentifier: NSToolbarItem.Identifier, willBeInsertedIntoToolbar: Bool) -> NSToolbarItem? {
         guard let item = toolbar.items.first(where: { $0.itemIdentifier == itemForItemIdentifier }) else {
-            let item = NSToolbarItem(itemIdentifier: .flexibleSpace)
-            let search = NSSearchField()
+            let item = NSToolbarItem(itemIdentifier: itemForItemIdentifier)
+            item.isEnabled = true
+            item.autovalidates = true
+            item.visibilityPriority = .high
+            item.validate()
+            let search = NSSearchField(frame: .init(x: 0, y: 0, width: 100, height: 100))
             search.controlSize = .large
             item.view = search
             item.minSize.height = 100
