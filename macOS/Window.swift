@@ -10,10 +10,13 @@ final class Window: NSWindow, NSToolbarDelegate {
                    backing: .buffered, defer: false)
         minSize = .init(width: 400, height: 300)
         titlebarAppearsTransparent = true
+        title = "hello"
         titleVisibility = .hidden
+        titlebarSeparatorStyle = .shadow
         toolbar = .init()
         toolbar!.delegate = self
         toolbar!.showsBaselineSeparator = false
+        
         
         toolbar!.insertItem(withItemIdentifier: search, at: 0)
 //        toolbar!.centeredItemIdentifier = search
@@ -26,7 +29,9 @@ final class Window: NSWindow, NSToolbarDelegate {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
 //            self.s!.heightAnchor.constraint(equalToConstant: 200).isActive = true
 //            self.s!.layer!.backgroundColor = NSColor.green.cgColor
-//            self.s!.superview!.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            
+//            self.s!.superview!.constraints.first { $0.constant == 38 }!.constant = 100
+//            self.s!.superview!.heightAnchor.constraint(equalToConstant: 100).isActive = true
         }
     }
     
@@ -61,15 +66,15 @@ final class Window: NSWindow, NSToolbarDelegate {
             inner.bottomAnchor.constraint(equalTo: search.bottomAnchor).isActive = true
             inner.leftAnchor.constraint(equalTo: search.leftAnchor).isActive = true
             inner.rightAnchor.constraint(equalTo: search.rightAnchor).isActive = true
-            inner.heightAnchor.constraint(equalToConstant: 200).isActive = true
+            inner.heightAnchor.constraint(equalToConstant: 40).isActive = true
             self.s = search
             inner.wantsLayer = true
             inner.layer!.backgroundColor = NSColor.blue.cgColor
             search.translatesAutoresizingMaskIntoConstraints = false
-            search.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
-            search.setContentHuggingPriority(.defaultHigh, for: .vertical)
-            search.heightAnchor.constraint(equalToConstant: 200).isActive = true
-            search.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+//            search.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)
+//            search.setContentHuggingPriority(.defaultHigh, for: .vertical)
+            search.heightAnchor.constraint(equalToConstant: 40).isActive = true
+            search.widthAnchor.constraint(greaterThanOrEqualToConstant: 50).isActive = true
 //            search.heightAnchor.constraint(greaterThanOrEqualToConstant: 200).isActive = true
             
 //            item.minSize.height = 100
