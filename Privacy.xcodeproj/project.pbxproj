@@ -10,6 +10,7 @@
 		CE5B102D2583843200608726 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B102C2583843200608726 /* App.swift */; };
 		CE5B10312583843200608726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B10302583843200608726 /* Assets.xcassets */; };
 		CE5B10462583883B00608726 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B10452583883B00608726 /* Window.swift */; };
+		CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BA2587878300C29CAB /* Searchbar.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -19,6 +20,7 @@
 		CE5B10352583843200608726 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CE5B10362583843200608726 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		CE5B10452583883B00608726 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CEF2A9BA2587878300C29CAB /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -54,6 +56,7 @@
 				CE5B10362583843200608726 /* macOS.entitlements */,
 				CE5B10352583843200608726 /* Info.plist */,
 				CE5B102C2583843200608726 /* App.swift */,
+				CEF2A9BA2587878300C29CAB /* Searchbar.swift */,
 				CE5B10452583883B00608726 /* Window.swift */,
 				CE5B10302583843200608726 /* Assets.xcassets */,
 			);
@@ -130,6 +133,7 @@
 			files = (
 				CE5B102D2583843200608726 /* App.swift in Sources */,
 				CE5B10462583883B00608726 /* Window.swift in Sources */,
+				CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
