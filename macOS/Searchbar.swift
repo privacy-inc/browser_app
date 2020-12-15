@@ -5,7 +5,7 @@ final class Searchbar: NSView {
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
-    init() {
+    init(browser: Browser) {
         super.init(frame: .zero)
         let background = NSView()
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -14,7 +14,7 @@ final class Searchbar: NSView {
         background.layer!.cornerRadius = 6
         addSubview(background)
         
-        let field = Field()
+        let field = Field(browser: browser)
         addSubview(field)
         
         let left = Control.Button("chevron.left")

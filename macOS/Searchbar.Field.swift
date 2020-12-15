@@ -3,7 +3,7 @@ import AppKit
 extension Searchbar {
     final class Field: NSTextField, NSTextFieldDelegate {
         required init?(coder: NSCoder) { nil }
-        init() {
+        init(browser: Browser) {
             Self.cellClass = Cell.self
             super.init(frame: .zero)
             bezelStyle = .roundedBezel

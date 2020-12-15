@@ -13,7 +13,7 @@ final class Window: NSWindow {
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         
-        let searchbar = Searchbar()
+        let searchbar = Searchbar(browser: browser)
         
         let accesory = NSTitlebarAccessoryViewController()
         accesory.view = searchbar
