@@ -29,11 +29,11 @@ final class Window: NSWindow {
         
         browser.browse.sink { [weak self] in
             guard let self = self else { return }
-            if browser.page.value == nil {
+            if browser.page.value == nil && self.web == nil {
                 browser.page.value = .init(url: $0)
                 let web = Web(browser: browser)
-                self.contentView!.addSubview(web)
                 self.web = web
+                self.contentView!.addSubview(web)
                 web.topAnchor.constraint(equalTo: self.contentView!.topAnchor, constant: 54).isActive = true
                 web.bottomAnchor.constraint(equalTo: self.contentView!.bottomAnchor).isActive = true
                 web.leftAnchor.constraint(equalTo: self.contentView!.leftAnchor).isActive = true
