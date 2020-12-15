@@ -2,8 +2,11 @@ import AppKit
 
 extension Searchbar {
     final class Field: NSTextField, NSTextFieldDelegate {
+        private weak var browser: Browser!
+        
         required init?(coder: NSCoder) { nil }
         init(browser: Browser) {
+            self.browser = browser
             Self.cellClass = Cell.self
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
@@ -26,7 +29,9 @@ extension Searchbar {
         }
         
         @objc private func search() {
-            print(stringValue)
+            browser.engine.url(stringValue).map {
+                browser.browse.send($0)
+            }
         }
     }
 }

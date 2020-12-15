@@ -81,6 +81,7 @@
 				CE5B10362583843200608726 /* macOS.entitlements */,
 				CE5B10352583843200608726 /* Info.plist */,
 				CE5B102C2583843200608726 /* App.swift */,
+				CED75E282589114200352091 /* Browser.swift */,
 				CECE3BA72587B19F00D66221 /* Control.Button.swift */,
 				CE11754E258902C7005160D9 /* Control.State.swift */,
 				CE1175522589058D005160D9 /* Control.Style.swift */,
@@ -88,9 +89,8 @@
 				CE1175482588E636005160D9 /* Searchbar.Cell.swift */,
 				CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */,
 				CEF2A9BA2587878300C29CAB /* Searchbar.swift */,
-				CED75E282589114200352091 /* Browser.swift */,
-				CE5B10452583883B00608726 /* Window.swift */,
 				CED75E31258919FB00352091 /* Web.swift */,
+				CE5B10452583883B00608726 /* Window.swift */,
 				CE5B10302583843200608726 /* Assets.xcassets */,
 			);
 			path = macOS;

@@ -5,6 +5,7 @@ import Sleuth
 final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     private weak var browser: Browser!
     private var subs = Set<AnyCancellable>()
+    private let tron = Tron()
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
@@ -12,7 +13,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         
         let configuration = WKWebViewConfiguration()
         configuration.allowsAirPlayForMediaPlayback = true
-        configuration.defaultWebpagePreferences.preferredContentMode = .mobile
+        configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = browser.popups && browser.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = browser.secure
         configuration.websiteDataStore = .nonPersistent()
@@ -30,6 +31,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }
         
         super.init(frame: .zero, configuration: configuration)
+        translatesAutoresizingMaskIntoConstraints = false
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
@@ -61,10 +63,6 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             browser.forwards.value = $0
         }.store(in: &subs)
         
-        browser.navigate.sink { [weak self] in
-            self?.open($0)
-        }.store(in: &subs)
-        
         browser.backward.sink { [weak self] in
             self?.goBack()
         }.store(in: &subs)
@@ -76,8 +74,6 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         browser.reload.sink { [weak self] in
             self?.reload()
         }.store(in: &subs)
-        
-        open(browser.page.value!.url)
     }
     
     deinit {
@@ -85,34 +81,42 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = nil
     }
     
+    func open(_ url: URL) {
+        guard url.deeplink else {
+            load(.init(url: url))
+            return
+        }
+        NSWorkspace.shared.open(url)
+    }
+    
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-//        view.session.state.error = nil
+        browser.error.value = nil
     }
     
     func webView(_: WKWebView, didFinish: WKNavigation!) {
-//        view.session.state.progress = 1
+        browser.progress.value = 1
     }
     
     func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-//        if let error = withError as? URLError {
-//            switch error.code {
-//            case .networkConnectionLost,
-//                 .notConnectedToInternet,
-//                 .dnsLookupFailed,
-//                 .resourceUnavailable,
-//                 .unsupportedURL,
-//                 .cannotFindHost,
-//                 .cannotConnectToHost,
-//                 .timedOut,
-//                 .secureConnectionFailed,
-//                 .serverCertificateUntrusted:
-//                view.session.state.error = error.localizedDescription
-//            default: break
-//            }
-//        } else if (withError as NSError).code == 101 {
-//            view.session.state.error = withError.localizedDescription
-//        }
-//        view.session.state.progress = 1
+        if let error = withError as? URLError {
+            switch error.code {
+            case .networkConnectionLost,
+                 .notConnectedToInternet,
+                 .dnsLookupFailed,
+                 .resourceUnavailable,
+                 .unsupportedURL,
+                 .cannotFindHost,
+                 .cannotConnectToHost,
+                 .timedOut,
+                 .secureConnectionFailed,
+                 .serverCertificateUntrusted:
+                browser.error.value = error.localizedDescription
+            default: break
+            }
+        } else if (withError as NSError).code == 101 {
+            browser.error.value = withError.localizedDescription
+        }
+        browser.progress.value = 1
     }
     
     func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -131,32 +135,24 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-//        var sub: AnyCancellable?
-//        sub = tron.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
-//            sub?.cancel()
-//            switch $0 {
-//            case .allow:
-//                print("allow \(decidePolicyFor.request.url!)")
-//                preferences.allowsContentJavaScript = self?.javascript ?? false
-//                decisionHandler(.allow, preferences)
-//            case .external:
-//                print("external \(decidePolicyFor.request.url!)")
-//                decisionHandler(.cancel, preferences)
-//                UIApplication.shared.open(decidePolicyFor.request.url!)
-//            case .ignore:
-//                decisionHandler(.cancel, preferences)
-//            case .block(let domain):
-//                decisionHandler(.cancel, preferences)
-//                self?.view.session.state.blocked.insert(domain)
-//            }
-//        }
-    }
-    
-    private func open(_ url: URL) {
-//        guard url.deeplink else {
-//            load(.init(url: url))
-//            return
-//        }
-//        UIApplication.shared.open(url)
+        var sub: AnyCancellable?
+        sub = tron.policy(for: decidePolicyFor.request.url!, shield: browser.trackers).receive(on: DispatchQueue.main).sink { [weak self] in
+            sub?.cancel()
+            switch $0 {
+            case .allow:
+                print("allow \(decidePolicyFor.request.url!)")
+                preferences.allowsContentJavaScript = self?.browser.javascript ?? false
+                decisionHandler(.allow, preferences)
+            case .external:
+                print("external \(decidePolicyFor.request.url!)")
+                decisionHandler(.cancel, preferences)
+                NSWorkspace.shared.open(decidePolicyFor.request.url!)
+            case .ignore:
+                decisionHandler(.cancel, preferences)
+            case .block(let domain):
+                decisionHandler(.cancel, preferences)
+                self?.browser.blocked.value.insert(domain)
+            }
+        }
     }
 }

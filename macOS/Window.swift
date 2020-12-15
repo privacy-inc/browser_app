@@ -1,7 +1,10 @@
 import AppKit
+import Combine
 
 final class Window: NSWindow {
-    private let browser = Browser()
+    private weak var web: Web!
+    private var subs = Set<AnyCancellable>()
+    private let dispatch = DispatchQueue(label: "", qos: .utility)
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width / 2, height: NSScreen.main!.frame.height),
@@ -13,12 +16,31 @@ final class Window: NSWindow {
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         
+        let browser = Browser()
         let searchbar = Searchbar(browser: browser)
-        
         let accesory = NSTitlebarAccessoryViewController()
         accesory.view = searchbar
         accesory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accesory)
+        
+        browser.save.combineLatest(browser.page).debounce(for: .seconds(1), scheduler: dispatch).sink {
+            $0.1.map(FileManager.default.save)
+        }.store(in: &subs)
+        
+        browser.browse.sink { [weak self] in
+            guard let self = self else { return }
+            if browser.page.value == nil {
+                browser.page.value = .init(url: $0)
+                let web = Web(browser: browser)
+                self.contentView!.addSubview(web)
+                self.web = web
+                web.topAnchor.constraint(equalTo: self.contentView!.topAnchor, constant: 54).isActive = true
+                web.bottomAnchor.constraint(equalTo: self.contentView!.bottomAnchor).isActive = true
+                web.leftAnchor.constraint(equalTo: self.contentView!.leftAnchor).isActive = true
+                web.rightAnchor.constraint(equalTo: self.contentView!.rightAnchor).isActive = true
+            }
+            self.web.open($0)
+        }.store(in: &subs)
     }
     
     override func close() {
