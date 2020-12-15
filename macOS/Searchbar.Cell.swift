@@ -1,9 +1,7 @@
 import AppKit
 
-extension Searchbar.Field {
+extension Searchbar {
     final class Cell: NSTextFieldCell {
-        var a = NSButtonCell(imageCell: NSImage(systemSymbolName: "arrow.clockwise", accessibilityDescription: nil))
-        
         override func draw(withFrame: NSRect, in view: NSView) {
             super.drawInterior(withFrame: withFrame, in: view)
         }
@@ -11,10 +9,10 @@ extension Searchbar.Field {
         override func drawInterior(withFrame: NSRect, in: NSView) { }
 
         override func drawingRect(forBounds: NSRect) -> NSRect {
-            alignment = (controlView as! NSTextField) == controlView!.window!.firstResponder ? .left : .center
+            alignment = controlView == controlView!.window!.firstResponder ? .left : .center
             var rect = forBounds
-            rect.origin.x += 35
-            rect.size.width -= 70
+            rect.origin.x += 23
+            rect.size.width -= 46
             return super.drawingRect(forBounds: rect)
         }
     }

@@ -2,39 +2,33 @@ import AppKit
 
 extension Control {
     final class Button: Control {
-        override var enabled: Bool {
-            didSet {
-                if enabled {
-                    hoverOff()
-                } else {
-                    hoverOn()
-                }
-            }
-        }
+        private(set) weak var icon: NSImageView!
         
         required init?(coder: NSCoder) { nil }
         init(_ icon: String) {
             super.init()
             let icon = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
-            icon.symbolConfiguration = .init(pointSize: 16, weight: .bold)
             icon.translatesAutoresizingMaskIntoConstraints = false
             icon.imageScaling = .scaleNone
-            icon.contentTintColor = .systemBlue
             addSubview(icon)
-            
-            widthAnchor.constraint(equalToConstant: 40).isActive = true
-            heightAnchor.constraint(equalTo: widthAnchor).isActive = true
+            self.icon = icon
             
             icon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
         
-        override func hoverOn() {
-            alphaValue = 0.3
-        }
-        
-        override func hoverOff() {
-            alphaValue = 1
+        final override func update() {
+            switch style {
+            case .blue:
+                switch state {
+                case .on: icon.contentTintColor = .systemBlue
+                case .off: icon.contentTintColor = .tertiaryLabelColor
+                case .selected, .highlighted: icon.contentTintColor = .labelColor
+                case .pressed: icon.contentTintColor = .systemIndigo
+                }
+            case .none:
+                super.update()
+            }
         }
     }
 }

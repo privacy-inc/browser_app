@@ -1,9 +1,21 @@
 import AppKit
+import Combine
 
 class Control: NSView {
-    weak var target: AnyObject!
-    var action: Selector!
-    var enabled = true
+    var state = Control.State.on {
+        didSet {
+            update()
+        }
+    }
+    
+    var style = Control.Style.none {
+        didSet {
+            update()
+        }
+    }
+    
+    let click = PassthroughSubject<Void, Never>()
+    
     override var mouseDownCanMoveWindow: Bool { false }
     
     required init?(coder: NSCoder) { nil }
@@ -19,27 +31,37 @@ class Control: NSView {
         addCursorRect(bounds, cursor: .pointingHand)
     }
     
+    override func mouseEntered(with: NSEvent) {
+        guard state == .on else { return }
+        state = .highlighted
+    }
+    
+    override func mouseExited(with: NSEvent) {
+        guard state == .highlighted else { return }
+        state = .on
+    }
+    
     override func mouseDown(with: NSEvent) {
-        guard enabled else { return }
-        hoverOn()
+        guard state == .on || state == .highlighted else { return }
+        state = .pressed
     }
     
     override func mouseUp(with: NSEvent) {
-        guard enabled else { return }
-        hoverOff()
-        window!.makeFirstResponder(self)
+        guard state == .highlighted || state == .on || state == .pressed else { return }
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
-            _ = target.perform(action, with: self)
+            state = .highlighted
+            click.send()
         } else {
+            state = .on
             super.mouseUp(with: with)
         }
     }
     
-    func hoverOn() {
-        
-    }
-    
-    func hoverOff() {
-        
+    func update() {
+        switch state {
+        case .on: alphaValue = 1
+        case .pressed: alphaValue = 0.6
+        default: alphaValue = 0.3
+        }
     }
 }

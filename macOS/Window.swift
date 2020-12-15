@@ -12,8 +12,6 @@ final class Window: NSWindow {
         setFrameAutosaveName("Window")
         
         let searchbar = Searchbar()
-        searchbar.field.target = self
-        searchbar.field.action = #selector(search)
         
         let accesory = NSTitlebarAccessoryViewController()
         accesory.view = searchbar
@@ -24,11 +22,5 @@ final class Window: NSWindow {
     override func close() {
         super.close()
         NSApp.terminate(nil)
-    }
-    
-    @objc private func search(_ field: NSTextField) {
-//        print(field.recentSearches)
-//        print(field.searchMenuTemplate)
-        print(field.stringValue)
     }
 }
