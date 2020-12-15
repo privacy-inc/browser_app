@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE1175492588E636005160D9 /* Searchbar.Field.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1175482588E636005160D9 /* Searchbar.Field.Cell.swift */; };
 		CE5B102D2583843200608726 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B102C2583843200608726 /* App.swift */; };
 		CE5B10312583843200608726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B10302583843200608726 /* Assets.xcassets */; };
 		CE5B10462583883B00608726 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B10452583883B00608726 /* Window.swift */; };
@@ -17,6 +18,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE1175482588E636005160D9 /* Searchbar.Field.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.Cell.swift; sourceTree = "<group>"; };
 		CE5B10292583843200608726 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5B102C2583843200608726 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE5B10302583843200608726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -64,6 +66,7 @@
 				CE5B102C2583843200608726 /* App.swift */,
 				CECE3BA72587B19F00D66221 /* Control.Button.swift */,
 				CECE3BA42587B18000D66221 /* Control.swift */,
+				CE1175482588E636005160D9 /* Searchbar.Field.Cell.swift */,
 				CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */,
 				CEF2A9BA2587878300C29CAB /* Searchbar.swift */,
 				CE5B10452583883B00608726 /* Window.swift */,
@@ -145,6 +148,7 @@
 				CECE3BA52587B18000D66221 /* Control.swift in Sources */,
 				CE5B10462583883B00608726 /* Window.swift in Sources */,
 				CECE3BA82587B19F00D66221 /* Control.Button.swift in Sources */,
+				CE1175492588E636005160D9 /* Searchbar.Field.Cell.swift in Sources */,
 				CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
