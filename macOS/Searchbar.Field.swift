@@ -13,7 +13,23 @@ extension Searchbar {
             sendsSearchStringImmediately = true
             delegate = self
             lineBreakMode = .byTruncatingMiddle
-            (cell as! NSSearchFieldCell).cancelButtonCell = nil
+            
+            let menu = NSMenu()
+            let recents = NSMenuItem(title: "Recents", action: nil, keyEquivalent: "")
+            recents.tag = NSSearchField.recentsMenuItemTag
+            let clear = NSMenuItem(title: NSLocalizedString("Clear searches", comment: ""), action: nil, keyEquivalent: "")
+            clear.tag = NSSearchField.clearRecentsMenuItemTag
+            let empty = NSMenuItem(title: NSLocalizedString("No recent searches", comment: ""), action: nil, keyEquivalent: "")
+            empty.tag = NSSearchField.noRecentsMenuItemTag
+            menu.addItem(recents)
+            menu.addItem(.separator())
+            menu.addItem(clear)
+            menu.addItem(empty)
+            recentsAutosaveName = "recent_searches"
+            searchMenuTemplate = menu
+            
+//            (cell as! NSSearchFieldCell).searchButtonCell = NSButtonCell(imageCell: NSImage(systemSymbolName: "lock.fill", accessibilityDescription: nil))
+//            (cell as! NSSearchFieldCell).cancelButtonCell = NSButtonCell(imageCell: NSImage(systemSymbolName: "arrow.clockwise", accessibilityDescription: nil))
         }
         
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {

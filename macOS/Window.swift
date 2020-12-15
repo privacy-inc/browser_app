@@ -27,6 +27,8 @@ final class Window: NSWindow {
     }
     
     @objc private func search(_ field: NSSearchField) {
+        print(field.recentSearches)
+        print(field.searchMenuTemplate)
         print(field.stringValue)
     }
 }
