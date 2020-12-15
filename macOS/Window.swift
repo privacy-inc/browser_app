@@ -1,6 +1,8 @@
 import AppKit
 
 final class Window: NSWindow {
+    private let browser = Browser()
+    
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width / 2, height: NSScreen.main!.frame.height),
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView], backing: .buffered, defer: false)

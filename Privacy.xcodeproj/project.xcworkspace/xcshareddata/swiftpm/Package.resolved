@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "Sleuth",
+        "repositoryURL": "https://github.com/privacy-inc/sleuth.git",
+        "state": {
+          "branch": "main",
+          "revision": "193b62b61d80cc9a7c3a26beb9c426f6da99980d",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

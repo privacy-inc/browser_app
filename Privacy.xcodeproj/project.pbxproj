@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,8 @@
 		CE5B10462583883B00608726 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B10452583883B00608726 /* Window.swift */; };
 		CECE3BA52587B18000D66221 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE3BA42587B18000D66221 /* Control.swift */; };
 		CECE3BA82587B19F00D66221 /* Control.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE3BA72587B19F00D66221 /* Control.Button.swift */; };
+		CED75E262589111F00352091 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CED75E252589111F00352091 /* Sleuth */; };
+		CED75E292589114200352091 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E282589114200352091 /* Browser.swift */; };
 		CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BA2587878300C29CAB /* Searchbar.swift */; };
 		CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */; };
 /* End PBXBuildFile section */
@@ -31,6 +33,7 @@
 		CE5B10452583883B00608726 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CECE3BA42587B18000D66221 /* Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		CECE3BA72587B19F00D66221 /* Control.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Button.swift; sourceTree = "<group>"; };
+		CED75E282589114200352091 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		CEF2A9BA2587878300C29CAB /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 		CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -40,6 +43,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED75E262589111F00352091 /* Sleuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -75,6 +79,7 @@
 				CE1175482588E636005160D9 /* Searchbar.Cell.swift */,
 				CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */,
 				CEF2A9BA2587878300C29CAB /* Searchbar.swift */,
+				CED75E282589114200352091 /* Browser.swift */,
 				CE5B10452583883B00608726 /* Window.swift */,
 				CE5B10302583843200608726 /* Assets.xcassets */,
 			);
@@ -97,6 +102,9 @@
 			dependencies = (
 			);
 			name = macOS;
+			packageProductDependencies = (
+				CED75E252589111F00352091 /* Sleuth */,
+			);
 			productName = macOS;
 			productReference = CE5B10292583843200608726 /* Privacy.app */;
 			productType = "com.apple.product-type.application";
@@ -124,6 +132,9 @@
 				Base,
 			);
 			mainGroup = CE5B101E2583836300608726;
+			packageReferences = (
+				CED75E242589111F00352091 /* XCRemoteSwiftPackageReference "sleuth" */,
+			);
 			productRefGroup = CE5B102A2583843200608726 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -149,6 +160,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CED75E292589114200352091 /* Browser.swift in Sources */,
 				CE5B102D2583843200608726 /* App.swift in Sources */,
 				CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */,
 				CECE3BA52587B18000D66221 /* Control.swift in Sources */,
@@ -405,6 +417,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CED75E242589111F00352091 /* XCRemoteSwiftPackageReference "sleuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/privacy-inc/sleuth.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CED75E252589111F00352091 /* Sleuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED75E242589111F00352091 /* XCRemoteSwiftPackageReference "sleuth" */;
+			productName = Sleuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE5B101F2583836300608726 /* Project object */;
 }
