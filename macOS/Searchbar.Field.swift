@@ -1,7 +1,7 @@
 import AppKit
 
 extension Searchbar {
-    final class Field: NSSearchField, NSSearchFieldDelegate {
+    final class Field: NSTextField, NSTextFieldDelegate {
         required init?(coder: NSCoder) { nil }
         init() {
             Self.cellClass = Cell.self
@@ -10,8 +10,6 @@ extension Searchbar {
             translatesAutoresizingMaskIntoConstraints = false
             font = .systemFont(ofSize: 14)
             controlSize = .large
-            sendsWholeSearchString = true
-            sendsSearchStringImmediately = true
             delegate = self
             lineBreakMode = .byTruncatingMiddle
             
@@ -29,8 +27,7 @@ extension Searchbar {
             let empty = NSMenuItem(title: NSLocalizedString("No recent searches", comment: ""), action: nil, keyEquivalent: "")
             empty.tag = NSSearchField.noRecentsMenuItemTag
             menu.items = [google, ecosia, .separator(), recents, .separator(), clear, empty]
-            recentsAutosaveName = "recent_searches"
-            searchMenuTemplate = menu
+
             
 //            (cell as! NSSearchFieldCell).searchButtonCell = NSButtonCell(imageCell: NSImage(systemSymbolName: "lock.fill", accessibilityDescription: nil))
 //            (cell as! NSSearchFieldCell).cancelButtonCell = NSButtonCell(imageCell: NSImage(systemSymbolName: "arrow.clockwise", accessibilityDescription: nil))

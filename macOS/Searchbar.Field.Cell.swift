@@ -1,32 +1,21 @@
 import AppKit
 
 extension Searchbar.Field {
-    final class Cell: NSSearchFieldCell {
+    final class Cell: NSTextFieldCell {
         var a = NSButtonCell(imageCell: NSImage(systemSymbolName: "arrow.clockwise", accessibilityDescription: nil))
         
-        override func draw(withFrame cellFrame: NSRect, in controlView: NSView) {
-            print("a")
-//            super.draw(withFrame: cellFrame, in: controlView)
-            super.drawInterior(withFrame: cellFrame, in: controlView)
+        override func draw(withFrame: NSRect, in view: NSView) {
+            super.drawInterior(withFrame: withFrame, in: view)
         }
         
-        override func drawInterior(withFrame cellFrame: NSRect, in controlView: NSView) {
-            print("b")
-//            super.drawInterior(withFrame: cellFrame, in: controlView)
-        }
-//
-        override func drawingRect(forBounds rect: NSRect) -> NSRect {
-            print("c")
-//            print("rect \(rect) result \(super.drawingRect(forBounds: rect))")
-//            print(self.searchButtonRect(forBounds: rect))
-            return super.drawingRect(forBounds: rect)
-        }
+        override func drawInterior(withFrame: NSRect, in: NSView) { }
 
-        override func drawFocusRingMask(withFrame cellFrame: NSRect, in controlView: NSView) {
-            print("d")
-            var frame = cellFrame
-            frame.size.height += 10
-            super.drawFocusRingMask(withFrame: frame, in: controlView)
+        override func drawingRect(forBounds: NSRect) -> NSRect {
+            alignment = (controlView as! NSTextField) == controlView!.window!.firstResponder ? .left : .center
+            var rect = forBounds
+            rect.origin.x += 35
+            rect.size.width -= 70
+            return super.drawingRect(forBounds: rect)
         }
     }
 }
