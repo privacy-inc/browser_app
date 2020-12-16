@@ -18,8 +18,6 @@
 		CED75E262589111F00352091 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CED75E252589111F00352091 /* Sleuth */; };
 		CED75E292589114200352091 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E282589114200352091 /* Browser.swift */; };
 		CED75E32258919FB00352091 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E31258919FB00352091 /* Web.swift */; };
-		CED75E3625891ABB00352091 /* Defaults.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E3525891ABB00352091 /* Defaults.swift */; };
-		CED75E4925891B5700352091 /* Defaults.Key.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E4825891B5700352091 /* Defaults.Key.swift */; };
 		CED75E4E25891F1500352091 /* WKUserContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E4D25891F1500352091 /* WKUserContentController.swift */; };
 		CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BA2587878300C29CAB /* Searchbar.swift */; };
 		CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */; };
@@ -39,8 +37,6 @@
 		CECE3BA72587B19F00D66221 /* Control.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Button.swift; sourceTree = "<group>"; };
 		CED75E282589114200352091 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		CED75E31258919FB00352091 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
-		CED75E3525891ABB00352091 /* Defaults.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.swift; sourceTree = "<group>"; };
-		CED75E4825891B5700352091 /* Defaults.Key.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Defaults.Key.swift; sourceTree = "<group>"; };
 		CED75E4D25891F1500352091 /* WKUserContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKUserContentController.swift; sourceTree = "<group>"; };
 		CEF2A9BA2587878300C29CAB /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 		CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.swift; sourceTree = "<group>"; };
@@ -99,8 +95,6 @@
 		CED75E3425891A9800352091 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
-				CED75E4825891B5700352091 /* Defaults.Key.swift */,
-				CED75E3525891ABB00352091 /* Defaults.swift */,
 				CED75E4D25891F1500352091 /* WKUserContentController.swift */,
 			);
 			path = Shared;
@@ -189,11 +183,9 @@
 				CE1175492588E636005160D9 /* Searchbar.Cell.swift in Sources */,
 				CE11754F258902C7005160D9 /* Control.State.swift in Sources */,
 				CED75E4E25891F1500352091 /* WKUserContentController.swift in Sources */,
-				CED75E3625891ABB00352091 /* Defaults.swift in Sources */,
 				CE1175532589058D005160D9 /* Control.Style.swift in Sources */,
 				CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */,
 				CED75E32258919FB00352091 /* Web.swift in Sources */,
-				CED75E4925891B5700352091 /* Defaults.Key.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

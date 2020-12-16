@@ -5,7 +5,7 @@ import Sleuth
 final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     private weak var browser: Browser!
     private var subs = Set<AnyCancellable>()
-    private let tron = Tron()
+    private let shield = Shield()
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
@@ -136,7 +136,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         var sub: AnyCancellable?
-        sub = tron.policy(for: decidePolicyFor.request.url!, shield: browser.trackers).receive(on: DispatchQueue.main).sink { [weak self] in
+        sub = shield.policy(for: decidePolicyFor.request.url!, shield: browser.trackers).receive(on: DispatchQueue.main).sink { [weak self] in
             sub?.cancel()
             switch $0 {
             case .allow:
