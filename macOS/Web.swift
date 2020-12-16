@@ -35,6 +35,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
+        setValue(false, forKey: "drawsBackground")
         
         publisher(for: \.estimatedProgress).sink {
             browser.progress.value = $0
