@@ -1,11 +1,13 @@
 import AppKit
 import Combine
+import Sleuth
 
 final class Searchbar: NSView {
+    private(set) weak var field: Field!
     private var subs = Set<AnyCancellable>()
-    
+
     required init?(coder: NSCoder) { nil }
-    init(browser: Browser) {
+    init(tab: Tab) {
         super.init(frame: .zero)
         let background = NSView()
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -14,7 +16,8 @@ final class Searchbar: NSView {
         background.layer!.cornerRadius = 6
         addSubview(background)
         
-        let field = Field(browser: browser)
+        let field = Field(tab: tab)
+        self.field = field
         addSubview(field)
         
         let left = Control.Button("chevron.left")
