@@ -6,6 +6,12 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     private weak var browser: Browser!
     private var subs = Set<AnyCancellable>()
     private let shield = Shield()
+    private let engine = Defaults.engine
+    private let secure = Defaults.secure
+    private let trackers = Defaults.trackers
+    private let javascript = Defaults.javascript
+    private let ads = Defaults.ads
+    private let cookies = Defaults.cookies
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
@@ -14,19 +20,19 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         let configuration = WKWebViewConfiguration()
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
-        configuration.preferences.javaScriptCanOpenWindowsAutomatically = browser.popups && browser.javascript
-        configuration.preferences.isFraudulentWebsiteWarningEnabled = browser.secure
+        configuration.preferences.javaScriptCanOpenWindowsAutomatically = Defaults.popups && Defaults.javascript
+        configuration.preferences.isFraudulentWebsiteWarningEnabled = secure
         configuration.websiteDataStore = .nonPersistent()
         
-        if NSApp.windows.first!.effectiveAppearance == NSAppearance(named: .darkAqua) && browser.dark {
+        if NSApp.windows.first!.effectiveAppearance == NSAppearance(named: .darkAqua) && Defaults.dark {
             configuration.userContentController.addUserScript(.init(source: Dark.script, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
         }
         
-        if browser.ads {
+        if ads {
             configuration.userContentController.blockAds()
         }
         
-        if browser.cookies {
+        if cookies {
             configuration.userContentController.blockCookies()
         }
         
@@ -45,14 +51,12 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             $0.map {
                 guard !$0.isEmpty else { return }
                 browser.page.value?.title = $0
-                browser.save.send()
             }
         }.store(in: &subs)
         
         publisher(for: \.url).sink {
             $0.map {
                 browser.page.value?.url = $0
-                browser.save.send()
             }
         }.store(in: &subs)
         
@@ -64,11 +68,11 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             browser.forwards.value = $0
         }.store(in: &subs)
         
-        browser.backward.sink { [weak self] in
+        browser.previous.sink { [weak self] in
             self?.goBack()
         }.store(in: &subs)
         
-        browser.forward.sink { [weak self] in
+        browser.next.sink { [weak self] in
             self?.goForward()
         }.store(in: &subs)
         
@@ -121,7 +125,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
-        guard browser.secure else {
+        guard secure else {
             completionHandler(.useCredential, didReceive.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
             return
         }
@@ -137,12 +141,12 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         var sub: AnyCancellable?
-        sub = shield.policy(for: decidePolicyFor.request.url!, shield: browser.trackers).receive(on: DispatchQueue.main).sink { [weak self] in
+        sub = shield.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
             sub?.cancel()
             switch $0 {
             case .allow:
                 print("allow \(decidePolicyFor.request.url!)")
-                preferences.allowsContentJavaScript = self?.browser.javascript ?? false
+                preferences.allowsContentJavaScript = self?.javascript ?? false
                 decisionHandler(.allow, preferences)
             case .external:
                 print("external \(decidePolicyFor.request.url!)")

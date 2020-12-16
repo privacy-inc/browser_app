@@ -3,13 +3,13 @@ import Sleuth
 
 extension Searchbar {
     final class Field: NSTextField, NSTextFieldDelegate {
-        private weak var tab: Tab!
+        private weak var browser: Browser!
         override var acceptsFirstResponder: Bool { true }
         override var canBecomeKeyView: Bool { true }
         
         required init?(coder: NSCoder) { nil }
-        init(tab: Tab) {
-            self.tab = tab
+        init(browser: Browser) {
+            self.browser = browser
             Self.cellClass = Cell.self
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
@@ -33,7 +33,7 @@ extension Searchbar {
         
         @objc private func search() {
             Defaults.engine.url(stringValue).map {
-                tab.open($0)
+                browser.browse.send($0)
             }
         }
     }

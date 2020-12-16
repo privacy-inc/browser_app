@@ -7,7 +7,7 @@ final class Searchbar: NSView {
     private var subs = Set<AnyCancellable>()
 
     required init?(coder: NSCoder) { nil }
-    init(tab: Tab) {
+    init(browser: Browser) {
         super.init(frame: .zero)
         let background = NSView()
         background.translatesAutoresizingMaskIntoConstraints = false
@@ -16,7 +16,7 @@ final class Searchbar: NSView {
         background.layer!.cornerRadius = 6
         addSubview(background)
         
-        let field = Field(tab: tab)
+        let field = Field(browser: browser)
         self.field = field
         addSubview(field)
         

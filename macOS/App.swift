@@ -12,7 +12,23 @@ import AppKit
     }
     
     func applicationWillFinishLaunching(_: Notification) {
-//        mainMenu = Menu()
+        mainMenu = Menu()
+        newWindow()
+    }
+    
+    @objc func newWindow() {
         Window().makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func closeWindow() {
+        keyWindow.map {
+            if let tabs = $0.tabbedWindows {
+                tabs.forEach {
+                    $0.close()
+                }
+            } else {
+                $0.close()
+            }
+        }
     }
 }
