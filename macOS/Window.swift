@@ -16,6 +16,13 @@ final class Window: NSWindow {
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         
+        let tabbar = Tabbar()
+        contentView!.addSubview(tabbar)
+        
+        tabbar.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 52).isActive = true
+        tabbar.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
+        tabbar.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
+        
         let browser = Browser()
         let searchbar = Searchbar(browser: browser)
         let accesory = NSTitlebarAccessoryViewController()
@@ -34,7 +41,7 @@ final class Window: NSWindow {
                 let web = Web(browser: browser)
                 self.web = web
                 self.contentView!.addSubview(web)
-                web.topAnchor.constraint(equalTo: self.contentView!.topAnchor, constant: 52).isActive = true
+                web.topAnchor.constraint(equalTo: tabbar.bottomAnchor).isActive = true
                 web.bottomAnchor.constraint(equalTo: self.contentView!.bottomAnchor).isActive = true
                 web.leftAnchor.constraint(equalTo: self.contentView!.leftAnchor).isActive = true
                 web.rightAnchor.constraint(equalTo: self.contentView!.rightAnchor).isActive = true

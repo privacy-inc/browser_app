@@ -10,7 +10,7 @@ final class Searchbar: NSView {
         let background = NSView()
         background.translatesAutoresizingMaskIntoConstraints = false
         background.wantsLayer = true
-        background.layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+        background.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
         background.layer!.cornerRadius = 6
         addSubview(background)
         
