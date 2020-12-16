@@ -45,6 +45,7 @@ final class History: NSScrollView {
             self?.pages = $0
             self?.visible = .init(repeating: false, count: $0.count)
             self?.refresh()
+            print($0.count)
             load?.cancel()
         }
     }

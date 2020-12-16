@@ -5,7 +5,7 @@ import Sleuth
 final class Window: NSWindow {
     private weak var web: Tab!
     private var subs = Set<AnyCancellable>()
-    private let dispatch = DispatchQueue(label: "", qos: .utility)
+    private let _tab = Tab()
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width / 2, height: NSScreen.main!.frame.height),
@@ -16,23 +16,20 @@ final class Window: NSWindow {
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
+//        tab.title = "shisus"
+        tabbingMode = .preferred
+//
+//        addTabbedWindow(NSWindow(), ordered: .below)
         
-        let tab = Tab()
-        let tabbar = Tabbar(tab: tab)
-        contentView!.addSubview(tabbar)
-        
-        tabbar.topAnchor.constraint(equalTo: contentView!.topAnchor, constant: 52).isActive = true
-        tabbar.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
-        tabbar.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
-        
-        let searchbar = Searchbar(tab: tab)
+        let searchbar = Searchbar(tab: _tab)
         initialFirstResponder = searchbar.field
         let accesory = NSTitlebarAccessoryViewController()
         accesory.view = searchbar
         accesory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accesory)
         
-        tab.selected.sink { [weak self] in
+        
+        _tab.selected.sink { [weak self] in
             guard let self = self else { return }
             guard $0.page.value == nil else {
                 
@@ -41,14 +38,10 @@ final class Window: NSWindow {
             guard !self.contentView!.subviews.contains(where: { $0 is History }) else { return }
             let history = History()
             self.contentView!.addSubview(history)
-            history.topAnchor.constraint(equalTo: tabbar.bottomAnchor).isActive = true
+            history.topAnchor.constraint(equalTo: self.contentView!.topAnchor, constant: 80).isActive = true
             history.bottomAnchor.constraint(equalTo: self.contentView!.bottomAnchor).isActive = true
             history.leftAnchor.constraint(equalTo: self.contentView!.leftAnchor).isActive = true
             history.rightAnchor.constraint(equalTo: self.contentView!.rightAnchor).isActive = true
-        }.store(in: &subs)
-        
-        FileManager.pages.sink {
-            print($0.count)
         }.store(in: &subs)
         
 //        browser.save.combineLatest(browser.page).debounce(for: .seconds(1), scheduler: dispatch).sink {
@@ -69,10 +62,5 @@ final class Window: NSWindow {
 //            }
 //            self.web.open($0)
 //        }.store(in: &subs)
-    }
-    
-    override func close() {
-        super.close()
-        NSApp.terminate(nil)
     }
 }
