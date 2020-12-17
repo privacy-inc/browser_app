@@ -27,10 +27,6 @@ class Control: NSView {
         addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
     }
     
-    override func resetCursorRects() {
-        addCursorRect(bounds, cursor: .pointingHand)
-    }
-    
     override func mouseEntered(with: NSEvent) {
         guard state == .on else { return }
         state = .highlighted

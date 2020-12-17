@@ -76,6 +76,22 @@ final class Searchbar: NSView {
             engine.minimumWidth = field.frame.size.width
             engine.popUp(positioning: engine.item(at: 0), at: .init(x: field.frame.origin.x, y: 0), in: self)
         }.store(in: &subs)
+        
+        left.click.sink {
+            browser.previous.send()
+        }.store(in: &subs)
+        
+        right.click.sink {
+            browser.next.send()
+        }.store(in: &subs)
+        
+        browser.backwards.sink {
+            left.state = $0 ? .on : .off
+        }.store(in: &subs)
+        
+        browser.forwards.sink {
+            right.state = $0 ? .on : .off
+        }.store(in: &subs)
     }
     
     @objc private func change(_ engine: NSMenuItem) {

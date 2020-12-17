@@ -24,6 +24,7 @@ extension Searchbar {
         
         override func becomeFirstResponder() -> Bool {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.currentEditor()?.alignment = .left
                 self?.currentEditor()?.selectedRange = .init(location: 0, length: self?.stringValue.count ?? 0)
             }
             return super.becomeFirstResponder()
@@ -36,6 +37,14 @@ extension Searchbar {
             default: return false
             }
             return true
+        }
+        
+        func controlTextDidBeginEditing(_ obj: Notification) {
+            currentEditor()?.alignment = .left
+        }
+        
+        func controlTextDidEndEditing(_ obj: Notification) {
+            currentEditor()?.alignment = .center
         }
         
         @objc private func search() {

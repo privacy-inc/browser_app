@@ -9,7 +9,6 @@ extension Searchbar {
         override func drawInterior(withFrame: NSRect, in: NSView) { }
 
         override func drawingRect(forBounds: NSRect) -> NSRect {
-            alignment = controlView == controlView!.window!.firstResponder ? .left : .center
             var rect = forBounds
             rect.origin.x += 23
             rect.size.width -= 46
