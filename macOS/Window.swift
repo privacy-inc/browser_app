@@ -3,9 +3,10 @@ import Combine
 import Sleuth
 
 final class Window: NSWindow {
+    let browser = Browser()
     private weak var web: Web!
+    private weak var searchbar: Searchbar!
     private var subs = Set<AnyCancellable>()
-    private let browser = Browser()
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width * 0.6, height: NSScreen.main!.frame.height),
@@ -19,6 +20,7 @@ final class Window: NSWindow {
         tabbingMode = .disallowed
         
         let searchbar = Searchbar(browser: browser)
+        self.searchbar = searchbar
         initialFirstResponder = searchbar.field
         let accesory = NSTitlebarAccessoryViewController()
         accesory.view = searchbar
@@ -65,13 +67,20 @@ final class Window: NSWindow {
         }.store(in: &subs)
     }
     
-    @objc func newTab() {
+    func newTab() {
         let new = Window()
         addTabbedWindow(new, ordered: .above)
         tabGroup?.selectedWindow = new
     }
     
-    @objc func closeTab() {
-        
+    @objc func openLocation() {
+        makeFirstResponder(searchbar.field)
+    }
+    
+    @objc func copyLink() {
+        browser.page.value.map {
+            NSPasteboard.general.clearContents()
+            NSPasteboard.general.setString($0.url.absoluteString, forType: .string)
+        }
     }
 }

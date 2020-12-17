@@ -1,13 +1,26 @@
 import AppKit
 import Combine
 
-final class Menu: NSMenu {
+final class Menu: NSMenu, NSMenuDelegate {
     private var sub: AnyCancellable?
     
     required init(coder: NSCoder) { super.init(coder: coder) }
     init() {
         super.init(title: "")
         items = [app, file, edit, window, help]
+    }
+    
+    func menuNeedsUpdate(_ menu: NSMenu) {
+        menu.items = NSSharingService.sharingServices(forItems: [(NSApp.keyWindow as? Window)?.browser.page.value?.url ?? ""]).map {
+            let item = NSMenuItem(title: $0.menuItemTitle, action: #selector(share), keyEquivalent: "")
+            item.target = self
+            item.image = $0.image
+            item.representedObject = $0
+            return item
+        }
+        menu.items.append(contentsOf: [
+                            .separator(),
+                            .init(title: "Copy Link", action: #selector(Window.copyLink), keyEquivalent: "C")])
     }
 
     private var app: NSMenuItem {
@@ -18,7 +31,7 @@ final class Menu: NSMenu {
         {
             $0.keyEquivalentModifierMask = [.option, .command]
             return $0
-        } (NSMenuItem(title: "Hide others", action: #selector(NSApplication.hideOtherApplications), keyEquivalent: "h")),
+        } (NSMenuItem(title: "Hide Others", action: #selector(NSApplication.hideOtherApplications), keyEquivalent: "h")),
         .init(title: "Show all", action: #selector(NSApplication.unhideAllApplications), keyEquivalent: ""),
         .separator(),
         .init(title: "Quit", action: #selector(NSApplication.terminate), keyEquivalent: "q")])
@@ -27,10 +40,17 @@ final class Menu: NSMenu {
     private var file: NSMenuItem {
         menu("File", items: [
         .init(title: "New Window", action: #selector(App.newWindow), keyEquivalent: "n"),
-        .init(title: "New Tab", action: #selector(Window.newTab), keyEquivalent: "t"),
+        .init(title: "New Tab", action: #selector(App.newTab), keyEquivalent: "t"),
+        .init(title: "Open Location", action: #selector(Window.openLocation), keyEquivalent: "l"),
         .separator(),
         .init(title: "Close Window", action: #selector(App.closeWindow), keyEquivalent: "W"),
-        .init(title: "Close Tab", action: #selector(Window.close), keyEquivalent: "w")])
+        .init(title: "Close Tab", action: #selector(Window.close), keyEquivalent: "w"),
+        .separator(),
+        {
+            $0.submenu = .init()
+            $0.submenu!.delegate = self
+            return $0
+        } (NSMenuItem(title: "Share", action: nil, keyEquivalent: ""))])
     }
     
     private var edit: NSMenuItem {
@@ -42,7 +62,7 @@ final class Menu: NSMenu {
         .init(title: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c"),
         .init(title: "Paste", action: #selector(NSText.paste), keyEquivalent: "v"),
         .init(title: "Delete", action: #selector(NSText.delete), keyEquivalent: ""),
-        .init(title: "Select.all", action: #selector(NSText.selectAll), keyEquivalent: "a")])
+        .init(title: "Select All", action: #selector(NSText.selectAll), keyEquivalent: "a")])
     }
     
     private var window: NSMenuItem {
@@ -58,9 +78,14 @@ final class Menu: NSMenu {
     }
     
     private func menu(_ name: String, items: [NSMenuItem]) -> NSMenuItem {
-        let menu = NSMenuItem(title: "", action: nil, keyEquivalent: "")
+        let menu = NSMenuItem()
         menu.submenu = .init(title: name)
-        menu.submenu?.items = items
+        menu.submenu!.items = items
         return menu
+    }
+    
+    @objc private func share(_ item: NSMenuItem) {
+        guard let url = (NSApp.keyWindow as? Window)?.browser.page.value?.url else { return }
+        (item.representedObject as? NSSharingService)?.perform(withItems: [url])
     }
 }

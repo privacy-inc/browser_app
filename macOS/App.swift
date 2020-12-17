@@ -20,6 +20,14 @@ import AppKit
         Window().makeKeyAndOrderFront(nil)
     }
     
+    @objc func newTab() {
+        guard let window = keyWindow as? Window else {
+            newWindow()
+            return
+        }
+        window.newTab()
+    }
+    
     @objc func closeWindow() {
         keyWindow.map {
             if let tabs = $0.tabbedWindows {

@@ -81,6 +81,10 @@ final class Searchbar: NSView {
             engine.popUp(positioning: engine.item(at: 0), at: .init(x: field.frame.origin.x, y: 0), in: self)
         }.store(in: &subs)
         
+        detail.click.sink {
+            Detail(browser: browser).show(relativeTo: detail.bounds, of: detail, preferredEdge: .maxY)
+        }.store(in: &subs)
+        
         lock.click.sink { [weak self] in
             let site = browser.page.value?.url.host ?? "this site"
             let alert = NSAlert()
@@ -100,7 +104,7 @@ final class Searchbar: NSView {
             alert.messageText = NSLocalizedString("Site Not Secure", comment: "")
             alert.informativeText = NSLocalizedString("Connection to \(site) is NOT encrypted", comment: "")
             alert.addButton(withTitle: NSLocalizedString("Accept", comment: ""))
-            alert.alertStyle = .warning
+            alert.alertStyle = .critical
             alert.icon = NSImage(systemSymbolName: "lock.slash.fill", accessibilityDescription: nil)
             self?.window.map {
                 alert.beginSheetModal(for: $0)

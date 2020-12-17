@@ -22,6 +22,7 @@
 		CEE9FBE9258A5C2A00008857 /* History.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9FBE8258A5C2A00008857 /* History.Cell.swift */; };
 		CEE9FBED258A5DC600008857 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9FBEC258A5DC600008857 /* Flip.swift */; };
 		CEE9FBF3258A723D00008857 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9FBF2258A723D00008857 /* Menu.swift */; };
+		CEEDA547258BBF200023CF9F /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEDA546258BBF200023CF9F /* Detail.swift */; };
 		CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BA2587878300C29CAB /* Searchbar.swift */; };
 		CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */; };
 /* End PBXBuildFile section */
@@ -44,6 +45,7 @@
 		CEE9FBE8258A5C2A00008857 /* History.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Cell.swift; sourceTree = "<group>"; };
 		CEE9FBEC258A5DC600008857 /* Flip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flip.swift; sourceTree = "<group>"; };
 		CEE9FBF2258A723D00008857 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		CEEDA546258BBF200023CF9F /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CEF2A9BA2587878300C29CAB /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 		CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -87,6 +89,7 @@
 				CE11754E258902C7005160D9 /* Control.State.swift */,
 				CE1175522589058D005160D9 /* Control.Style.swift */,
 				CECE3BA42587B18000D66221 /* Control.swift */,
+				CEEDA546258BBF200023CF9F /* Detail.swift */,
 				CEE9FBEC258A5DC600008857 /* Flip.swift */,
 				CEE9FBE8258A5C2A00008857 /* History.Cell.swift */,
 				CEE9FBE4258A509400008857 /* History.swift */,
@@ -197,6 +200,7 @@
 				CED75E4E25891F1500352091 /* WKUserContentController.swift in Sources */,
 				CE1175532589058D005160D9 /* Control.Style.swift in Sources */,
 				CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */,
+				CEEDA547258BBF200023CF9F /* Detail.swift in Sources */,
 				CED75E32258919FB00352091 /* Web.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
