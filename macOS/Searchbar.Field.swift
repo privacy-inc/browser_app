@@ -22,6 +22,13 @@ extension Searchbar {
             action = #selector(search)
         }
         
+        override func becomeFirstResponder() -> Bool {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                self?.currentEditor()?.selectedRange = .init(location: 0, length: self?.stringValue.count ?? 0)
+            }
+            return super.becomeFirstResponder()
+        }
+        
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation):
@@ -32,8 +39,14 @@ extension Searchbar {
         }
         
         @objc private func search() {
-            Defaults.engine.url(stringValue).map {
-                browser.browse.send($0)
+            Defaults.engine.browse(stringValue).map {
+                switch $0 {
+                case let .search(url):
+                    browser.browse.send(url)
+                case let .navigate(url):
+                    browser.browse.send(url)
+                    window?.makeFirstResponder(window?.contentView)
+                }
             }
         }
     }

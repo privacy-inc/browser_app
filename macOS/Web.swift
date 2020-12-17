@@ -6,12 +6,9 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     private weak var browser: Browser!
     private var subs = Set<AnyCancellable>()
     private let shield = Shield()
-    private let engine = Defaults.engine
     private let secure = Defaults.secure
     private let trackers = Defaults.trackers
     private let javascript = Defaults.javascript
-    private let ads = Defaults.ads
-    private let cookies = Defaults.cookies
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
@@ -28,11 +25,11 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             configuration.userContentController.addUserScript(.init(source: Dark.script, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
         }
         
-        if ads {
+        if Defaults.ads {
             configuration.userContentController.blockAds()
         }
         
-        if cookies {
+        if Defaults.cookies {
             configuration.userContentController.blockCookies()
         }
         

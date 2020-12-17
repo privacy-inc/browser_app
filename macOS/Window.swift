@@ -8,19 +8,15 @@ final class Window: NSWindow {
     private let browser = Browser()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width / 2, height: NSScreen.main!.frame.height),
+        super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width * 0.6, height: NSScreen.main!.frame.height),
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
-        minSize = .init(width: 380, height: 200)
+        minSize = .init(width: 400, height: 200)
         toolbar = .init()
         titlebarAppearsTransparent = true
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
-//        tab.title = "shisus"
         tabbingMode = .disallowed
-//
-//
-  
         
         let searchbar = Searchbar(browser: browser)
         initialFirstResponder = searchbar.field
@@ -62,6 +58,10 @@ final class Window: NSWindow {
                 web.rightAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
             }
             self.web.open($0)
+        }.store(in: &subs)
+        
+        browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
+            self?.tab.title = $0?.title
         }.store(in: &subs)
     }
     
