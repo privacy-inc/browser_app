@@ -73,6 +73,14 @@ final class Window: NSWindow {
         tabGroup?.selectedWindow = new
     }
     
+    override func mouseUp(with: NSEvent) {
+        guard with.clickCount >= 2 else {
+            super.mouseUp(with: with)
+            return
+        }
+        performZoom(nil)
+    }
+    
     @objc func openLocation() {
         makeFirstResponder(searchbar.field)
     }
