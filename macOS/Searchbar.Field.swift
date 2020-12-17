@@ -1,11 +1,13 @@
 import AppKit
+import Combine
 import Sleuth
 
 extension Searchbar {
     final class Field: NSTextField, NSTextFieldDelegate {
-        private weak var browser: Browser!
-        override var acceptsFirstResponder: Bool { true }
         override var canBecomeKeyView: Bool { true }
+        
+        private weak var browser: Browser!
+        private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
         init(browser: Browser) {
@@ -20,6 +22,11 @@ extension Searchbar {
             lineBreakMode = .byTruncatingMiddle
             target = self
             action = #selector(search)
+            
+            browser.page.sink { [weak self] in
+                guard let url = $0?.url else { return }
+                self?.stringValue = url.absoluteString
+            }.store(in: &subs)
         }
         
         override func becomeFirstResponder() -> Bool {

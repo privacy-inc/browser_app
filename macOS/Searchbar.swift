@@ -25,6 +25,8 @@ final class Searchbar: NSView {
         let detail = Control.Button("line.horizontal.3")
         
         let lupe = Control.Button("magnifyingglass")
+        let lock = Control.Button("lock.fill")
+        let warning = Control.Button("exclamationmark.triangle.fill")
         let clockwise = Control.Button("arrow.clockwise")
         
         let google = NSMenuItem(title: "Google", action: #selector(change), keyEquivalent: "")
@@ -46,11 +48,15 @@ final class Searchbar: NSView {
             $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
         
-        [lupe, clockwise].forEach {
+        [lupe, lock, warning, clockwise].forEach {
             addSubview($0)
             $0.centerYAnchor.constraint(equalTo: field.centerYAnchor).isActive = true
             $0.widthAnchor.constraint(equalToConstant: 35).isActive = true
             $0.heightAnchor.constraint(equalTo: lupe.widthAnchor).isActive = true
+        }
+        
+        [lupe, lock, warning].forEach {
+            $0.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
         }
         
         background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
@@ -66,15 +72,39 @@ final class Searchbar: NSView {
         right.leftAnchor.constraint(equalTo: left.rightAnchor, constant: 14).isActive = true
         detail.rightAnchor.constraint(equalTo: rightAnchor, constant: -14).isActive = true
         
-        lupe.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
         clockwise.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         
         lupe.click.sink {
             google.state = Defaults.engine == .google ? .on : .off
             ecosia.state = Defaults.engine == .ecosia ? .on : .off
-            
             engine.minimumWidth = field.frame.size.width
             engine.popUp(positioning: engine.item(at: 0), at: .init(x: field.frame.origin.x, y: 0), in: self)
+        }.store(in: &subs)
+        
+        lock.click.sink { [weak self] in
+            let site = browser.page.value?.url.host ?? "this site"
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Secure Connection", comment: "")
+            alert.informativeText = NSLocalizedString("Using an encrypted connection to \(site)", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("Accept", comment: ""))
+            alert.alertStyle = .informational
+            alert.icon = NSImage(systemSymbolName: "lock.fill", accessibilityDescription: nil)
+            self?.window.map {
+                alert.beginSheetModal(for: $0)
+            }
+        }.store(in: &subs)
+        
+        warning.click.sink { [weak self] in
+            let site = browser.page.value?.url.host ?? "this site"
+            let alert = NSAlert()
+            alert.messageText = NSLocalizedString("Site Not Secure", comment: "")
+            alert.informativeText = NSLocalizedString("Connection to \(site) is NOT encrypted", comment: "")
+            alert.addButton(withTitle: NSLocalizedString("Accept", comment: ""))
+            alert.alertStyle = .warning
+            alert.icon = NSImage(systemSymbolName: "lock.slash.fill", accessibilityDescription: nil)
+            self?.window.map {
+                alert.beginSheetModal(for: $0)
+            }
         }.store(in: &subs)
         
         left.click.sink {
@@ -83,6 +113,18 @@ final class Searchbar: NSView {
         
         right.click.sink {
             browser.next.send()
+        }.store(in: &subs)
+        
+        browser.page.sink {
+            guard let url = $0?.url else {
+                lupe.isHidden = false
+                lock.isHidden = true
+                warning.isHidden = true
+                return
+            }
+            lupe.isHidden = true
+            lock.isHidden = url.scheme != Scheme.https.rawValue
+            warning.isHidden = url.scheme == Scheme.https.rawValue
         }.store(in: &subs)
         
         browser.backwards.sink {
