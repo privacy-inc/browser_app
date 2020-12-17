@@ -27,12 +27,13 @@ final class Searchbar: NSView {
         let lupe = Control.Button("magnifyingglass")
         let clockwise = Control.Button("arrow.clockwise")
         
-        let engine = NSMenu()
         let google = NSMenuItem(title: "Google", action: #selector(change), keyEquivalent: "")
         google.target = self
         
         let ecosia = NSMenuItem(title: "Ecosia", action: #selector(change), keyEquivalent: "")
         ecosia.target = self
+        
+        let engine = NSMenu()
         engine.items = [google, ecosia]
         engine.showsStateColumn = true
         
@@ -69,12 +70,18 @@ final class Searchbar: NSView {
         clockwise.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         
         lupe.click.sink {
+            google.state = Defaults.engine == .google ? .on : .off
+            ecosia.state = Defaults.engine == .ecosia ? .on : .off
+            
             engine.minimumWidth = field.frame.size.width
             engine.popUp(positioning: engine.item(at: 0), at: .init(x: field.frame.origin.x, y: 0), in: self)
         }.store(in: &subs)
     }
     
     @objc private func change(_ engine: NSMenuItem) {
-        
+        switch engine.title {
+        case "Google": Defaults.engine = .google
+        default: Defaults.engine = .ecosia
+        }
     }
 }
