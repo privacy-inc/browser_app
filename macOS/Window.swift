@@ -4,6 +4,7 @@ import Sleuth
 
 final class Window: NSWindow {
     let browser = Browser()
+    private weak var history: History?
     private weak var web: Web!
     private weak var searchbar: Searchbar!
     private var subs = Set<AnyCancellable>()
@@ -27,26 +28,14 @@ final class Window: NSWindow {
         accesory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accesory)
         
+        let history = History()
+        self.history = history
+        contentView!.addSubview(history)
+        history.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        history.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        history.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
+        history.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
         
-//        _tab.selected.sink { [weak self] in
-//            guard let self = self else { return }
-//            guard $0.page.value == nil else {
-//
-//                return
-//            }
-//            guard !self.contentView!.subviews.contains(where: { $0 is History }) else { return }
-//            let history = History()
-//            self.contentView!.addSubview(history)
-//            history.topAnchor.constraint(equalTo: self.contentView!.topAnchor, constant: 80).isActive = true
-//            history.bottomAnchor.constraint(equalTo: self.contentView!.bottomAnchor).isActive = true
-//            history.leftAnchor.constraint(equalTo: self.contentView!.leftAnchor).isActive = true
-//            history.rightAnchor.constraint(equalTo: self.contentView!.rightAnchor).isActive = true
-//        }.store(in: &subs)
-        
-//        browser.save.combineLatest(browser.page).debounce(for: .seconds(1), scheduler: dispatch).sink {
-//            $0.1.map(FileManager.default.save)
-//        }.store(in: &subs)
-//
         browser.browse.sink { [weak self] in
             guard let self = self else { return }
             if self.browser.page.value == nil && self.web == nil {
