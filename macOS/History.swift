@@ -28,7 +28,6 @@ final class History: NSScrollView {
     init() {
         super.init(frame: .zero)
         let content = Flip()
-        content.wantsLayer = true
         translatesAutoresizingMaskIntoConstraints = false
         documentView = content
         hasVerticalScroller = true
@@ -88,7 +87,7 @@ final class History: NSScrollView {
         (0 ..< pages.count).filter { visible[$0] }.forEach { index in
             guard !current.contains(index) else { return }
             let cell = active.remove(at: active.firstIndex { $0.index == index }!)
-            cell.removeFromSuperlayer()
+            cell.removeFromSuperview()
             cell.item = nil
             self.visible[index] = false
             queue.insert(cell)
@@ -112,7 +111,7 @@ final class History: NSScrollView {
             let cell = queue.popFirst() ?? Cell()
             cell.index = index
             cell.item = pages[index]
-            documentView!.layer!.addSublayer(cell)
+            documentView!.addSubview(cell)
             active.insert(cell)
             visible[index] = true
             return cell
