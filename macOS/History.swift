@@ -6,8 +6,8 @@ final class History: NSScrollView {
     override var frame: NSRect {
         didSet {
             documentView!.frame.size.width = frame.width
-            let total = frame.width - 1
-            let width = self.width + 1
+            let total = frame.width - padding - borders
+            let width = self.width + padding + borders
             let count = floor(total / width)
             let delta = total.truncatingRemainder(dividingBy: width) / count
             size = .init(width: self.width + delta, height: height)
@@ -24,6 +24,8 @@ final class History: NSScrollView {
     private var pages = [Page]()
     private let width = CGFloat(320)
     private let height = CGFloat(60)
+    private let padding = CGFloat(4)
+    private let borders = CGFloat(30)
     
     required init?(coder: NSCoder) { nil }
     init() {
@@ -70,16 +72,16 @@ final class History: NSScrollView {
     
     private func reposition() {
         var positions = [CGPoint]()
-        var current = CGPoint(x: -size.width, y: 2)
+        var current = CGPoint(x: borders - size.width, y: 20)
         pages.forEach { _ in
-            current.x += size.width + 1
-            if current.x + size.width > bounds.width {
-                current = .init(x: 1, y: current.y + size.height + 1)
+            current.x += size.width + padding
+            if current.x + size.width > bounds.width - borders {
+                current = .init(x: padding + borders, y: current.y + size.height + padding)
             }
             positions.append(current)
         }
         self.positions = positions
-        documentView!.frame.size.height = max(current.y + size.height + 2, frame.size.height)
+        documentView!.frame.size.height = max(current.y + size.height + 20, frame.size.height)
     }
     
     private func render() {

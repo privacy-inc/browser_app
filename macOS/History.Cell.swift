@@ -18,25 +18,25 @@ extension History {
         init() {
             super.init(frame: .zero)
             wantsLayer = true
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
-            layer!.cornerRadius = 4
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+            layer!.cornerRadius = 6
             
-            let title = Text(.systemFont(ofSize: 13))
+            let title = Text(.systemFont(ofSize: 14, weight: .medium))
             addSubview(title)
             self.title = title
             
-            let subtitle = Text(.systemFont(ofSize: 11))
+            let subtitle = Text(.systemFont(ofSize: 12, weight: .light))
             subtitle.textColor = .secondaryLabelColor
             addSubview(subtitle)
             self.subtitle = subtitle
             
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-            title.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
+            title.topAnchor.constraint(equalTo: topAnchor, constant: 14).isActive = true
+            title.leftAnchor.constraint(equalTo: leftAnchor, constant: 14).isActive = true
+            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -14).isActive = true
             
             subtitle.topAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
-            subtitle.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-            subtitle.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
+            subtitle.leftAnchor.constraint(equalTo: leftAnchor, constant: 14).isActive = true
+            subtitle.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -14).isActive = true
         }
         
         func update(_ frame: CGRect) {
