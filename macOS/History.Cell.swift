@@ -6,6 +6,7 @@ extension History {
         var item: Page? {
             didSet {
                 title.stringValue = item?.title ?? ""
+                subtitle.stringValue = item?.url.absoluteString ?? ""
             }
         }
         
@@ -17,6 +18,8 @@ extension History {
         init() {
             super.init(frame: .zero)
             wantsLayer = true
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
+            layer!.cornerRadius = 4
             
             let title = Text(.systemFont(ofSize: 13))
             addSubview(title)
@@ -28,10 +31,12 @@ extension History {
             self.subtitle = subtitle
             
             title.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-            title.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -10).isActive = true
             title.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
-            title.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
             
+            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
+            subtitle.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            subtitle.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
         }
         
         func update(_ frame: CGRect) {

@@ -10,7 +10,7 @@ final class History: NSScrollView {
             let width = self.width + 1
             let count = floor(total / width)
             let delta = total.truncatingRemainder(dividingBy: width) / count
-            size = .init(width: self.width + delta, height: self.width + delta)
+            size = .init(width: self.width + delta, height: height)
             refresh()
         }
     }
@@ -22,7 +22,8 @@ final class History: NSScrollView {
     private var active = Set<Cell>()
     private var visible = [Bool]()
     private var pages = [Page]()
-    private let width = CGFloat(120)
+    private let width = CGFloat(320)
+    private let height = CGFloat(60)
     
     required init?(coder: NSCoder) { nil }
     init() {
