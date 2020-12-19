@@ -1,6 +1,11 @@
 import AppKit
+import Combine
+import Sleuth
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate  {
+    let pages = CurrentValueSubject<[Page], Never>([])
+    private var subs = Set<AnyCancellable>()
+    
     required init?(coder: NSCoder) { nil }
     override init() {
         super.init()
@@ -14,6 +19,13 @@ import AppKit
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
         newWindow()
+    }
+    
+    func applicationDidFinishLaunching(_: Notification) {
+        FileManager.pages.combineLatest(Timer.publish(every: 10, tolerance: 10, on: .main, in: .common).autoconnect()).receive(on: DispatchQueue.main).sink {
+            self.pages.value = $0.0
+            print("get pages \($0.0.count)")
+        }.store(in: &subs)
     }
     
     @objc func newWindow() {

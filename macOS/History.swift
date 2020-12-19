@@ -6,8 +6,8 @@ final class History: NSScrollView {
     override var frame: NSRect {
         didSet {
             documentView!.frame.size.width = frame.width
-            let total = frame.width - padding - borders
-            let width = self.width + padding + borders
+            let total = frame.width - (borders * 2) - padding
+            let width = self.width + padding
             let count = floor(total / width)
             let delta = total.truncatingRemainder(dividingBy: width) / count
             size = .init(width: self.width + delta, height: height)
@@ -20,12 +20,12 @@ final class History: NSScrollView {
     private var subs = Set<AnyCancellable>()
     private var queue = Set<Cell>()
     private var active = Set<Cell>()
-    private var visible = [Bool]()
     private var pages = [Page]()
-    private let width = CGFloat(320)
-    private let height = CGFloat(60)
-    private let padding = CGFloat(4)
-    private let borders = CGFloat(30)
+    private var visible = [Bool]()
+    private let width = CGFloat(280)
+    private let height = CGFloat(70)
+    private let padding = CGFloat(6)
+    private let borders = CGFloat(40)
     
     required init?(coder: NSCoder) { nil }
     init() {
@@ -42,14 +42,14 @@ final class History: NSScrollView {
             self?.refresh()
         }.store(in: &subs)
         
-        var load: AnyCancellable?
-        load = FileManager.pages.receive(on: DispatchQueue.main).sink { [weak self] in
+        (NSApp as! App).pages.sink { [weak self] in
+            content.subviews.forEach { $0.removeFromSuperview() }
+            self?.queue = []
+            self?.active = []
             self?.pages = $0
             self?.visible = .init(repeating: false, count: $0.count)
             self?.refresh()
-            print($0.count)
-            load?.cancel()
-        }
+        }.store(in: &subs)
     }
     
 //    override func mouseDown(with: NSEvent) {
@@ -76,7 +76,7 @@ final class History: NSScrollView {
         pages.forEach { _ in
             current.x += size.width + padding
             if current.x + size.width > bounds.width - borders {
-                current = .init(x: padding + borders, y: current.y + size.height + padding)
+                current = .init(x: borders + padding, y: current.y + size.height + padding)
             }
             positions.append(current)
         }
