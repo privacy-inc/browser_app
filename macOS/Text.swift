@@ -6,7 +6,7 @@ final class Text: NSTextField {
     override func acceptsFirstMouse(for: NSEvent?) -> Bool { false }
     
     required init?(coder: NSCoder) { nil }
-    init(_ font: NSFont) {
+    init() {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         backgroundColor = .clear
@@ -14,6 +14,5 @@ final class Text: NSTextField {
         isEditable = false
         isSelectable = false
         setAccessibilityRole(.staticText)
-        self.font = font
     }
 }

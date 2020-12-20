@@ -5,38 +5,46 @@ extension History {
     final class Cell: NSView {
         var item: Page? {
             didSet {
-                title.stringValue = item?.title ?? ""
-                subtitle.stringValue = item?.url.absoluteString ?? ""
+                text.attributedStringValue = item.map {
+                    let string = NSMutableAttributedString()
+                    if !$0.title.isEmpty {
+                        string.append(.init(string: $0.title + "\n", attributes: [
+                                                .font : NSFont.systemFont(ofSize: 14, weight: .medium),
+                                                .foregroundColor : NSColor.labelColor]))
+                    }
+                    string.append(.init(string: $0.url.absoluteString + "\n", attributes: [
+                                            .font : NSFont.systemFont(ofSize: 12, weight: .light),
+                                            .foregroundColor : NSColor.secondaryLabelColor]))
+                    formatter.string(from: $0.date, to: .init()).map {
+                        string.append(.init(string: $0, attributes: [
+                                                .font : NSFont.systemFont(ofSize: 12, weight: .light),
+                                                .foregroundColor : NSColor.secondaryLabelColor]))
+                    }
+                    return string
+                } ?? .init()
             }
         }
         
         var index = 0
-        private weak var title: Text!
-        private weak var subtitle: Text!
+        private weak var text: Text!
+        private weak var formatter: DateComponentsFormatter!
         
         required init?(coder: NSCoder) { nil }
-        init() {
+        init(formatter: DateComponentsFormatter) {
             super.init(frame: .zero)
             wantsLayer = true
             layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-            layer!.cornerRadius = 6
+            layer!.cornerRadius = 8
+            self.formatter = formatter
             
-            let title = Text(.systemFont(ofSize: 14, weight: .medium))
-            addSubview(title)
-            self.title = title
+            let text = Text()
+            addSubview(text)
+            self.text = text
             
-            let subtitle = Text(.systemFont(ofSize: 12, weight: .light))
-            subtitle.textColor = .secondaryLabelColor
-            addSubview(subtitle)
-            self.subtitle = subtitle
-            
-            title.topAnchor.constraint(equalTo: topAnchor, constant: 14).isActive = true
-            title.leftAnchor.constraint(equalTo: leftAnchor, constant: 14).isActive = true
-            title.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -14).isActive = true
-            
-            subtitle.topAnchor.constraint(equalTo: title.bottomAnchor).isActive = true
-            subtitle.leftAnchor.constraint(equalTo: leftAnchor, constant: 14).isActive = true
-            subtitle.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -14).isActive = true
+            text.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+            text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
+            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true
         }
         
         func update(_ frame: CGRect) {
