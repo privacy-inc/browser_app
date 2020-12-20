@@ -37,6 +37,7 @@ final class Window: NSWindow {
         history.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
         
         browser.browse.sink { [weak self] in
+            self?.history?.removeFromSuperview()
             guard let self = self else { return }
             if self.browser.page.value == nil && self.web == nil {
                 self.browser.page.value = .init(url: $0)
@@ -60,6 +61,13 @@ final class Window: NSWindow {
         let new = Window()
         addTabbedWindow(new, ordered: .above)
         tabGroup?.selectedWindow = new
+    }
+    
+    override func becomeKey() {
+        super.becomeKey()
+        if history != nil {
+            (NSApp as! App).refresh()
+        }
     }
     
     override func mouseUp(with: NSEvent) {
