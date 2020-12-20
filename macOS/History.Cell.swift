@@ -25,6 +25,17 @@ extension History {
             }
         }
         
+        override var frame: NSRect {
+            willSet {
+                ["bounds", "position"].forEach {
+                    let transition = CABasicAnimation(keyPath: $0)
+                    transition.duration = 0.2
+                    transition.timingFunction = .init(name: .easeOut)
+                    layer!.add(transition, forKey: $0)
+                }
+            }
+        }
+        
         var index = 0
         private weak var text: Text!
         private weak var formatter: DateComponentsFormatter!
@@ -34,7 +45,7 @@ extension History {
             super.init(frame: .zero)
             wantsLayer = true
             layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
-            layer!.cornerRadius = 8
+            layer!.cornerRadius = 10
             self.formatter = formatter
             
             let text = Text()
@@ -47,14 +58,14 @@ extension History {
             text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true
         }
         
-        func update(_ frame: CGRect) {
-            ["bounds", "position"].forEach {
-                let transition = CABasicAnimation(keyPath: $0)
-                transition.duration = 0.3
-                transition.timingFunction = .init(name: .easeOut)
-                layer!.add(transition, forKey: $0)
-            }
-            self.frame = frame
+        override func mouseDown(with: NSEvent) {
+            super.mouseDown(with: with)
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
+        }
+        
+        override func mouseUp(with: NSEvent) {
+            super.mouseUp(with: with)
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
         }
     }
 }

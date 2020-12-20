@@ -6,7 +6,7 @@ final class History: NSScrollView {
     override var frame: NSRect {
         didSet {
             documentView!.frame.size.width = frame.width
-            let total = frame.width - (borders * 2) - padding
+            let total = frame.width - (horizontal * 2) - padding
             let width = self.width + padding
             let count = floor(total / width)
             let delta = total.truncatingRemainder(dividingBy: width) / count
@@ -15,8 +15,9 @@ final class History: NSScrollView {
         }
     }
     
-    private(set) var positions = [CGPoint]()
-    private(set) var size = CGSize.zero
+    private weak var browser: Browser!
+    private var positions = [CGPoint]()
+    private var size = CGSize.zero
     private var subs = Set<AnyCancellable>()
     private var queue = Set<Cell>()
     private var active = Set<Cell>()
@@ -25,11 +26,12 @@ final class History: NSScrollView {
     private let width = CGFloat(280)
     private let height = CGFloat(80)
     private let padding = CGFloat(20)
-    private let borders = CGFloat(40)
+    private let horizontal = CGFloat(40)
+    private let vertical = CGFloat(60)
     private let formatter = DateComponentsFormatter()
     
     required init?(coder: NSCoder) { nil }
-    init() {
+    init(browser: Browser) {
         super.init(frame: .zero)
         let content = Flip()
         translatesAutoresizingMaskIntoConstraints = false
@@ -37,6 +39,7 @@ final class History: NSScrollView {
         hasVerticalScroller = true
         contentView.postsBoundsChangedNotifications = true
         drawsBackground = false
+        self.browser = browser
         
         formatter.allowedUnits = [.day, .hour, .minute, .second]
         formatter.unitsStyle = .short
@@ -57,18 +60,13 @@ final class History: NSScrollView {
         }.store(in: &subs)
     }
     
-//    override func mouseDown(with: NSEvent) {
-//        guard
-//            !main.zoom.value,
-//            let cell = cell(with)
-//        else { return }
-//        selected.value[cell.index].toggle()
-//        cell.highlighted = selected.value[cell.index]
-//        if with.clickCount == 2 {
-//            main.zoom.value = true
-//            main.index.value = cell.index
-//        }
-//    }
+    override func mouseUp(with: NSEvent) {
+        guard
+            let cell = cell(with),
+            cell.index < pages.count
+        else { return }
+        browser.browse.send(pages[cell.index].url)
+    }
     
     private func refresh() {
         reposition()
@@ -77,16 +75,16 @@ final class History: NSScrollView {
     
     private func reposition() {
         var positions = [CGPoint]()
-        var current = CGPoint(x: borders - size.width, y: 20)
+        var current = CGPoint(x: horizontal - size.width, y: vertical)
         pages.forEach { _ in
             current.x += size.width + padding
-            if current.x + size.width > bounds.width - borders {
-                current = .init(x: borders + padding, y: current.y + size.height + padding)
+            if current.x + size.width > bounds.width - horizontal {
+                current = .init(x: horizontal + padding, y: current.y + size.height + padding)
             }
             positions.append(current)
         }
         self.positions = positions
-        documentView!.frame.size.height = max(current.y + size.height + 20, frame.size.height)
+        documentView!.frame.size.height = max(current.y + size.height + vertical, frame.size.height)
     }
     
     private func render() {

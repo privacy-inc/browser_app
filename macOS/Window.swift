@@ -28,7 +28,7 @@ final class Window: NSWindow {
         accesory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accesory)
         
-        let history = History()
+        let history = History(browser: browser)
         self.history = history
         contentView!.addSubview(history)
         history.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
