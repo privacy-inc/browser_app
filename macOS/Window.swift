@@ -19,6 +19,7 @@ final class Window: NSWindow {
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         tabbingMode = .disallowed
+        tab.title = NSLocalizedString("New tab", comment: "")
         
         let searchbar = Searchbar(browser: browser)
         self.searchbar = searchbar
@@ -29,8 +30,9 @@ final class Window: NSWindow {
         addTitlebarAccessoryViewController(accesory)
         
         let history = History(browser: browser)
-        self.history = history
         contentView!.addSubview(history)
+        self.history = history
+        
         history.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
         history.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.bottomAnchor).isActive = true
         history.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
@@ -53,7 +55,10 @@ final class Window: NSWindow {
         }.store(in: &subs)
         
         browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
-            self?.tab.title = $0?.title
+            $0.map {
+                guard !$0.title.isEmpty else { return }
+                self?.tab.title = $0.title
+            }
         }.store(in: &subs)
     }
     
