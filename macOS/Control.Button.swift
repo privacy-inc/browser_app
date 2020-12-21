@@ -21,7 +21,7 @@ extension Control {
             switch style {
             case .blue:
                 switch state {
-                case .on: icon.contentTintColor = .systemBlue
+                case .on: icon.contentTintColor = .controlAccentColor
                 case .off: icon.contentTintColor = .tertiaryLabelColor
                 case .selected, .highlighted: icon.contentTintColor = .labelColor
                 case .pressed: icon.contentTintColor = .systemIndigo

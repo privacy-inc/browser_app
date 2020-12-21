@@ -73,7 +73,7 @@ extension History {
         }
         
         override func mouseEntered(with: NSEvent) {
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
+            layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.5).cgColor
         }
         
         override func mouseExited(with: NSEvent) {

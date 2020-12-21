@@ -27,6 +27,8 @@ final class Menu: NSMenu, NSMenuDelegate {
         menu("Privacy", items: [
         .init(title: "About", action: #selector(NSApplication.orderFrontStandardAboutPanel(_:)), keyEquivalent: ""),
         .separator(),
+        .init(title: "Preferences...", action: #selector(App.preferences), keyEquivalent: ","),
+        .separator(),
         .init(title: "Hide", action: #selector(NSApplication.hide), keyEquivalent: "h"),
         {
             $0.keyEquivalentModifierMask = [.option, .command]

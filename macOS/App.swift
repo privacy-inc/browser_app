@@ -52,4 +52,8 @@ import Sleuth
             }
         }
     }
+    
+    @objc func preferences() {
+        (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
+    }
 }
