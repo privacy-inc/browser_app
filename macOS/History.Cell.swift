@@ -1,4 +1,5 @@
 import AppKit
+import Combine
 import Sleuth
 
 extension History {
@@ -37,12 +38,13 @@ extension History {
         var index = 0
         private weak var text: Text!
         private weak var formatter: RelativeDateTimeFormatter!
+        private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
         init(formatter: RelativeDateTimeFormatter) {
             super.init(frame: .zero)
             wantsLayer = true
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
             layer!.cornerRadius = 10
             self.formatter = formatter
             
@@ -50,20 +52,33 @@ extension History {
             addSubview(text)
             self.text = text
             
+            let close = Control.Button("xmark")
+            sub = close.click.sink { [weak self] in
+                guard let page = self?.item else { return }
+                FileManager.delete(page)
+                (NSApp as! App).refresh()
+            }
+            addSubview(close)
+            
             text.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
             text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16).isActive = true
             text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
             text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true
+            
+            close.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            close.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            close.widthAnchor.constraint(equalToConstant: 40).isActive = true
+            close.heightAnchor.constraint(equalTo: close.widthAnchor).isActive = true
+            
+            addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
         }
         
-        override func mouseDown(with: NSEvent) {
-            super.mouseDown(with: with)
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.2).cgColor
+        override func mouseEntered(with: NSEvent) {
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
         }
         
-        override func mouseUp(with: NSEvent) {
-            super.mouseUp(with: with)
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+        override func mouseExited(with: NSEvent) {
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
         }
     }
 }
