@@ -6,7 +6,7 @@ final class Preferences: NSWindow {
     private var subs = Set<AnyCancellable>()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 460, height: 600),
+        super.init(contentRect: .init(x: 0, y: 0, width: 460, height: 620),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
         toolbar = .init()
         title = NSLocalizedString("Preferences", comment: "")
@@ -41,18 +41,66 @@ final class Preferences: NSWindow {
         }.store(in: &subs)
         contentView!.addSubview(dark)
         
+        let safe = Toggle(title: NSLocalizedString("Safe browsing", comment: ""))
+        safe.value.value = Defaults.secure
+        safe.value.dropFirst().sink {
+            Defaults.secure = $0
+        }.store(in: &subs)
+        contentView!.addSubview(safe)
+        
+        let trackers = Toggle(title: NSLocalizedString("Block trackers", comment: ""))
+        trackers.value.value = Defaults.trackers
+        trackers.value.dropFirst().sink {
+            Defaults.trackers = $0
+        }.store(in: &subs)
+        contentView!.addSubview(trackers)
+        
+        let cookies = Toggle(title: NSLocalizedString("Block cookies", comment: ""))
+        cookies.value.value = Defaults.cookies
+        cookies.value.dropFirst().sink {
+            Defaults.cookies = $0
+        }.store(in: &subs)
+        contentView!.addSubview(cookies)
+        
+        let popups = Toggle(title: NSLocalizedString("Block pop-ups", comment: ""))
+        popups.value.value = Defaults.popups
+        popups.value.dropFirst().sink {
+            Defaults.popups = $0
+        }.store(in: &subs)
+        contentView!.addSubview(popups)
+        
+        let javascript = Toggle(title: NSLocalizedString("Allow JavaScript", comment: ""))
+        javascript.value.value = Defaults.javascript
+        javascript.value.dropFirst().sink {
+            Defaults.javascript = $0
+        }.store(in: &subs)
+        contentView!.addSubview(javascript)
+        
+        let ads = Toggle(title: NSLocalizedString("Remove ads", comment: ""))
+        ads.value.value = Defaults.ads
+        ads.value.dropFirst().sink {
+            Defaults.ads = $0
+        }.store(in: &subs)
+        contentView!.addSubview(ads)
+        
         titleEngine.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
-        titleEngine.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
-        
         segmented.topAnchor.constraint(equalTo: titleEngine.bottomAnchor, constant: 12).isActive = true
-        segmented.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
-        segmented.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -60).isActive = true
-        
         titleOptions.topAnchor.constraint(equalTo: segmented.bottomAnchor, constant: 40).isActive = true
-        titleOptions.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
-        
         dark.topAnchor.constraint(equalTo: titleOptions.bottomAnchor, constant: 12).isActive = true
-        dark.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
-        dark.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -60).isActive = true
+        safe.topAnchor.constraint(equalTo: dark.bottomAnchor, constant: 4).isActive = true
+        trackers.topAnchor.constraint(equalTo: safe.bottomAnchor, constant: 4).isActive = true
+        cookies.topAnchor.constraint(equalTo: trackers.bottomAnchor, constant: 4).isActive = true
+        popups.topAnchor.constraint(equalTo: cookies.bottomAnchor, constant: 4).isActive = true
+        javascript.topAnchor.constraint(equalTo: popups.bottomAnchor, constant: 4).isActive = true
+        ads.topAnchor.constraint(equalTo: javascript.bottomAnchor, constant: 4).isActive = true
+        
+        [titleEngine, titleOptions].forEach {
+            $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
+        }
+        
+        [segmented, dark, safe, trackers, cookies, popups, javascript, ads].forEach {
+            $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
+            $0.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -60).isActive = true
+        }
     }
 }

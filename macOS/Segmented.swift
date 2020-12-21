@@ -18,7 +18,7 @@ final class Segmented: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
+        layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
         layer!.cornerRadius = 6
         
         let indicator = NSView()

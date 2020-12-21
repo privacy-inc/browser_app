@@ -11,7 +11,7 @@ extension Preferences {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             wantsLayer = true
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            layer!.backgroundColor = NSColor.underPageBackgroundColor.cgColor
             layer!.cornerRadius = 8
             
             let text = Text()
@@ -25,12 +25,12 @@ extension Preferences {
             toggle.translatesAutoresizingMaskIntoConstraints = false
             addSubview(toggle)
             
-            heightAnchor.constraint(equalToConstant: 40).isActive = true
+            heightAnchor.constraint(equalToConstant: 42).isActive = true
             
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 12).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
-            toggle.rightAnchor.constraint(equalTo: rightAnchor, constant: -12).isActive = true
+            toggle.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
             toggle.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
             sub = value.sink {
