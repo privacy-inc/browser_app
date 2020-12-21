@@ -10,7 +10,7 @@ final class History: NSScrollView {
             let width = self.width + padding
             let count = floor(total / width)
             let delta = total.truncatingRemainder(dividingBy: width) / count
-            size = .init(width: self.width + delta, height: height + max(0, 40 - delta))
+            size = .init(width: self.width + delta, height: height + max(0, 60 - delta))
             refresh()
         }
     }
@@ -23,12 +23,12 @@ final class History: NSScrollView {
     private var active = Set<Cell>()
     private var pages = [Page]()
     private var visible = [Bool]()
-    private let width = CGFloat(280)
-    private let height = CGFloat(80)
+    private let width = CGFloat(220)
+    private let height = CGFloat(110)
     private let padding = CGFloat(20)
     private let horizontal = CGFloat(40)
     private let vertical = CGFloat(60)
-    private let formatter = DateComponentsFormatter()
+    private let formatter = RelativeDateTimeFormatter()
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
@@ -40,10 +40,6 @@ final class History: NSScrollView {
         contentView.postsBoundsChangedNotifications = true
         drawsBackground = false
         self.browser = browser
-        
-        formatter.allowedUnits = [.day, .hour, .minute, .second]
-        formatter.unitsStyle = .short
-        formatter.maximumUnitCount = 1
         
         NotificationCenter.default.publisher(for: NSView.boundsDidChangeNotification, object: contentView).sink { [weak self] _ in
             guard self?.isHidden == false else { return }
