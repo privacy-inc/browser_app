@@ -16,13 +16,11 @@ final class History: NSScrollView {
     }
     
     private weak var browser: Browser!
-    private var positions = [CGPoint]()
     private var size = CGSize.zero
     private var subs = Set<AnyCancellable>()
-    private var queue = Set<Cell>()
-    private var active = Set<Cell>()
+    private var cells = Set<Cell>()
     private var pages = [Page]()
-    private var visible = [Bool]()
+    private var positions = [UUID : CGPoint]()
     private let width = CGFloat(220)
     private let height = CGFloat(110)
     private let padding = CGFloat(20)
@@ -48,20 +46,14 @@ final class History: NSScrollView {
         
         (NSApp as! App).pages.sink { [weak self] in
             content.subviews.forEach { $0.removeFromSuperview() }
-            self?.queue = []
-            self?.active = []
             self?.pages = $0
-            self?.visible = .init(repeating: false, count: $0.count)
             self?.refresh()
         }.store(in: &subs)
     }
     
     override func mouseUp(with: NSEvent) {
-        guard
-            let cell = cell(with),
-            cell.index < pages.count
-        else { return }
-        browser.browse.send(pages[cell.index].url)
+        guard let page = cell(with)?.page else { return }
+        browser.browse.send(page.url)
     }
     
     private func refresh() {
@@ -70,14 +62,14 @@ final class History: NSScrollView {
     }
     
     private func reposition() {
-        var positions = [CGPoint]()
+        var positions = [UUID : CGPoint]()
         var current = CGPoint(x: horizontal - size.width, y: vertical)
-        pages.forEach { _ in
+        pages.forEach {
             current.x += size.width + padding
             if current.x + size.width > bounds.width - horizontal {
                 current = .init(x: horizontal + padding, y: current.y + size.height + padding)
             }
-            positions.append(current)
+            positions[$0.id] = current
         }
         self.positions = positions
         documentView!.frame.size.height = max(current.y + size.height + vertical, frame.size.height)
@@ -85,45 +77,38 @@ final class History: NSScrollView {
     
     private func render() {
         let current = self.current
-        let visible = self.visible
-        (0 ..< pages.count).filter { visible[$0] }.forEach { index in
-            guard !current.contains(index) else { return }
-            let cell = active.remove(at: active.firstIndex { $0.index == index }!)
-            cell.removeFromSuperview()
-            cell.item = nil
-            self.visible[index] = false
-            queue.insert(cell)
-        }
-        current.forEach {
-            let item = cell($0)
-            item.frame = .init(origin: positions[$0], size: size)
+        cells
+            .filter { $0.page != nil }
+            .filter { !current.contains($0.page!.id) }
+            .forEach {
+                $0.removeFromSuperview()
+                $0.page = nil
+            }
+        current.forEach { id in
+            let cell = cells.first { $0.page?.id == id } ?? {
+                cells.insert($0)
+                return $0
+            } (Cell(formatter: formatter))
+            cell.page = pages.first { $0.id == id }
+            cell.frame = .init(origin: positions[id]!, size: size)
+            documentView!.addSubview(cell)
         }
     }
     
-    private var current: Set<Int> {
+    private var current: Set<UUID> {
         let min = contentView.bounds.minY - size.height
         let max = contentView.bounds.maxY + 1
-        return .init((0 ..< pages.count).filter {
-            positions[$0].y > min && positions[$0].y < max
-        })
-    }
-    
-    private func cell(_ index: Int) -> Cell {
-        guard visible[index] else {
-            let cell = queue.popFirst() ?? Cell(formatter: formatter)
-            cell.index = index
-            cell.item = pages[index]
-            documentView!.addSubview(cell)
-            active.insert(cell)
-            visible[index] = true
-            return cell
-        }
-        return active.first { $0.index == index }!
+        return .init(positions.filter {
+            $0.1.y > min && $0.1.y < max
+        }.map(\.0))
     }
     
     private func cell(_ with: NSEvent) -> Cell? {
-        positions.map { CGRect(origin: $0, size: size) }.firstIndex { $0.contains(documentView!.convert(with.locationInWindow, from: nil)) }.flatMap { index in
-            active.first { $0.index == index }
-        }
+        positions
+            .map { ($0.0, CGRect(origin: $0.1, size: size)) }
+            .first { $0.1.contains(documentView!.convert(with.locationInWindow, from: nil)) }
+            .flatMap { item in
+                cells.first { $0.page?.id == item.0 }
+            }
     }
 }

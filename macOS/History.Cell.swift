@@ -4,9 +4,9 @@ import Sleuth
 
 extension History {
     final class Cell: NSView {
-        var item: Page? {
+        var page: Page? {
             didSet {
-                text.attributedStringValue = item.map {
+                text.attributedStringValue = page.map {
                     let string = NSMutableAttributedString()
                     string.append(.init(string: formatter.localizedString(for: $0.date, relativeTo: .init()) + "\n\n", attributes: [
                                             .font : NSFont.systemFont(ofSize: 12, weight: .medium),
@@ -28,14 +28,13 @@ extension History {
             willSet {
                 ["bounds", "position"].forEach {
                     let transition = CABasicAnimation(keyPath: $0)
-                    transition.duration = 0.2
+                    transition.duration = 0.3
                     transition.timingFunction = .init(name: .easeOut)
                     layer!.add(transition, forKey: $0)
                 }
             }
         }
         
-        var index = 0
         private weak var text: Text!
         private weak var formatter: RelativeDateTimeFormatter!
         private var sub: AnyCancellable?
@@ -54,7 +53,7 @@ extension History {
             
             let close = Control.Button("xmark")
             sub = close.click.sink { [weak self] in
-                guard let page = self?.item else { return }
+                guard let page = self?.page else { return }
                 FileManager.delete(page)
                 (NSApp as! App).refresh()
             }
