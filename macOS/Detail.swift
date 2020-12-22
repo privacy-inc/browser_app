@@ -13,11 +13,11 @@ final class Detail: NSPopover {
         contentViewController = .init()
         contentViewController!.view = .init()
         
-        let trackers = Item(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: "\(browser.blocked.value.count)")
+        let trackers = Item(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: "\((NSApp as! App).blocked.value.count)")
         contentViewController!.view.addSubview(trackers)
         
         trackers.click.sink {
-            Trackers().makeKeyAndOrderFront(nil)
+            (NSApp as! App).trackers()
         }.store(in: &subs)
         
         trackers.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true

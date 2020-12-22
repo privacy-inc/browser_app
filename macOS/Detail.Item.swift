@@ -30,7 +30,7 @@ extension Detail {
             if let caption = caption {
                 let text = Text()
                 text.stringValue = caption
-                text.font = .systemFont(ofSize: 12, weight: .bold)
+                text.font = .systemFont(ofSize: 12, weight: .regular)
                 addSubview(text)
                 
                 text.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -2).isActive = true

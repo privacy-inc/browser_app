@@ -4,6 +4,7 @@ import Sleuth
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate  {
     let pages = CurrentValueSubject<[Page], Never>([])
+    let blocked = CurrentValueSubject<Set<String>, Never>([])
     
     required init?(coder: NSCoder) { nil }
     override init() {
@@ -55,5 +56,9 @@ import Sleuth
     
     @objc func preferences() {
         (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func trackers() {
+        (windows.first { $0 is Trackers } ?? Trackers()).makeKeyAndOrderFront(nil)
     }
 }

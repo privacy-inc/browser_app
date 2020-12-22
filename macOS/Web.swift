@@ -153,7 +153,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 decisionHandler(.cancel, preferences)
             case .block(let domain):
                 decisionHandler(.cancel, preferences)
-                self?.browser.blocked.value.insert(domain)
+                (NSApp as! App).blocked.value.insert(domain)
             }
         }
     }
