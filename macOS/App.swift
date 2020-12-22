@@ -28,13 +28,6 @@ import Sleuth
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
         newWindow()
-        
-        NSAppleEventManager.shared().setEventHandler(
-            self,
-            andSelector: #selector(handle(_:_:)),
-            forEventClass: AEEventClass(kInternetEventClass),
-            andEventID: AEEventID(kAEGetURL)
-        )
     }
     
     @objc func newWindow() {
@@ -67,15 +60,5 @@ import Sleuth
     
     @objc func trackers() {
         (windows.first { $0 is Trackers } ?? Trackers()).makeKeyAndOrderFront(nil)
-    }
-    
-    @objc private func handle(_ event: NSAppleEventDescriptor, _ reply: NSAppleEventDescriptor) {
-        event.paramDescriptor(forKeyword: keyDirectObject)?.stringValue?.removingPercentEncoding
-            .flatMap { URL(string: $0) }
-            .map {
-                let window = Window()
-                window.makeKeyAndOrderFront(nil)
-                window.browser.browse.send($0)
-        }
     }
 }
