@@ -119,6 +119,10 @@ final class Searchbar: NSView {
             browser.next.send()
         }.store(in: &subs)
         
+        clockwise.click.sink {
+            browser.reload.send()
+        }.store(in: &subs)
+        
         browser.page.sink {
             guard let url = $0?.url else {
                 lupe.isHidden = false
