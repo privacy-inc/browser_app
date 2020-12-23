@@ -5,8 +5,6 @@ extension Detail {
         required init?(coder: NSCoder) { nil }
         init(title: String, icon: String, caption: String? = nil) {
             super.init()
-            layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
-            
             let text = Text()
             text.stringValue = title
             text.font = .systemFont(ofSize: 12, weight: .regular)
@@ -33,6 +31,19 @@ extension Detail {
                 
                 text.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -2).isActive = true
                 text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            }
+            
+            update()
+        }
+        
+        override func update() {
+            switch state {
+            case .highlighted:
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.5).cgColor
+            case .pressed:
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.6).cgColor
+            default:
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
             }
         }
     }
