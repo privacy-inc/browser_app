@@ -5,9 +5,7 @@ extension Detail {
         required init?(coder: NSCoder) { nil }
         init(title: String, icon: String, caption: String? = nil) {
             super.init()
-            wantsLayer = true
             layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
-            layer!.cornerRadius = 6
             
             let text = Text()
             text.stringValue = title

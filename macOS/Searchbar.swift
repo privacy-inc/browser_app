@@ -43,7 +43,7 @@ final class Searchbar: NSView {
             $0.icon.symbolConfiguration = .init(pointSize: 16, weight: .bold)
             $0.style = .blue
             addSubview($0)
-            $0.widthAnchor.constraint(equalToConstant: 22).isActive = true
+            $0.widthAnchor.constraint(equalToConstant: 28).isActive = true
             $0.heightAnchor.constraint(equalTo: $0.widthAnchor).isActive = true
             $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
@@ -52,7 +52,7 @@ final class Searchbar: NSView {
             addSubview($0)
             $0.centerYAnchor.constraint(equalTo: field.centerYAnchor).isActive = true
             $0.widthAnchor.constraint(equalToConstant: 35).isActive = true
-            $0.heightAnchor.constraint(equalTo: lupe.widthAnchor).isActive = true
+            $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
         }
         
         [lupe, lock, warning].forEach {
@@ -64,13 +64,13 @@ final class Searchbar: NSView {
         background.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
         background.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         
-        field.leftAnchor.constraint(equalTo: right.rightAnchor, constant: 18).isActive = true
-        field.rightAnchor.constraint(equalTo: detail.leftAnchor, constant: -18).isActive = true
+        field.leftAnchor.constraint(equalTo: right.rightAnchor, constant: 12).isActive = true
+        field.rightAnchor.constraint(equalTo: detail.leftAnchor, constant: -12).isActive = true
         field.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
-        left.leftAnchor.constraint(equalTo: leftAnchor, constant: 18).isActive = true
-        right.leftAnchor.constraint(equalTo: left.rightAnchor, constant: 14).isActive = true
-        detail.rightAnchor.constraint(equalTo: rightAnchor, constant: -14).isActive = true
+        left.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
+        right.leftAnchor.constraint(equalTo: left.rightAnchor, constant: 8).isActive = true
+        detail.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
         
         clockwise.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         

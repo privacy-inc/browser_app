@@ -18,16 +18,15 @@ extension Control {
         }
         
         final override func update() {
+            super.update()
+            
             switch style {
             case .blue:
                 switch state {
-                case .on: icon.contentTintColor = .controlAccentColor
                 case .off: icon.contentTintColor = .tertiaryLabelColor
-                case .selected, .highlighted: icon.contentTintColor = .labelColor
-                case .pressed: icon.contentTintColor = .systemIndigo
+                default: icon.contentTintColor = .controlAccentColor
                 }
-            case .none:
-                super.update()
+            case .none: break
             }
         }
     }
