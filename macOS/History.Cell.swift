@@ -28,7 +28,7 @@ extension History {
             willSet {
                 ["bounds", "position"].forEach {
                     let transition = CABasicAnimation(keyPath: $0)
-                    transition.duration = 0.3
+                    transition.duration = 0.5
                     transition.timingFunction = .init(name: .easeOut)
                     layer!.add(transition, forKey: $0)
                 }
