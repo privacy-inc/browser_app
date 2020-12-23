@@ -34,7 +34,10 @@ class Control: NSView {
     }
     
     override func mouseDown(with: NSEvent) {
-        guard state == .on || state == .highlighted else { return }
+        guard state == .on || state == .highlighted else {
+            super.mouseDown(with: with)
+            return
+        }
         window?.makeFirstResponder(self)
         state = .pressed
     }

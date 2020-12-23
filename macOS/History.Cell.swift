@@ -7,10 +7,9 @@ extension History {
         var page: Page? {
             didSet {
                 text.attributedStringValue = page.map {
+                    date.stringValue = formatter.localizedString(for: $0.date, relativeTo: .init())
+                    
                     let string = NSMutableAttributedString()
-                    string.append(.init(string: formatter.localizedString(for: $0.date, relativeTo: .init()) + "\n\n", attributes: [
-                                            .font : NSFont.systemFont(ofSize: 12, weight: .medium),
-                                            .foregroundColor : NSColor.tertiaryLabelColor]))
                     if !$0.title.isEmpty {
                         string.append(.init(string: $0.title + "\n", attributes: [
                                                 .font : NSFont.systemFont(ofSize: 14, weight: .medium),
@@ -25,6 +24,7 @@ extension History {
         }
         
         private weak var text: Text!
+        private weak var date: Text!
         private weak var close: Control.Button!
         private weak var formatter: RelativeDateTimeFormatter!
         private var sub: AnyCancellable?
@@ -41,6 +41,12 @@ extension History {
             addSubview(text)
             self.text = text
             
+            let date = Text()
+            date.textColor = .secondaryLabelColor
+            date.font = .systemFont(ofSize: 12, weight: .regular)
+            addSubview(date)
+            self.date = date
+            
             let close = Control.Button("xmark")
             sub = close.click.sink { [weak self] in
                 guard let page = self?.page else { return }
@@ -50,7 +56,10 @@ extension History {
             addSubview(close)
             self.close = close
             
-            text.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
+            date.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
+            date.rightAnchor.constraint(equalTo: close.leftAnchor, constant: -5).isActive = true
+            
+            text.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 10).isActive = true
             text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16).isActive = true
             text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
             text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true

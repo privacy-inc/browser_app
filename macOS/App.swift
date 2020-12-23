@@ -31,7 +31,11 @@ import Sleuth
     }
     
     @objc func newWindow() {
-        Window().makeKeyAndOrderFront(nil)
+        let window = Window()
+        if windows.count > 1 {
+            window.center()
+        }
+        window.makeKeyAndOrderFront(nil)
     }
     
     @objc func newTab() {
