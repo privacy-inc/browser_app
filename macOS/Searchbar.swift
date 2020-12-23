@@ -144,6 +144,17 @@ final class Searchbar: NSView {
         }.store(in: &subs)
     }
     
+    override func mouseUp(with: NSEvent) {
+        guard
+            with.clickCount >= 2,
+            !field.frame.contains(convert(with.locationInWindow, from: nil))
+        else {
+            super.mouseUp(with: with)
+            return
+        }
+        window?.performZoom(nil)
+    }
+    
     @objc private func change(_ engine: NSMenuItem) {
         switch engine.title {
         case "Google": Defaults.engine = .google
