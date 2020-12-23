@@ -11,7 +11,7 @@ final class History: NSScrollView {
             let count = floor(total / width)
             let delta = total.truncatingRemainder(dividingBy: width) / count
             size = .init(width: self.width + delta, height: height + max(0, 60 - delta))
-            refresh.send()
+            refresh()
         }
     }
     
@@ -27,7 +27,6 @@ final class History: NSScrollView {
     private let horizontal = CGFloat(40)
     private let vertical = CGFloat(60)
     private let formatter = RelativeDateTimeFormatter()
-    private let refresh = PassthroughSubject<Void, Never>()
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
@@ -41,26 +40,29 @@ final class History: NSScrollView {
         self.browser = browser
         
         NotificationCenter.default.publisher(for: NSView.boundsDidChangeNotification, object: contentView).sink { [weak self] _ in
-            guard self?.isHidden == false else { return }
-            self?.reposition()
-            self?.render()
+            self?.refresh()
         }.store(in: &subs)
         
         (NSApp as! App).pages.sink { [weak self] in
             content.subviews.forEach { $0.removeFromSuperview() }
             self?.pages = $0
-            self?.refresh.send()
+            self?.refresh()
         }.store(in: &subs)
-        
-        refresh.debounce(for: .seconds(0.1), scheduler: DispatchQueue.main).sink { [weak self] in
-            self?.reposition()
-            self?.render()
-        }.store(in: &subs)
+    }
+    
+    override func mouseDown(with: NSEvent) {
+        super.mouseDown(with: with)
+        window?.makeFirstResponder(self)
     }
     
     override func mouseUp(with: NSEvent) {
         guard let page = cell(with)?.page else { return }
         browser.browse.send(page.url)
+    }
+    
+    private func refresh() {
+        reposition()
+        render()
     }
     
     private func reposition() {
@@ -87,12 +89,13 @@ final class History: NSScrollView {
                 $0.page = nil
             }
         current.forEach { id in
-            let cell = cells.first { $0.page?.id == id } ?? {
+            let cell = cells.first { $0.page?.id == id } ?? cells.first { $0.page == nil } ?? {
                 cells.insert($0)
                 return $0
             } (Cell(formatter: formatter))
             cell.page = pages.first { $0.id == id }
             cell.frame = .init(origin: positions[id]!, size: size)
+            cell.dequeue()
             documentView!.addSubview(cell)
         }
     }

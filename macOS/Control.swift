@@ -8,12 +8,6 @@ class Control: NSView {
         }
     }
     
-    var style = Control.Style.none {
-        didSet {
-            update()
-        }
-    }
-    
     let click = PassthroughSubject<Void, Never>()
     
     override var mouseDownCanMoveWindow: Bool { false }
@@ -48,8 +42,8 @@ class Control: NSView {
     override func mouseUp(with: NSEvent) {
         guard state == .highlighted || state == .on || state == .pressed else { return }
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
-            state = .highlighted
             click.send()
+            state = .on
         } else {
             state = .on
             super.mouseUp(with: with)
@@ -57,6 +51,13 @@ class Control: NSView {
     }
     
     func update() {
+        switch state {
+        case .off:
+            alphaValue = 0.3
+        default:
+            alphaValue = 1
+        }
+        
         switch state {
         case .highlighted:
             layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor

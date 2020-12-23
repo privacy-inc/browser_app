@@ -16,18 +16,5 @@ extension Control {
             icon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
-        
-        final override func update() {
-            super.update()
-            
-            switch style {
-            case .blue:
-                switch state {
-                case .off: icon.contentTintColor = .tertiaryLabelColor
-                default: icon.contentTintColor = .controlAccentColor
-                }
-            case .none: break
-            }
-        }
     }
 }

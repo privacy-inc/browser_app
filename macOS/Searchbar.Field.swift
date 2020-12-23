@@ -31,8 +31,11 @@ extension Searchbar {
         
         override func becomeFirstResponder() -> Bool {
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { [weak self] in
+                guard let text = self?.stringValue else { return }
                 self?.currentEditor()?.alignment = .left
-                self?.currentEditor()?.selectedRange = .init(location: 0, length: self?.stringValue.count ?? 0)
+                if !text.isEmpty {
+                    self?.currentEditor()?.selectedRange = .init(location: 0, length: text.count)
+                }
             }
             return super.becomeFirstResponder()
         }

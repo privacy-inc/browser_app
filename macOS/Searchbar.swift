@@ -41,7 +41,6 @@ final class Searchbar: NSView {
         
         [left, right, detail].forEach {
             $0.icon.symbolConfiguration = .init(pointSize: 16, weight: .bold)
-            $0.style = .blue
             addSubview($0)
             $0.widthAnchor.constraint(equalToConstant: 28).isActive = true
             $0.heightAnchor.constraint(equalTo: $0.widthAnchor).isActive = true
@@ -128,11 +127,13 @@ final class Searchbar: NSView {
                 lupe.isHidden = false
                 lock.isHidden = true
                 warning.isHidden = true
+                clockwise.isHidden = true
                 return
             }
             lupe.isHidden = true
             lock.isHidden = url.scheme != Scheme.https.rawValue
             warning.isHidden = url.scheme == Scheme.https.rawValue
+            clockwise.isHidden = false
         }.store(in: &subs)
         
         browser.backwards.sink {

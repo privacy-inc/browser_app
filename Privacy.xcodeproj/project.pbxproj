@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CE1175492588E636005160D9 /* Searchbar.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1175482588E636005160D9 /* Searchbar.Cell.swift */; };
 		CE11754F258902C7005160D9 /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11754E258902C7005160D9 /* Control.State.swift */; };
-		CE1175532589058D005160D9 /* Control.Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1175522589058D005160D9 /* Control.Style.swift */; };
 		CE296F9325922FEC00E55E99 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE296F9225922FEC00E55E99 /* Scroll.swift */; };
 		CE31358F258CB3BE00A20487 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31358E258CB3BE00A20487 /* Text.swift */; };
 		CE5B102D2583843200608726 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B102C2583843200608726 /* App.swift */; };
@@ -37,7 +36,6 @@
 /* Begin PBXFileReference section */
 		CE1175482588E636005160D9 /* Searchbar.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Cell.swift; sourceTree = "<group>"; };
 		CE11754E258902C7005160D9 /* Control.State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
-		CE1175522589058D005160D9 /* Control.Style.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Style.swift; sourceTree = "<group>"; };
 		CE296F9225922FEC00E55E99 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		CE31358E258CB3BE00A20487 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		CE5B10292583843200608726 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -101,7 +99,6 @@
 				CE5B102C2583843200608726 /* App.swift */,
 				CECE3BA72587B19F00D66221 /* Control.Button.swift */,
 				CE11754E258902C7005160D9 /* Control.State.swift */,
-				CE1175522589058D005160D9 /* Control.Style.swift */,
 				CECE3BA42587B18000D66221 /* Control.swift */,
 				CEDB0C9C259208A100AB6F7C /* Detail.Item.swift */,
 				CEEDA546258BBF200023CF9F /* Detail.swift */,
@@ -226,7 +223,6 @@
 				CEEA641C25915C2F00711A8C /* Preferences.Toggle.swift in Sources */,
 				CE31358F258CB3BE00A20487 /* Text.swift in Sources */,
 				CED75E4E25891F1500352091 /* WKUserContentController.swift in Sources */,
-				CE1175532589058D005160D9 /* Control.Style.swift in Sources */,
 				CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */,
 				CEEDA547258BBF200023CF9F /* Detail.swift in Sources */,
 				CED75E32258919FB00352091 /* Web.swift in Sources */,

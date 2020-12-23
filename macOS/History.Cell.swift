@@ -24,18 +24,8 @@ extension History {
             }
         }
         
-        override var frame: NSRect {
-            willSet {
-                ["bounds", "position"].forEach {
-                    let transition = CABasicAnimation(keyPath: $0)
-                    transition.duration = 0.5
-                    transition.timingFunction = .init(name: .easeOut)
-                    layer!.add(transition, forKey: $0)
-                }
-            }
-        }
-        
         private weak var text: Text!
+        private weak var close: Control.Button!
         private weak var formatter: RelativeDateTimeFormatter!
         private var sub: AnyCancellable?
         
@@ -58,18 +48,24 @@ extension History {
                 (NSApp as! App).refresh()
             }
             addSubview(close)
+            self.close = close
             
             text.topAnchor.constraint(equalTo: topAnchor, constant: 16).isActive = true
             text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16).isActive = true
             text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
             text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true
             
-            close.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            close.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            close.widthAnchor.constraint(equalToConstant: 40).isActive = true
+            close.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
+            close.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
+            close.widthAnchor.constraint(equalToConstant: 30).isActive = true
             close.heightAnchor.constraint(equalTo: close.widthAnchor).isActive = true
             
             addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
+        }
+        
+        func dequeue() {
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            close.state = .on
         }
         
         override func mouseEntered(with: NSEvent) {
@@ -78,6 +74,10 @@ extension History {
         
         override func mouseExited(with: NSEvent) {
             layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+        }
+        
+        private func gone() {
+            
         }
     }
 }
