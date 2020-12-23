@@ -15,6 +15,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         self.browser = browser
         
         let configuration = WKWebViewConfiguration()
+        configuration.applicationNameForUserAgent = "Safari/605"
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = Defaults.popups && Defaults.javascript
