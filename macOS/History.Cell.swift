@@ -12,11 +12,11 @@ extension History {
                     let string = NSMutableAttributedString()
                     if !$0.title.isEmpty {
                         string.append(.init(string: $0.title + "\n", attributes: [
-                                                .font : NSFont.systemFont(ofSize: 14, weight: .medium),
+                                                .font : NSFont.systemFont(ofSize: 16, weight: .medium),
                                                 .foregroundColor : NSColor.labelColor]))
                     }
                     string.append(.init(string: $0.url.absoluteString, attributes: [
-                                            .font : NSFont.systemFont(ofSize: 12, weight: .light),
+                                            .font : NSFont.systemFont(ofSize: 12, weight: .regular),
                                             .foregroundColor : NSColor.secondaryLabelColor]))
                     return string
                 } ?? .init()
@@ -43,7 +43,7 @@ extension History {
             
             let date = Text()
             date.textColor = .secondaryLabelColor
-            date.font = .systemFont(ofSize: 12, weight: .regular)
+            date.font = .systemFont(ofSize: 14, weight: .regular)
             addSubview(date)
             self.date = date
             
@@ -59,7 +59,7 @@ extension History {
             date.centerYAnchor.constraint(equalTo: close.centerYAnchor).isActive = true
             date.rightAnchor.constraint(equalTo: close.leftAnchor, constant: -5).isActive = true
             
-            text.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 10).isActive = true
+            text.topAnchor.constraint(equalTo: date.bottomAnchor, constant: 16).isActive = true
             text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -16).isActive = true
             text.leftAnchor.constraint(equalTo: leftAnchor, constant: 16).isActive = true
             text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -16).isActive = true

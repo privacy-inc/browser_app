@@ -45,6 +45,10 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             browser.progress.value = $0
         }.store(in: &subs)
         
+        publisher(for: \.isLoading).sink {
+            browser.loading.value = $0
+        }.store(in: &subs)
+        
         publisher(for: \.title).sink {
             $0.map {
                 guard !$0.isEmpty else { return }
@@ -66,6 +70,10 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             browser.forwards.value = $0
         }.store(in: &subs)
         
+        publisher(for: \.isLoading).sink {
+            browser.forwards.value = $0
+        }.store(in: &subs)
+        
         browser.previous.sink { [weak self] in
             self?.goBack()
         }.store(in: &subs)
@@ -76,6 +84,10 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         
         browser.reload.sink { [weak self] in
             self?.reload()
+        }.store(in: &subs)
+        
+        browser.stop.sink { [weak self] in
+            self?.stopLoading()
         }.store(in: &subs)
     }
     
@@ -94,10 +106,6 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
         browser.error.value = nil
-    }
-    
-    func webView(_: WKWebView, didFinish: WKNavigation!) {
-        browser.progress.value = 1
     }
     
     func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
@@ -119,7 +127,6 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         } else if (withError as NSError).code == 101 {
             browser.error.value = withError.localizedDescription
         }
-        browser.progress.value = 1
     }
     
     func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

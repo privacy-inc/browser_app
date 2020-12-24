@@ -16,6 +16,13 @@ final class Searchbar: NSView {
         background.layer!.cornerRadius = 6
         addSubview(background)
         
+        let progress = NSView()
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.wantsLayer = true
+        progress.layer!.backgroundColor = NSColor.controlAccentColor.cgColor
+        progress.layer!.cornerRadius = 1.5
+        addSubview(progress)
+        
         let field = Field(browser: browser)
         self.field = field
         addSubview(field)
@@ -28,6 +35,7 @@ final class Searchbar: NSView {
         let lock = Control.Button("lock.fill")
         let warning = Control.Button("exclamationmark.triangle.fill")
         let clockwise = Control.Button("arrow.clockwise")
+        let xmark = Control.Button("xmark")
         
         let google = NSMenuItem(title: "Google", action: #selector(change), keyEquivalent: "")
         google.target = self
@@ -47,7 +55,7 @@ final class Searchbar: NSView {
             $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
         
-        [lupe, lock, warning, clockwise].forEach {
+        [lupe, lock, warning, clockwise, xmark].forEach {
             addSubview($0)
             $0.centerYAnchor.constraint(equalTo: field.centerYAnchor).isActive = true
             $0.widthAnchor.constraint(equalToConstant: 35).isActive = true
@@ -63,6 +71,11 @@ final class Searchbar: NSView {
         background.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
         background.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         
+        progress.bottomAnchor.constraint(equalTo: background.bottomAnchor).isActive = true
+        progress.leftAnchor.constraint(equalTo: background.leftAnchor).isActive = true
+        progress.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        var progressWidth: NSLayoutConstraint?
+        
         field.leftAnchor.constraint(equalTo: right.rightAnchor, constant: 12).isActive = true
         field.rightAnchor.constraint(equalTo: detail.leftAnchor, constant: -12).isActive = true
         field.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -71,7 +84,9 @@ final class Searchbar: NSView {
         right.leftAnchor.constraint(equalTo: left.rightAnchor, constant: 8).isActive = true
         detail.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
         
-        clockwise.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+        [clockwise, xmark].forEach {
+            $0.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+        }
         
         lupe.click.sink {
             google.state = Defaults.engine == .google ? .on : .off
@@ -122,18 +137,30 @@ final class Searchbar: NSView {
             browser.reload.send()
         }.store(in: &subs)
         
+        xmark.click.sink {
+            browser.stop.send()
+        }.store(in: &subs)
+        
         browser.page.sink {
             guard let url = $0?.url else {
                 lupe.isHidden = false
                 lock.isHidden = true
                 warning.isHidden = true
-                clockwise.isHidden = true
                 return
             }
             lupe.isHidden = true
             lock.isHidden = url.scheme != Scheme.https.rawValue
             warning.isHidden = url.scheme == Scheme.https.rawValue
-            clockwise.isHidden = false
+        }.store(in: &subs)
+        
+        browser.page.combineLatest(browser.loading).sink {
+            guard $0.0 != nil else {
+                clockwise.isHidden = true
+                xmark.isHidden = true
+                return
+            }
+            xmark.isHidden = !$0.1
+            clockwise.isHidden = $0.1
         }.store(in: &subs)
         
         browser.backwards.sink {
@@ -142,6 +169,16 @@ final class Searchbar: NSView {
         
         browser.forwards.sink {
             right.state = $0 ? .on : .off
+        }.store(in: &subs)
+        
+        browser.progress.sink {
+            progressWidth?.isActive = false
+            progressWidth = progress.widthAnchor.constraint(equalTo: background.widthAnchor, multiplier: .init($0))
+            progressWidth?.isActive = true
+        }.store(in: &subs)
+        
+        browser.loading.sink {
+            progress.isHidden = !$0
         }.store(in: &subs)
     }
     
