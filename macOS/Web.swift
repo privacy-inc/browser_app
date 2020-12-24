@@ -23,7 +23,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.websiteDataStore = .nonPersistent()
         
         if NSApp.windows.first!.effectiveAppearance == NSAppearance(named: .darkAqua) && Defaults.dark {
-            configuration.userContentController.addUserScript(.init(source: Dark.script, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
+            configuration.userContentController.dark()
         }
         
         if Defaults.ads {

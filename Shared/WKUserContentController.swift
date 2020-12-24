@@ -25,5 +25,11 @@ extension WKUserContentController {
                 Self.ads = list!
             }
         }
+        
+        addUserScript(.init(source: Scripts.scroll, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+    }
+    
+    func dark() {
+        addUserScript(.init(source: Scripts.dark, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
     }
 }
