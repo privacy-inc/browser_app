@@ -56,7 +56,9 @@ final class History: NSScrollView {
     }
     
     override func mouseUp(with: NSEvent) {
-        guard let page = cell(with)?.page else { return }
+        guard var page = cell(with)?.page else { return }
+        page.date = .init()
+        browser.page.value = page
         browser.browse.send(page.url)
     }
     

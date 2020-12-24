@@ -41,8 +41,12 @@ final class Window: NSWindow {
         browser.browse.sink { [weak self] in
             self?.history?.removeFromSuperview()
             guard let self = self else { return }
-            if self.browser.page.value == nil && self.web == nil {
+            
+            if self.browser.page.value == nil {
                 self.browser.page.value = .init(url: $0)
+            }
+            
+            if self.web == nil {
                 let web = Web(browser: self.browser)
                 self.web = web
                 self.contentView!.addSubview(web)
@@ -51,6 +55,7 @@ final class Window: NSWindow {
                 web.leftAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
                 web.rightAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
             }
+            
             self.web.open($0)
         }.store(in: &subs)
         
