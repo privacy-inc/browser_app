@@ -7,7 +7,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     required init(coder: NSCoder) { super.init(coder: coder) }
     init() {
         super.init(title: "")
-        items = [app, file, edit, window, help]
+        items = [app, file, edit, page, window, help]
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
@@ -31,13 +31,42 @@ final class Menu: NSMenu, NSMenuDelegate {
                 .init(title: "Bring All to Front", action: #selector(NSApplication.arrangeInFront), keyEquivalent: ""),
                 .separator()]
             NSApp.enumerateWindows { window, _ in
-                guard window is Window else { return }
+                guard window is Window, window.tabGroup == nil || window == window.tabGroup?.selectedWindow else { return }
                 let item = NSMenuItem(title: window.tab.title, action: #selector(focus), keyEquivalent: "")
                 item.target = self
                 item.representedObject = window
                 item.state = NSApp.keyWindow == window ? .on : .off
                 menu.items.append(item)
             }
+        case "Page":
+            let web = (NSApp.keyWindow as? Window)?.web
+            menu.items = [
+                {
+                    $0.target = self
+                    $0.isEnabled = web != nil
+                    return $0
+                } (NSMenuItem(title: "Stop", action: #selector(stop), keyEquivalent: ".")),
+                {
+                    $0.target = self
+                    $0.isEnabled = web != nil
+                    return $0
+                } (NSMenuItem(title: "Reload", action: #selector(reload), keyEquivalent: "r")),
+                .separator(),
+                {
+                    $0.target = self
+                    $0.isEnabled = web != nil && web!.pageZoom != 1
+                    return $0
+                } (NSMenuItem(title: "Actual Size", action: #selector(actualSize), keyEquivalent: "0")),
+                {
+                    $0.target = self
+                    $0.isEnabled = web != nil && web!.pageZoom < 15
+                    return $0
+                } (NSMenuItem(title: "Zoom In", action: #selector(zoomIn), keyEquivalent: "+")),
+                {
+                    $0.target = self
+                    $0.isEnabled = web != nil && web!.pageZoom > 0.05
+                    return $0
+                } (NSMenuItem(title: "Zoom Out", action: #selector(zoomOut), keyEquivalent: "-"))]
         default: break
         }
     }
@@ -80,10 +109,18 @@ final class Menu: NSMenu, NSMenuDelegate {
         .init(title: "Redo", action: Selector(("redo:")), keyEquivalent: "Z"),
         .separator(),
         .init(title: "Cut", action: #selector(NSText.cut), keyEquivalent: "x"),
-        .init(title: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c"),
+        .init(title: "Copy", action: #selector(NSText.copy), keyEquivalent: "c"),
         .init(title: "Paste", action: #selector(NSText.paste), keyEquivalent: "v"),
         .init(title: "Delete", action: #selector(NSText.delete), keyEquivalent: ""),
         .init(title: "Select All", action: #selector(NSText.selectAll), keyEquivalent: "a")])
+    }
+    
+    private var page: NSMenuItem {
+        let page = NSMenuItem()
+        page.submenu = .init(title: "Page")
+        page.submenu!.delegate = self
+        page.submenu!.autoenablesItems = false
+        return page
     }
     
     private var window: NSMenuItem {
@@ -111,5 +148,25 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func focus(_ item: NSMenuItem) {
         (item.representedObject as? Window)?.makeKeyAndOrderFront(nil)
+    }
+    
+    @objc private func stop() {
+        (NSApp.keyWindow as? Window)?.web?.stopLoading()
+    }
+    
+    @objc private func reload() {
+        (NSApp.keyWindow as? Window)?.web?.reload()
+    }
+    
+    @objc private func actualSize() {
+        (NSApp.keyWindow as? Window)?.web?.pageZoom = 1
+    }
+    
+    @objc private func zoomIn() {
+        (NSApp.keyWindow as? Window)?.web?.pageZoom *= 1.1
+    }
+    
+    @objc private func zoomOut() {
+        (NSApp.keyWindow as? Window)?.web?.pageZoom /= 1.1
     }
 }

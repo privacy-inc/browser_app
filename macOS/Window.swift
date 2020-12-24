@@ -3,9 +3,9 @@ import Combine
 import Sleuth
 
 final class Window: NSWindow {
+    private(set) weak var web: Web?
     let browser = Browser()
     private weak var history: History?
-    private weak var web: Web!
     private weak var searchbar: Searchbar!
     private var subs = Set<AnyCancellable>()
     
@@ -56,7 +56,7 @@ final class Window: NSWindow {
                 web.rightAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
             }
             
-            self.web.open($0)
+            self.web?.open($0)
         }.store(in: &subs)
         
         browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
