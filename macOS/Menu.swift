@@ -11,16 +11,35 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-        menu.items = NSSharingService.sharingServices(forItems: [(NSApp.keyWindow as? Window)?.browser.page.value?.url ?? ""]).map {
-            let item = NSMenuItem(title: $0.menuItemTitle, action: #selector(share), keyEquivalent: "")
-            item.target = self
-            item.image = $0.image
-            item.representedObject = $0
-            return item
+        switch menu.title {
+        case "Share":
+            menu.items = NSSharingService.sharingServices(forItems: [(NSApp.keyWindow as? Window)?.browser.page.value?.url ?? ""]).map {
+                let item = NSMenuItem(title: $0.menuItemTitle, action: #selector(share), keyEquivalent: "")
+                item.target = self
+                item.image = $0.image
+                item.representedObject = $0
+                return item
+            }
+            menu.items.append(contentsOf: [
+                                .separator(),
+                                .init(title: "Copy Link", action: #selector(Window.copyLink), keyEquivalent: "C")])
+        case "Window":
+            menu.items = [
+                .init(title: "Minimize", action: #selector(NSWindow.miniaturize), keyEquivalent: "m"),
+                .init(title: "Zoom", action: #selector(NSWindow.zoom), keyEquivalent: "p"),
+                .separator(),
+                .init(title: "Bring All to Front", action: #selector(NSApplication.arrangeInFront), keyEquivalent: ""),
+                .separator()]
+            NSApp.enumerateWindows { window, _ in
+                guard window is Window else { return }
+                let item = NSMenuItem(title: window.tab.title, action: #selector(focus), keyEquivalent: "")
+                item.target = self
+                item.representedObject = window
+                item.state = NSApp.keyWindow == window ? .on : .off
+                menu.items.append(item)
+            }
+        default: break
         }
-        menu.items.append(contentsOf: [
-                            .separator(),
-                            .init(title: "Copy Link", action: #selector(Window.copyLink), keyEquivalent: "C")])
     }
 
     private var app: NSMenuItem {
@@ -49,7 +68,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         .init(title: "Close Tab", action: #selector(Window.close), keyEquivalent: "w"),
         .separator(),
         {
-            $0.submenu = .init()
+            $0.submenu = .init(title: "Share")
             $0.submenu!.delegate = self
             return $0
         } (NSMenuItem(title: "Share", action: nil, keyEquivalent: ""))])
@@ -68,11 +87,10 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var window: NSMenuItem {
-        menu("Window", items: [
-        .init(title: "Minimize", action: #selector(NSWindow.miniaturize), keyEquivalent: "m"),
-        .init(title: "Zoom", action: #selector(NSWindow.zoom), keyEquivalent: "p"),
-        .separator(),
-        .init(title: "Bring All to Front", action: #selector(NSApplication.arrangeInFront), keyEquivalent: "")])
+        let window = NSMenuItem()
+        window.submenu = .init(title: "Window")
+        window.submenu!.delegate = self
+        return window
     }
     
     private var help: NSMenuItem {
@@ -89,5 +107,9 @@ final class Menu: NSMenu, NSMenuDelegate {
     @objc private func share(_ item: NSMenuItem) {
         guard let url = (NSApp.keyWindow as? Window)?.browser.page.value?.url else { return }
         (item.representedObject as? NSSharingService)?.perform(withItems: [url])
+    }
+    
+    @objc private func focus(_ item: NSMenuItem) {
+        (item.representedObject as? Window)?.makeKeyAndOrderFront(nil)
     }
 }
