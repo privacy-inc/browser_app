@@ -89,10 +89,14 @@ final class Window: NSWindow {
         }.store(in: &subs)
     }
     
-    func newTab() {
+    func newTab(_ url: URL?) {
         let new = Window()
         addTabbedWindow(new, ordered: .above)
         tabGroup?.selectedWindow = new
+        url.map {
+            new.browser.page.value = .init(url: $0)
+            new.browser.browse.send($0)
+        }
     }
     
     override func becomeKey() {

@@ -138,10 +138,22 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        if action.targetFrame == nil && action.navigationType == .linkActivated {
-//            action.request.url.map(view.session.navigate.send)
+        if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
+            action.request.url.map {
+                (window as? Window)?.newTab($0)
+            }
         }
         return nil
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        print("policy")
+        decisionHandler(.allow)
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationAction: WKNavigationAction, decisionHandler: @escaping (WKNavigationActionPolicy) -> Void) {
+        print("action")
+        decisionHandler(.allow)
     }
     
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
@@ -164,5 +176,9 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
                 (NSApp as! App).blocked.value.insert(domain)
             }
         }
+    }
+    
+    override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
+        print(menu.observationInfo)
     }
 }

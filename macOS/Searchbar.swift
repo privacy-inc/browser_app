@@ -69,7 +69,7 @@ final class Searchbar: NSView {
         field.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         left.leftAnchor.constraint(equalTo: leftAnchor, constant: 8).isActive = true
-        right.leftAnchor.constraint(equalTo: left.rightAnchor, constant: 8).isActive = true
+        right.leftAnchor.constraint(equalTo: left.rightAnchor).isActive = true
         detail.rightAnchor.constraint(equalTo: rightAnchor, constant: -8).isActive = true
         
         [clockwise, xmark].forEach {
