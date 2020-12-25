@@ -11,7 +11,7 @@ final class History: NSScrollView {
             let count = floor(total / width)
             let delta = total.truncatingRemainder(dividingBy: width) / count
             size = .init(width: self.width + delta, height: height + max(0, 60 - delta))
-            refresh()
+            reposition()
         }
     }
     
@@ -21,6 +21,7 @@ final class History: NSScrollView {
     private var cells = Set<Cell>()
     private var pages = [Page]()
     private var positions = [UUID : CGPoint]()
+    private var visible = Set<UUID>()
     private let width = CGFloat(230)
     private let height = CGFloat(120)
     private let padding = CGFloat(30)
@@ -40,13 +41,13 @@ final class History: NSScrollView {
         self.browser = browser
         
         NotificationCenter.default.publisher(for: NSView.boundsDidChangeNotification, object: contentView).sink { [weak self] _ in
-            self?.refresh()
+            self?.render()
         }.store(in: &subs)
         
         (NSApp as! App).pages.sink { [weak self] in
             content.subviews.forEach { $0.removeFromSuperview() }
             self?.pages = $0
-            self?.refresh()
+            self?.reposition()
         }.store(in: &subs)
     }
     
@@ -62,11 +63,6 @@ final class History: NSScrollView {
         browser.browse.send(page.url)
     }
     
-    private func refresh() {
-        reposition()
-        render()
-    }
-    
     private func reposition() {
         var positions = [UUID : CGPoint]()
         var current = CGPoint(x: horizontal - size.width, y: vertical)
@@ -79,18 +75,22 @@ final class History: NSScrollView {
         }
         self.positions = positions
         documentView!.frame.size.height = max(current.y + size.height + vertical, frame.size.height)
+        visible = []
+        render()
     }
     
     private func render() {
-        let current = self.current
+        let visible = viewrect
+        guard self.visible != visible else { return }
+        self.visible = visible
         cells
             .filter { $0.page != nil }
-            .filter { !current.contains($0.page!.id) }
+            .filter { !visible.contains($0.page!.id) }
             .forEach {
                 $0.removeFromSuperview()
                 $0.page = nil
             }
-        current.forEach { id in
+        visible.forEach { id in
             let cell = cells.first { $0.page?.id == id } ?? cells.first { $0.page == nil } ?? {
                 cells.insert($0)
                 return $0
@@ -102,7 +102,7 @@ final class History: NSScrollView {
         }
     }
     
-    private var current: Set<UUID> {
+    private var viewrect: Set<UUID> {
         let min = contentView.bounds.minY - size.height
         let max = contentView.bounds.maxY + 1
         return .init(positions.filter {

@@ -16,12 +16,13 @@ extension Searchbar {
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
             translatesAutoresizingMaskIntoConstraints = false
-            font = .systemFont(ofSize: 14)
+            font = .systemFont(ofSize: 13, weight: .regular)
             controlSize = .large
             delegate = self
             lineBreakMode = .byTruncatingMiddle
             target = self
             action = #selector(search)
+            textColor = .labelColor
             
             browser.page.sink { [weak self] in
                 guard let url = $0?.url else { return }

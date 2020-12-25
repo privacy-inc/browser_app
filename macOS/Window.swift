@@ -29,14 +29,25 @@ final class Window: NSWindow {
         accesory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accesory)
         
+        let progress = NSView()
+        progress.translatesAutoresizingMaskIntoConstraints = false
+        progress.wantsLayer = true
+        progress.layer!.backgroundColor = NSColor.controlAccentColor.cgColor
+        contentView!.addSubview(progress)
+        
         let history = History(browser: browser)
         contentView!.addSubview(history)
         self.history = history
         
-        history.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        history.topAnchor.constraint(equalTo: progress.bottomAnchor).isActive = true
         history.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.bottomAnchor).isActive = true
         history.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
         history.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
+        
+        progress.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        progress.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
+        progress.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        var progressWidth: NSLayoutConstraint?
         
         browser.browse.sink { [weak self] in
             self?.history?.removeFromSuperview()
@@ -50,7 +61,7 @@ final class Window: NSWindow {
                 let web = Web(browser: self.browser)
                 self.web = web
                 self.contentView!.addSubview(web)
-                web.topAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+                web.topAnchor.constraint(equalTo: progress.bottomAnchor).isActive = true
                 web.bottomAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.bottomAnchor).isActive = true
                 web.leftAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
                 web.rightAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
@@ -64,6 +75,17 @@ final class Window: NSWindow {
                 guard !$0.title.isEmpty else { return }
                 self?.tab.title = $0.title
             }
+        }.store(in: &subs)
+        
+        browser.progress.sink { [weak self] in
+            guard let self = self else { return }
+            progressWidth?.isActive = false
+            progressWidth = progress.widthAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.widthAnchor, multiplier: .init($0))
+            progressWidth?.isActive = true
+        }.store(in: &subs)
+        
+        browser.loading.sink {
+            progress.isHidden = !$0
         }.store(in: &subs)
     }
     

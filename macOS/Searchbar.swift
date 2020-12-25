@@ -16,13 +16,6 @@ final class Searchbar: NSView {
         background.layer!.cornerRadius = 6
         addSubview(background)
         
-        let progress = NSView()
-        progress.translatesAutoresizingMaskIntoConstraints = false
-        progress.wantsLayer = true
-        progress.layer!.backgroundColor = NSColor.controlAccentColor.cgColor
-        progress.layer!.cornerRadius = 1.5
-        addSubview(progress)
-        
         let field = Field(browser: browser)
         self.field = field
         addSubview(field)
@@ -70,11 +63,6 @@ final class Searchbar: NSView {
         background.bottomAnchor.constraint(equalTo: field.bottomAnchor).isActive = true
         background.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
         background.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
-        
-        progress.bottomAnchor.constraint(equalTo: background.bottomAnchor).isActive = true
-        progress.leftAnchor.constraint(equalTo: background.leftAnchor).isActive = true
-        progress.heightAnchor.constraint(equalToConstant: 3).isActive = true
-        var progressWidth: NSLayoutConstraint?
         
         field.leftAnchor.constraint(equalTo: right.rightAnchor, constant: 12).isActive = true
         field.rightAnchor.constraint(equalTo: detail.leftAnchor, constant: -12).isActive = true
@@ -169,16 +157,6 @@ final class Searchbar: NSView {
         
         browser.forwards.sink {
             right.state = $0 ? .on : .off
-        }.store(in: &subs)
-        
-        browser.progress.sink {
-            progressWidth?.isActive = false
-            progressWidth = progress.widthAnchor.constraint(equalTo: background.widthAnchor, multiplier: .init($0))
-            progressWidth?.isActive = true
-        }.store(in: &subs)
-        
-        browser.loading.sink {
-            progress.isHidden = !$0
         }.store(in: &subs)
     }
     

@@ -109,7 +109,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         .init(title: "Redo", action: Selector(("redo:")), keyEquivalent: "Z"),
         .separator(),
         .init(title: "Cut", action: #selector(NSText.cut), keyEquivalent: "x"),
-        .init(title: "Copy", action: #selector(NSText.copy), keyEquivalent: "c"),
+        .init(title: "Copy", action: #selector(NSText.copy(_:)), keyEquivalent: "c"),
         .init(title: "Paste", action: #selector(NSText.paste), keyEquivalent: "v"),
         .init(title: "Delete", action: #selector(NSText.delete), keyEquivalent: ""),
         .init(title: "Select All", action: #selector(NSText.selectAll), keyEquivalent: "a")])

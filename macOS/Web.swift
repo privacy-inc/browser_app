@@ -71,7 +71,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }.store(in: &subs)
         
         publisher(for: \.isLoading).sink {
-            browser.forwards.value = $0
+            browser.loading.value = $0
         }.store(in: &subs)
         
         browser.previous.sink { [weak self] in

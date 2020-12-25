@@ -50,8 +50,14 @@ extension History {
             let close = Control.Button("xmark")
             sub = close.click.sink { [weak self] in
                 guard let page = self?.page else { return }
-                FileManager.delete(page)
-                (NSApp as! App).refresh()
+                NSAnimationContext.runAnimationGroup {
+                    $0.duration = 0.5
+                    $0.allowsImplicitAnimation = true
+                    self?.layer!.backgroundColor = NSColor.systemPink.withAlphaComponent(0.6).cgColor
+                } completionHandler: {
+                    FileManager.delete(page)
+                    (NSApp as! App).refresh()
+                }
             }
             addSubview(close)
             self.close = close
@@ -83,10 +89,6 @@ extension History {
         
         override func mouseExited(with: NSEvent) {
             layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
-        }
-        
-        private func gone() {
-            
         }
     }
 }
