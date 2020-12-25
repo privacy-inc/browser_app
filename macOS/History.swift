@@ -28,14 +28,14 @@ final class History: NSScrollView {
         self.browser = browser
         
         NotificationCenter.default.publisher(for: NSView.boundsDidChangeNotification, object: contentView).sink { [weak self] _ in
-            guard let bounds = self?.contentView.bounds else { return }
-            self?.map.bounds = bounds
+            self.map {
+                $0.map.bounds = $0.contentView.bounds
+            }
         }.store(in: &subs)
         
         (NSApp as! App).pages.sink { [weak self] in
             content.subviews.forEach { $0.removeFromSuperview() }
             self?.map.pages = $0
-            self?.reposition()
         }.store(in: &subs)
         
         map.items.sink { [weak self] items in
@@ -71,65 +71,9 @@ final class History: NSScrollView {
     }
     
     override func mouseUp(with: NSEvent) {
-        guard var page = cell(with)?.page else { return }
+        guard var page = map.page(for: documentView!.convert(with.locationInWindow, from: nil)) else { return }
         page.date = .init()
         browser.page.value = page
         browser.browse.send(page.url)
-    }
-    
-    private func reposition() {
-        var positions = [UUID : CGPoint]()
-        var current = CGPoint(x: Frame.horizontal - size.width, y: Frame.vertical)
-        pages.forEach {
-            current.x += size.width + Frame.padding
-            if current.x + size.width > bounds.width - Frame.horizontal {
-                current = .init(x: Frame.horizontal + Frame.padding, y: current.y + size.height + Frame.padding)
-            }
-            positions[$0.id] = current
-        }
-        self.positions = positions
-        documentView!.frame.size.height = max(current.y + size.height + Frame.vertical, frame.size.height)
-        visible = []
-        render()
-    }
-    
-    private func render() {
-        let visible = viewrect
-        guard self.visible != visible else { return }
-        self.visible = visible
-        cells
-            .filter { $0.page != nil }
-            .filter { !visible.contains($0.page!.id) }
-            .forEach {
-                $0.removeFromSuperview()
-                $0.page = nil
-            }
-        visible.forEach { id in
-            let cell = cells.first { $0.page?.id == id } ?? cells.first { $0.page == nil } ?? {
-                cells.insert($0)
-                return $0
-            } (Cell(formatter: formatter))
-            cell.page = pages.first { $0.id == id }
-            cell.frame = .init(origin: positions[id]!, size: size)
-            cell.dequeue()
-            documentView!.addSubview(cell)
-        }
-    }
-    
-    private var viewrect: Set<UUID> {
-        let min = contentView.bounds.minY - size.height
-        let max = contentView.bounds.maxY + 1
-        return .init(positions.filter {
-            $0.1.y > min && $0.1.y < max
-        }.map(\.0))
-    }
-    
-    private func cell(_ with: NSEvent) -> Cell? {
-        positions
-            .map { ($0.0, CGRect(origin: $0.1, size: size)) }
-            .first { $0.1.contains(documentView!.convert(with.locationInWindow, from: nil)) }
-            .flatMap { item in
-                cells.first { $0.page?.id == item.0 }
-            }
     }
 }
