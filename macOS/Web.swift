@@ -180,22 +180,24 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
         menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierCopyLink" }.map {
-            guard let action = $0.action else { return }
-            NSApp.sendAction(action, to: $0.target, from: $0)
-            DispatchQueue.main.async { [weak self, weak menu] in
-                let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(self?.openInNewTab), keyEquivalent: "")
-                newTab.target = self
-                newTab.representedObject = NSPasteboard.general.string(forType: .string)
-                menu?.items = [newTab, .separator()] + (menu?.items ?? [])
-            }
+            let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(openInNewTab), keyEquivalent: "")
+            newTab.target = self
+            newTab.representedObject = $0
+            menu.items = [newTab, .separator()] + menu.items
         }
     }
     
     @objc private func openInNewTab(_ item: NSMenuItem) {
-        (item.representedObject as? String).map {
-            URL(string: $0)
-        }.map {
-            (window as? Window)?.newTab($0)
+        (item.representedObject as? NSMenuItem).map {
+            guard let action = $0.action else { return }
+            NSApp.sendAction(action, to: $0.target, from: $0)
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
+                NSPasteboard.general.string(forType: .string).map {
+                    URL(string: $0)
+                }.map {
+                    (self?.window as? Window)?.newTab($0)
+                }
+            }
         }
     }
 }
