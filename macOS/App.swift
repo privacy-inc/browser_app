@@ -34,6 +34,13 @@ import Sleuth
         Window().makeKeyAndOrderFront(nil)
     }
     
+    @objc func newWindowWith(_ url: URL) {
+        let window = Window()
+        window.makeKeyAndOrderFront(nil)
+        window.browser.page.value = .init(url: url)
+        window.browser.browse.send(url)
+    }
+    
     @objc func newTab() {
         guard let window = keyWindow as? Window else {
             newWindow()

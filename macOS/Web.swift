@@ -140,7 +140,7 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
             action.request.url.map {
-                (window as? Window)?.newTab($0)
+                (NSApp as? App)?.newWindowWith($0)
             }
         }
         return nil
@@ -179,6 +179,23 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-        print(menu.observationInfo)
+        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierCopyLink" }.map {
+            guard let action = $0.action else { return }
+            NSApp.sendAction(action, to: $0.target, from: $0)
+            DispatchQueue.main.async { [weak self, weak menu] in
+                let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(self?.openInNewTab), keyEquivalent: "")
+                newTab.target = self
+                newTab.representedObject = NSPasteboard.general.string(forType: .string)
+                menu?.items = [newTab, .separator()] + (menu?.items ?? [])
+            }
+        }
+    }
+    
+    @objc private func openInNewTab(_ item: NSMenuItem) {
+        (item.representedObject as? String).map {
+            URL(string: $0)
+        }.map {
+            (window as? Window)?.newTab($0)
+        }
     }
 }
