@@ -4,6 +4,7 @@ import Sleuth
 
 final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     private weak var browser: Browser!
+    private var inTab = false
     private var subs = Set<AnyCancellable>()
     private let shield = Shield()
     private let secure = Defaults.secure
@@ -140,7 +141,12 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
             action.request.url.map {
-                (NSApp as? App)?.newWindowWith($0)
+                if inTab {
+                    inTab = false
+                    (window as? Window)?.newTab($0)
+                } else {
+                    (NSApp as? App)?.newWindowWith($0)
+                }
             }
         }
         return nil
@@ -179,25 +185,25 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierCopyLink" }.map {
-            let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(openInNewTab), keyEquivalent: "")
+        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenLinkInNewWindow" }.map {
+            let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(openInTab), keyEquivalent: "")
             newTab.target = self
             newTab.representedObject = $0
             menu.items = [newTab, .separator()] + menu.items
         }
+        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenImageInNewWindow" }.map {
+            let newTab = NSMenuItem(title: NSLocalizedString("Open Image in New Tab", comment: ""), action: #selector(openInTab), keyEquivalent: "")
+            newTab.target = self
+            newTab.representedObject = $0
+            menu.insertItem(newTab, at: menu.items.firstIndex(of: $0)!)
+        }
     }
     
-    @objc private func openInNewTab(_ item: NSMenuItem) {
+    @objc private func openInTab(_ item: NSMenuItem) {
+        inTab = true
         (item.representedObject as? NSMenuItem).map {
             guard let action = $0.action else { return }
             NSApp.sendAction(action, to: $0.target, from: $0)
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) { [weak self] in
-                NSPasteboard.general.string(forType: .string).map {
-                    URL(string: $0)
-                }.map {
-                    (self?.window as? Window)?.newTab($0)
-                }
-            }
         }
     }
 }
