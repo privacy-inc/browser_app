@@ -3,4 +3,54 @@
    uuid = "6B3C3EEF-3B03-43F8-BBF4-D56B10B48112"
    type = "1"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "2A8FBE14-8720-4D12-804E-0DA92239F41F"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "macOS/App.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "25"
+            endingLineNumber = "25"
+            landmarkName = "application(_:open:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "2A8FBE14-8720-4D12-804E-0DA92239F41F - b51389b6e1bf2fcd"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Privacy.App.application(_: __C.NSApplication, open: Swift.Array&lt;Foundation.URL&gt;) -&gt; ()"
+                  moduleName = "Privacy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vaux/dev/Privacy/macOS/App.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "105">
+               </Location>
+               <Location
+                  uuid = "2A8FBE14-8720-4D12-804E-0DA92239F41F - ddfa60c515277109"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "implicit closure #2 (Foundation.URL) -&gt; () in implicit closure #1 (Privacy.App) -&gt; (Foundation.URL) -&gt; () in Privacy.App.application(_: __C.NSApplication, open: Swift.Array&lt;Foundation.URL&gt;) -&gt; ()"
+                  moduleName = "Privacy"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/vaux/dev/Privacy/macOS/App.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "25"
+                  endingLineNumber = "25"
+                  offsetFromSymbolStart = "34">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

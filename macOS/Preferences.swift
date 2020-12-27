@@ -6,7 +6,7 @@ final class Preferences: NSWindow {
     private var subs = Set<AnyCancellable>()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 460, height: 620),
+        super.init(contentRect: .init(x: 0, y: 0, width: 460, height: 640),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
         toolbar = .init()
         title = NSLocalizedString("Preferences", comment: "")
@@ -82,6 +82,26 @@ final class Preferences: NSWindow {
             Defaults.ads = $0
         }.store(in: &subs)
         contentView!.addSubview(ads)
+        
+        LSCopyDefaultHandlerForURLScheme("http" as CFString).map {
+            if ($0.takeRetainedValue() as String) != "incognit" {
+                let browser = Button(title: NSLocalizedString("Make default browser", comment: ""))
+                browser.click.sink {
+                    LSSetDefaultHandlerForURLScheme("http" as CFString, "incognit" as CFString)
+                    LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString)
+                }.store(in: &subs)
+                contentView!.addSubview(browser)
+                
+                browser.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 30).isActive = true
+                browser.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
+                browser.widthAnchor.constraint(equalToConstant: 200).isActive = true
+                browser.heightAnchor.constraint(equalToConstant: 34).isActive = true
+            }
+        }
+//        let browser = Control
+//
+//        print(LSSetDefaultHandlerForURLScheme("http" as CFString, "incognit" as CFString))
+//        print(LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString))
         
         titleEngine.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         segmented.topAnchor.constraint(equalTo: titleEngine.bottomAnchor, constant: 12).isActive = true
