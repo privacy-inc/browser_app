@@ -4,7 +4,7 @@ import Sleuth
 
 final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     private weak var browser: Browser!
-    private var inTab = false
+    private var destination = Destination.window
     private var subs = Set<AnyCancellable>()
     private let shield = Shield()
     private let secure = Defaults.secure
@@ -132,13 +132,23 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
-            action.request.url.map {
-                if inTab {
-                    inTab = false
-                    (window as? Window)?.newTab($0)
-                } else {
-                    (NSApp as? App)?.newWindowWith($0)
+            action.request.url.map { url in
+                switch destination {
+                case .window:
+                    (NSApp as? App)?.window(url)
+                case .tab:
+                    (window as? Window)?.newTab(url)
+                case .download:
+                    URLSession.shared.dataTaskPublisher(for: url)
+                        .map(\.data)
+                        .receive(on: DispatchQueue.main)
+                        .replaceError(with: .init())
+                        .sink { [weak self] in
+                            (self?.window as? Window)?.save(url.lastPathComponent, data: $0)
+                        }.store(in: &subs)
+                    break
                 }
+                destination = .window
             }
         }
         return nil
@@ -167,25 +177,43 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenLinkInNewWindow" }.map {
-            let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(openInTab), keyEquivalent: "")
-            newTab.target = self
-            newTab.representedObject = $0
-            menu.items = [newTab, .separator()] + menu.items
+        menu.items.forEach {
+            print($0.identifier)
         }
-        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenImageInNewWindow" }.map {
-            let newTab = NSMenuItem(title: NSLocalizedString("Open Image in New Tab", comment: ""), action: #selector(openInTab), keyEquivalent: "")
+        
+        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenLinkInNewWindow" }.map { item in
+            let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(tabbed), keyEquivalent: "")
             newTab.target = self
-            newTab.representedObject = $0
-            menu.insertItem(newTab, at: menu.items.firstIndex(of: $0)!)
+            newTab.representedObject = item
+            menu.items = [newTab, .separator()] + menu.items
+            
+            menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierDownloadLinkedFile" }.map {
+                $0.target = self
+                $0.action = #selector(download)
+                $0.representedObject = item
+            }
+        }
+        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenImageInNewWindow" }.map { item in
+            let newTab = NSMenuItem(title: NSLocalizedString("Open Image in New Tab", comment: ""), action: #selector(tabbed), keyEquivalent: "")
+            newTab.target = self
+            newTab.representedObject = item
+            menu.insertItem(newTab, at: menu.items.firstIndex(of: item)!)
+            
+            menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierDownloadImage" }.map {
+                $0.target = self
+                $0.action = #selector(download)
+                $0.representedObject = item
+            }
         }
     }
     
-    @objc private func openInTab(_ item: NSMenuItem) {
-        inTab = true
-        (item.representedObject as? NSMenuItem).map {
-            guard let action = $0.action else { return }
-            NSApp.sendAction(action, to: $0.target, from: $0)
-        }
+    @objc private func tabbed(_ item: NSMenuItem) {
+        destination = .tab
+        item.synth()
+    }
+    
+    @objc private func download(_ item: NSMenuItem) {
+        destination = .download
+        item.synth()
     }
 }

@@ -99,6 +99,17 @@ final class Window: NSWindow {
         }
     }
     
+    func save(_ name: String, data: Data) {
+        let save = NSSavePanel()
+        save.nameFieldStringValue = name
+        save.beginSheetModal(for: self) {
+            if $0 == .OK, let url = save.url {
+                try? data.write(to: url, options: .atomic)
+                NSWorkspace.shared.activateFileViewerSelecting([url])
+            }
+        }
+    }
+    
     override func becomeKey() {
         super.becomeKey()
         if history != nil {
@@ -106,7 +117,7 @@ final class Window: NSWindow {
         }
     }
     
-    @objc func openLocation() {
+    @objc func location() {
         makeFirstResponder(searchbar.field)
     }
     

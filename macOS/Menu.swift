@@ -91,7 +91,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         menu("File", items: [
         .init(title: "New Window", action: #selector(App.newWindow), keyEquivalent: "n"),
         .init(title: "New Tab", action: #selector(App.newTab), keyEquivalent: "t"),
-        .init(title: "Open Location", action: #selector(Window.openLocation), keyEquivalent: "l"),
+        .init(title: "Open Location", action: #selector(Window.location), keyEquivalent: "l"),
         .separator(),
         .init(title: "Close Window", action: #selector(App.closeWindow), keyEquivalent: "W"),
         .init(title: "Close Tab", action: #selector(Window.close), keyEquivalent: "w"),

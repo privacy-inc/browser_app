@@ -11,6 +11,7 @@
 		CE11754F258902C7005160D9 /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11754E258902C7005160D9 /* Control.State.swift */; };
 		CE296F9325922FEC00E55E99 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE296F9225922FEC00E55E99 /* Scroll.swift */; };
 		CE31358F258CB3BE00A20487 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31358E258CB3BE00A20487 /* Text.swift */; };
+		CE5481FD259905AC000C7A98 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5481FC259905AC000C7A98 /* NSMenuItem.swift */; };
 		CE5B102D2583843200608726 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B102C2583843200608726 /* App.swift */; };
 		CE5B10312583843200608726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B10302583843200608726 /* Assets.xcassets */; };
 		CE5B10462583883B00608726 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B10452583883B00608726 /* Window.swift */; };
@@ -41,6 +42,7 @@
 		CE11754E258902C7005160D9 /* Control.State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
 		CE296F9225922FEC00E55E99 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		CE31358E258CB3BE00A20487 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		CE5481FC259905AC000C7A98 /* NSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		CE5B10292583843200608726 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5B102C2583843200608726 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE5B10302583843200608726 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				CE7766012595EFC300D4C50A /* History.Map.swift */,
 				CEE9FBE4258A509400008857 /* History.swift */,
 				CEE9FBF2258A723D00008857 /* Menu.swift */,
+				CE5481FC259905AC000C7A98 /* NSMenuItem.swift */,
 				CEEA64132591542B00711A8C /* Preferences.swift */,
 				CEEA641B25915C2F00711A8C /* Preferences.Toggle.swift */,
 				CE296F9225922FEC00E55E99 /* Scroll.swift */,
@@ -235,6 +238,7 @@
 				CE7766022595EFC300D4C50A /* History.Map.swift in Sources */,
 				CE31358F258CB3BE00A20487 /* Text.swift in Sources */,
 				CED75E4E25891F1500352091 /* WKUserContentController.swift in Sources */,
+				CE5481FD259905AC000C7A98 /* NSMenuItem.swift in Sources */,
 				CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */,
 				CEEDA547258BBF200023CF9F /* Detail.swift in Sources */,
 				CED75E32258919FB00352091 /* Web.swift in Sources */,

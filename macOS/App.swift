@@ -34,7 +34,7 @@ import Sleuth
         Window().makeKeyAndOrderFront(nil)
     }
     
-    @objc func newWindowWith(_ url: URL) {
+    @objc func window(_ url: URL) {
         let window = Window()
         window.makeKeyAndOrderFront(nil)
         window.browser.page.value = .init(url: url)
