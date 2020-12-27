@@ -98,10 +98,6 @@ final class Preferences: NSWindow {
                 browser.heightAnchor.constraint(equalToConstant: 34).isActive = true
             }
         }
-//        let browser = Control
-//
-//        print(LSSetDefaultHandlerForURLScheme("http" as CFString, "incognit" as CFString))
-//        print(LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString))
         
         titleEngine.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         segmented.topAnchor.constraint(equalTo: titleEngine.bottomAnchor, constant: 12).isActive = true
