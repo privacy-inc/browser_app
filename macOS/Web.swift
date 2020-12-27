@@ -177,10 +177,6 @@ final class Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-        menu.items.forEach {
-            print($0.identifier)
-        }
-        
         menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenLinkInNewWindow" }.map { item in
             let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(tabbed), keyEquivalent: "")
             newTab.target = self
