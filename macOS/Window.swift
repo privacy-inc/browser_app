@@ -67,7 +67,7 @@ final class Window: NSWindow {
                 web.rightAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
             }
             
-            self.web?.open($0)
+            self.web?.load(.init(url: $0))
         }.store(in: &subs)
         
         browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
