@@ -10,6 +10,13 @@ import Sleuth
     override init() {
         super.init()
         delegate = self
+        
+        NSAppleEventManager.shared().setEventHandler(
+            self,
+            andSelector: #selector(handle(_:_:)),
+            forEventClass: AEEventClass(kInternetEventClass),
+            andEventID: AEEventID(kAEGetURL)
+        )
     }
     
     func refresh() {
@@ -22,7 +29,7 @@ import Sleuth
     }
     
     func application(_: NSApplication, open: [URL]) {
-        open.first.map(window)
+        open.first.map(tab)
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
@@ -32,28 +39,29 @@ import Sleuth
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
         newWindow()
-        
-        NSAppleEventManager.shared().setEventHandler(
-            self,
-            andSelector: #selector(handle(_:_:)),
-            forEventClass: AEEventClass(kInternetEventClass),
-            andEventID: AEEventID(kAEGetURL)
-        )
     }
     
-    @objc func newWindow() {
-        Window().makeKeyAndOrderFront(nil)
-    }
-    
-    @objc func window(_ url: URL) {
+    func window(_ url: URL) {
         let window = Window()
         window.makeKeyAndOrderFront(nil)
         window.browser.page.value = .init(url: url)
         window.browser.browse.send(url)
     }
     
+    func tab(_ url: URL) {
+        guard let window = keyWindow as? Window ?? windows.compactMap({ $0 as? Window }).first else {
+            self.window(url)
+            return
+        }
+        window.newTab(url)
+    }
+    
+    @objc func newWindow() {
+        Window().makeKeyAndOrderFront(nil)
+    }
+    
     @objc func newTab() {
-        guard let window = keyWindow as? Window else {
+        guard let window = keyWindow as? Window ?? windows.compactMap({ $0 as? Window }).first else {
             newWindow()
             return
         }
@@ -83,6 +91,6 @@ import Sleuth
     @objc private func handle(_ event: NSAppleEventDescriptor, _ reply: NSAppleEventDescriptor) {
         event.paramDescriptor(forKeyword: keyDirectObject)?.stringValue?.removingPercentEncoding
             .flatMap { URL(string: $0) }
-            .map(window)
+            .map(tab)
     }
 }

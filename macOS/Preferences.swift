@@ -86,7 +86,7 @@ final class Preferences: NSWindow {
         let makeDefault = Button(title: NSLocalizedString("Make default browser", comment: ""))
         makeDefault.click.sink { [weak self] in
             LSSetDefaultHandlerForURLScheme("http" as CFString, "incognit" as CFString)
-//            LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString)
+            LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString)
             self?.close()
         }.store(in: &subs)
         contentView!.addSubview(makeDefault)
@@ -125,45 +125,17 @@ final class Preferences: NSWindow {
             $0.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -60).isActive = true
         }
         
-        NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)
-            .flatMap(Bundle.init(url:))
-            .flatMap {
-                $0.object(forInfoDictionaryKey: "CFBundleDisplayName") ?? $0.object(forInfoDictionaryKey: "CFBundleName")
-            }.flatMap {
-                $0 as? String
-            }
-        
         if defaultBrowser {
             makeDefault.isHidden = true
         } else {
             isDefault.isHidden = true
         }
-        
-        a()
-    }
-    
-    var defaultBrowser: String? {
-        NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)
-            .flatMap(Bundle.init(url:))
-            .flatMap {
-                $0.object(forInfoDictionaryKey: "CFBundleDisplayName") ?? $0.object(forInfoDictionaryKey: "CFBundleName")
-            }.flatMap {
-                $0 as? String
-            }
-    }
-    
-    private func a() {
-        let a =
-        
-        
-        print(Bundle(url: NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)!)?.object(forInfoDictionaryKey: "CFBundleDisplayName"))
     }
     
     private var defaultBrowser: Bool {
-        LSCopyDefaultApplicationURLForURL(URL(string: "http://")! as CFURL, .all, nil)
-            .map { $0.takeRetainedValue() as URL }
-            .map(\.lastPathComponent)
-            .map { $0 == "Privacy.app" }
-            ?? false
+        NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)
+            .map {
+                $0 == Bundle.main.bundleURL
+            } ?? false
     }
 }
