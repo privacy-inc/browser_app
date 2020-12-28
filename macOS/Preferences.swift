@@ -6,7 +6,7 @@ final class Preferences: NSWindow {
     private var subs = Set<AnyCancellable>()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 460, height: 640),
+        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 720),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
         toolbar = .init()
         title = NSLocalizedString("Preferences", comment: "")
@@ -17,9 +17,6 @@ final class Preferences: NSWindow {
         
         let titleEngine = Text()
         titleEngine.stringValue = NSLocalizedString("Search engine", comment: "")
-        titleEngine.textColor = .secondaryLabelColor
-        titleEngine.font = .systemFont(ofSize: 12, weight: .regular)
-        contentView!.addSubview(titleEngine)
         
         let segmented = Segmented(items: ["Google", "Ecosia"])
         segmented.selected.value = Defaults.engine == .google ? 0 : 1
@@ -30,9 +27,6 @@ final class Preferences: NSWindow {
         
         let titleOptions = Text()
         titleOptions.stringValue = NSLocalizedString("Options", comment: "")
-        titleOptions.textColor = .secondaryLabelColor
-        titleOptions.font = .systemFont(ofSize: 12, weight: .regular)
-        contentView!.addSubview(titleOptions)
         
         let dark = Toggle(title: NSLocalizedString("Force dark mode", comment: ""))
         dark.value.value = Defaults.dark
@@ -83,19 +77,29 @@ final class Preferences: NSWindow {
         }.store(in: &subs)
         contentView!.addSubview(ads)
         
-        let makeDefault = Button(title: NSLocalizedString("Make default browser", comment: ""))
-        makeDefault.click.sink { [weak self] in
-            LSSetDefaultHandlerForURLScheme(Scheme.http.rawValue as CFString, "incognit" as CFString)
-            LSSetDefaultHandlerForURLScheme(Scheme.https.rawValue as CFString, "incognit" as CFString)
-            self?.close()
-        }.store(in: &subs)
+        let titleAdvanced = Text()
+        titleAdvanced.stringValue = NSLocalizedString("Advanced", comment: "")
+        
+        let browser = defaultBrowser
+        let makeDefault = Button(title: NSLocalizedString(browser ? "Default browser" : "Make default browser", comment: ""), icon: NSImage(named: "logoSmall")!)
+        if !browser {
+            makeDefault.click.sink { [weak self] in
+                LSSetDefaultHandlerForURLScheme(Scheme.http.rawValue as CFString, "incognit" as CFString)
+                LSSetDefaultHandlerForURLScheme(Scheme.https.rawValue as CFString, "incognit" as CFString)
+                self?.close()
+            }.store(in: &subs)
+        } else {
+            makeDefault.state = .off
+        }
         contentView!.addSubview(makeDefault)
         
-        let isDefault = Text()
-        isDefault.stringValue = NSLocalizedString("Privacy is your default browser", comment: "")
-        isDefault.font = .systemFont(ofSize: 14, weight: .medium)
-        isDefault.textColor = .secondaryLabelColor
-        contentView!.addSubview(isDefault)
+        [titleEngine, titleOptions, titleAdvanced].forEach {
+            $0.textColor = .secondaryLabelColor
+            $0.font = .systemFont(ofSize: 12, weight: .regular)
+            contentView!.addSubview($0)
+            
+            $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 90).isActive = true
+        }
         
         titleEngine.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         segmented.topAnchor.constraint(equalTo: titleEngine.bottomAnchor, constant: 12).isActive = true
@@ -107,28 +111,12 @@ final class Preferences: NSWindow {
         popups.topAnchor.constraint(equalTo: cookies.bottomAnchor, constant: 4).isActive = true
         javascript.topAnchor.constraint(equalTo: popups.bottomAnchor, constant: 4).isActive = true
         ads.topAnchor.constraint(equalTo: javascript.bottomAnchor, constant: 4).isActive = true
+        titleAdvanced.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 40).isActive = true
+        makeDefault.topAnchor.constraint(equalTo: titleAdvanced.bottomAnchor, constant: 12).isActive = true
         
-        makeDefault.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 30).isActive = true
-        makeDefault.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
-        makeDefault.widthAnchor.constraint(equalToConstant: 200).isActive = true
-        makeDefault.heightAnchor.constraint(equalToConstant: 34).isActive = true
-        
-        isDefault.centerXAnchor.constraint(equalTo: makeDefault.centerXAnchor).isActive = true
-        isDefault.centerYAnchor.constraint(equalTo: makeDefault.centerYAnchor).isActive = true
-        
-        [titleEngine, titleOptions].forEach {
-            $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
-        }
-        
-        [segmented, dark, safe, trackers, cookies, popups, javascript, ads].forEach {
-            $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
-            $0.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -60).isActive = true
-        }
-        
-        if defaultBrowser {
-            makeDefault.isHidden = true
-        } else {
-            isDefault.isHidden = true
+        [segmented, dark, safe, trackers, cookies, popups, javascript, ads, makeDefault].forEach {
+            $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 90).isActive = true
+            $0.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -90).isActive = true
         }
     }
     
