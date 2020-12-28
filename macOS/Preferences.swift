@@ -85,8 +85,8 @@ final class Preferences: NSWindow {
         
         let makeDefault = Button(title: NSLocalizedString("Make default browser", comment: ""))
         makeDefault.click.sink { [weak self] in
-            LSSetDefaultHandlerForURLScheme("http" as CFString, "incognit" as CFString)
-            LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString)
+            LSSetDefaultHandlerForURLScheme(Scheme.http.rawValue as CFString, "incognit" as CFString)
+            LSSetDefaultHandlerForURLScheme(Scheme.https.rawValue as CFString, "incognit" as CFString)
             self?.close()
         }.store(in: &subs)
         contentView!.addSubview(makeDefault)
@@ -133,7 +133,7 @@ final class Preferences: NSWindow {
     }
     
     private var defaultBrowser: Bool {
-        NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)
+        NSWorkspace.shared.urlForApplication(toOpen: URL(string: Scheme.http.rawValue + "://")!)
             .map {
                 $0 == Bundle.main.bundleURL
             } ?? false

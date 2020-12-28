@@ -29,7 +29,7 @@ import Sleuth
     }
     
     func application(_: NSApplication, open: [URL]) {
-        open.first.map(tab)
+        open.forEach(tab)
     }
     
     func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
