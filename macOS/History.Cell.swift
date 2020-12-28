@@ -12,12 +12,12 @@ extension History {
                     let string = NSMutableAttributedString()
                     if !$0.title.isEmpty {
                         string.append(.init(string: $0.title + "\n", attributes: [
-                                                .font : NSFont.systemFont(ofSize: 16, weight: .medium),
+                                                .font : NSFont.systemFont(ofSize: 14, weight: .medium),
                                                 .foregroundColor : NSColor.labelColor]))
                     }
                     string.append(.init(string: $0.url.absoluteString, attributes: [
                                             .font : NSFont.systemFont(ofSize: 12, weight: .regular),
-                                            .foregroundColor : NSColor.secondaryLabelColor]))
+                                            .foregroundColor : NSColor.tertiaryLabelColor]))
                     return string
                 } ?? .init()
             }
@@ -34,7 +34,7 @@ extension History {
             super.init(frame: .zero)
             wantsLayer = true
             layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
-            layer!.cornerRadius = 10
+            layer!.cornerRadius = 14
             self.formatter = formatter
             
             let text = Text()
@@ -43,7 +43,7 @@ extension History {
             
             let date = Text()
             date.textColor = .secondaryLabelColor
-            date.font = .systemFont(ofSize: 14, weight: .regular)
+            date.font = .systemFont(ofSize: 11, weight: .regular)
             addSubview(date)
             self.date = date
             
@@ -79,16 +79,16 @@ extension History {
         }
         
         func dequeue() {
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.02).cgColor
             close.state = .on
         }
         
         override func mouseEntered(with: NSEvent) {
-            layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.5).cgColor
+            layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.25).cgColor
         }
         
         override func mouseExited(with: NSEvent) {
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.02).cgColor
         }
     }
 }

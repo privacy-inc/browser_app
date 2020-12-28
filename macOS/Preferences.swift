@@ -83,21 +83,19 @@ final class Preferences: NSWindow {
         }.store(in: &subs)
         contentView!.addSubview(ads)
         
-        LSCopyDefaultHandlerForURLScheme("http" as CFString).map {
-            if ($0.takeRetainedValue() as String) != "incognit" {
-                let browser = Button(title: NSLocalizedString("Make default browser", comment: ""))
-                browser.click.sink {
-                    LSSetDefaultHandlerForURLScheme("http" as CFString, "incognit" as CFString)
-                    LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString)
-                }.store(in: &subs)
-                contentView!.addSubview(browser)
-                
-                browser.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 30).isActive = true
-                browser.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
-                browser.widthAnchor.constraint(equalToConstant: 200).isActive = true
-                browser.heightAnchor.constraint(equalToConstant: 34).isActive = true
-            }
-        }
+        let makeDefault = Button(title: NSLocalizedString("Make default browser", comment: ""))
+        makeDefault.click.sink { [weak self] in
+            LSSetDefaultHandlerForURLScheme("http" as CFString, "incognit" as CFString)
+//            LSSetDefaultHandlerForURLScheme("https" as CFString, "incognit" as CFString)
+            self?.close()
+        }.store(in: &subs)
+        contentView!.addSubview(makeDefault)
+        
+        let isDefault = Text()
+        isDefault.stringValue = NSLocalizedString("Privacy is your default browser", comment: "")
+        isDefault.font = .systemFont(ofSize: 14, weight: .medium)
+        isDefault.textColor = .secondaryLabelColor
+        contentView!.addSubview(isDefault)
         
         titleEngine.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         segmented.topAnchor.constraint(equalTo: titleEngine.bottomAnchor, constant: 12).isActive = true
@@ -110,6 +108,14 @@ final class Preferences: NSWindow {
         javascript.topAnchor.constraint(equalTo: popups.bottomAnchor, constant: 4).isActive = true
         ads.topAnchor.constraint(equalTo: javascript.bottomAnchor, constant: 4).isActive = true
         
+        makeDefault.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 30).isActive = true
+        makeDefault.centerXAnchor.constraint(equalTo: contentView!.centerXAnchor).isActive = true
+        makeDefault.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        makeDefault.heightAnchor.constraint(equalToConstant: 34).isActive = true
+        
+        isDefault.centerXAnchor.constraint(equalTo: makeDefault.centerXAnchor).isActive = true
+        isDefault.centerYAnchor.constraint(equalTo: makeDefault.centerYAnchor).isActive = true
+        
         [titleEngine, titleOptions].forEach {
             $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
         }
@@ -118,5 +124,46 @@ final class Preferences: NSWindow {
             $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 60).isActive = true
             $0.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -60).isActive = true
         }
+        
+        NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)
+            .flatMap(Bundle.init(url:))
+            .flatMap {
+                $0.object(forInfoDictionaryKey: "CFBundleDisplayName") ?? $0.object(forInfoDictionaryKey: "CFBundleName")
+            }.flatMap {
+                $0 as? String
+            }
+        
+        if defaultBrowser {
+            makeDefault.isHidden = true
+        } else {
+            isDefault.isHidden = true
+        }
+        
+        a()
+    }
+    
+    var defaultBrowser: String? {
+        NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)
+            .flatMap(Bundle.init(url:))
+            .flatMap {
+                $0.object(forInfoDictionaryKey: "CFBundleDisplayName") ?? $0.object(forInfoDictionaryKey: "CFBundleName")
+            }.flatMap {
+                $0 as? String
+            }
+    }
+    
+    private func a() {
+        let a =
+        
+        
+        print(Bundle(url: NSWorkspace.shared.urlForApplication(toOpen: URL(string: "http://")!)!)?.object(forInfoDictionaryKey: "CFBundleDisplayName"))
+    }
+    
+    private var defaultBrowser: Bool {
+        LSCopyDefaultApplicationURLForURL(URL(string: "http://")! as CFURL, .all, nil)
+            .map { $0.takeRetainedValue() as URL }
+            .map(\.lastPathComponent)
+            .map { $0 == "Privacy.app" }
+            ?? false
     }
 }
