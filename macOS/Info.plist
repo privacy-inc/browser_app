@@ -9,20 +9,28 @@
 	<key>CFBundleDocumentTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>Privacy</string>
 			<key>CFBundleTypeName</key>
 			<string>HTML document</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.html</string>
 			</array>
 		</dict>
 		<dict>
+			<key>CFBundleTypeIconFile</key>
+			<string>Privacy</string>
 			<key>CFBundleTypeName</key>
 			<string>XHTML document</string>
 			<key>CFBundleTypeRole</key>
 			<string>Viewer</string>
+			<key>LSHandlerRank</key>
+			<string>Default</string>
 			<key>LSItemContentTypes</key>
 			<array>
 				<string>public.xhtml</string>
@@ -44,8 +52,10 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
-            <key>CFBundleTypeRole</key>
-            <string>Editor</string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string>Privacy</string>
 			<key>CFBundleURLName</key>
 			<string>Web site URL</string>
 			<key>CFBundleURLSchemes</key>
@@ -57,6 +67,8 @@
 		<dict>
 			<key>CFBundleTypeRole</key>
 			<string>Editor</string>
+			<key>CFBundleURLIconFile</key>
+			<string>Privacy</string>
 			<key>CFBundleURLName</key>
 			<string>Privacy Inc link</string>
 			<key>CFBundleURLSchemes</key>

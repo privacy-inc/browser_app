@@ -11,6 +11,7 @@
 		CE11754F258902C7005160D9 /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11754E258902C7005160D9 /* Control.State.swift */; };
 		CE296F9325922FEC00E55E99 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE296F9225922FEC00E55E99 /* Scroll.swift */; };
 		CE31358F258CB3BE00A20487 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31358E258CB3BE00A20487 /* Text.swift */; };
+		CE52108E259A154700AF4486 /* Privacy.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE52108D259A154700AF4486 /* Privacy.icns */; };
 		CE5481FD259905AC000C7A98 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5481FC259905AC000C7A98 /* NSMenuItem.swift */; };
 		CE5B102D2583843200608726 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B102C2583843200608726 /* App.swift */; };
 		CE5B10312583843200608726 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE5B10302583843200608726 /* Assets.xcassets */; };
@@ -43,6 +44,7 @@
 		CE11754E258902C7005160D9 /* Control.State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
 		CE296F9225922FEC00E55E99 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		CE31358E258CB3BE00A20487 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		CE52108D259A154700AF4486 /* Privacy.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Privacy.icns; sourceTree = "<group>"; };
 		CE5481FC259905AC000C7A98 /* NSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		CE5B10292583843200608726 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE5B102C2583843200608726 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -105,6 +107,7 @@
 			isa = PBXGroup;
 			children = (
 				CE5B10362583843200608726 /* macOS.entitlements */,
+				CE52108D259A154700AF4486 /* Privacy.icns */,
 				CE5B10352583843200608726 /* Info.plist */,
 				CE5B102C2583843200608726 /* App.swift */,
 				CECE3BA72587B19F00D66221 /* Control.Button.swift */,
@@ -209,6 +212,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE5B10312583843200608726 /* Assets.xcassets in Resources */,
+				CE52108E259A154700AF4486 /* Privacy.icns in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
