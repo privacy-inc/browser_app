@@ -5,8 +5,9 @@ struct Window: View {
     
     var body: some View {
         ZStack {
-            Color(.secondarySystemBackground)
+            Color.background
                 .edgesIgnoringSafeArea(.all)
+            Controls(session: $session)
         }
     }
 }

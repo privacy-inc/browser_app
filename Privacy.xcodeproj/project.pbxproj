@@ -55,6 +55,13 @@
 		CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF787FE259B5E7E001ADEBA /* Watch.swift */; };
 		CEF78810259B67EA001ADEBA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7880F259B67EA001ADEBA /* Session.swift */; };
 		CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7881B259B6A9A001ADEBA /* Window.swift */; };
+		CEF7882F259B75EA001ADEBA /* Control.Circle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7882C259B75E9001ADEBA /* Control.Circle.swift */; };
+		CEF78830259B75EA001ADEBA /* Control.Style.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7882D259B75EA001ADEBA /* Control.Style.swift */; };
+		CEF78831259B75EA001ADEBA /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7882E259B75EA001ADEBA /* Control.swift */; };
+		CEF78838259B767A001ADEBA /* Neumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78837259B767A001ADEBA /* Neumorphic.swift */; };
+		CEF78844259B768A001ADEBA /* Controls.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78843259B768A001ADEBA /* Controls.swift */; };
+		CEF78850259B7707001ADEBA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7884F259B7707001ADEBA /* Color.swift */; };
+		CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78862259B7CAB001ADEBA /* UIApplication.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -175,6 +182,13 @@
 		CEF787FE259B5E7E001ADEBA /* Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch.swift; sourceTree = "<group>"; };
 		CEF7880F259B67EA001ADEBA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEF7881B259B6A9A001ADEBA /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CEF7882C259B75E9001ADEBA /* Control.Circle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.Circle.swift; sourceTree = "<group>"; };
+		CEF7882D259B75EA001ADEBA /* Control.Style.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.Style.swift; sourceTree = "<group>"; };
+		CEF7882E259B75EA001ADEBA /* Control.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
+		CEF78837259B767A001ADEBA /* Neumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neumorphic.swift; sourceTree = "<group>"; };
+		CEF78843259B768A001ADEBA /* Controls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Controls.swift; sourceTree = "<group>"; };
+		CEF7884F259B7707001ADEBA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
+		CEF78862259B7CAB001ADEBA /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +305,14 @@
 				CEF78765259B3E19001ADEBA /* Info.plist */,
 				CEF787ED259B5DB6001ADEBA /* App.Delegate.swift */,
 				CEF7875C259B3E19001ADEBA /* App.swift */,
+				CEF7884F259B7707001ADEBA /* Color.swift */,
+				CEF7882C259B75E9001ADEBA /* Control.Circle.swift */,
+				CEF7882D259B75EA001ADEBA /* Control.Style.swift */,
+				CEF7882E259B75EA001ADEBA /* Control.swift */,
+				CEF78843259B768A001ADEBA /* Controls.swift */,
+				CEF78837259B767A001ADEBA /* Neumorphic.swift */,
 				CEF7880F259B67EA001ADEBA /* Session.swift */,
+				CEF78862259B7CAB001ADEBA /* UIApplication.swift */,
 				CEF787FE259B5E7E001ADEBA /* Watch.swift */,
 				CEF7881B259B6A9A001ADEBA /* Window.swift */,
 				CEF78760259B3E19001ADEBA /* Assets.xcassets */,
@@ -571,9 +592,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */,
 				CEF78810259B67EA001ADEBA /* Session.swift in Sources */,
+				CEF78831259B75EA001ADEBA /* Control.swift in Sources */,
+				CEF78850259B7707001ADEBA /* Color.swift in Sources */,
+				CEF78830259B75EA001ADEBA /* Control.Style.swift in Sources */,
+				CEF78838259B767A001ADEBA /* Neumorphic.swift in Sources */,
 				CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */,
+				CEF7882F259B75EA001ADEBA /* Control.Circle.swift in Sources */,
 				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,
+				CEF78844259B768A001ADEBA /* Controls.swift in Sources */,
 				CEF7875D259B3E19001ADEBA /* App.swift in Sources */,
 				CEF787EE259B5DB6001ADEBA /* App.Delegate.swift in Sources */,
 			);
