@@ -52,6 +52,7 @@
 		CEF7879E259B4312001ADEBA /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7879D259B4312001ADEBA /* ComplicationController.swift */; };
 		CEF787A0259B4313001ADEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF7879F259B4313001ADEBA /* Assets.xcassets */; };
 		CEF787A7259B4313001ADEBA /* Privacy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CEF7878B259B4311001ADEBA /* Privacy.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		CEF787D9259B4F37001ADEBA /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEF787D8259B4F37001ADEBA /* Sleuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -167,6 +168,9 @@
 		CEF7879D259B4312001ADEBA /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
 		CEF7879F259B4313001ADEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF787A4259B4313001ADEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CEF787DF259B54C6001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
+		CEF787E0259B55D0001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
+		CEF787E2259B5766001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +186,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF787D9259B4F37001ADEBA /* Sleuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,6 +283,7 @@
 		CEF7875B259B3E19001ADEBA /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CEF787DF259B54C6001ADEBA /* Privacy.entitlements */,
 				CEF7875C259B3E19001ADEBA /* iOSApp.swift */,
 				CEF7875E259B3E19001ADEBA /* ContentView.swift */,
 				CEF78760259B3E19001ADEBA /* Assets.xcassets */,
@@ -298,6 +304,7 @@
 		CEF78779259B4090001ADEBA /* widget */ = {
 			isa = PBXGroup;
 			children = (
+				CEF787E0259B55D0001ADEBA /* Privacy.entitlements */,
 				CEF7877A259B4090001ADEBA /* widget.swift */,
 				CEF7877C259B4091001ADEBA /* Assets.xcassets */,
 				CEF7877E259B4091001ADEBA /* Info.plist */,
@@ -317,6 +324,7 @@
 		CEF78798259B4312001ADEBA /* watch Extension */ = {
 			isa = PBXGroup;
 			children = (
+				CEF787E2259B5766001ADEBA /* Privacy.entitlements */,
 				CEF78799259B4312001ADEBA /* ContentView.swift */,
 				CEF7879B259B4312001ADEBA /* PrivacyApp.swift */,
 				CEF7879D259B4312001ADEBA /* ComplicationController.swift */,
@@ -366,6 +374,9 @@
 				CEF787A6259B4313001ADEBA /* PBXTargetDependency */,
 			);
 			name = iOS;
+			packageProductDependencies = (
+				CEF787D8259B4F37001ADEBA /* Sleuth */,
+			);
 			productName = iOS;
 			productReference = CEF7875A259B3E19001ADEBA /* Privacy.app */;
 			productType = "com.apple.product-type.application";
@@ -842,6 +853,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = iOS/Privacy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
@@ -885,6 +897,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = iOS/Privacy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
@@ -924,6 +937,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = widget/Privacy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
@@ -970,6 +984,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = widget/Privacy.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
@@ -1010,6 +1025,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "watch Extension/Privacy.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
@@ -1054,6 +1070,7 @@
 				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "watch Extension/Privacy.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
@@ -1232,6 +1249,11 @@
 
 /* Begin XCSwiftPackageProductDependency section */
 		CED75E252589111F00352091 /* Sleuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED75E242589111F00352091 /* XCRemoteSwiftPackageReference "sleuth" */;
+			productName = Sleuth;
+		};
+		CEF787D8259B4F37001ADEBA /* Sleuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CED75E242589111F00352091 /* XCRemoteSwiftPackageReference "sleuth" */;
 			productName = Sleuth;
