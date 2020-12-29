@@ -15,7 +15,7 @@ import SwiftUI
 //                    session.forget()
 //                    UIApplication.shared.forget()
                 }
-                .onReceive(session.browser.page) {
+                .onReceive(session.browser.page.dropFirst()) {
                     if $0 == nil {
                         session.load()
                     }

@@ -7,6 +7,9 @@ struct Session {
     let browser = Browser()
     let pages = CurrentValueSubject<[Page], Never>([])
     let blocked = CurrentValueSubject<Set<String>, Never>([])
+    let type = PassthroughSubject<Void, Never>()
+    let resign = PassthroughSubject<Void, Never>()
+    let text = PassthroughSubject<String, Never>()
     
     func load() {
         guard pages.value.isEmpty else { return }

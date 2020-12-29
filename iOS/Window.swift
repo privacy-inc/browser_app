@@ -7,7 +7,7 @@ struct Window: View {
         ZStack {
             Color.background
                 .edgesIgnoringSafeArea(.all)
-            Controls(session: $session)
+            Searchbar(session: $session)
         }
     }
 }
