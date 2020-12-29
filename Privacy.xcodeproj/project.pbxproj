@@ -37,8 +37,7 @@
 		CEEDA547258BBF200023CF9F /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEDA546258BBF200023CF9F /* Detail.swift */; };
 		CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BA2587878300C29CAB /* Searchbar.swift */; };
 		CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */; };
-		CEF7875D259B3E19001ADEBA /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7875C259B3E19001ADEBA /* iOSApp.swift */; };
-		CEF7875F259B3E19001ADEBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7875E259B3E19001ADEBA /* ContentView.swift */; };
+		CEF7875D259B3E19001ADEBA /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7875C259B3E19001ADEBA /* App.swift */; };
 		CEF78761259B3E19001ADEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF78760259B3E19001ADEBA /* Assets.xcassets */; };
 		CEF78776259B4090001ADEBA /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF78775259B4090001ADEBA /* WidgetKit.framework */; };
 		CEF78778259B4090001ADEBA /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF78777259B4090001ADEBA /* SwiftUI.framework */; };
@@ -50,9 +49,12 @@
 		CEF7879A259B4312001ADEBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78799259B4312001ADEBA /* ContentView.swift */; };
 		CEF7879C259B4312001ADEBA /* PrivacyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7879B259B4312001ADEBA /* PrivacyApp.swift */; };
 		CEF7879E259B4312001ADEBA /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7879D259B4312001ADEBA /* ComplicationController.swift */; };
-		CEF787A0259B4313001ADEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF7879F259B4313001ADEBA /* Assets.xcassets */; };
 		CEF787A7259B4313001ADEBA /* Privacy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CEF7878B259B4311001ADEBA /* Privacy.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEF787D9259B4F37001ADEBA /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEF787D8259B4F37001ADEBA /* Sleuth */; };
+		CEF787EE259B5DB6001ADEBA /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF787ED259B5DB6001ADEBA /* App.Delegate.swift */; };
+		CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF787FE259B5E7E001ADEBA /* Watch.swift */; };
+		CEF78810259B67EA001ADEBA /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7880F259B67EA001ADEBA /* Session.swift */; };
+		CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7881B259B6A9A001ADEBA /* Window.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,8 +151,7 @@
 		CEF2A9BA2587878300C29CAB /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 		CEF2A9BE258790AD00C29CAB /* Searchbar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.swift; sourceTree = "<group>"; };
 		CEF7875A259B3E19001ADEBA /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEF7875C259B3E19001ADEBA /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
-		CEF7875E259B3E19001ADEBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		CEF7875C259B3E19001ADEBA /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CEF78760259B3E19001ADEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF78765259B3E19001ADEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF78773259B4090001ADEBA /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -166,11 +167,14 @@
 		CEF78799259B4312001ADEBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		CEF7879B259B4312001ADEBA /* PrivacyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyApp.swift; sourceTree = "<group>"; };
 		CEF7879D259B4312001ADEBA /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
-		CEF7879F259B4313001ADEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF787A4259B4313001ADEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF787DF259B54C6001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
 		CEF787E0259B55D0001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
 		CEF787E2259B5766001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
+		CEF787ED259B5DB6001ADEBA /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
+		CEF787FE259B5E7E001ADEBA /* Watch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Watch.swift; sourceTree = "<group>"; };
+		CEF7880F259B67EA001ADEBA /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CEF7881B259B6A9A001ADEBA /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -284,10 +288,13 @@
 			isa = PBXGroup;
 			children = (
 				CEF787DF259B54C6001ADEBA /* Privacy.entitlements */,
-				CEF7875C259B3E19001ADEBA /* iOSApp.swift */,
-				CEF7875E259B3E19001ADEBA /* ContentView.swift */,
-				CEF78760259B3E19001ADEBA /* Assets.xcassets */,
 				CEF78765259B3E19001ADEBA /* Info.plist */,
+				CEF787ED259B5DB6001ADEBA /* App.Delegate.swift */,
+				CEF7875C259B3E19001ADEBA /* App.swift */,
+				CEF7880F259B67EA001ADEBA /* Session.swift */,
+				CEF787FE259B5E7E001ADEBA /* Watch.swift */,
+				CEF7881B259B6A9A001ADEBA /* Window.swift */,
+				CEF78760259B3E19001ADEBA /* Assets.xcassets */,
 			);
 			path = iOS;
 			sourceTree = "<group>";
@@ -295,8 +302,8 @@
 		CEF78774259B4090001ADEBA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				CEF78775259B4090001ADEBA /* WidgetKit.framework */,
 				CEF78777259B4090001ADEBA /* SwiftUI.framework */,
+				CEF78775259B4090001ADEBA /* WidgetKit.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -328,7 +335,6 @@
 				CEF78799259B4312001ADEBA /* ContentView.swift */,
 				CEF7879B259B4312001ADEBA /* PrivacyApp.swift */,
 				CEF7879D259B4312001ADEBA /* ComplicationController.swift */,
-				CEF7879F259B4313001ADEBA /* Assets.xcassets */,
 				CEF787A4259B4313001ADEBA /* Info.plist */,
 			);
 			path = "watch Extension";
@@ -521,7 +527,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF787A0259B4313001ADEBA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -566,8 +571,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF7875F259B3E19001ADEBA /* ContentView.swift in Sources */,
-				CEF7875D259B3E19001ADEBA /* iOSApp.swift in Sources */,
+				CEF78810259B67EA001ADEBA /* Session.swift in Sources */,
+				CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */,
+				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,
+				CEF7875D259B3E19001ADEBA /* App.swift in Sources */,
+				CEF787EE259B5DB6001ADEBA /* App.Delegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
