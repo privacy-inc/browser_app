@@ -62,8 +62,7 @@
 		CEF78844259B768A001ADEBA /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78843259B768A001ADEBA /* Searchbar.swift */; };
 		CEF78850259B7707001ADEBA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7884F259B7707001ADEBA /* Color.swift */; };
 		CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78862259B7CAB001ADEBA /* UIApplication.swift */; };
-		CEF7887E259B8208001ADEBA /* Searchbar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7887D259B8208001ADEBA /* Searchbar.Field.swift */; };
-		CEF78885259B8259001ADEBA /* Searchbar.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78884259B8259001ADEBA /* Searchbar.Cell.swift */; };
+		CEF78885259B8259001ADEBA /* Searchbar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78884259B8259001ADEBA /* Searchbar.Field.swift */; };
 		CEF7888C259B8270001ADEBA /* Searchbar.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7888B259B8270001ADEBA /* Searchbar.Coordinator.swift */; };
 /* End PBXBuildFile section */
 
@@ -192,8 +191,7 @@
 		CEF78843259B768A001ADEBA /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 		CEF7884F259B7707001ADEBA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		CEF78862259B7CAB001ADEBA /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
-		CEF7887D259B8208001ADEBA /* Searchbar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.swift; sourceTree = "<group>"; };
-		CEF78884259B8259001ADEBA /* Searchbar.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Cell.swift; sourceTree = "<group>"; };
+		CEF78884259B8259001ADEBA /* Searchbar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.swift; sourceTree = "<group>"; };
 		CEF7888B259B8270001ADEBA /* Searchbar.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -316,9 +314,8 @@
 				CEF7882D259B75EA001ADEBA /* Control.Style.swift */,
 				CEF7882E259B75EA001ADEBA /* Control.swift */,
 				CEF78837259B767A001ADEBA /* Neumorphic.swift */,
-				CEF78884259B8259001ADEBA /* Searchbar.Cell.swift */,
 				CEF7888B259B8270001ADEBA /* Searchbar.Coordinator.swift */,
-				CEF7887D259B8208001ADEBA /* Searchbar.Field.swift */,
+				CEF78884259B8259001ADEBA /* Searchbar.Field.swift */,
 				CEF78843259B768A001ADEBA /* Searchbar.swift */,
 				CEF7880F259B67EA001ADEBA /* Session.swift */,
 				CEF78862259B7CAB001ADEBA /* UIApplication.swift */,
@@ -607,9 +604,8 @@
 				CEF78850259B7707001ADEBA /* Color.swift in Sources */,
 				CEF78830259B75EA001ADEBA /* Control.Style.swift in Sources */,
 				CEF78838259B767A001ADEBA /* Neumorphic.swift in Sources */,
-				CEF78885259B8259001ADEBA /* Searchbar.Cell.swift in Sources */,
+				CEF78885259B8259001ADEBA /* Searchbar.Field.swift in Sources */,
 				CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */,
-				CEF7887E259B8208001ADEBA /* Searchbar.Field.swift in Sources */,
 				CEF7882F259B75EA001ADEBA /* Control.Circle.swift in Sources */,
 				CEF7888C259B8270001ADEBA /* Searchbar.Coordinator.swift in Sources */,
 				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,
