@@ -2,24 +2,40 @@ import SwiftUI
 
 struct Searchbar: View {
     @Binding var session: Session
+    @State private var global = false
     
     var body: some View {
         if !session.typing {
             HStack {
-                Control.Circle(image: "eyeglasses") {
-                    
+                if global {
+                    Control.Circle(image: "eyeglasses") {
+                        
+                    }
+                } else {
+                    Control.Circle(image: "plus") {
+                        
+                    }
                 }
-                .padding(.trailing, 5)
                 Control.Circle(image: "magnifyingglass", action: session.type.send)
-                    .padding(.horizontal, 5)
-                Control.Circle(image: "slider.horizontal.3") {
-                    
+                if session.browser.page.value == nil {
+                    Control.Circle(image: "slider.horizontal.3") {
+                        
+                    }
+                } else {
+                    Control.Circle(image: "xmark") {
+                        session.browser.page.value = nil
+                    }
                 }
-                .padding(.leading, 5)
             }
             .animation(.easeInOut(duration: 0.35))
         }
         Field(session: $session)
             .frame(height: 0)
+            .onReceive(session.browser.page) { page in
+                guard (page == nil && !global) || (page != nil && global) else { return }
+                withAnimation(.easeInOut(duration: 0.35)) {
+                    global = page == nil
+                }
+            }
     }
 }

@@ -1,7 +1,9 @@
 import SwiftUI
+import Sleuth
 
 struct Window: View {
     @Binding var session: Session
+    @State private var history = true
     @State private var progress = CGFloat()
     
     var body: some View {
@@ -28,7 +30,7 @@ struct Window: View {
 //                            .multilineTextAlignment(.center)
 //                    }
 //                }
-                if session.browser.page.value == nil {
+                if history {
                     History()
                 } else {
                     Web(session: $session)
@@ -43,6 +45,12 @@ struct Window: View {
         .onReceive(session.browser.browse) {
             guard session.browser.page.value == nil else { return }
             session.browser.page.value = .init(url: $0)
+        }
+        .onReceive(session.browser.page) { page in
+            guard (page == nil && !history) || (page != nil && history) else { return }
+            withAnimation(.easeInOut(duration: 0.35)) {
+                history = page == nil
+            }
         }
         .onReceive(session.browser.progress) {
             progress = .init($0)

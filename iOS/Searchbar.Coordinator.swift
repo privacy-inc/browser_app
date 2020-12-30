@@ -59,18 +59,13 @@ extension Searchbar {
         @discardableResult override func becomeFirstResponder() -> Bool {
             DispatchQueue.main.async { [weak self] in
                 self?.bar.becomeFirstResponder()
+                self?.bar.searchTextField.selectAll(nil)
             }
             return super.becomeFirstResponder()
         }
         
         func searchBar(_: UISearchBar, textDidChange: String) {
-            if textDidChange.isEmpty && !bar.showsCancelButton {
-                bar.setShowsCancelButton(true, animated: true)
-                bar.searchTextField.leftView = leftView
-            } else if !textDidChange.isEmpty && bar.showsCancelButton {
-                bar.setShowsCancelButton(false, animated: true)
-                bar.searchTextField.leftView = nil
-            }
+            changed()
         }
         
         func searchBarTextDidBeginEditing(_: UISearchBar) {
@@ -90,6 +85,7 @@ extension Searchbar {
                     case let .navigate(url):
                         view.session.browser.browse.send(url)
                         bar.text = nil
+                        changed()
                     }
                 }
                 view.session.resign.send()
@@ -102,5 +98,15 @@ extension Searchbar {
         
         func insertText(_ text: String) { }
         func deleteBackward() { }
+        
+        private func changed() {
+            if bar.text?.isEmpty == true && !bar.showsCancelButton {
+                bar.setShowsCancelButton(true, animated: true)
+                bar.searchTextField.leftView = leftView
+            } else if bar.text?.isEmpty == false && bar.showsCancelButton {
+                bar.setShowsCancelButton(false, animated: true)
+                bar.searchTextField.leftView = nil
+            }
+        }
     }
 }

@@ -19,8 +19,6 @@ extension Web {
             self.view = view
             super.init(browser: view.session.browser, configuration: configuration)
             scrollView.keyboardDismissMode = .onDrag
-//            scrollView.contentInsetAdjustmentBehavior = .never
-//            scrollView.automaticallyAdjustsScrollIndicatorInsets = false
             isOpaque = !dark
             
             view.session.browser.browse.sink { [weak self] in

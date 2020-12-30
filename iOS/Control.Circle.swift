@@ -26,6 +26,7 @@ extension Control {
                             .foregroundColor(selected ? Color(.tertiaryLabel) : .primary)
                     }
                     .contentShape(SwiftUI.Circle())
+                    .padding(.horizontal, 5)
                 })
         }
     }
