@@ -5,6 +5,7 @@ import Sleuth
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate  {
     let pages = CurrentValueSubject<[Page], Never>([])
     let blocked = CurrentValueSubject<Set<String>, Never>([])
+    private var sub: AnyCancellable?
     
     required init?(coder: NSCoder) { nil }
     override init() {
@@ -20,9 +21,7 @@ import Sleuth
     }
     
     func refresh() {
-        var sub: AnyCancellable?
         sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-            sub?.cancel()
             guard $0 != self.pages.value else { return }
             self.pages.value = $0
         }

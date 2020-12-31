@@ -1,18 +1,17 @@
 import SwiftUI
+import Sleuth
 
 extension History {
     struct Vertical: View {
         @Binding var session: Session
-        let lines: Int
-        let index: Int
+        let pages: [Page]
         
         var body: some View {
             VStack {
-                ForEach(0 ..< session.pages.count) {
-                    if ($0 / lines) == index {
-                        Circle()
-                    }
+                ForEach(pages) {
+                    Text(verbatim: $0.title)
                 }
+                Spacer()
             }
             .frame(width: 150)
         }

@@ -1,17 +1,18 @@
 import SwiftUI
 
 struct Progress: View {
-    var progress: CGFloat
+    @Binding var session: Session
     
     var body: some View {
         ZStack {
             Bar(progress: 1)
                 .fill(Color(.systemBackground))
-            Bar(progress: progress)
-                .fill(Color.accentColor)
-                .animation(.easeInOut(duration: 0.3))
+            if session.page != nil {
+                Bar(progress: .init(session.progress))
+                    .fill(Color.accentColor)
+                    .animation(.easeInOut(duration: 0.3))
+            }
         }
         .frame(height: 3)
     }
 }
-

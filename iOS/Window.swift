@@ -31,14 +31,14 @@ struct Window: View {
                     History(session: $session)
                 } else {
                     Web(session: $session)
-                    if !session.typing {
-                        Progress(progress: .init(session.progress))
-                    }
+                        .edgesIgnoringSafeArea(.top)
+                }
+                if !session.typing {
+                    Progress(session: $session)
                 }
                 Searchbar(session: $session)
             }
             .animation(.easeInOut(duration: 0.35))
-            .edgesIgnoringSafeArea(.top)
         }
         .onReceive(session.browse) {
             guard session.page == nil else { return }

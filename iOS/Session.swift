@@ -11,12 +11,10 @@ struct Session {
     }
     
     var error: String?
-    var pages = [Page]()
     var blocked = Set<String>()
     var typing = false
     var backwards = false
     var forwards = false
-    var loading = false
     var progress = Double()
     let save = PassthroughSubject<Page, Never>()
     let browse = PassthroughSubject<URL, Never>()

@@ -26,10 +26,6 @@ extension Web {
                 view.session.progress = $0
             }.store(in: &subs)
             
-            publisher(for: \.isLoading).sink {
-                view.session.loading = $0
-            }.store(in: &subs)
-            
             publisher(for: \.title).sink {
                 $0.map {
                     guard !$0.isEmpty else { return }
@@ -79,6 +75,10 @@ extension Web {
             view.session.error = nil
         }
         
+        func webView(_: WKWebView, didFinish: WKNavigation!) {
+            view.session.progress = 1
+        }
+        
         final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
             if let error = withError as? URLError {
                 switch error.code {
@@ -98,6 +98,7 @@ extension Web {
             } else if (withError as NSError).code == 101 {
                 view.session.error = withError.localizedDescription
             }
+            view.session.progress = 1
         }
         
         final func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
