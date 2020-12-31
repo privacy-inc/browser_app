@@ -5,14 +5,7 @@ import Sleuth
 struct Session {
     var page: Page? {
         didSet {
-            guard let page = page else {
-                error = nil
-                backwards = false
-                forwards = false
-                loading = false
-                progress = .init()
-                return
-            }
+            guard let page = page else { return }
             save.send(page)
         }
     }
