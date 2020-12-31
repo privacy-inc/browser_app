@@ -85,9 +85,9 @@ extension Searchbar {
                 Defaults.engine.browse($0).map {
                     switch $0 {
                     case let .search(url):
-                        view.session.browser.browse.send(url)
+                        view.session.browse.send(url)
                     case let .navigate(url):
-                        view.session.browser.browse.send(url)
+                        view.session.browse.send(url)
                         bar.text = nil
                         changed()
                     }

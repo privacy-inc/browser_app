@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 @main struct App: SwiftUI.App {
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
@@ -15,20 +16,33 @@ import SwiftUI
 //                    session.forget()
 //                    UIApplication.shared.forget()
                 }
-                .onReceive(session.browser.page.dropFirst()) {
-                    if $0 == nil {
-                        session.load()
-                    }
+                .onReceive(session.save.debounce(for: .seconds(1), scheduler: DispatchQueue.global(qos: .utility))) {
+                    FileManager.save($0)
                 }
         }
         .onChange(of: phase) {
             if $0 == .active {
-                if session.browser.page.value == nil {
-                    session.load()
+                if session.page == nil {
+                    load()
                 }
                 delegate.rate()
                 watch.activate()
             }
+        }
+        .onChange(of: session.page) {
+            if $0 == nil {
+                load()
+            }
+        }
+    }
+    
+    private func load() {
+        print("load")
+        guard session.pages.isEmpty else { return }
+        var sub: AnyCancellable?
+        sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
+            sub?.cancel()
+            session.pages = $0
         }
     }
     

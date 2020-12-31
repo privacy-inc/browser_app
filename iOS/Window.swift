@@ -2,8 +2,6 @@ import SwiftUI
 
 struct Window: View {
     @Binding var session: Session
-    @State private var history = true
-    @State private var progress = CGFloat()
     
     var body: some View {
         ZStack {
@@ -29,33 +27,22 @@ struct Window: View {
 //                            .multilineTextAlignment(.center)
 //                    }
 //                }
-                if history {
+                if session.page == nil {
                     History(session: $session)
                 } else {
                     Web(session: $session)
                     if !session.typing {
-                        Progress(progress: progress)
+                        Progress(progress: .init(session.progress))
                     }
                 }
                 Searchbar(session: $session)
             }
+            .animation(.easeInOut(duration: 0.35))
             .edgesIgnoringSafeArea(.top)
         }
-        .onReceive(session.browser.browse) {
-            guard session.browser.page.value == nil else { return }
-            session.browser.page.value = .init(url: $0)
-        }
-        .onReceive(session.browser.page) { page in
-            guard (page == nil && !history) || (page != nil && history) else {
-                session.typing = false
-                return
-            }
-            withAnimation(.easeInOut(duration: 0.35)) {
-                history = page == nil
-            }
-        }
-        .onReceive(session.browser.progress) {
-            progress = .init($0)
+        .onReceive(session.browse) {
+            guard session.page == nil else { return }
+            session.page = .init(url: $0)
         }
     }
 }

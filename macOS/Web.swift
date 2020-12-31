@@ -17,7 +17,117 @@ final class Web: _Web {
         super.init(browser: browser, configuration: configuration)
         translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
+        
+        
+        
+        publisher(for: \.estimatedProgress).sink {
+            browser.progress($0)
+        }.store(in: &subs)
+        
+        publisher(for: \.isLoading).sink {
+            browser.loading($0)
+        }.store(in: &subs)
+        
+        publisher(for: \.title).sink {
+            $0.map {
+                guard !$0.isEmpty else { return }
+                browser.title($0)
+            }
+        }.store(in: &subs)
+        
+        publisher(for: \.url).sink {
+            $0.map {
+                browser.url($0)
+            }
+        }.store(in: &subs)
+        
+        publisher(for: \.canGoBack).sink {
+            browser.backwards($0)
+        }.store(in: &subs)
+        
+        publisher(for: \.canGoForward).sink {
+            browser.forwards($0)
+        }.store(in: &subs)
+        
+        browser.previous.sink { [weak self] in
+            self?.goBack()
+        }.store(in: &subs)
+        
+        browser.next.sink { [weak self] in
+            self?.goForward()
+        }.store(in: &subs)
+        
+        browser.reload.sink { [weak self] in
+            self?.reload()
+        }.store(in: &subs)
+        
+        browser.stop.sink { [weak self] in
+            self?.stopLoading()
+        }.store(in: &subs)
+        
+        
     }
+    
+    
+    
+    final func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        browser.error(nil)
+    }
+    
+    final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
+        if let error = withError as? URLError {
+            switch error.code {
+            case .networkConnectionLost,
+                 .notConnectedToInternet,
+                 .dnsLookupFailed,
+                 .resourceUnavailable,
+                 .unsupportedURL,
+                 .cannotFindHost,
+                 .cannotConnectToHost,
+                 .timedOut,
+                 .secureConnectionFailed,
+                 .serverCertificateUntrusted:
+                browser.error(error.localizedDescription)
+            default: break
+            }
+        } else if (withError as NSError).code == 101 {
+            browser.error(withError.localizedDescription)
+        }
+    }
+    
+    final func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
+            action.request.url.map(browser.popup)
+        }
+        return nil
+    }
+    
+    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+        var sub: AnyCancellable?
+        sub = shield.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
+            sub?.cancel()
+            switch $0 {
+            case .allow:
+                print("allow \(decidePolicyFor.request.url!)")
+                preferences.allowsContentJavaScript = self?.javascript ?? false
+                decisionHandler(.allow, preferences)
+            case .external:
+                print("external \(decidePolicyFor.request.url!)")
+                decisionHandler(.cancel, preferences)
+                self?.browser.external(decidePolicyFor.request.url!)
+            case .ignore:
+                decisionHandler(.allow, preferences)
+            case .block(let domain):
+                decisionHandler(.cancel, preferences)
+                self?.browser.blocked(domain)
+            }
+        }
+    }
+    
+    
+    
+    
+    
     
     override func popup(_ url: URL) {
         switch destination {

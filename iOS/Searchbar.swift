@@ -2,12 +2,11 @@ import SwiftUI
 
 struct Searchbar: View {
     @Binding var session: Session
-    @State private var global = false
     
     var body: some View {
         if !session.typing {
             HStack {
-                if global {
+                if session.page == nil {
                     Control.Circle(image: "eyeglasses") {
                         
                     }
@@ -17,13 +16,13 @@ struct Searchbar: View {
                     }
                 }
                 Control.Circle(image: "magnifyingglass", action: session.type.send)
-                if session.browser.page.value == nil {
+                if session.page == nil {
                     Control.Circle(image: "slider.horizontal.3") {
                         
                     }
                 } else {
                     Control.Circle(image: "xmark") {
-                        session.browser.page.value = nil
+                        session.page = nil
                     }
                 }
             }
@@ -31,11 +30,5 @@ struct Searchbar: View {
         }
         Field(session: $session)
             .frame(height: 0)
-            .onReceive(session.browser.page) { page in
-                guard (page == nil && !global) || (page != nil && global) else { return }
-                withAnimation(.easeInOut(duration: 0.35)) {
-                    global = page == nil
-                }
-            }
     }
 }

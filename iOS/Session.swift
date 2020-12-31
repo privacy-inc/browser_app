@@ -3,22 +3,35 @@ import Combine
 import Sleuth
 
 struct Session {
-    var typing = false
-    let browser = Browser()
-    let pages = CurrentValueSubject<[Page], Never>([])
-    let blocked = CurrentValueSubject<Set<String>, Never>([])
-    let type = PassthroughSubject<Void, Never>()
-    let resign = PassthroughSubject<Void, Never>()
-    let text = PassthroughSubject<String, Never>()
-    
-    func load() {
-        guard pages.value.isEmpty else { return }
-        var sub: AnyCancellable?
-        sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-            sub?.cancel()
-            guard $0 != self.pages.value else { return }
-            self.pages.value = $0
-            print($0.count)
+    var page: Page? {
+        didSet {
+            guard let page = page else {
+                error = nil
+                backwards = false
+                forwards = false
+                loading = false
+                progress = .init()
+                return
+            }
+            save.send(page)
         }
     }
+    
+    var error: String?
+    var pages = [Page]()
+    var blocked = Set<String>()
+    var typing = false
+    var backwards = false
+    var forwards = false
+    var loading = false
+    var progress = Double()
+    let save = PassthroughSubject<Page, Never>()
+    let browse = PassthroughSubject<URL, Never>()
+    let text = PassthroughSubject<String, Never>()
+    let type = PassthroughSubject<Void, Never>()
+    let resign = PassthroughSubject<Void, Never>()
+    let previous = PassthroughSubject<Void, Never>()
+    let next = PassthroughSubject<Void, Never>()
+    let reload = PassthroughSubject<Void, Never>()
+    let stop = PassthroughSubject<Void, Never>()
 }

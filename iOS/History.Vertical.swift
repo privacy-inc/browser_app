@@ -8,7 +8,7 @@ extension History {
         
         var body: some View {
             VStack {
-                ForEach(0 ..< session.pages.value.count) {
+                ForEach(0 ..< session.pages.count) {
                     if ($0 / lines) == index {
                         Circle()
                     }

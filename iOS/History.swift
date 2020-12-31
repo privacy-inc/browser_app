@@ -6,7 +6,7 @@ struct History: View {
     var body: some View {
 //        ScrollView {
             GeometryReader {
-                Horizontal(session: $session, lines: min(.init($0.size.width / 150), session.pages.value.count))
+                Horizontal(session: $session, lines: min(.init($0.size.width / 150), session.pages.count))
             }
     }
 }
