@@ -47,7 +47,10 @@ struct Window: View {
             session.browser.page.value = .init(url: $0)
         }
         .onReceive(session.browser.page) { page in
-            guard (page == nil && !history) || (page != nil && history) else { return }
+            guard (page == nil && !history) || (page != nil && history) else {
+                session.typing = false
+                return
+            }
             withAnimation(.easeInOut(duration: 0.35)) {
                 history = page == nil
             }

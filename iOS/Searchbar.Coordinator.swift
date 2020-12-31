@@ -1,4 +1,4 @@
-import SwiftUI
+import UIKit
 import Combine
 import Sleuth
 
@@ -42,9 +42,7 @@ extension Searchbar {
             leftView = bar.searchTextField.leftView
 
             view.session.resign.sink { [weak self] in
-                self?.editable = false
                 self?.bar.resignFirstResponder()
-                self?.editable = true
             }.store(in: &subs)
             
             view.session.type.sink { [weak self] in
@@ -72,8 +70,14 @@ extension Searchbar {
             view.session.typing = true
         }
         
+        func searchBarShouldEndEditing(_: UISearchBar) -> Bool {
+            editable = false
+            return true
+        }
+        
         func searchBarTextDidEndEditing(_: UISearchBar) {
             view.session.typing = false
+            editable = true
         }
         
         func searchBarSearchButtonClicked(_: UISearchBar) {
@@ -88,12 +92,12 @@ extension Searchbar {
                         changed()
                     }
                 }
-                view.session.resign.send()
+                bar.resignFirstResponder()
             }
         }
         
         func searchBarCancelButtonClicked(_: UISearchBar) {
-            view.session.resign.send()
+            bar.resignFirstResponder()
         }
         
         func insertText(_ text: String) { }
