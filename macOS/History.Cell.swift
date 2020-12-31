@@ -6,9 +6,11 @@ extension History {
     final class Cell: NSView {
         var page: Page? {
             didSet {
+                date.stringValue = page.map {
+                    formatter.localizedString(for: $0.date, relativeTo: .init())
+                } ?? ""
+                
                 text.attributedStringValue = page.map {
-                    date.stringValue = formatter.localizedString(for: $0.date, relativeTo: .init())
-                    
                     let string = NSMutableAttributedString()
                     if !$0.title.isEmpty {
                         string.append(.init(string: $0.title + "\n", attributes: [

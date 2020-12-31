@@ -6,17 +6,21 @@ struct History: View {
     @Binding var session: Session
     @State private var pages = [Page]()
     @State private var sub: AnyCancellable?
+    @Environment(\.verticalSizeClass) private var vertical
     
     var body: some View {
         GeometryReader { geo in
             if pages.isEmpty {
                 Text("None")
             } else {
-                ScrollView {
-                    Horizontal(session: $session, pages: pages, lines: .init(geo.size.width / 150))
+                if vertical == .regular {
+                    Horizontal(session: $session, pages: pages, size: .init(size: geo.size))
+                } else {
+                    Horizontal(session: $session, pages: pages, size: .init(size: geo.size))
                 }
             }
         }
+        .edgesIgnoringSafeArea(.init())
         .onAppear(perform: refresh)
     }
     

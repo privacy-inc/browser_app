@@ -9,11 +9,14 @@ extension History {
         var body: some View {
             VStack {
                 ForEach(pages) {
-                    Text(verbatim: $0.title)
+                    Cell(page: $0) {
+                        
+                    } action: {
+                        
+                    }
                 }
                 Spacer()
             }
-            .frame(width: 150)
         }
     }
 }
