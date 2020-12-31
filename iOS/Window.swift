@@ -1,5 +1,4 @@
 import SwiftUI
-import Sleuth
 
 struct Window: View {
     @Binding var session: Session
@@ -31,7 +30,7 @@ struct Window: View {
 //                    }
 //                }
                 if history {
-                    History()
+                    History(session: $session)
                 } else {
                     Web(session: $session)
                     if !session.typing {

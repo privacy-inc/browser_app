@@ -18,6 +18,7 @@ struct Session {
             sub?.cancel()
             guard $0 != self.pages.value else { return }
             self.pages.value = $0
+            print($0.count)
         }
     }
 }

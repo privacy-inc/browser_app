@@ -1,5 +1,4 @@
 import SwiftUI
-import WebKit
 
 struct Web: UIViewRepresentable {
     @Binding var session: Session
