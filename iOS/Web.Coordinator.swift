@@ -122,7 +122,7 @@ extension Web {
                     decisionHandler(.cancel, preferences)
                     UIApplication.shared.open(decidePolicyFor.request.url!)
                 case .ignore:
-                    decisionHandler(.allow, preferences)
+                    decisionHandler(.cancel, preferences)
                 case .block(let domain):
                     decisionHandler(.cancel, preferences)
                     self?.view.session.blocked.insert(domain)

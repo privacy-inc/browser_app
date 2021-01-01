@@ -37,7 +37,7 @@ extension History {
                     delete(page)
                 } label: {
                     Image(systemName: "xmark")
-                        .font(.footnote)
+                        .font(.caption2)
                         .foregroundColor(.secondary)
                         .padding(.trailing)
                         .contentShape(Rectangle())

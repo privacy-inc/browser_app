@@ -3,25 +3,25 @@ import SwiftUI
 struct Searchbar: View {
     @Binding var session: Session
     @State private var options = false
+    @State private var detail = false
     
     var body: some View {
-        if options {
-            HStack {
-                Control.Circle(state: .ready, image: "arrow.clockwise") {
-                    
-                }
-                Control.Circle(state: .ready, image: "chevron.left") {
-                    
-                }
-                Control.Circle(state: .ready, image: "chevron.right") {
-                    
-                }
-                Control.Circle(state: .ready, image: "line.horizontal.3") {
-                    
+        if !session.typing {
+            Spacer()
+                .frame(height: 10)
+            if options && session.page != nil {
+                HStack {
+                    Control.Circle(state: .ready, image: "arrow.clockwise", action: session.reload.send)
+                    Control.Circle(state: session.backwards ? .ready : .disabled, image: "chevron.left", action: session.previous.send)
+                    Control.Circle(state: session.forwards ? .ready : .disabled, image: "chevron.right", action: session.next.send)
+                    Control.Circle(state: .ready, image: "line.horizontal.3") {
+                        detail = true
+                    }
+                    .sheet(isPresented: $detail) {
+                        Detail(session: $session)
+                    }
                 }
             }
-        }
-        if !session.typing {
             HStack {
                 if session.page == nil {
                     Control.Circle(state: .ready, image: "eyeglasses") {
@@ -43,7 +43,8 @@ struct Searchbar: View {
                     }
                 }
             }
-            .animation(.easeInOut(duration: 0.35))
+            Spacer()
+                .frame(height: 10)
         }
         Field(session: $session)
             .frame(height: 0)

@@ -34,6 +34,8 @@
 		CE7766062595F53C00D4C50A /* History.Map.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7766052595F53C00D4C50A /* History.Map.Item.swift */; };
 		CE7BCCF42599148400444040 /* Preferences.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7BCCF32599148400444040 /* Preferences.Button.swift */; };
 		CEA09E72259F501F00B612C8 /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA09E71259F501F00B612C8 /* Control.State.swift */; };
+		CEA9B1C1259F667900782A87 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1C0259F667900782A87 /* Detail.swift */; };
+		CEA9B1C8259F6FA800782A87 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1C7259F6FA800782A87 /* Trackers.swift */; };
 		CECE3BA52587B18000D66221 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE3BA42587B18000D66221 /* Control.swift */; };
 		CECE3BA82587B19F00D66221 /* Control.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE3BA72587B19F00D66221 /* Control.Button.swift */; };
 		CED75E262589111F00352091 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CED75E252589111F00352091 /* Sleuth */; };
@@ -169,6 +171,8 @@
 		CE7766052595F53C00D4C50A /* History.Map.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Map.Item.swift; sourceTree = "<group>"; };
 		CE7BCCF32599148400444040 /* Preferences.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Button.swift; sourceTree = "<group>"; };
 		CEA09E71259F501F00B612C8 /* Control.State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
+		CEA9B1C0259F667900782A87 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
+		CEA9B1C7259F6FA800782A87 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CECE3BA42587B18000D66221 /* Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		CECE3BA72587B19F00D66221 /* Control.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Button.swift; sourceTree = "<group>"; };
 		CED75E31258919FB00352091 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
@@ -342,6 +346,7 @@
 				CEA09E71259F501F00B612C8 /* Control.State.swift */,
 				CEF7882D259B75EA001ADEBA /* Control.Style.swift */,
 				CEF7882E259B75EA001ADEBA /* Control.swift */,
+				CEA9B1C0259F667900782A87 /* Detail.swift */,
 				CE5DEACA259E127D005F78C8 /* History.Cell.swift */,
 				CE5DEA92259DEF8A005F78C8 /* History.Horizontal.swift */,
 				CE5DEAD6259E1E06005F78C8 /* History.Size.swift */,
@@ -354,6 +359,7 @@
 				CEF78884259B8259001ADEBA /* Searchbar.Field.swift */,
 				CEF78843259B768A001ADEBA /* Searchbar.swift */,
 				CEF7880F259B67EA001ADEBA /* Session.swift */,
+				CEA9B1C7259F6FA800782A87 /* Trackers.swift */,
 				CEF78862259B7CAB001ADEBA /* UIApplication.swift */,
 				CEF787FE259B5E7E001ADEBA /* Watch.swift */,
 				CE3B3B44259CAEFB008C9682 /* Web.Coordinator.swift */,
@@ -640,6 +646,7 @@
 			files = (
 				CE3B3B7A259CC438008C9682 /* Progress.Bar.swift in Sources */,
 				CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */,
+				CEA9B1C1259F667900782A87 /* Detail.swift in Sources */,
 				CEF78810259B67EA001ADEBA /* Session.swift in Sources */,
 				CE3B3B3E259CAEF4008C9682 /* Web.swift in Sources */,
 				CEA09E72259F501F00B612C8 /* Control.State.swift in Sources */,
@@ -653,6 +660,7 @@
 				CEF78830259B75EA001ADEBA /* Control.Style.swift in Sources */,
 				CEF78838259B767A001ADEBA /* Neumorphic.swift in Sources */,
 				CEF78885259B8259001ADEBA /* Searchbar.Field.swift in Sources */,
+				CEA9B1C8259F6FA800782A87 /* Trackers.swift in Sources */,
 				CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */,
 				CEF7882F259B75EA001ADEBA /* Control.Circle.swift in Sources */,
 				CE3B3B37259CAEED008C9682 /* History.swift in Sources */,
