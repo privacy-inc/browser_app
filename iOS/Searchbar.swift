@@ -3,6 +3,7 @@ import SwiftUI
 struct Searchbar: View {
     @Binding var session: Session
     @State private var options = false
+    @State private var stats = false
     @State private var detail = false
     
     var body: some View {
@@ -25,7 +26,10 @@ struct Searchbar: View {
             HStack {
                 if session.page == nil {
                     Control.Circle(state: .ready, image: "eyeglasses") {
-                        
+                        stats = true
+                    }
+                    .sheet(isPresented: $stats) {
+                        Stats(session: $session)
                     }
                 } else {
                     Control.Circle(state: options ? .selected : .ready, image: "plus") {
