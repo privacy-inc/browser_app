@@ -15,9 +15,6 @@ import SwiftUI
 //                    session.forget()
 //                    UIApplication.shared.forget()
                 }
-                .onReceive(session.save.debounce(for: .seconds(1), scheduler: DispatchQueue.main)) {
-                    FileManager.save($0)
-                }
         }
         .onChange(of: phase) {
             if $0 == .active {

@@ -5,8 +5,7 @@ import Sleuth
 struct Session {
     var page: Page? {
         didSet {
-            guard let page = page else { return }
-            save.send(page)
+            page.map(save.send)
         }
     }
     
@@ -16,7 +15,6 @@ struct Session {
     var backwards = false
     var forwards = false
     var progress = Double()
-    let save = PassthroughSubject<Page, Never>()
     let browse = PassthroughSubject<URL, Never>()
     let text = PassthroughSubject<String, Never>()
     let type = PassthroughSubject<Void, Never>()
@@ -25,4 +23,12 @@ struct Session {
     let next = PassthroughSubject<Void, Never>()
     let reload = PassthroughSubject<Void, Never>()
     let stop = PassthroughSubject<Void, Never>()
+    private var subscription: AnyCancellable?
+    private let save = PassthroughSubject<Page, Never>()
+    
+    init() {
+        subscription = save.debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility)).sink {
+            FileManager.save($0)
+        }
+    }
 }

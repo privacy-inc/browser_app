@@ -2,26 +2,43 @@ import SwiftUI
 
 struct Searchbar: View {
     @Binding var session: Session
+    @State private var options = false
     
     var body: some View {
+        if options {
+            HStack {
+                Control.Circle(state: .ready, image: "arrow.clockwise") {
+                    
+                }
+                Control.Circle(state: .ready, image: "chevron.left") {
+                    
+                }
+                Control.Circle(state: .ready, image: "chevron.right") {
+                    
+                }
+                Control.Circle(state: .ready, image: "line.horizontal.3") {
+                    
+                }
+            }
+        }
         if !session.typing {
             HStack {
                 if session.page == nil {
-                    Control.Circle(image: "eyeglasses") {
+                    Control.Circle(state: .ready, image: "eyeglasses") {
                         
                     }
                 } else {
-                    Control.Circle(image: "plus") {
-                        
+                    Control.Circle(state: options ? .selected : .ready, image: "plus") {
+                        options.toggle()
                     }
                 }
-                Control.Circle(image: "magnifyingglass", action: session.type.send)
+                Control.Circle(state: .ready, image: "magnifyingglass", action: session.type.send)
                 if session.page == nil {
-                    Control.Circle(image: "slider.horizontal.3") {
+                    Control.Circle(state: .ready, image: "slider.horizontal.3") {
                         
                     }
                 } else {
-                    Control.Circle(image: "xmark") {
+                    Control.Circle(state: .ready, image: "xmark") {
                         session.page = nil
                     }
                 }

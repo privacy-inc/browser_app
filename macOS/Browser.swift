@@ -13,10 +13,10 @@ final class Browser {
     let next = PassthroughSubject<Void, Never>()
     let reload = PassthroughSubject<Void, Never>()
     let stop = PassthroughSubject<Void, Never>()
-    var subscription: AnyCancellable?
+    private var subscription: AnyCancellable?
     
     init() {
-        subscription = page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
+        subscription = page.debounce(for: .seconds(2), scheduler: DispatchQueue.main).sink {
             guard let page = $0 else { return }
             FileManager.save(page)
         }
