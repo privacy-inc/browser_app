@@ -17,6 +17,8 @@ extension History {
                         session.page = page
                     }
                 }
+                Spacer()
+                    .frame(height: 20)
             }
         }
     }
