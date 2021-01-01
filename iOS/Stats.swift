@@ -1,4 +1,5 @@
 import SwiftUI
+import Sleuth
 
 struct Stats: View {
     @Binding var session: Session
@@ -32,7 +33,8 @@ struct Stats: View {
                     .font(.footnote)
                     .foregroundColor(.primary)
                 Control.Circle(background: .init(.systemBackground), state: .ready, image: "flame") {
-                    
+                    session.forget.send()
+                    visible.wrappedValue.dismiss()
                 }
             }
             .padding(.horizontal)

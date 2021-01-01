@@ -10,7 +10,17 @@ struct History: View {
     var body: some View {
         GeometryReader { geo in
             if pages.isEmpty {
-                Text("None")
+                VStack {
+                    Spacer()
+                    HStack {
+                        Spacer()
+                        Image(systemName: "eyeglasses")
+                            .font(Font.system(size: 80).bold())
+                            .foregroundColor(.accentColor)
+                        Spacer()
+                    }
+                    Spacer()
+                }
             } else {
                 if vertical == .regular {
                     Horizontal(
@@ -28,12 +38,17 @@ struct History: View {
             }
         }
         .animation(.easeInOut(duration: 0.4))
-        .onAppear {
-            var sub: AnyCancellable?
-            sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-                sub?.cancel()
-                pages = $0
-            }
+        .onAppear(perform: refresh)
+        .onReceive(session.forget) {
+            pages = []
+        }
+    }
+    
+    private func refresh() {
+        var sub: AnyCancellable?
+        sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
+            sub?.cancel()
+            pages = $0
         }
     }
     

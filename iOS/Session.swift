@@ -25,6 +25,7 @@ struct Session {
     let stop = PassthroughSubject<Void, Never>()
     let print = PassthroughSubject<Void, Never>()
     let pdf = PassthroughSubject<Void, Never>()
+    let forget = PassthroughSubject<Void, Never>()
     private var subscription: AnyCancellable?
     private let save = PassthroughSubject<Page, Never>()
     

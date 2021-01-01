@@ -1,4 +1,5 @@
 import SwiftUI
+import Sleuth
 
 struct Window: View {
     @Binding var session: Session
@@ -31,7 +32,6 @@ struct Window: View {
                     History(session: $session)
                 } else {
                     Web(session: $session)
-                        .edgesIgnoringSafeArea(.top)
                 }
                 if !session.typing {
                     Progress(session: $session)
@@ -43,6 +43,13 @@ struct Window: View {
         .onReceive(session.browse) {
             guard session.page == nil else { return }
             session.page = .init(url: $0)
+        }
+        .onReceive(session.forget) {
+            FileManager.forget()
+            UIApplication.shared.forget()
+            Shared.history = []
+            Shared.chart = []
+            Shared.blocked = []
         }
     }
 }
