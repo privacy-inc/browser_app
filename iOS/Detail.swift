@@ -36,7 +36,7 @@ struct Detail: View {
                 Spacer()
             }
             .padding(.horizontal)
-            Trackers(session: $session)
+            Trackers()
             Find(session: $session)
             Options(session: $session)
         }

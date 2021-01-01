@@ -24,8 +24,18 @@ struct Stats: View {
                 .padding(.bottom)
             Chart()
                 .padding(.vertical)
-            Trackers(session: $session)
+            Trackers()
                 .padding(.vertical)
+            HStack {
+                Spacer()
+                Text("Forget")
+                    .font(.footnote)
+                    .foregroundColor(.primary)
+                Control.Circle(background: .init(.systemBackground), state: .ready, image: "flame") {
+                    
+                }
+            }
+            .padding(.horizontal)
         }
     }
 }

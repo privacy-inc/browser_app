@@ -151,7 +151,7 @@ extension Web {
                     decisionHandler(.cancel, preferences)
                 case .block(let domain):
                     decisionHandler(.cancel, preferences)
-                    self?.view.session.blocked.insert(domain)
+                    Shared.blocked.append(domain)
                 }
             }
         }

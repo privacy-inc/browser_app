@@ -24,7 +24,7 @@ struct Chart: View {
                         .stroke(Color.primary, style: .init(lineWidth: 2, lineCap: .round))
                 }
             }
-            .frame(height: 120)
+            .frame(height: 150)
             .padding()
             HStack {
                 Text(verbatim: since)

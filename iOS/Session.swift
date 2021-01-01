@@ -10,7 +10,6 @@ struct Session {
     }
     
     var error: String?
-    var blocked = Set<String>()
     var typing = false
     var backwards = false
     var forwards = false

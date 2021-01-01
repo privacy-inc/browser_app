@@ -1,8 +1,8 @@
 import SwiftUI
+import Sleuth
 
 extension Trackers {
     struct List: View {
-        @Binding var session: Session
         @Environment(\.presentationMode) private var visible
         
         var body: some View {
@@ -27,7 +27,7 @@ extension Trackers {
                         .font(Font.footnote.bold())
                         .padding(.vertical)
                 }
-                ForEach(session.blocked.sorted(), id: \.self) { tracker in
+                ForEach(Shared.blocked, id: \.self) { tracker in
                     Rectangle()
                         .fill(Color(.quaternarySystemFill))
                         .frame(height: 1)
