@@ -2,43 +2,31 @@ import SwiftUI
 
 struct Trackers: View {
     @Binding var session: Session
-    @Environment(\.presentationMode) private var visible
+    @State private var formatter = NumberFormatter()
+    @State private var list = false
     
     var body: some View {
-        ScrollView {
-            HStack {
-                Spacer()
-                Button {
-                    visible.wrappedValue.dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                        .frame(width: 60, height: 50)
-                }
-                .contentShape(Rectangle())
-                .padding(.top)
+        HStack {
+            Spacer()
+            Text("Trackers blocked")
+                .font(.footnote)
+                .foregroundColor(session.blocked.isEmpty ? .secondary : .primary)
+            if !session.blocked.isEmpty {
+                Text(NSNumber(value: session.blocked.count), formatter: formatter)
+                    .font(Font.title2.bold().monospacedDigit())
+                    .padding(.leading)
             }
-            VStack {
-                Image(systemName: "shield.lefthalf.fill")
-                    .font(.largeTitle)
-                Text("Trackers blocked")
-                    .font(Font.footnote.bold())
-                    .padding(.vertical)
+            Control.Circle(background: .init(.systemBackground), state: session.blocked.isEmpty ? .disabled : .ready, image: "shield.lefthalf.fill") {
+                guard !session.blocked.isEmpty else { return }
+                list = true
             }
-            ForEach(session.blocked.sorted(), id: \.self) { tracker in
-                Rectangle()
-                    .fill(Color(.quaternarySystemFill))
-                    .frame(height: 1)
-                    .padding(.horizontal)
-                HStack {
-                    Text(tracker)
-                        .font(.callout)
-                        .foregroundColor(.secondary)
-                    Spacer()
-                }
-                .padding(.horizontal)
+            .sheet(isPresented: $list) {
+                List(session: $session)
             }
+        }
+        .padding(.horizontal)
+        .onAppear {
+            formatter.numberStyle = .decimal
         }
     }
 }

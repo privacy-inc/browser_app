@@ -49,6 +49,10 @@ extension Searchbar {
                 self?.becomeFirstResponder()
             }.store(in: &subs)
             
+            view.session.text.sink { [weak self] in
+                self?.bar.text = $0
+            }.store(in: &subs)
+            
             bar.leftAnchor.constraint(equalTo: input.leftAnchor).isActive = true
             bar.rightAnchor.constraint(equalTo: input.rightAnchor).isActive = true
             bar.centerYAnchor.constraint(equalTo: input.centerYAnchor).isActive = true

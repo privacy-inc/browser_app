@@ -67,6 +67,32 @@ extension Web {
                 self?.load(.init(url: $0))
             }.store(in: &subs)
             
+            view.session.find.sink { [weak self] in
+                self?.select(nil)
+                self?.find($0) { _ in }
+            }.store(in: &subs)
+            
+            view.session.print.sink { [weak self] in
+                UIPrintInteractionController.shared.printFormatter = self?.viewPrintFormatter()
+                UIPrintInteractionController.shared.present(animated: true)
+            }.store(in: &subs)
+            
+            view.session.pdf.sink { [weak self] in
+                self?.createPDF {
+                    if case .success(let data) = $0 {
+                        guard var name = self?.view.session.page?.url.lastPathComponent.replacingOccurrences(of: "/", with: "") else { return }
+                        if name.isEmpty {
+                            name = "Page.pdf"
+                        } else if !name.hasSuffix(".pdf") {
+                            name = {
+                                $0.count > 1 ? $0.dropLast().joined(separator: ".") : $0.first!
+                            } (name.components(separatedBy: ".")) + ".pdf"
+                        }
+                        UIApplication.shared.share(data.temporal(name))
+                    }
+                }
+            }.store(in: &subs)
+            
             load(.init(url: view.session.page!.url))
         }
         
