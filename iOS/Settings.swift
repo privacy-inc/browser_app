@@ -29,7 +29,6 @@ struct Settings: View {
                     .padding(.leading)
                 Spacer()
             }
-            .padding(.top)
             Picker("", selection: $engine) {
                 Text("Google")
                     .tag(Engine.google)
@@ -49,7 +48,6 @@ struct Settings: View {
             }
             .padding(.top)
             Options()
-                .padding(.bottom)
             Control.Option(text: "Default browser", image: "magnifyingglass") {
                 UIApplication.shared.settings()
             }
