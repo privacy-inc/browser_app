@@ -1,7 +1,7 @@
 import SwiftUI
 
-extension Detail {
-    struct Item: View {
+extension Control {
+    struct Option: View {
         let text: LocalizedStringKey
         let image: String
         let action: () -> Void

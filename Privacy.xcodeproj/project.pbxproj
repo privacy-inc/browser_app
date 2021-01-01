@@ -31,6 +31,9 @@
 		CE5DEAA4259DF1B3005F78C8 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DEAA3259DF1B3005F78C8 /* Browser.swift */; };
 		CE5DEACB259E127D005F78C8 /* History.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DEACA259E127D005F78C8 /* History.Cell.swift */; };
 		CE5DEAD7259E1E06005F78C8 /* History.Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DEAD6259E1E06005F78C8 /* History.Size.swift */; };
+		CE6A32D6259FB3990083FFBC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A32D5259FB3990083FFBC /* Settings.swift */; };
+		CE6A32DD259FB3D70083FFBC /* Setings.Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A32DC259FB3D70083FFBC /* Setings.Switch.swift */; };
+		CE6A32F3259FB62B0083FFBC /* Settings.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A32F2259FB62B0083FFBC /* Settings.Options.swift */; };
 		CE7765FE2595ED9200D4C50A /* History.Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7765FD2595ED9200D4C50A /* History.Frame.swift */; };
 		CE7766022595EFC300D4C50A /* History.Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7766012595EFC300D4C50A /* History.Map.swift */; };
 		CE7766062595F53C00D4C50A /* History.Map.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7766052595F53C00D4C50A /* History.Map.Item.swift */; };
@@ -40,7 +43,7 @@
 		CEA9B1C8259F6FA800782A87 /* Trackers.List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1C7259F6FA800782A87 /* Trackers.List.swift */; };
 		CEA9B1D4259F75EE00782A87 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1D3259F75EE00782A87 /* Trackers.swift */; };
 		CEA9B1E0259F768900782A87 /* Detail.Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1DF259F768900782A87 /* Detail.Find.swift */; };
-		CEA9B1EC259F79FE00782A87 /* Detail.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1EB259F79FE00782A87 /* Detail.Item.swift */; };
+		CEA9B1EC259F79FE00782A87 /* Control.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1EB259F79FE00782A87 /* Control.Option.swift */; };
 		CEA9B1F3259F7AC000782A87 /* Detail.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1F2259F7AC000782A87 /* Detail.Options.swift */; };
 		CECE3BA52587B18000D66221 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE3BA42587B18000D66221 /* Control.swift */; };
 		CECE3BA82587B19F00D66221 /* Control.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE3BA72587B19F00D66221 /* Control.Button.swift */; };
@@ -174,6 +177,9 @@
 		CE5DEAA3259DF1B3005F78C8 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		CE5DEACA259E127D005F78C8 /* History.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Cell.swift; sourceTree = "<group>"; };
 		CE5DEAD6259E1E06005F78C8 /* History.Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Size.swift; sourceTree = "<group>"; };
+		CE6A32D5259FB3990083FFBC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
+		CE6A32DC259FB3D70083FFBC /* Setings.Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setings.Switch.swift; sourceTree = "<group>"; };
+		CE6A32F2259FB62B0083FFBC /* Settings.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Options.swift; sourceTree = "<group>"; };
 		CE7765FD2595ED9200D4C50A /* History.Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Frame.swift; sourceTree = "<group>"; };
 		CE7766012595EFC300D4C50A /* History.Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Map.swift; sourceTree = "<group>"; };
 		CE7766052595F53C00D4C50A /* History.Map.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Map.Item.swift; sourceTree = "<group>"; };
@@ -183,7 +189,7 @@
 		CEA9B1C7259F6FA800782A87 /* Trackers.List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.List.swift; sourceTree = "<group>"; };
 		CEA9B1D3259F75EE00782A87 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CEA9B1DF259F768900782A87 /* Detail.Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Find.swift; sourceTree = "<group>"; };
-		CEA9B1EB259F79FE00782A87 /* Detail.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Item.swift; sourceTree = "<group>"; };
+		CEA9B1EB259F79FE00782A87 /* Control.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Option.swift; sourceTree = "<group>"; };
 		CEA9B1F2259F7AC000782A87 /* Detail.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Options.swift; sourceTree = "<group>"; };
 		CECE3BA42587B18000D66221 /* Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
 		CECE3BA72587B19F00D66221 /* Control.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Button.swift; sourceTree = "<group>"; };
@@ -356,11 +362,11 @@
 				CEF7875C259B3E19001ADEBA /* App.swift */,
 				CEF7884F259B7707001ADEBA /* Color.swift */,
 				CEF7882C259B75E9001ADEBA /* Control.Circle.swift */,
+				CEA9B1EB259F79FE00782A87 /* Control.Option.swift */,
 				CEA09E71259F501F00B612C8 /* Control.State.swift */,
 				CEF7882D259B75EA001ADEBA /* Control.Style.swift */,
 				CEF7882E259B75EA001ADEBA /* Control.swift */,
 				CEA9B1DF259F768900782A87 /* Detail.Find.swift */,
-				CEA9B1EB259F79FE00782A87 /* Detail.Item.swift */,
 				CEA9B1F2259F7AC000782A87 /* Detail.Options.swift */,
 				CEA9B1C0259F667900782A87 /* Detail.swift */,
 				CE5DEACA259E127D005F78C8 /* History.Cell.swift */,
@@ -375,6 +381,9 @@
 				CEF78884259B8259001ADEBA /* Searchbar.Field.swift */,
 				CEF78843259B768A001ADEBA /* Searchbar.swift */,
 				CEF7880F259B67EA001ADEBA /* Session.swift */,
+				CE6A32DC259FB3D70083FFBC /* Setings.Switch.swift */,
+				CE6A32F2259FB62B0083FFBC /* Settings.Options.swift */,
+				CE6A32D5259FB3990083FFBC /* Settings.swift */,
 				CE1511EA259F96FD00ABBC72 /* Stats.swift */,
 				CEA9B1C7259F6FA800782A87 /* Trackers.List.swift */,
 				CEA9B1D3259F75EE00782A87 /* Trackers.swift */,
@@ -666,6 +675,9 @@
 				CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */,
 				CEA9B1C1259F667900782A87 /* Detail.swift in Sources */,
 				CEF78810259B67EA001ADEBA /* Session.swift in Sources */,
+				CE6A32DD259FB3D70083FFBC /* Setings.Switch.swift in Sources */,
+				CE6A32D6259FB3990083FFBC /* Settings.swift in Sources */,
+				CE6A32F3259FB62B0083FFBC /* Settings.Options.swift in Sources */,
 				CE3B3B3E259CAEF4008C9682 /* Web.swift in Sources */,
 				CEA09E72259F501F00B612C8 /* Control.State.swift in Sources */,
 				CE3B3B62259CB75E008C9682 /* WKUserContentController.swift in Sources */,
@@ -683,7 +695,7 @@
 				CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */,
 				CEF7882F259B75EA001ADEBA /* Control.Circle.swift in Sources */,
 				CE3B3B37259CAEED008C9682 /* History.swift in Sources */,
-				CEA9B1EC259F79FE00782A87 /* Detail.Item.swift in Sources */,
+				CEA9B1EC259F79FE00782A87 /* Control.Option.swift in Sources */,
 				CEF7888C259B8270001ADEBA /* Searchbar.Coordinator.swift in Sources */,
 				CEA9B1E0259F768900782A87 /* Detail.Find.swift in Sources */,
 				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,

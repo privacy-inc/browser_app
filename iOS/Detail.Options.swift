@@ -9,14 +9,14 @@ extension Detail {
         
         var body: some View {
             if photo {
-                Item(text: "Add to Photos", image: "photo") {
+                Control.Option(text: "Add to Photos", image: "photo") {
                     (try? Data(contentsOf: session.page!.url)).flatMap(UIImage.init(data:)).map {
                         UIImageWriteToSavedPhotosAlbum($0, nil, nil, nil)
                         success()
                     }
                 }
             }
-            Item(text: "Edit URL", image: "pencil") {
+            Control.Option(text: "Edit URL", image: "pencil") {
                 visible.wrappedValue.dismiss()
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     session.text.send(session.page!.url.absoluteString)
@@ -29,14 +29,14 @@ extension Detail {
                 default: break
                 }
             }
-            Item(text: "Copy URL", image: "doc.on.doc") {
+            Control.Option(text: "Copy URL", image: "doc.on.doc") {
                 UIPasteboard.general.string = session.page!.url.absoluteString
                 success()
             }
-            Item(text: "Share", image: "square.and.arrow.up") {
+            Control.Option(text: "Share", image: "square.and.arrow.up") {
                 UIApplication.shared.share(session.page!.url)
             }
-            Item(text: "Download", image: "square.and.arrow.down") {
+            Control.Option(text: "Download", image: "square.and.arrow.down") {
                 (try? Data(contentsOf: session.page!.url))
                     .map {
                         $0.temporal({
@@ -44,10 +44,10 @@ extension Detail {
                         } (session.page!.url.lastPathComponent.replacingOccurrences(of: "/", with: "")))
                     }.map(UIApplication.shared.share)
             }
-            Item(text: "Print", image: "printer") {
+            Control.Option(text: "Print", image: "printer") {
                 session.print.send()
             }
-            Item(text: "PDF", image: "doc.plaintext") {
+            Control.Option(text: "PDF", image: "doc.plaintext") {
                 session.pdf.send()
             }
             HStack {

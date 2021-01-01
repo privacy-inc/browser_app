@@ -4,6 +4,7 @@ struct Searchbar: View {
     @Binding var session: Session
     @State private var options = false
     @State private var stats = false
+    @State private var settings = false
     @State private var detail = false
     
     var body: some View {
@@ -39,7 +40,10 @@ struct Searchbar: View {
                 Control.Circle(state: .ready, image: "magnifyingglass", action: session.type.send)
                 if session.page == nil {
                     Control.Circle(state: .ready, image: "slider.horizontal.3") {
-                        
+                        settings = true
+                    }
+                    .sheet(isPresented: $settings) {
+                        Settings(session: $session)
                     }
                 } else {
                     Control.Circle(state: .ready, image: "xmark") {

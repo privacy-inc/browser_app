@@ -24,4 +24,8 @@ extension UIApplication {
             $0.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast) { }
         }
     }
+    
+    func settings() {
+        open(URL(string: Self.openSettingsURLString)!)
+    }
 }

@@ -2,8 +2,6 @@ import SwiftUI
 
 struct Detail: View {
     @Binding var session: Session
-//    @AppStorage(Defaults.Key.settings_sound.rawValue) private var sound = true
-//    @AppStorage(Defaults.Key.settings_vibrate.rawValue) private var vibrate = true
     @Environment(\.presentationMode) private var visible
     
     var body: some View {
