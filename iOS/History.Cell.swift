@@ -9,39 +9,39 @@ extension History {
         @State private var date = ""
         
         var body: some View {
-            Button(action: action) {
-                ZStack {
-                    RoundedRectangle(cornerRadius: 14)
-                        .fill(Color.primary.opacity(0.03))
-                    VStack {
-                        HStack {
-                            Spacer()
-                            Text(verbatim: date)
-                                .font(.caption2)
-                                .foregroundColor(.init(.secondary))
-                        }
+            HStack(spacing: 0) {
+                Button(action: action) {
+                    VStack(alignment: .leading) {
+                        Text(verbatim: date)
+                            .font(.caption2)
+                            .foregroundColor(.init(.secondary))
                         if !page.title.isEmpty {
-                            HStack {
-                                Text(verbatim: page.title)
-                                    .font(.footnote)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .foregroundColor(.primary)
-                                Spacer()
-                            }
-                        }
-                        HStack {
-                            Text(verbatim: page.url.absoluteString)
-                                .font(.caption2)
+                            Text(verbatim: page.title)
+                                .font(.footnote)
                                 .fixedSize(horizontal: false, vertical: true)
-                                .lineLimit(3)
-                                .foregroundColor(.init(.tertiaryLabel))
-                            Spacer()
-                            
+                                .foregroundColor(.primary)
                         }
+                        Text(verbatim: page.url.absoluteString)
+                            .font(.caption2)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(3)
+                            .foregroundColor(.init(.tertiaryLabel))
                     }
-                    .padding()
                 }
+                Spacer()
+                Button(action: delete) {
+                    Image(systemName: "xmark")
+                        .font(.footnote)
+                        .foregroundColor(.secondary)
+                        .padding(.trailing)
+                }
+                .frame(width: 40)
+                .contentShape(Rectangle())
             }
+            .padding(.vertical)
+            .padding(.leading)
+            .background(RoundedRectangle(cornerRadius: 14)
+                            .fill(Color.primary.opacity(0.03)))
             .onAppear {
                 date = RelativeDateTimeFormatter().localizedString(for: page.date, relativeTo: .init())
             }
