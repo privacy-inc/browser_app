@@ -10,7 +10,7 @@ extension History {
         private static let widthBig = CGFloat(200)
         
         init(size: CGSize) {
-            let currentWidth = size.width > 600 ? Self.widthBig : Self.widthSmall
+            let currentWidth = size.width > 550 ? Self.widthBig : Self.widthSmall
             let total = size.width - (Self.horizontal * 3)
             let width = currentWidth + Self.horizontal
             let count = floor(total / width)

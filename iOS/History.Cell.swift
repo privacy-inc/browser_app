@@ -4,13 +4,14 @@ import Sleuth
 extension History {
     struct Cell: View {
         let page: Page
-        let delete: () -> Void
-        let action: () -> Void
+        let delete: (Page) -> Void
+        let open: () -> Void
         @State private var date = ""
+        @State private var background = Color.primary.opacity(0.03)
         
         var body: some View {
             HStack(spacing: 0) {
-                Button(action: action) {
+                Button(action: open) {
                     VStack(alignment: .leading) {
                         Text(verbatim: date)
                             .font(.caption2)
@@ -29,19 +30,24 @@ extension History {
                     }
                 }
                 Spacer()
-                Button(action: delete) {
+                Button {
+                    withAnimation(.easeInOut(duration: 0.2)) {
+                        background = .pink
+                    }
+                    delete(page)
+                } label: {
                     Image(systemName: "xmark")
                         .font(.footnote)
                         .foregroundColor(.secondary)
                         .padding(.trailing)
+                        .contentShape(Rectangle())
+                        .frame(width: 40, height: 40)
                 }
-                .frame(width: 40)
-                .contentShape(Rectangle())
             }
             .padding(.vertical)
             .padding(.leading)
             .background(RoundedRectangle(cornerRadius: 14)
-                            .fill(Color.primary.opacity(0.03)))
+                            .fill(background))
             .onAppear {
                 date = RelativeDateTimeFormatter().localizedString(for: page.date, relativeTo: .init())
             }

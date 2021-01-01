@@ -5,7 +5,6 @@ import Sleuth
 struct History: View {
     @Binding var session: Session
     @State private var pages = [Page]()
-    @State private var sub: AnyCancellable?
     @Environment(\.verticalSizeClass) private var vertical
     
     var body: some View {
@@ -14,20 +13,34 @@ struct History: View {
                 Text("None")
             } else {
                 if vertical == .regular {
-                    Horizontal(session: $session, pages: pages, size: .init(size: geo.size))
+                    Horizontal(
+                        session: $session,
+                        pages: $pages,
+                        size: .init(size: geo.size),
+                        delete: delete)
                 } else {
-                    Horizontal(session: $session, pages: pages, size: .init(size: geo.size))
+                    Horizontal(
+                        session: $session,
+                        pages: $pages,
+                        size: .init(size: geo.size),
+                        delete: delete)
                 }
             }
         }
-        .edgesIgnoringSafeArea(.init())
-        .onAppear(perform: refresh)
+        .animation(.easeInOut(duration: 0.4))
+        .onAppear {
+            var sub: AnyCancellable?
+            sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
+                sub?.cancel()
+                pages = $0
+            }
+        }
     }
     
-    private func refresh() {
-        guard pages.isEmpty else { return }
-        sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-            pages = $0
+    private func delete(_ page: Page) {
+        FileManager.delete(page)
+        pages.firstIndex(of: page).map {
+            _ = pages.remove(at: $0)
         }
     }
 }
