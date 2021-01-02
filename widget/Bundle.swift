@@ -1,0 +1,8 @@
+import WidgetKit
+import SwiftUI
+
+@main struct GameWidgets: WidgetBundle {
+    @WidgetBundleBuilder var body: some Widget {
+        History()
+    }
+}
