@@ -60,6 +60,6 @@ struct History: View {
     }
     
     private func mirror() {
-        Share.history = pages.prefix(6).map(\.shared)
+        Share.history = pages.prefix(4).map(\.shared)
     }
 }

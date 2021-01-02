@@ -1,5 +1,4 @@
 import WidgetKit
-import SwiftUI
 import Sleuth
 
 extension History {

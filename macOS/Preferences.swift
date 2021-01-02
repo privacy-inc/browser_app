@@ -121,7 +121,7 @@ final class Preferences: NSWindow {
     }
     
     private var defaultBrowser: Bool {
-        NSWorkspace.shared.urlForApplication(toOpen: URL(string: Scheme.http.rawValue + "://")!)
+        NSWorkspace.shared.urlForApplication(toOpen: URL(string: Scheme.http.url)!)
             .map {
                 $0 == Bundle.main.bundleURL
             } ?? false
