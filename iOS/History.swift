@@ -5,7 +5,17 @@ import Sleuth
 
 struct History: View {
     @Binding var session: Session
-    @State private var pages = [Page]()
+    
+    @State private var pages = [Page]() {
+        didSet {
+            let history = pages.prefix(6).map(\.shared)
+            if history != Share.history {
+                Share.history = history
+                WidgetCenter.shared.reloadTimelines(ofKind: "History")
+            }
+        }
+    }
+    
     @Environment(\.verticalSizeClass) private var vertical
     
     var body: some View {
@@ -44,7 +54,6 @@ struct History: View {
             sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
                 sub?.cancel()
                 pages = $0
-                mirror()
             }
         }
         .onReceive(session.forget) {
@@ -56,15 +65,6 @@ struct History: View {
         FileManager.delete(page)
         pages.firstIndex(of: page).map {
             _ = pages.remove(at: $0)
-        }
-        mirror()
-    }
-    
-    private func mirror() {
-        let history = pages.prefix(6).map(\.shared)
-        if history != Share.history {
-            Share.history = history
-            WidgetCenter.shared.reloadTimelines(ofKind: "History")
         }
     }
 }

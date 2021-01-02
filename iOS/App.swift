@@ -12,8 +12,14 @@ import Sleuth
         WindowGroup {
             Window(session: $session)
                 .onOpenURL(perform: open)
-                .onReceive(watch.forget, perform: forget)
-                .onReceive(session.forget, perform: forget)
+                .onReceive(session.forget) {
+                    FileManager.forget()
+                    UIApplication.shared.forget()
+                    Share.history = []
+                    Share.chart = []
+                    Share.blocked = []
+                }
+                .onReceive(watch.forget, perform: session.forget.send)
         }
         .onChange(of: phase) {
             if $0 == .active {
@@ -56,18 +62,10 @@ import Sleuth
             session.type.send()
         case Scheme.privacy_forget.rawValue:
             UIApplication.shared.resign()
-            forget()
+            session.forget.send()
         default:
             UIApplication.shared.resign()
             session.browse.send(url)
         }
-    }
-    
-    private func forget() {
-        FileManager.forget()
-        UIApplication.shared.forget()
-        Share.history = []
-        Share.chart = []
-        Share.blocked = []
     }
 }
