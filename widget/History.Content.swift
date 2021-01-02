@@ -51,7 +51,7 @@ extension History {
                                 Medium {
                                     Cell(page: pages[2])
                                     if pages.count > 3 {
-                                        Cell(page: pages[4])
+                                        Cell(page: pages[3])
                                     }
                                 }
                                 if pages.count > 4 {

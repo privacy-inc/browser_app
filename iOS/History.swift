@@ -1,4 +1,5 @@
 import SwiftUI
+import WidgetKit
 import Combine
 import Sleuth
 
@@ -60,6 +61,10 @@ struct History: View {
     }
     
     private func mirror() {
-        Share.history = pages.prefix(4).map(\.shared)
+        let history = pages.prefix(6).map(\.shared)
+        if history != Share.history {
+            Share.history = history
+            WidgetCenter.shared.reloadTimelines(ofKind: "History")
+        }
     }
 }

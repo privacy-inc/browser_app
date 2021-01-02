@@ -76,5 +76,8 @@ struct Settings: View {
         .onChange(of: engine) {
             Defaults.engine = $0
         }
+        .onReceive(session.dismiss) {
+            visible.wrappedValue.dismiss()
+        }
     }
 }

@@ -44,12 +44,5 @@ struct Window: View {
             guard session.page == nil else { return }
             session.page = .init(url: $0)
         }
-        .onReceive(session.forget) {
-            FileManager.forget()
-            UIApplication.shared.forget()
-            Share.history = []
-            Share.chart = []
-            Share.blocked = []
-        }
     }
 }

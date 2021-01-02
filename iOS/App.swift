@@ -1,4 +1,6 @@
 import SwiftUI
+import Combine
+import Sleuth
 
 @main struct App: SwiftUI.App {
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
@@ -10,11 +12,8 @@ import SwiftUI
         WindowGroup {
             Window(session: $session)
                 .onOpenURL(perform: open)
-                .onReceive(watch.forget) {
-//                    session.dismiss.send()
-//                    session.forget()
-//                    UIApplication.shared.forget()
-                }
+                .onReceive(watch.forget, perform: forget)
+                .onReceive(session.forget, perform: forget)
         }
         .onChange(of: phase) {
             if $0 == .active {
@@ -25,26 +24,50 @@ import SwiftUI
     }
     
     private func open(_ url: URL) {
-//        session.dismiss.send()
-//
-//        switch url.scheme {
-//        case "incognit":
-//            session.resign.send()
-//            url.absoluteString
-//                .replacingOccurrences(of: "incognit://", with: "")
-//                .removingPercentEncoding
-//                .flatMap(User.engine.url)
-//                .map {
-//                    session.browse($0)
-//                }
-//        case "incognit-id":
-//            session.resign.send()
-//            session.browse(id: url.absoluteString.replacingOccurrences(of: "incognit-id://", with: ""))
-//        case "incognit-search":
-//            session.type.send(nil)
-//        default:
-//            session.resign.send()
-//            session.browse(url)
-//        }
+        session.dismiss.send()
+        
+        switch url.scheme {
+        case Scheme.privacy.rawValue:
+            session.resign.send()
+            url.absoluteString
+                .dropFirst(Scheme.privacy.url.count)
+                .removingPercentEncoding
+                .flatMap(Defaults.engine.browse)
+                .map {
+                    switch $0 {
+                    case let .search(url):
+                        session.browse.send(url)
+                    case let .navigate(url):
+                        session.browse.send(url)
+                    }
+                }
+        case Scheme.privacy_id.rawValue:
+            session.resign.send()
+            var sub: AnyCancellable?
+            sub = FileManager.page(
+                .init(url.absoluteString.dropFirst(Scheme.privacy_id.url.count)))
+                .receive(on: DispatchQueue.main).sink {
+                    sub?.cancel()
+                    var page = $0
+                    page.date = .init()
+                    session.page = page
+            }
+        case Scheme.privacy_search.rawValue:
+            session.type.send()
+        case Scheme.privacy_forget.rawValue:
+            UIApplication.shared.resign()
+            forget()
+        default:
+            UIApplication.shared.resign()
+            session.browse.send(url)
+        }
+    }
+    
+    private func forget() {
+        FileManager.forget()
+        UIApplication.shared.forget()
+        Share.history = []
+        Share.chart = []
+        Share.blocked = []
     }
 }

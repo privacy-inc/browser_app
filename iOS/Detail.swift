@@ -38,5 +38,8 @@ struct Detail: View {
             Find(session: $session)
             Options(session: $session)
         }
+        .onReceive(session.dismiss) {
+            visible.wrappedValue.dismiss()
+        }
     }
 }
