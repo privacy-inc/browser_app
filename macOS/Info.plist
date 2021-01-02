@@ -73,7 +73,10 @@
 			<string>Privacy Inc link</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>incognit</string>
+				<string>privacy</string>
+				<string>privacy-id</string>
+				<string>privacy-search</string>
+				<string>privacy-forget</string>
 			</array>
 		</dict>
 	</array>
