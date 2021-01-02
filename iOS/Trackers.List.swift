@@ -27,7 +27,7 @@ extension Trackers {
                         .font(Font.footnote.bold())
                         .padding(.vertical)
                 }
-                ForEach(Shared.blocked, id: \.self) { tracker in
+                ForEach(Share.blocked, id: \.self) { tracker in
                     Rectangle()
                         .fill(Color(.quaternarySystemFill))
                         .frame(height: 1)

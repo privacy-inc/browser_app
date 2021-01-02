@@ -151,7 +151,7 @@ extension Web {
                     decisionHandler(.cancel, preferences)
                 case .block(let domain):
                     decisionHandler(.cancel, preferences)
-                    Shared.blocked.append(domain)
+                    Share.blocked.append(domain)
                 }
             }
         }

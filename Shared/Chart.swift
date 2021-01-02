@@ -38,7 +38,7 @@ struct Chart: View {
             .padding(.horizontal)
         }
         .onAppear {
-            let chart = Shared.chart
+            let chart = Share.chart
             guard !chart.isEmpty else { return }
             
             let interval = (Date().timeIntervalSince1970 - chart.first!.timeIntervalSince1970) / .init(Self.divisions)

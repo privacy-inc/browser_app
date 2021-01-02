@@ -32,7 +32,7 @@ struct Session {
     init() {
         subscription = save.debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility)).sink {
             FileManager.save($0)
-            Shared.chart.append(.init())
+            Share.chart.append(.init())
         }
     }
 }

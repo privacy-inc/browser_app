@@ -47,9 +47,9 @@ struct Window: View {
         .onReceive(session.forget) {
             FileManager.forget()
             UIApplication.shared.forget()
-            Shared.history = []
-            Shared.chart = []
-            Shared.blocked = []
+            Share.history = []
+            Share.chart = []
+            Share.blocked = []
         }
     }
 }

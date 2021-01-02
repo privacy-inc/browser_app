@@ -28,7 +28,7 @@ struct Trackers: View {
         .padding(.horizontal)
         .onAppear {
             formatter.numberStyle = .decimal
-            blocked = Shared.blocked
+            blocked = Share.blocked
         }
     }
 }

@@ -38,17 +38,16 @@ struct History: View {
             }
         }
         .animation(.easeInOut(duration: 0.4))
-        .onAppear(perform: refresh)
+        .onAppear {
+            var sub: AnyCancellable?
+            sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
+                sub?.cancel()
+                pages = $0
+                mirror()
+            }
+        }
         .onReceive(session.forget) {
             pages = []
-        }
-    }
-    
-    private func refresh() {
-        var sub: AnyCancellable?
-        sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-            sub?.cancel()
-            pages = $0
         }
     }
     
@@ -57,5 +56,10 @@ struct History: View {
         pages.firstIndex(of: page).map {
             _ = pages.remove(at: $0)
         }
+        mirror()
+    }
+    
+    private func mirror() {
+        Share.history = pages.prefix(6).map(\.item)
     }
 }
