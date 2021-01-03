@@ -11,6 +11,8 @@
 		CE11754F258902C7005160D9 /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11754E258902C7005160D9 /* Control.State.swift */; };
 		CE1511E4259F96D000ABBC72 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1511E3259F96D000ABBC72 /* Chart.swift */; };
 		CE1511EB259F96FD00ABBC72 /* Stats.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1511EA259F96FD00ABBC72 /* Stats.swift */; };
+		CE26C3A925A253500091A529 /* Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26C3A825A253500091A529 /* Delegate.swift */; };
+		CE26C3B025A254D90091A529 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE26C3AF25A254D90091A529 /* Sleuth */; };
 		CE296F9325922FEC00E55E99 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE296F9225922FEC00E55E99 /* Scroll.swift */; };
 		CE31358F258CB3BE00A20487 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31358E258CB3BE00A20487 /* Text.swift */; };
 		CE3B3B37259CAEED008C9682 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B36259CAEED008C9682 /* History.swift */; };
@@ -21,6 +23,7 @@
 		CE3B3B62259CB75E008C9682 /* WKUserContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E4D25891F1500352091 /* WKUserContentController.swift */; };
 		CE3B3B6E259CC21F008C9682 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B6D259CC21F008C9682 /* Progress.swift */; };
 		CE3B3B7A259CC438008C9682 /* Progress.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B79259CC438008C9682 /* Progress.Bar.swift */; };
+		CE42C38125A257C900A9D376 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1511E3259F96D000ABBC72 /* Chart.swift */; };
 		CE52108E259A154700AF4486 /* Privacy.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE52108D259A154700AF4486 /* Privacy.icns */; };
 		CE5481FD259905AC000C7A98 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5481FC259905AC000C7A98 /* NSMenuItem.swift */; };
 		CE5B102D2583843200608726 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5B102C2583843200608726 /* App.swift */; };
@@ -84,9 +87,7 @@
 		CEF78781259B4091001ADEBA /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CEF78773259B4090001ADEBA /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEF7878E259B4312001ADEBA /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF7878D259B4312001ADEBA /* Assets.xcassets */; };
 		CEF78795259B4312001ADEBA /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CEF78794259B4312001ADEBA /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CEF7879A259B4312001ADEBA /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78799259B4312001ADEBA /* ContentView.swift */; };
-		CEF7879C259B4312001ADEBA /* PrivacyApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7879B259B4312001ADEBA /* PrivacyApp.swift */; };
-		CEF7879E259B4312001ADEBA /* ComplicationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7879D259B4312001ADEBA /* ComplicationController.swift */; };
+		CEF7879C259B4312001ADEBA /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7879B259B4312001ADEBA /* App.swift */; };
 		CEF787A7259B4313001ADEBA /* Privacy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CEF7878B259B4311001ADEBA /* Privacy.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEF787D9259B4F37001ADEBA /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEF787D8259B4F37001ADEBA /* Sleuth */; };
 		CEF787EE259B5DB6001ADEBA /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF787ED259B5DB6001ADEBA /* App.Delegate.swift */; };
@@ -169,6 +170,7 @@
 		CE11754E258902C7005160D9 /* Control.State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
 		CE1511E3259F96D000ABBC72 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		CE1511EA259F96FD00ABBC72 /* Stats.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stats.swift; sourceTree = "<group>"; };
+		CE26C3A825A253500091A529 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		CE296F9225922FEC00E55E99 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		CE31358E258CB3BE00A20487 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
 		CE3B3B36259CAEED008C9682 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -246,9 +248,7 @@
 		CEF7878D259B4312001ADEBA /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CEF7878F259B4312001ADEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF78794259B4312001ADEBA /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CEF78799259B4312001ADEBA /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		CEF7879B259B4312001ADEBA /* PrivacyApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyApp.swift; sourceTree = "<group>"; };
-		CEF7879D259B4312001ADEBA /* ComplicationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ComplicationController.swift; sourceTree = "<group>"; };
+		CEF7879B259B4312001ADEBA /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CEF787A4259B4313001ADEBA /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF787DF259B54C6001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
 		CEF787E0259B55D0001ADEBA /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
@@ -299,6 +299,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE26C3B025A254D90091A529 /* Sleuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -468,9 +469,8 @@
 			isa = PBXGroup;
 			children = (
 				CEF787E2259B5766001ADEBA /* Privacy.entitlements */,
-				CEF78799259B4312001ADEBA /* ContentView.swift */,
-				CEF7879B259B4312001ADEBA /* PrivacyApp.swift */,
-				CEF7879D259B4312001ADEBA /* ComplicationController.swift */,
+				CEF7879B259B4312001ADEBA /* App.swift */,
+				CE26C3A825A253500091A529 /* Delegate.swift */,
 				CEF787A4259B4313001ADEBA /* Info.plist */,
 			);
 			path = "watch Extension";
@@ -573,6 +573,9 @@
 			dependencies = (
 			);
 			name = "watch Extension";
+			packageProductDependencies = (
+				CE26C3AF25A254D90091A529 /* Sleuth */,
+			);
 			productName = "watch Extension";
 			productReference = CEF78794259B4312001ADEBA /* Privacy.appex */;
 			productType = "com.apple.product-type.watchkit2-extension";
@@ -776,9 +779,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF7879C259B4312001ADEBA /* PrivacyApp.swift in Sources */,
-				CEF7879A259B4312001ADEBA /* ContentView.swift in Sources */,
-				CEF7879E259B4312001ADEBA /* ComplicationController.swift in Sources */,
+				CE42C38125A257C900A9D376 /* Chart.swift in Sources */,
+				CE26C3A925A253500091A529 /* Delegate.swift in Sources */,
+				CEF7879C259B4312001ADEBA /* App.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1223,6 +1226,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 7AMWG3RLHN;
+				ENABLE_BITCODE = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
@@ -1268,6 +1272,7 @@
 				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 7AMWG3RLHN;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
@@ -1441,6 +1446,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		CE26C3AF25A254D90091A529 /* Sleuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CED75E242589111F00352091 /* XCRemoteSwiftPackageReference "sleuth" */;
+			productName = Sleuth;
+		};
 		CEA7F46D25A091F000D84BAF /* Sleuth */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = CED75E242589111F00352091 /* XCRemoteSwiftPackageReference "sleuth" */;

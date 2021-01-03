@@ -2,11 +2,33 @@ import SwiftUI
 import Sleuth
 
 struct Chart: View {
-    @State private var values = [Double]()
-    @State private var since = ""
+    let values: [Double]
+    let since: String
     fileprivate static let divisions = 6
     fileprivate static let horizontal = 15
     fileprivate static let vertical = 6
+    
+    init(chart: [Date]) {
+        guard !chart.isEmpty else {
+            values = []
+            since = ""
+            return
+        }
+        
+        let interval = (Date().timeIntervalSince1970 - chart.first!.timeIntervalSince1970) / .init(Self.divisions)
+        let ranges = (0 ..< Self.divisions).map {
+            (.init($0) * interval) + chart.first!.timeIntervalSince1970
+        }
+        let array = chart.map(\.timeIntervalSince1970).reduce(into: Array(repeating: Double(), count: Self.divisions)) {
+            var index = 0
+            while index < Self.divisions - 1 && ranges[index + 1] < $1 {
+                index += 1
+            }
+            $0[index] += 1
+        }
+        values = array.map { $0 / array.max()! }
+        since = RelativeDateTimeFormatter().localizedString(for: chart.first!, relativeTo: .init())
+    }
     
     var body: some View {
         VStack {
@@ -24,7 +46,6 @@ struct Chart: View {
                         .stroke(Color.primary, style: .init(lineWidth: 2, lineCap: .round))
                 }
             }
-            .frame(height: 150)
             .padding()
             HStack {
                 Text(verbatim: since)
@@ -36,24 +57,6 @@ struct Chart: View {
                     .foregroundColor(.secondary)
             }
             .padding(.horizontal)
-        }
-        .onAppear {
-            let chart = Share.chart
-            guard !chart.isEmpty else { return }
-            
-            let interval = (Date().timeIntervalSince1970 - chart.first!.timeIntervalSince1970) / .init(Self.divisions)
-            let ranges = (0 ..< Self.divisions).map {
-                (.init($0) * interval) + chart.first!.timeIntervalSince1970
-            }
-            let array = chart.map(\.timeIntervalSince1970).reduce(into: Array(repeating: Double(), count: Self.divisions)) {
-                var index = 0
-                while index < Self.divisions - 1 && ranges[index + 1] < $1 {
-                    index += 1
-                }
-                $0[index] += 1
-            }
-            values = array.map { $0 / array.max()! }
-            since = RelativeDateTimeFormatter().localizedString(for: chart.first!, relativeTo: .init())
         }
     }
 }

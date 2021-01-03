@@ -31,13 +31,5 @@ struct Session {
     let pdf = PassthroughSubject<Void, Never>()
     let dismiss = PassthroughSubject<Void, Never>()
     let forget = PassthroughSubject<Void, Never>()
-    private var subscription: AnyCancellable?
-    private let save = PassthroughSubject<Page, Never>()
-    
-    init() {
-        subscription = save.debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility)).sink {
-            FileManager.save($0)
-            Share.chart.append(.init())
-        }
-    }
+    let save = PassthroughSubject<Page, Never>()
 }

@@ -18,8 +18,14 @@ import Sleuth
                     Share.history = []
                     Share.chart = []
                     Share.blocked = []
+                    watch.send()
                 }
                 .onReceive(watch.forget, perform: session.forget.send)
+                .onReceive(session.save.debounce(for: .seconds(2), scheduler: DispatchQueue.main)) {
+                    FileManager.save($0)
+                    Share.chart.append(.init())
+                    watch.send()
+                }
         }
         .onChange(of: phase) {
             if $0 == .active {
