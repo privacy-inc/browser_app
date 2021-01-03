@@ -9,29 +9,31 @@ struct Window: View {
             Color.background
                 .edgesIgnoringSafeArea(.all)
             VStack(spacing: 0) {
-//                VStack {
-                    
-//                    Spacer()
-//                }
-//                if session.state.error != nil {
-//                    VStack {
-//                        Image(systemName: "exclamationmark.triangle.fill")
-//                            .font(Font.largeTitle.bold())
-//                            .foregroundColor(.accentColor)
-//                        Text(verbatim: session.page?.url.absoluteString ?? "")
-//                            .multilineTextAlignment(.center)
-//                            .font(.footnote)
-//                            .foregroundColor(.secondary)
-//                            .padding()
-//                        Text(verbatim: session.state.error!)
-//                            .padding(.horizontal)
-//                            .multilineTextAlignment(.center)
-//                    }
-//                }
                 if session.page == nil {
                     History(session: $session)
                 } else {
-                    Web(session: $session)
+                    if session.error == nil {
+                        Web(session: $session)
+                    } else {
+                        Spacer()
+                        Image(systemName: "exclamationmark.triangle.fill")
+                            .font(Font.largeTitle.bold())
+                            .foregroundColor(.accentColor)
+                            .padding(.bottom)
+                        if session.page != nil {
+                            Text(verbatim: session.page!.url.absoluteString)
+                                .multilineTextAlignment(.center)
+                                .font(.footnote)
+                                .padding(.top)
+                                .padding(.horizontal)
+                        }
+                        Text(verbatim: session.error!)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.secondary)
+                            .padding(.horizontal)
+                            .frame(maxWidth: 280)
+                        Spacer()
+                    }
                 }
                 if !session.typing {
                     Progress(session: $session)
