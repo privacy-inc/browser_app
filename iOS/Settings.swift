@@ -31,8 +31,10 @@ struct Settings: View {
             }
             Picker("", selection: $engine) {
                 Text("Google")
+                    .foregroundColor(.white)
                     .tag(Engine.google)
                 Text("Ecosia")
+                    .foregroundColor(.white)
                     .tag(Engine.ecosia)
             }
             .pickerStyle(SegmentedPickerStyle())

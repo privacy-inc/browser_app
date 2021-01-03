@@ -21,7 +21,7 @@ import Sleuth
                     watch.send()
                 }
                 .onReceive(watch.forget, perform: session.forget.send)
-                .onReceive(session.save.debounce(for: .seconds(2), scheduler: DispatchQueue.main)) {
+                .onReceive(session.save.debounce(for: .seconds(1), scheduler: DispatchQueue.main)) {
                     FileManager.save($0)
                     Share.chart.append(.init())
                     watch.send()

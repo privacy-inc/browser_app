@@ -17,6 +17,7 @@ struct History: View {
     }
     
     @Environment(\.verticalSizeClass) private var vertical
+    @Environment(\.horizontalSizeClass) private var horizontal
     
     var body: some View {
         GeometryReader { geo in
@@ -33,7 +34,7 @@ struct History: View {
                     Spacer()
                 }
             } else {
-                if vertical == .regular {
+                if UIDevice.current.orientation.isLandscape {
                     Horizontal(
                         session: $session,
                         pages: $pages,
@@ -50,6 +51,7 @@ struct History: View {
         }
         .animation(.easeInOut(duration: 0.4))
         .onAppear {
+            print(horizontal == .regular)
             var sub: AnyCancellable?
             sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
                 sub?.cancel()
