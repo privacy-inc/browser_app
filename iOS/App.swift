@@ -32,8 +32,8 @@ import Sleuth
     private func open(_ url: URL) {
         session.dismiss.send()
         
-        switch url.scheme {
-        case Scheme.privacy.rawValue:
+        switch url.scheme.flatMap(Scheme.init(rawValue:)) {
+        case .privacy:
             session.resign.send()
             url.absoluteString
                 .dropFirst(Scheme.privacy.url.count)
@@ -47,7 +47,7 @@ import Sleuth
                         session.browse.send(url)
                     }
                 }
-        case Scheme.privacy_id.rawValue:
+        case .privacy_id:
             session.resign.send()
             var sub: AnyCancellable?
             sub = FileManager.page(
@@ -58,9 +58,10 @@ import Sleuth
                     page.date = .init()
                     session.page = page
             }
-        case Scheme.privacy_search.rawValue:
+        case .privacy_search:
+            session.page = nil
             session.type.send()
-        case Scheme.privacy_forget.rawValue:
+        case .privacy_forget:
             UIApplication.shared.resign()
             session.forget.send()
         default:

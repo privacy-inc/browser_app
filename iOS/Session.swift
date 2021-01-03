@@ -5,7 +5,11 @@ import Sleuth
 struct Session {
     var page: Page? {
         didSet {
-            page.map(save.send)
+            guard let page = page else {
+                error = nil
+                return
+            }
+            save.send(page)
         }
     }
     

@@ -9,7 +9,7 @@ extension History {
         }
         
         var body: some View {
-            HStack(spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
                 Spacer()
                 content
                 Spacer()
