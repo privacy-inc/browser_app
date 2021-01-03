@@ -12,68 +12,74 @@ extension History {
                 Color("WidgetBackground")
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 if pages.isEmpty {
-                    switch family {
-                    case .systemLarge:
-                        Large {
-                            Medium {
-                                Placeholder()
-                                Placeholder()
-                            }
-                            Medium {
-                                Placeholder()
-                                Placeholder()
-                            }
-                            Medium {
-                                Placeholder()
-                                Placeholder()
-                            }
-                        }
-                    case .systemMedium:
-                        Medium {
-                            Placeholder()
-                            Placeholder()
-                        }
-                    default:
-                        Placeholder()
-                            .padding()
-                    }
+                    
                 } else {
-                    switch family {
-                    case .systemLarge:
-                        Large {
-                            Medium {
-                                Cell(page: pages.first!)
-                                if pages.count > 1 {
-                                    Cell(page: pages[1])
-                                }
-                            }
-                            if pages.count > 2 {
-                                Medium {
-                                    Cell(page: pages[2])
-                                    if pages.count > 3 {
-                                        Cell(page: pages[3])
-                                    }
-                                }
-                                if pages.count > 4 {
-                                    Medium {
-                                        Cell(page: pages[4])
-                                        if pages.count > 5 {
-                                            Cell(page: pages[5])
+                    GeometryReader { geo in
+                        switch family {
+                        case .systemLarge:
+                            HStack {
+                                VStack {
+                                    Spacer()
+                                    Cell(page: pages.first!)
+                                        .frame(width: geo.size.width * 0.45)
+                                    if pages.count > 2 {
+                                        Cell(page: pages[2])
+                                            .frame(width: geo.size.width * 0.45)
+                                            .padding(.top)
+                                        if pages.count > 4 {
+                                            Cell(page: pages[4])
+                                                .frame(width: geo.size.width * 0.45)
+                                                .padding(.top)
                                         }
                                     }
+                                    Spacer()
+                                }
+                                VStack {
+                                    Spacer()
+                                    if pages.count > 1 {
+                                        Cell(page: pages[1])
+                                            .frame(width: geo.size.width * 0.45)
+                                    }
+                                    if pages.count > 3 {
+                                        Cell(page: pages[3])
+                                            .frame(width: geo.size.width * 0.45)
+                                            .padding(.top)
+                                        if pages.count > 5 {
+                                            Cell(page: pages[5])
+                                                .frame(width: geo.size.width * 0.45)
+                                                .padding(.top)
+                                        }
+                                    }
+                                    Spacer()
                                 }
                             }
-                        }
-                    case .systemMedium:
-                        Medium {
-                            Cell(page: pages.first!)
-                            if pages.count > 1 {
-                                Cell(page: pages[1])
+                            .padding()
+                        case .systemMedium:
+                            VStack {
+                                Spacer()
+                                HStack {
+                                    Cell(page: pages.first!)
+                                        .frame(width: geo.size.width * 0.45)
+                                    if pages.count > 1 {
+                                        Cell(page: pages[1])
+                                            .frame(width: geo.size.width * 0.45)
+                                    }
+                                }
+                                .padding()
+                                Spacer()
+                            }
+                        default:
+                            HStack {
+                                Spacer()
+                                VStack {
+                                    Spacer()
+                                    Cell(page: pages.first!)
+                                        .padding()
+                                    Spacer()
+                                }
+                                Spacer()
                             }
                         }
-                    default:
-                        Cell(page: pages.first!)
-                            .padding()
                     }
                 }
             }

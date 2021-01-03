@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension History {
-    struct Medium<Content>: View where Content : View  {
+    struct Horizontal<Content>: View where Content : View  {
         let content: Content
         
         @inlinable public init(@ViewBuilder content: () -> Content) {
@@ -10,9 +10,9 @@ extension History {
         
         var body: some View {
             HStack(alignment: .top, spacing: 0) {
-                Spacer()
+//                Spacer()
                 content
-                Spacer()
+//                Spacer()
             }
             .padding()
         }
