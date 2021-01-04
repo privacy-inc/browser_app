@@ -9,7 +9,8 @@ extension History {
         
         var body: some View {
             ZStack {
-                Color("WidgetBackground")
+                Color("AccentColor")
+                    .opacity(0.6)
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 if pages.isEmpty {
                     VStack {
@@ -17,6 +18,7 @@ extension History {
                         HStack {
                             Spacer()
                             Placeholder()
+                                .padding()
                             Spacer()
                         }
                         Spacer()
@@ -26,22 +28,24 @@ extension History {
                         switch family {
                         case .systemLarge:
                             HStack {
+                                Spacer()
                                 VStack {
                                     Spacer()
                                     Cell(page: pages.first!)
                                         .frame(width: geo.size.width * 0.45)
                                     if pages.count > 2 {
+                                        Spacer()
                                         Cell(page: pages[2])
                                             .frame(width: geo.size.width * 0.45)
-                                            .padding(.top)
                                         if pages.count > 4 {
+                                            Spacer()
                                             Cell(page: pages[4])
                                                 .frame(width: geo.size.width * 0.45)
-                                                .padding(.top)
                                         }
                                     }
                                     Spacer()
                                 }
+                                Spacer()
                                 VStack {
                                     Spacer()
                                     if pages.count > 1 {
@@ -49,31 +53,33 @@ extension History {
                                             .frame(width: geo.size.width * 0.45)
                                     }
                                     if pages.count > 3 {
+                                        Spacer()
                                         Cell(page: pages[3])
                                             .frame(width: geo.size.width * 0.45)
-                                            .padding(.top)
                                         if pages.count > 5 {
+                                            Spacer()
                                             Cell(page: pages[5])
                                                 .frame(width: geo.size.width * 0.45)
-                                                .padding(.top)
                                         }
                                     }
                                     Spacer()
                                 }
+                                Spacer()
                             }
-                            .padding()
                         case .systemMedium:
                             VStack {
                                 Spacer()
                                 HStack {
+                                    Spacer()
                                     Cell(page: pages.first!)
                                         .frame(width: geo.size.width * 0.45)
                                     if pages.count > 1 {
+                                        Spacer()
                                         Cell(page: pages[1])
                                             .frame(width: geo.size.width * 0.45)
                                     }
+                                    Spacer()
                                 }
-                                .padding()
                                 Spacer()
                             }
                         default:
@@ -82,7 +88,6 @@ extension History {
                                 VStack {
                                     Spacer()
                                     Cell(page: pages.first!)
-                                        .padding()
                                     Spacer()
                                 }
                                 Spacer()

@@ -15,14 +15,14 @@ extension Search {
                     HStack {
                         Spacer()
                         Link(destination: URL(string: Scheme.privacy_forget.url)!) {
-                            Image(systemName: "flame")
+                            Neumorphic(image: "flame")
                         }
                         Spacer()
-                        Image(systemName: "magnifyingglass")
+                        Neumorphic(image: "magnifyingglass")
                         Spacer()
                     }
                 default:
-                    Image(systemName: "magnifyingglass")
+                    Neumorphic(image: "magnifyingglass")
                 }
             }
             .font(Font.largeTitle.bold())

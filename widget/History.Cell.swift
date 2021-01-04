@@ -13,15 +13,18 @@ extension History {
                             Text(verbatim: page.title)
                                 .lineLimit(3)
                                 .font(.footnote)
-                                .foregroundColor(.white)
                         }
                         Text(verbatim: page.subtitle)
                             .lineLimit(3)
                             .font(.caption2)
-                            .foregroundColor(Color(white: 1, opacity: 0.5))
+                            .foregroundColor(.secondary)
                     }
+                    .padding()
                     Spacer()
                 }
+                .background(RoundedRectangle(cornerRadius: 18)
+                                .fill(Color("AccentColor")
+                                        .opacity(0.2)))
             }
         }
     }
