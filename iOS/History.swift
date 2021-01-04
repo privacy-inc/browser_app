@@ -47,15 +47,20 @@ struct History: View {
             }
         }
         .animation(.easeInOut(duration: 0.4))
-        .onAppear {
-            var sub: AnyCancellable?
-            sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-                sub?.cancel()
-                pages = $0
-            }
-        }
+        .onAppear(perform: refresh)
         .onReceive(session.forget) {
             pages = []
+        }
+        .onReceive(session.update) {
+            refresh()
+        }
+    }
+    
+    private func refresh() {
+        var sub: AnyCancellable?
+        sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
+            sub?.cancel()
+            pages = $0
         }
     }
     

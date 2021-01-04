@@ -21,6 +21,7 @@ struct Session {
     let browse = PassthroughSubject<URL, Never>()
     let text = PassthroughSubject<String, Never>()
     let find = PassthroughSubject<String, Never>()
+    let save = PassthroughSubject<Page, Never>()
     let type = PassthroughSubject<Void, Never>()
     let resign = PassthroughSubject<Void, Never>()
     let previous = PassthroughSubject<Void, Never>()
@@ -31,5 +32,5 @@ struct Session {
     let pdf = PassthroughSubject<Void, Never>()
     let dismiss = PassthroughSubject<Void, Never>()
     let forget = PassthroughSubject<Void, Never>()
-    let save = PassthroughSubject<Page, Never>()
+    let update = PassthroughSubject<Void, Never>()
 }
