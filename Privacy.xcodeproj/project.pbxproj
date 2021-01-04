@@ -42,6 +42,8 @@
 		CE7766062595F53C00D4C50A /* History.Map.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7766052595F53C00D4C50A /* History.Map.Item.swift */; };
 		CE7BCCF42599148400444040 /* Preferences.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7BCCF32599148400444040 /* Preferences.Button.swift */; };
 		CE872F9A25A361B200C98734 /* Neumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE872F9925A361B200C98734 /* Neumorphic.swift */; };
+		CE872FAB25A3733700C98734 /* Neumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE872FAA25A3733700C98734 /* Neumorphic.swift */; };
+		CE872FB725A3745200C98734 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE872FB625A3745200C98734 /* Media.xcassets */; };
 		CEA09E72259F501F00B612C8 /* Control.State.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA09E71259F501F00B612C8 /* Control.State.swift */; };
 		CEA7F44825A090FB00D84BAF /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7F44725A090FB00D84BAF /* Bundle.swift */; };
 		CEA7F45425A0911F00D84BAF /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7F45325A0911F00D84BAF /* History.swift */; };
@@ -202,6 +204,8 @@
 		CE7766052595F53C00D4C50A /* History.Map.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Map.Item.swift; sourceTree = "<group>"; };
 		CE7BCCF32599148400444040 /* Preferences.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Button.swift; sourceTree = "<group>"; };
 		CE872F9925A361B200C98734 /* Neumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neumorphic.swift; sourceTree = "<group>"; };
+		CE872FAA25A3733700C98734 /* Neumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neumorphic.swift; sourceTree = "<group>"; };
+		CE872FB625A3745200C98734 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CEA09E71259F501F00B612C8 /* Control.State.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.State.swift; sourceTree = "<group>"; };
 		CEA7F44725A090FB00D84BAF /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CEA7F45325A0911F00D84BAF /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
@@ -475,9 +479,11 @@
 			isa = PBXGroup;
 			children = (
 				CEF787E2259B5766001ADEBA /* Privacy.entitlements */,
+				CEF787A4259B4313001ADEBA /* Info.plist */,
 				CEF7879B259B4312001ADEBA /* App.swift */,
 				CE26C3A825A253500091A529 /* Delegate.swift */,
-				CEF787A4259B4313001ADEBA /* Info.plist */,
+				CE872FAA25A3733700C98734 /* Neumorphic.swift */,
+				CE872FB625A3745200C98734 /* Media.xcassets */,
 			);
 			path = "watch Extension";
 			sourceTree = "<group>";
@@ -676,6 +682,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE872FB725A3745200C98734 /* Media.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -788,6 +795,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE42C38125A257C900A9D376 /* Chart.swift in Sources */,
+				CE872FAB25A3733700C98734 /* Neumorphic.swift in Sources */,
 				CE26C3A925A253500091A529 /* Delegate.swift in Sources */,
 				CEF7879C259B4312001ADEBA /* App.swift in Sources */,
 			);

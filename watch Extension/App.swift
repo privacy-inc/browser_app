@@ -14,12 +14,10 @@ import Sleuth
                     .padding()
                     .tag(0)
                 ZStack {
-                    Circle()
-                        .fill(Color.accentColor)
-                        .frame(width: 60, height: 60)
-                    Image(systemName: "flame")
-                        .font(.largeTitle)
-                        .foregroundColor(.black)
+                    Color
+                        .accentColor
+                        .edgesIgnoringSafeArea(.all)
+                    Neumorphic(image: "flame")
                         .onTapGesture {
                             alert = true
                         }

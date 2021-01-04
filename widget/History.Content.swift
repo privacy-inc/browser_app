@@ -9,7 +9,7 @@ extension History {
         
         var body: some View {
             ZStack {
-                Color("AccentColor")
+                Color("WidgetBackground")
                     .opacity(0.6)
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 if pages.isEmpty {
