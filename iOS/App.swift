@@ -21,7 +21,7 @@ import Sleuth
                     session.update.send()
                 }
                 .onReceive(watch.forget, perform: session.forget.send)
-                .onReceive(session.save.debounce(for: .seconds(1), scheduler: DispatchQueue.main)) {
+                .onReceive(session.save.debounce(for: .seconds(2), scheduler: DispatchQueue.main)) {
                     FileManager.save($0)
                     Share.chart.append(.init())
                     session.update.send()
@@ -37,7 +37,7 @@ import Sleuth
     
     private func open(_ url: URL) {
         session.dismiss.send()
-        
+        let current = session.page
         switch url.scheme.flatMap(Scheme.init(rawValue:)) {
         case .privacy:
             session.resign.send()
@@ -46,10 +46,16 @@ import Sleuth
                 .removingPercentEncoding
                 .flatMap(Defaults.engine.browse)
                 .map {
+                    let url: URL
                     switch $0 {
-                    case let .search(url):
-                        session.browse.send(url)
-                    case let .navigate(url):
+                    case let .search(search):
+                        url = search
+                    case let .navigate(navigate):
+                        url = navigate
+                    }
+                    
+                    session.page = .init(url: url)
+                    if current != nil {
                         session.browse.send(url)
                     }
                 }
@@ -63,6 +69,10 @@ import Sleuth
                     var page = $0
                     page.date = .init()
                     session.page = page
+                    
+                    if current != nil {
+                        session.browse.send(url)
+                    }
             }
         case .privacy_search:
             session.page = nil
@@ -72,7 +82,11 @@ import Sleuth
             session.forget.send()
         default:
             UIApplication.shared.resign()
-            session.browse.send(url)
+            session.page = .init(url: url)
+            
+            if current != nil {
+                session.browse.send(url)
+            }
         }
     }
 }

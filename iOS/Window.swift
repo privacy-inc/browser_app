@@ -42,9 +42,5 @@ struct Window: View {
             }
             .animation(.easeInOut(duration: 0.3))
         }
-        .onReceive(session.browse) {
-            guard session.page == nil else { return }
-            session.page = .init(url: $0)
-        }
     }
 }

@@ -87,13 +87,20 @@ extension Searchbar {
         func searchBarSearchButtonClicked(_: UISearchBar) {
             bar.text.map {
                 Defaults.engine.browse($0).map {
+                    let url: URL
                     switch $0 {
-                    case let .search(url):
-                        view.session.browse.send(url)
-                    case let .navigate(url):
-                        view.session.browse.send(url)
+                    case let .search(search):
+                        url = search
+                    case let .navigate(navigate):
+                        url = navigate
                         bar.text = nil
                         changed()
+                    }
+                    
+                    if view.session.page == nil {
+                        view.session.page = .init(url: url)
+                    } else {
+                        view.session.browse.send(url)
                     }
                 }
                 bar.resignFirstResponder()
