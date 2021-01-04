@@ -40,7 +40,7 @@ struct Window: View {
                 }
                 Searchbar(session: $session)
             }
-            .animation(.easeInOut(duration: 0.35))
+            .animation(.easeInOut(duration: 0.3))
         }
         .onReceive(session.browse) {
             guard session.page == nil else { return }

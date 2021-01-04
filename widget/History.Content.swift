@@ -12,7 +12,15 @@ extension History {
                 Color("WidgetBackground")
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 if pages.isEmpty {
-                    
+                    VStack {
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Placeholder()
+                            Spacer()
+                        }
+                        Spacer()
+                    }
                 } else {
                     GeometryReader { geo in
                         switch family {
