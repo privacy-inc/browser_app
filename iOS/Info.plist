@@ -42,6 +42,7 @@
 				<string>privacy-id</string>
 				<string>privacy-search</string>
 				<string>privacy-forget</string>
+				<string>privacy-trackers</string>
 			</array>
 		</dict>
 	</array>
