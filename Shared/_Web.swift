@@ -12,8 +12,6 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     required init?(coder: NSCoder) { nil }
     init(configuration: WKWebViewConfiguration) {
         configuration.allowsAirPlayForMediaPlayback = true
-        configuration.allowsInlineMediaPlayback = true
-        configuration.ignoresViewportScaleLimits = true
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = Defaults.popups && Defaults.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = secure
         configuration.websiteDataStore = .nonPersistent()
@@ -32,16 +30,16 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         allowsBackForwardNavigationGestures = true
     }
     
+    deinit {
+        uiDelegate = nil
+        navigationDelegate = nil
+    }
+    
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         guard secure else {
             completionHandler(.useCredential, didReceive.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
             return
         }
         completionHandler(.performDefaultHandling, nil)
-    }
-    
-    deinit {
-        uiDelegate = nil
-        navigationDelegate = nil
     }
 }

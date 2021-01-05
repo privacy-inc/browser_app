@@ -1,11 +1,15 @@
 import WebKit
+import Combine
 import Sleuth
 
 final class Web: _Web {
+    private weak var browser: Browser!
     private var destination = Destination.window
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
+        self.browser = browser
+        
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = "Safari/605"
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
@@ -14,39 +18,37 @@ final class Web: _Web {
             configuration.userContentController.dark()
         }
         
-        super.init(browser: browser, configuration: configuration)
+        super.init(configuration: configuration)
         translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
         
-        
-        
         publisher(for: \.estimatedProgress).sink {
-            browser.progress($0)
+            browser.progress.value = $0
         }.store(in: &subs)
         
         publisher(for: \.isLoading).sink {
-            browser.loading($0)
+            browser.loading.value = $0
         }.store(in: &subs)
         
         publisher(for: \.title).sink {
             $0.map {
                 guard !$0.isEmpty else { return }
-                browser.title($0)
+                browser.page.value?.title = $0
             }
         }.store(in: &subs)
         
         publisher(for: \.url).sink {
             $0.map {
-                browser.url($0)
+                browser.page.value?.url = $0
             }
         }.store(in: &subs)
         
         publisher(for: \.canGoBack).sink {
-            browser.backwards($0)
+            browser.backwards.value = $0
         }.store(in: &subs)
         
         publisher(for: \.canGoForward).sink {
-            browser.forwards($0)
+            browser.forwards.value = $0
         }.store(in: &subs)
         
         browser.previous.sink { [weak self] in
@@ -64,17 +66,13 @@ final class Web: _Web {
         browser.stop.sink { [weak self] in
             self?.stopLoading()
         }.store(in: &subs)
-        
-        
     }
     
-    
-    
-    final func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-        browser.error(nil)
+    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        browser.error.value = nil
     }
     
-    final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
+    func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
         if let error = withError as? URLError {
             switch error.code {
             case .networkConnectionLost,
@@ -87,22 +85,39 @@ final class Web: _Web {
                  .timedOut,
                  .secureConnectionFailed,
                  .serverCertificateUntrusted:
-                browser.error(error.localizedDescription)
+                browser.error.value = error.localizedDescription
             default: break
             }
         } else if (withError as NSError).code == 101 {
-            browser.error(withError.localizedDescription)
+            browser.error.value = withError.localizedDescription
         }
     }
     
-    final func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+    func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
-            action.request.url.map(browser.popup)
+            action.request.url.map { url in
+                switch destination {
+                case .window:
+                    (NSApp as? App)?.window(url)
+                case .tab:
+                    (window as? Window)?.newTab(url)
+                case .download:
+                    URLSession.shared.dataTaskPublisher(for: url)
+                        .map(\.data)
+                        .receive(on: DispatchQueue.main)
+                        .replaceError(with: .init())
+                        .sink { [weak self] in
+                            (self?.window as? Window)?.save(url.lastPathComponent, data: $0)
+                        }.store(in: &subs)
+                    break
+                }
+                destination = .window
+            }
         }
         return nil
     }
     
-    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+    func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         var sub: AnyCancellable?
         sub = shield.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
             sub?.cancel()
@@ -114,46 +129,14 @@ final class Web: _Web {
             case .external:
                 print("external \(decidePolicyFor.request.url!)")
                 decisionHandler(.cancel, preferences)
-                self?.browser.external(decidePolicyFor.request.url!)
+                NSWorkspace.shared.open(decidePolicyFor.request.url!)
             case .ignore:
-                decisionHandler(.allow, preferences)
+                decisionHandler(.cancel, preferences)
             case .block(let domain):
                 decisionHandler(.cancel, preferences)
-                self?.browser.blocked(domain)
+                (NSApp as! App).blocked.value.insert(domain)
             }
         }
-    }
-    
-    
-    
-    
-    
-    
-    override func popup(_ url: URL) {
-        switch destination {
-        case .window:
-            (NSApp as? App)?.window(url)
-        case .tab:
-            (window as? Window)?.newTab(url)
-        case .download:
-            URLSession.shared.dataTaskPublisher(for: url)
-                .map(\.data)
-                .receive(on: DispatchQueue.main)
-                .replaceError(with: .init())
-                .sink { [weak self] in
-                    (self?.window as? Window)?.save(url.lastPathComponent, data: $0)
-                }.store(in: &subs)
-            break
-        }
-        destination = .window
-    }
-    
-    override func external(_ url: URL) {
-        NSWorkspace.shared.open(url)
-    }
-    
-    override func blocked(_ domain: String) {
-        (NSApp as! App).blocked.value.insert(domain)
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {

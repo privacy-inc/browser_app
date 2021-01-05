@@ -11,6 +11,8 @@ extension Web {
             let configuration = WKWebViewConfiguration()
             configuration.dataDetectorTypes = [.link]
             configuration.defaultWebpagePreferences.preferredContentMode = .mobile
+            configuration.allowsInlineMediaPlayback = true
+            configuration.ignoresViewportScaleLimits = true
             
             let dark = UIApplication.dark && Defaults.dark
             if dark {
@@ -105,7 +107,7 @@ extension Web {
             view.session.progress = 1
         }
         
-        final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
+        func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
             if let error = withError as? URLError {
                 switch error.code {
                 case .networkConnectionLost,
@@ -127,14 +129,14 @@ extension Web {
             view.session.progress = 1
         }
         
-        final func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
+        func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
             if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
                 action.request.url.map(view.session.browse.send)
             }
             return nil
         }
         
-        final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+        func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
             var sub: AnyCancellable?
             sub = shield.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
                 sub?.cancel()

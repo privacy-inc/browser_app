@@ -1,3 +1,4 @@
+import Foundation
 import Combine
 import Sleuth
 
@@ -16,7 +17,7 @@ final class Browser {
     private var subscription: AnyCancellable?
     
     init() {
-        subscription = page.debounce(for: .seconds(2), scheduler: DispatchQueue.main).sink {
+        subscription = page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink {
             guard let page = $0 else { return }
             FileManager.save(page)
         }
