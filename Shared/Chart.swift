@@ -32,6 +32,12 @@ struct Chart: View {
     
     var body: some View {
         VStack {
+            HStack {
+                Text("Usage")
+                    .font(.footnote)
+                    .padding(.leading)
+                Spacer()
+            }
             ZStack {
                 Pattern()
                     .stroke(Color.primary.opacity(0.15), style: .init(lineWidth: 1, lineCap: .round, dash: [1, 4]))

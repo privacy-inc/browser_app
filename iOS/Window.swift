@@ -8,6 +8,12 @@ struct Window: View {
         ZStack {
             Color.background
                 .edgesIgnoringSafeArea(.all)
+                .sheet(item: $session.modal) {
+                    switch $0 {
+                    case .trackers: Trackers.List(session: $session)
+                    case .store: Settings(session: $session)
+                    }
+                }
             VStack(spacing: 0) {
                 if session.page == nil {
                     History(session: $session)

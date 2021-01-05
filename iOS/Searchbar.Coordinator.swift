@@ -32,8 +32,8 @@ extension Searchbar {
             bar.autocorrectionType = .no
             bar.showsCancelButton = true
             bar.enablesReturnKeyAutomatically = false
-            bar.barTintColor = UIColor(named: "AccentColor")!
-            bar.tintColor = UIColor(named: "AccentColor")!
+            bar.barTintColor = .label
+            bar.tintColor = .label
             bar.keyboardType = .webSearch
             bar.searchTextField.allowsEditingTextAttributes = false
             bar.delegate = self

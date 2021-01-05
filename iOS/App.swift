@@ -12,6 +12,7 @@ import Sleuth
         WindowGroup {
             Window(session: $session)
                 .onOpenURL(perform: open)
+                .onReceive(watch.forget, perform: session.forget.send)
                 .onReceive(session.forget) {
                     FileManager.forget()
                     UIApplication.shared.forget()
@@ -20,7 +21,6 @@ import Sleuth
                     Share.blocked = []
                     session.update.send()
                 }
-                .onReceive(watch.forget, perform: session.forget.send)
                 .onReceive(session.save.debounce(for: .seconds(1.5), scheduler: DispatchQueue.main)) {
                     FileManager.save($0)
                     Share.chart.append(.init())
@@ -36,10 +36,10 @@ import Sleuth
     }
     
     private func open(_ url: URL) {
-        session.dismiss.send()
         let current = session.page
         switch url.scheme.flatMap(Scheme.init(rawValue:)) {
         case .privacy:
+            session.dismiss.send()
             session.resign.send()
             url.absoluteString
                 .dropFirst(Scheme.privacy.url.count)
@@ -60,6 +60,7 @@ import Sleuth
                     }
                 }
         case .privacy_id:
+            session.dismiss.send()
             session.resign.send()
             var sub: AnyCancellable?
             sub = FileManager.page(
@@ -75,12 +76,21 @@ import Sleuth
                     }
             }
         case .privacy_search:
+            session.dismiss.send()
             session.page = nil
             session.type.send()
         case .privacy_forget:
+            session.dismiss.send()
             UIApplication.shared.resign()
             session.forget.send()
+        case .privacy_trackers:
+            if session.modal != .trackers {
+                session.dismiss.send()
+                UIApplication.shared.resign()
+                session.modal = .trackers
+            }
         default:
+            session.dismiss.send()
             UIApplication.shared.resign()
             session.page = .init(url: url)
             

@@ -15,8 +15,8 @@ struct Settings: View {
                     visible.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark")
+                        .font(.callout)
                         .foregroundColor(.secondary)
-                        .font(.title3)
                         .frame(width: 60, height: 50)
                 }
                 .contentShape(Rectangle())

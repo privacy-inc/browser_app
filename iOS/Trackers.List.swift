@@ -3,6 +3,7 @@ import Sleuth
 
 extension Trackers {
     struct List: View {
+        @Binding var session: Session
         @Environment(\.presentationMode) private var visible
         
         var body: some View {
@@ -40,6 +41,9 @@ extension Trackers {
                     }
                     .padding(.horizontal)
                 }
+            }
+            .onReceive(session.dismiss) {
+                visible.wrappedValue.dismiss()
             }
         }
     }

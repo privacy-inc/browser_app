@@ -2,6 +2,7 @@ import SwiftUI
 import Sleuth
 
 struct Trackers: View {
+    @Binding var session: Session
     @State private var formatter = NumberFormatter()
     @State private var list = false
     @State private var blocked = [String]()
@@ -22,7 +23,7 @@ struct Trackers: View {
                 list = true
             }
             .sheet(isPresented: $list) {
-                List()
+                List(session: $session)
             }
         }
         .padding(.horizontal)

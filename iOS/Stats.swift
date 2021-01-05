@@ -24,21 +24,23 @@ struct Stats: View {
                 .font(.largeTitle)
                 .padding(.bottom)
             Chart(chart: Share.chart)
-                .frame(height: 200)
+                .frame(height: 220)
                 .padding(.vertical)
-            Trackers()
+            Trackers(session: $session)
                 .padding(.vertical)
             HStack {
                 Spacer()
                 Text("Forget")
                     .font(.footnote)
-                    .foregroundColor(.primary)
                 Control.Circle(background: .init(.systemBackground), state: .ready, image: "flame") {
                     session.forget.send()
                     visible.wrappedValue.dismiss()
                 }
             }
             .padding(.horizontal)
+        }
+        .onReceive(session.dismiss) {
+            visible.wrappedValue.dismiss()
         }
     }
 }
