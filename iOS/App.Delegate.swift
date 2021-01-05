@@ -5,7 +5,7 @@ import Sleuth
 extension App {
     final class Delegate: NSObject, UIApplicationDelegate {
         func rate() {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
                 if let created = Defaults.created {
                     if !Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4 {
                         Defaults.rated = true
