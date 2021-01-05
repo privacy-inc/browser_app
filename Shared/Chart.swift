@@ -55,11 +55,11 @@ struct Chart: View {
             .padding()
             HStack {
                 Text(verbatim: since)
-                    .font(.footnote)
+                    .font(.caption2)
                     .foregroundColor(.secondary)
                 Spacer()
                 Text("Now")
-                    .font(.footnote)
+                    .font(.caption2)
                     .foregroundColor(.secondary)
             }
             .padding(.horizontal)

@@ -10,27 +10,30 @@ import Sleuth
     var body: some Scene {
         WindowGroup {
             TabView(selection: $tab) {
-                Chart(chart: delegate.chart)
-                    .padding()
-                    .tag(0)
                 ZStack {
-                    Color
-                        .accentColor
+                    Color("Background")
+                        .edgesIgnoringSafeArea(.all)
+                    Chart(chart: delegate.chart)
+                        .padding()
+                }
+                .tag(0)
+                ZStack {
+                    Color("Background")
                         .edgesIgnoringSafeArea(.all)
                     Neumorphic(image: "flame")
                         .onTapGesture {
                             alert = true
                         }
+                        .alert(isPresented: $alert) {
+                            Alert(title: .init("Forget everything?"),
+                                  primaryButton: .default(.init("Cancel")),
+                                  secondaryButton: .destructive(.init("Forget")) {
+                                    delegate.chart = []
+                                    delegate.forget()
+                            })
+                        }
                 }
                 .tag(1)
-                .alert(isPresented: $alert) {
-                    Alert(title: .init("Forget everything?"),
-                          primaryButton: .default(.init("Cancel")),
-                          secondaryButton: .destructive(.init("Forget")) {
-                            delegate.chart = []
-                            delegate.forget()
-                    })
-                }
             }
             .tabViewStyle(PageTabViewStyle())
             .onAppear {
