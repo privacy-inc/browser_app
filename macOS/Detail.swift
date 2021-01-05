@@ -13,7 +13,7 @@ final class Detail: NSPopover {
         contentViewController = .init()
         contentViewController!.view = .init()
         
-        let trackers = Item(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: "\((NSApp as! App).blocked.value.count)")
+        let trackers = Item(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: "\(Share.blocked.count)")
         contentViewController!.view.addSubview(trackers)
         
         trackers.click.sink {

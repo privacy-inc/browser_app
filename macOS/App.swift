@@ -4,7 +4,7 @@ import Sleuth
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate  {
     let pages = CurrentValueSubject<[Page], Never>([])
-    let blocked = CurrentValueSubject<Set<String>, Never>([])
+    let blocked = PassthroughSubject<Void, Never>()
     private var sub: AnyCancellable?
     
     required init?(coder: NSCoder) { nil }

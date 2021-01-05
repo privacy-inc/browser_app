@@ -134,7 +134,8 @@ final class Web: _Web {
                 decisionHandler(.cancel, preferences)
             case .block(let domain):
                 decisionHandler(.cancel, preferences)
-                (NSApp as! App).blocked.value.insert(domain)
+                Share.blocked.append(domain)
+                (NSApp as! App).blocked.send()
             }
         }
     }

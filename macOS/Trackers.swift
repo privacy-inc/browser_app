@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Sleuth
 
 final class Trackers: NSWindow {
     private var sub: AnyCancellable?
@@ -27,11 +28,12 @@ final class Trackers: NSWindow {
         
         sub = (NSApp as! App).blocked.receive(on: DispatchQueue.main).sink { [weak self] in
             scroll.views.forEach { $0.removeFromSuperview() }
-            self?.title = NSLocalizedString("\($0.count) trackers blocked", comment: "")
-            guard !$0.isEmpty else { return }
+            let blocked = Share.blocked
+            self?.title = NSLocalizedString("\(blocked.count) trackers blocked", comment: "")
+            guard !blocked.isEmpty else { return }
             var top = scroll.top
             
-            $0.sorted().forEach {
+            blocked.forEach {
                 let text = Text()
                 text.stringValue = $0
                 text.maximumNumberOfLines = 1
