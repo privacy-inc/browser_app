@@ -48,11 +48,21 @@ import Sleuth
     }
     
     func tab(_ url: URL) {
-        guard let window = keyWindow as? Window ?? windows.compactMap({ $0 as? Window }).first else {
-            self.window(url)
+        guard let key = keyWindow as? Window,
+              key.browser.page.value == nil
+        else {
+            if let empty = windows
+                .compactMap({ $0 as? Window })
+                .first(where: { $0.browser.page.value == nil }) {
+                empty.browser.browse.send(url)
+            } else if let window = windows.compactMap({ $0 as? Window }).first {
+                window.newTab(url)
+            } else {
+                window(url)
+            }
             return
         }
-        window.newTab(url)
+        key.browser.browse.send(url)
     }
     
     @objc func newWindow() {

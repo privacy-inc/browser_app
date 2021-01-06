@@ -130,7 +130,7 @@ extension Web {
         }
         
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-            if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
+            if (action.targetFrame == nil && action.navigationType == .other) || action.navigationType == .linkActivated {
                 action.request.url.map(view.session.browse.send)
             }
             return nil

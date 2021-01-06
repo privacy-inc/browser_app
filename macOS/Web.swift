@@ -94,7 +94,7 @@ final class Web: _Web {
     }
     
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        if action.targetFrame == nil && (action.navigationType == .other || action.navigationType == .linkActivated) {
+        if action.targetFrame == nil && action.navigationType == .other {
             action.request.url.map { url in
                 switch destination {
                 case .window:
@@ -113,6 +113,8 @@ final class Web: _Web {
                 }
                 destination = .window
             }
+        } else if action.navigationType == .linkActivated {
+            (window as? Window)?.newTab(url)
         }
         return nil
     }
