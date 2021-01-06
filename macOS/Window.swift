@@ -6,7 +6,9 @@ final class Window: NSWindow {
     private(set) weak var web: Web?
     let browser = Browser()
     private weak var history: History?
+    private weak var issue: Issue?
     private weak var searchbar: Searchbar!
+    private weak var separator: NSView!
     private var subs = Set<AnyCancellable>()
     
     init() {
@@ -23,11 +25,20 @@ final class Window: NSWindow {
         
         let searchbar = Searchbar(browser: browser)
         self.searchbar = searchbar
+        
         initialFirstResponder = searchbar.field
+        
         let accesory = NSTitlebarAccessoryViewController()
         accesory.view = searchbar
         accesory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accesory)
+        
+        let separator = NSView()
+        separator.translatesAutoresizingMaskIntoConstraints = false
+        separator.wantsLayer = true
+        separator.layer!.backgroundColor = .init(gray: 0, alpha: 0.1)
+        contentView!.addSubview(separator)
+        self.separator = separator
         
         let progress = NSView()
         progress.translatesAutoresizingMaskIntoConstraints = false
@@ -36,38 +47,56 @@ final class Window: NSWindow {
         contentView!.addSubview(progress)
         
         let history = History(browser: browser)
-        contentView!.addSubview(history)
+        add(history)
         self.history = history
         
-        history.topAnchor.constraint(equalTo: progress.bottomAnchor).isActive = true
-        history.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.bottomAnchor).isActive = true
-        history.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
-        history.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
+        separator.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        separator.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
+        separator.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
+        separator.heightAnchor.constraint(equalToConstant: 4).isActive = true
         
-        progress.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
-        progress.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
-        progress.heightAnchor.constraint(equalToConstant: 3).isActive = true
+        progress.topAnchor.constraint(equalTo: separator.topAnchor).isActive = true
+        progress.leftAnchor.constraint(equalTo: separator.leftAnchor).isActive = true
+        progress.bottomAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
+        
         var progressWidth: NSLayoutConstraint?
+        browser.progress.sink { [weak self] in
+            guard let anchor = self?.separator.widthAnchor else { return }
+            progressWidth?.isActive = false
+            progressWidth = progress.widthAnchor.constraint(equalTo: anchor, multiplier: .init($0))
+            progressWidth?.isActive = true
+        }.store(in: &subs)
         
         browser.browse.sink { [weak self] in
+            guard let browser = self?.browser else { return }
+            
             self?.history?.removeFromSuperview()
-            guard let self = self else { return }
+            self?.issue?.removeFromSuperview()
+            browser.error.value = nil
             
-            if self.browser.page.value == nil {
-                self.browser.page.value = .init(url: $0)
+            if browser.page.value == nil {
+                browser.page.value = .init(url: $0)
             }
             
-            if self.web == nil {
-                let web = Web(browser: self.browser)
-                self.web = web
-                self.contentView!.addSubview(web)
-                web.topAnchor.constraint(equalTo: progress.bottomAnchor).isActive = true
-                web.bottomAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.bottomAnchor).isActive = true
-                web.leftAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
-                web.rightAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
+            if self?.web == nil {
+                let web = Web(browser: browser)
+                self?.add(web)
+                self?.web = web
             }
             
-            self.web?.load(.init(url: $0))
+            self?.web?.load(.init(url: $0))
+        }.store(in: &subs)
+        
+        browser.error.sink { [weak self] in
+            guard $0 != nil, let browser = self?.browser else { return }
+            
+            self?.tab.title = $0
+            self?.history?.removeFromSuperview()
+            self?.web?.removeFromSuperview()
+            
+            let issue = Issue(browser: browser)
+            self?.add(issue)
+            self?.issue = issue
         }.store(in: &subs)
         
         browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
@@ -75,13 +104,6 @@ final class Window: NSWindow {
                 guard !$0.title.isEmpty else { return }
                 self?.tab.title = $0.title
             }
-        }.store(in: &subs)
-        
-        browser.progress.sink { [weak self] in
-            guard let self = self else { return }
-            progressWidth?.isActive = false
-            progressWidth = progress.widthAnchor.constraint(equalTo: self.contentView!.safeAreaLayoutGuide.widthAnchor, multiplier: .init($0))
-            progressWidth?.isActive = true
         }.store(in: &subs)
         
         browser.loading.sink {
@@ -126,5 +148,14 @@ final class Window: NSWindow {
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString($0.url.absoluteString, forType: .string)
         }
+    }
+    
+    private func add(_ view: NSView) {
+        contentView!.addSubview(view)
+        
+        view.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.bottomAnchor).isActive = true
+        view.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
+        view.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
     }
 }
