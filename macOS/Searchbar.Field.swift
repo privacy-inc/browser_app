@@ -65,7 +65,7 @@ extension Searchbar {
                     browser.browse.send(url)
                 case let .navigate(url):
                     browser.browse.send(url)
-//                    window?.makeFirstResponder(window?.contentView)
+                    window?.makeFirstResponder(window?.contentView)
                 }
             }
         }
