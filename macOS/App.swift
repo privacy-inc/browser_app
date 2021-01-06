@@ -1,6 +1,7 @@
 import AppKit
 import Combine
 import Sleuth
+import StoreKit
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate  {
     let pages = CurrentValueSubject<[Page], Never>([])
@@ -38,6 +39,19 @@ import Sleuth
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
         newWindow()
+    }
+    
+    func applicationDidFinishLaunching(_: Notification) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            if let created = Defaults.created {
+                if true || (!Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4) {
+                    Defaults.rated = true
+                    SKStoreReviewController.requestReview()
+                }
+            } else {
+                Defaults.created = .init()
+            }
+        }
     }
     
     func window(_ url: URL) {
