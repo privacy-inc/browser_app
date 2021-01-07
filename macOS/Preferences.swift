@@ -1,12 +1,14 @@
 import AppKit
+import CoreLocation
 import Sleuth
 import Combine
 
 final class Preferences: NSWindow {
     private var subs = Set<AnyCancellable>()
+    private let manager = CLLocationManager()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 720),
+        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 760),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
         toolbar = .init()
         title = NSLocalizedString("Preferences", comment: "")
@@ -93,6 +95,16 @@ final class Preferences: NSWindow {
         }
         contentView!.addSubview(makeDefault)
         
+        let location = Button(title: NSLocalizedString("Location authorization", comment: ""), icon: NSImage(systemSymbolName: manager.authorizationStatus == .authorized ? "location" : "location.slash", accessibilityDescription: nil)!)
+        location.click.sink { [weak self] in
+            if self?.manager.authorizationStatus == .authorized {
+                NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")!)
+            } else {
+                self?.manager.requestWhenInUseAuthorization()
+            }
+        }.store(in: &subs)
+        contentView!.addSubview(location)
+        
         [titleEngine, titleOptions, titleAdvanced].forEach {
             $0.textColor = .secondaryLabelColor
             $0.font = .systemFont(ofSize: 12, weight: .regular)
@@ -113,8 +125,9 @@ final class Preferences: NSWindow {
         ads.topAnchor.constraint(equalTo: javascript.bottomAnchor, constant: 4).isActive = true
         titleAdvanced.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 40).isActive = true
         makeDefault.topAnchor.constraint(equalTo: titleAdvanced.bottomAnchor, constant: 12).isActive = true
+        location.topAnchor.constraint(equalTo: makeDefault.bottomAnchor, constant: 4).isActive = true
         
-        [segmented, dark, safe, trackers, cookies, popups, javascript, ads, makeDefault].forEach {
+        [segmented, dark, safe, trackers, cookies, popups, javascript, ads, makeDefault, location].forEach {
             $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 90).isActive = true
             $0.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -90).isActive = true
         }

@@ -93,6 +93,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSLocationUsageDescription</key>
+	<string>Websites might want to access your location</string>
 	<key>NSPrincipalClass</key>
 	<string>$(PRODUCT_NAME).App</string>
 	<key>NSUserActivityTypes</key>
