@@ -44,7 +44,7 @@ import StoreKit
     func applicationDidFinishLaunching(_: Notification) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             if let created = Defaults.created {
-                if true || (!Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4) {
+                if !Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4 {
                     Defaults.rated = true
                     SKStoreReviewController.requestReview()
                 }
