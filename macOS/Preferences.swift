@@ -5,7 +5,6 @@ import Combine
 
 final class Preferences: NSWindow {
     private var subs = Set<AnyCancellable>()
-    private let manager = CLLocationManager()
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 760),
@@ -95,13 +94,9 @@ final class Preferences: NSWindow {
         }
         contentView!.addSubview(makeDefault)
         
-        let location = Button(title: NSLocalizedString("Location authorization", comment: ""), icon: NSImage(systemSymbolName: manager.authorizationStatus == .authorized ? "location" : "location.slash", accessibilityDescription: nil)!)
-        location.click.sink { [weak self] in
-            if self?.manager.authorizationStatus == .authorized {
-                NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")!)
-            } else {
-                self?.manager.requestWhenInUseAuthorization()
-            }
+        let location = Button(title: NSLocalizedString("Location authorization", comment: ""), icon: NSImage(systemSymbolName: CLLocationManager().authorizationStatus == .authorized ? "location" : "location.slash", accessibilityDescription: nil)!)
+        location.click.sink {
+            NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")!)
         }.store(in: &subs)
         contentView!.addSubview(location)
         
