@@ -13,7 +13,7 @@ final class Web: _Web, WKScriptMessageHandler, CLLocationManagerDelegate {
         self.browser = browser
         
         let configuration = WKWebViewConfiguration()
-        configuration.applicationNameForUserAgent = "Safari/605"
+        configuration.applicationNameForUserAgent = "Mozilla/5 Version/14 Safari/605"
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.userContentController.addUserScript(.init(source: """
 var listeners = [];
