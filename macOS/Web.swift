@@ -123,7 +123,7 @@ final class Web: _Web, WKScriptMessageHandler {
         }
         return nil
     }
-    // https://www.thelocal.de/20210107/schools-contact-rules-and-travel-what-you-need-to-know-about-berlins-new-covid-19-restrictions-january-2021
+    
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         var sub: AnyCancellable?
         sub = shield.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
@@ -158,6 +158,7 @@ final class Web: _Web, WKScriptMessageHandler {
                         "locationReceived(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));");
                 }
             }
+            (NSApp as! App).geolocation()
         default: break
         }
     }

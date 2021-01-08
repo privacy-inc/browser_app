@@ -1,5 +1,4 @@
 import AppKit
-import CoreLocation
 import Sleuth
 import Combine
 
@@ -7,7 +6,7 @@ final class Preferences: NSWindow {
     private var subs = Set<AnyCancellable>()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 760),
+        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 800),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
         toolbar = .init()
         title = NSLocalizedString("Preferences", comment: "")
@@ -78,6 +77,13 @@ final class Preferences: NSWindow {
         }.store(in: &subs)
         contentView!.addSubview(ads)
         
+        let location = Toggle(title: NSLocalizedString("Access to your location", comment: ""))
+        location.value.value = Defaults.location
+        location.value.dropFirst().sink {
+            Defaults.location = $0
+        }.store(in: &subs)
+        contentView!.addSubview(location)
+        
         let titleAdvanced = Text()
         titleAdvanced.stringValue = NSLocalizedString("Advanced", comment: "")
         
@@ -94,11 +100,11 @@ final class Preferences: NSWindow {
         }
         contentView!.addSubview(makeDefault)
         
-        let location = Button(title: NSLocalizedString("Location authorization", comment: ""), icon: NSImage(systemSymbolName: CLLocationManager().authorizationStatus == .authorized ? "location" : "location.slash", accessibilityDescription: nil)!)
-        location.click.sink {
+        let authorization = Button(title: NSLocalizedString("Location authorization", comment: ""), icon: NSImage(systemSymbolName: "location", accessibilityDescription: nil)!)
+        authorization.click.sink {
             NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")!)
         }.store(in: &subs)
-        contentView!.addSubview(location)
+        contentView!.addSubview(authorization)
         
         [titleEngine, titleOptions, titleAdvanced].forEach {
             $0.textColor = .secondaryLabelColor
@@ -118,11 +124,12 @@ final class Preferences: NSWindow {
         popups.topAnchor.constraint(equalTo: cookies.bottomAnchor, constant: 4).isActive = true
         javascript.topAnchor.constraint(equalTo: popups.bottomAnchor, constant: 4).isActive = true
         ads.topAnchor.constraint(equalTo: javascript.bottomAnchor, constant: 4).isActive = true
-        titleAdvanced.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 40).isActive = true
+        location.topAnchor.constraint(equalTo: ads.bottomAnchor, constant: 4).isActive = true
+        titleAdvanced.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 40).isActive = true
         makeDefault.topAnchor.constraint(equalTo: titleAdvanced.bottomAnchor, constant: 12).isActive = true
-        location.topAnchor.constraint(equalTo: makeDefault.bottomAnchor, constant: 4).isActive = true
+        authorization.topAnchor.constraint(equalTo: makeDefault.bottomAnchor, constant: 4).isActive = true
         
-        [segmented, dark, safe, trackers, cookies, popups, javascript, ads, makeDefault, location].forEach {
+        [segmented, dark, safe, trackers, cookies, popups, javascript, ads, location, makeDefault, authorization].forEach {
             $0.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 90).isActive = true
             $0.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -90).isActive = true
         }

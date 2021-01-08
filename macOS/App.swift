@@ -32,7 +32,7 @@ import CoreLocation
     }
     
     func geolocation() {
-        guard manager == nil else { return }
+        guard manager == nil, location.value == nil else { return }
         manager = .init()
         manager!.delegate = self
         manager!.requestLocation()
