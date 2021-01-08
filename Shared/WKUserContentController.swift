@@ -32,4 +32,8 @@ extension WKUserContentController {
     func dark() {
         addUserScript(.init(source: Scripts.dark, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
     }
+    
+    func location() {
+        addUserScript(.init(source: Scripts.location, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
+    }
 }

@@ -2,11 +2,14 @@ import AppKit
 import Combine
 import Sleuth
 import StoreKit
+import CoreLocation
 
-@NSApplicationMain final class App: NSApplication, NSApplicationDelegate  {
+@NSApplicationMain final class App: NSApplication, NSApplicationDelegate, CLLocationManagerDelegate  {
+    let location = CurrentValueSubject<CLLocation?, Never>(nil)
     let pages = CurrentValueSubject<[Page], Never>([])
     let blocked = PassthroughSubject<Void, Never>()
     private var sub: AnyCancellable?
+    private var manager: CLLocationManager?
     
     required init?(coder: NSCoder) { nil }
     override init() {
@@ -26,6 +29,13 @@ import StoreKit
             guard $0 != self.pages.value else { return }
             self.pages.value = $0
         }
+    }
+    
+    func geolocation() {
+        guard manager == nil else { return }
+        manager = .init()
+        manager!.delegate = self
+        manager!.requestLocation()
     }
     
     func application(_: NSApplication, open: [URL]) {
@@ -78,6 +88,13 @@ import StoreKit
         }
         key.browser.browse.send(url)
     }
+    
+    func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {
+        location.value = didUpdateLocations.first
+        manager = nil
+    }
+    
+    func locationManager(_: CLLocationManager, didFailWithError: Error) { }
     
     @objc func newWindow() {
         Window().makeKeyAndOrderFront(nil)

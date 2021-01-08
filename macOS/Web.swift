@@ -1,12 +1,10 @@
 import WebKit
 import Combine
-import CoreLocation
 import Sleuth
 
-final class Web: _Web, WKScriptMessageHandler, CLLocationManagerDelegate {
+final class Web: _Web, WKScriptMessageHandler {
     private weak var browser: Browser!
     private var destination = Destination.window
-    private let manager = CLLocationManager()
     
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
@@ -15,51 +13,19 @@ final class Web: _Web, WKScriptMessageHandler, CLLocationManagerDelegate {
         let configuration = WKWebViewConfiguration()
         configuration.applicationNameForUserAgent = "Mozilla/5 Version/14 Safari/605"
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
-        configuration.userContentController.addUserScript(.init(source: """
-var listeners = [];
-
-function locationReceived(latitude, longitude, accuracy) {
-    var position = {
-        coords: {
-            latitude: latitude,
-            longitude: longitude,
-            accuracy: accuracy
-        }
-    };
-
-    for (var i in listeners) {
-        listeners[i](position);
-    }
-
-    listeners = [];
-}
-
-navigator.geolocation.getCurrentPosition = function(success, error, options) {
-    listeners[0] = success;
-    window.webkit.messageHandlers.handler.postMessage('');
-};
-
-navigator.geolocation.watchPosition = function(success, error, options) {
-    listeners[0] = success;
-    window.webkit.messageHandlers.handler.postMessage('');
-};
-
-navigator.geolocation.clearWatch = function(id) {
-    listeners[0] = success;
-    window.webkit.messageHandlers.handler.postMessage('');
-};
-
-""", injectionTime: .atDocumentEnd, forMainFrameOnly: false))
         
         if NSApp.windows.first!.effectiveAppearance == NSAppearance(named: .darkAqua) && Defaults.dark {
             configuration.userContentController.dark()
+        }
+        
+        if Defaults.location {
+            configuration.userContentController.location()
         }
         
         super.init(configuration: configuration)
         translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
         self.configuration.userContentController.add(self, name: "handler")
-        manager.delegate = self
         
         publisher(for: \.estimatedProgress).sink {
             browser.progress.value = $0
@@ -157,7 +123,7 @@ navigator.geolocation.clearWatch = function(id) {
         }
         return nil
     }
-    
+    // https://www.thelocal.de/20210107/schools-contact-rules-and-travel-what-you-need-to-know-about-berlins-new-covid-19-restrictions-january-2021
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         var sub: AnyCancellable?
         sub = shield.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
@@ -182,16 +148,19 @@ navigator.geolocation.clearWatch = function(id) {
     }
     
     func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
-        manager.requestLocation()
-    }
-    
-    func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {
-        didUpdateLocations.first.map {
-            evaluateJavaScript("locationReceived(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));");
+        switch didReceive.body as? String {
+        case "getCurrentPosition":
+            var sub: AnyCancellable?
+            sub = (NSApp as! App).location.sink { [weak self] in
+                $0.map {
+                    sub?.cancel()
+                    self?.evaluateJavaScript(
+                        "locationReceived(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));");
+                }
+            }
+        default: break
         }
     }
-    
-    func locationManager(_: CLLocationManager, didFailWithError: Error) { }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
         menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenLinkInNewWindow" }.map { item in
