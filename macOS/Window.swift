@@ -72,7 +72,6 @@ final class Window: NSWindow {
             
             self?.history?.removeFromSuperview()
             self?.issue?.removeFromSuperview()
-            browser.error.value = nil
             
             if browser.page.value == nil {
                 browser.page.value = .init(url: $0)
@@ -88,11 +87,8 @@ final class Window: NSWindow {
         }.store(in: &subs)
         
         browser.error.sink { [weak self] in
+            self?.issue?.removeFromSuperview()
             guard $0 != nil, let browser = self?.browser else { return }
-            
-            self?.tab.title = $0
-            self?.history?.removeFromSuperview()
-            self?.web?.removeFromSuperview()
             
             let issue = Issue(browser: browser)
             self?.add(issue)

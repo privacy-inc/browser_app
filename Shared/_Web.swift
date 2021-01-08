@@ -21,7 +21,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         }
         
         if Defaults.cookies {
-//            configuration.userContentController.blockCookies()
+            configuration.userContentController.blockCookies()
         }
         
         super.init(frame: .zero, configuration: configuration)

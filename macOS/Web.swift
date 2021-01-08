@@ -42,7 +42,7 @@ final class Web: _Web, WKScriptMessageHandler {
             }
         }.store(in: &subs)
         
-        publisher(for: \.url).sink {
+        publisher(for: \.url, options: .new).sink {
             $0.map {
                 browser.page.value?.url = $0
             }
@@ -57,14 +57,17 @@ final class Web: _Web, WKScriptMessageHandler {
         }.store(in: &subs)
         
         browser.previous.sink { [weak self] in
+            self?.browser.error.value = nil
             self?.goBack()
         }.store(in: &subs)
         
         browser.next.sink { [weak self] in
+            self?.browser.error.value = nil
             self?.goForward()
         }.store(in: &subs)
         
         browser.reload.sink { [weak self] in
+            self?.browser.error.value = nil
             self?.reload()
         }.store(in: &subs)
         
@@ -90,11 +93,16 @@ final class Web: _Web, WKScriptMessageHandler {
                  .timedOut,
                  .secureConnectionFailed,
                  .serverCertificateUntrusted:
+                error.failingURL.map {
+                    browser.page.value!.url = $0
+                }
                 browser.error.value = error.localizedDescription
+                browser.page.value!.title = error.localizedDescription
             default: break
             }
         } else if (withError as NSError).code == 101 {
             browser.error.value = withError.localizedDescription
+            browser.page.value!.title = withError.localizedDescription
         }
     }
     
