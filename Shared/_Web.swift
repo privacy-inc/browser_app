@@ -14,6 +14,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = Defaults.popups && Defaults.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = secure
+        configuration.defaultWebpagePreferences.allowsContentJavaScript = configuration.preferences.javaScriptCanOpenWindowsAutomatically
         configuration.websiteDataStore = .nonPersistent()
 
         if Defaults.ads {

@@ -11,8 +11,8 @@ final class Web: _Web, WKScriptMessageHandler {
         self.browser = browser
         
         let configuration = WKWebViewConfiguration()
-        configuration.applicationNameForUserAgent = "Mozilla/5 Version/14 Safari/605"
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
+        configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
         
         if NSApp.windows.first!.effectiveAppearance == NSAppearance(named: .darkAqua) && Defaults.dark {
             configuration.userContentController.dark()
@@ -25,6 +25,7 @@ final class Web: _Web, WKScriptMessageHandler {
         super.init(configuration: configuration)
         translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
+        customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15"
         self.configuration.userContentController.add(self, name: "handler")
         
         publisher(for: \.estimatedProgress).sink {
