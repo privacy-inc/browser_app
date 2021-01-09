@@ -113,8 +113,16 @@ final class Searchbar: NSView {
             }
         }.store(in: &subs)
         
-        left.click.sink {
-            browser.previous.send()
+        left.click.combineLatest(browser.error, browser.backwards, browser.page).sink {
+            if $0.1 == nil {
+                if $0.2 {
+                    browser.previous.send()
+                } else if $0.3 != nil {
+                    browser.close.send()
+                }
+            } else {
+                browser.unerror.send()
+            }
         }.store(in: &subs)
         
         right.click.sink {
@@ -151,8 +159,10 @@ final class Searchbar: NSView {
             clockwise.isHidden = $0.1
         }.store(in: &subs)
         
-        browser.backwards.sink {
-            left.state = $0 ? .on : .off
+        browser.backwards.combineLatest(browser.error, browser.page).sink {
+            left.state = $0.0 ? .on
+                : $0.1 != nil ? .on
+                : $0.2 != nil ? .on : .off
         }.store(in: &subs)
         
         browser.forwards.sink {

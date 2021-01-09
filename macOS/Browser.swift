@@ -14,6 +14,8 @@ final class Browser {
     let next = PassthroughSubject<Void, Never>()
     let reload = PassthroughSubject<Void, Never>()
     let stop = PassthroughSubject<Void, Never>()
+    let close = PassthroughSubject<Void, Never>()
+    let unerror = PassthroughSubject<Void, Never>()
     private var subscription: AnyCancellable?
     
     init() {

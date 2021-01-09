@@ -5,8 +5,6 @@ final class Issue: NSView {
     init(browser: Browser) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        wantsLayer = true
-        layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
         
         let image = NSImageView(image: NSImage(systemSymbolName: "exclamationmark.triangle.fill", accessibilityDescription: nil)!)
         image.symbolConfiguration = .init(textStyle: .largeTitle, scale: .large)

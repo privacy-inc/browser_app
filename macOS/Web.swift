@@ -58,22 +58,32 @@ final class Web: _Web, WKScriptMessageHandler {
         }.store(in: &subs)
         
         browser.previous.sink { [weak self] in
-            self?.browser.error.value = nil
+            browser.error.value = nil
             self?.goBack()
         }.store(in: &subs)
         
         browser.next.sink { [weak self] in
-            self?.browser.error.value = nil
+            browser.error.value = nil
             self?.goForward()
         }.store(in: &subs)
         
         browser.reload.sink { [weak self] in
-            self?.browser.error.value = nil
+            browser.error.value = nil
             self?.reload()
         }.store(in: &subs)
         
         browser.stop.sink { [weak self] in
             self?.stopLoading()
+        }.store(in: &subs)
+        
+        browser.unerror.sink { [weak self] in
+            browser.error.value = nil
+            self?.url.map {
+                browser.page.value?.url = $0
+            }
+            self?.title.map {
+                browser.page.value?.title = $0
+            }
         }.store(in: &subs)
     }
     

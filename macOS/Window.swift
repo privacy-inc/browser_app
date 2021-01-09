@@ -46,10 +46,6 @@ final class Window: NSWindow {
         progress.layer!.backgroundColor = NSColor.controlAccentColor.cgColor
         contentView!.addSubview(progress)
         
-        let history = History(browser: browser)
-        add(history)
-        self.history = history
-        
         separator.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
         separator.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
         separator.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
@@ -88,11 +84,16 @@ final class Window: NSWindow {
         
         browser.error.sink { [weak self] in
             self?.issue?.removeFromSuperview()
-            guard $0 != nil, let browser = self?.browser else { return }
             
-            let issue = Issue(browser: browser)
-            self?.add(issue)
-            self?.issue = issue
+            if $0 == nil {
+                self?.web?.isHidden = false
+            } else {
+                guard let browser = self?.browser else { return }
+                self?.web?.isHidden = true
+                let issue = Issue(browser: browser)
+                self?.add(issue)
+                self?.issue = issue
+            }
         }.store(in: &subs)
         
         browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
@@ -105,6 +106,15 @@ final class Window: NSWindow {
         browser.loading.sink {
             progress.isHidden = !$0
         }.store(in: &subs)
+        
+        browser.close.sink { [weak self] in
+            self?.browser.page.value = nil
+            self?.web?.removeFromSuperview()
+            (NSApp as! App).refresh()
+            self?.landing()
+        }.store(in: &subs)
+        
+        landing()
     }
     
     func newTab(_ url: URL?) {
@@ -144,6 +154,12 @@ final class Window: NSWindow {
             NSPasteboard.general.clearContents()
             NSPasteboard.general.setString($0.url.absoluteString, forType: .string)
         }
+    }
+    
+    private func landing() {
+        let history = History(browser: browser)
+        add(history)
+        self.history = history
     }
     
     private func add(_ view: NSView) {

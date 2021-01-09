@@ -28,6 +28,10 @@ extension Searchbar {
                 guard let url = $0?.url else { return }
                 self?.stringValue = url.absoluteString
             }.store(in: &subs)
+            
+            browser.close.sink { [weak self] in
+                self?.stringValue = ""
+            }.store(in: &subs)
         }
         
         override func becomeFirstResponder() -> Bool {

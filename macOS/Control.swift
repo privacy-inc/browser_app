@@ -45,8 +45,8 @@ class Control: NSView {
     override func mouseUp(with: NSEvent) {
         guard state == .highlighted || state == .on || state == .pressed else { return }
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
-            click.send()
             state = .on
+            click.send()
         } else {
             state = .on
             super.mouseUp(with: with)
