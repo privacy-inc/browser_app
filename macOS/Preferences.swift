@@ -87,6 +87,9 @@ final class Preferences: NSWindow {
         location.value.value = Defaults.location
         location.value.dropFirst().sink {
             Defaults.location = $0
+            if $0 {
+                (NSApp as! App).geolocation()
+            }
         }.store(in: &subs)
         contentView!.addSubview(location)
         
