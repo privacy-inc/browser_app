@@ -28,6 +28,12 @@ final class Preferences: NSWindow {
         let titleOptions = Text()
         titleOptions.stringValue = NSLocalizedString("Options", comment: "")
         
+        let diclaimerOptions = Text()
+        diclaimerOptions.stringValue = NSLocalizedString("You need to reopen your tabs\nfor these changes to become effective", comment: "")
+        diclaimerOptions.textColor = .secondaryLabelColor
+        diclaimerOptions.font = .systemFont(ofSize: 11, weight: .light)
+        contentView!.addSubview(diclaimerOptions)
+        
         let dark = Toggle(title: NSLocalizedString("Force dark mode", comment: ""))
         dark.value.value = Defaults.dark
         dark.value.dropFirst().sink {
@@ -117,7 +123,9 @@ final class Preferences: NSWindow {
         titleEngine.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 20).isActive = true
         segmented.topAnchor.constraint(equalTo: titleEngine.bottomAnchor, constant: 12).isActive = true
         titleOptions.topAnchor.constraint(equalTo: segmented.bottomAnchor, constant: 40).isActive = true
-        dark.topAnchor.constraint(equalTo: titleOptions.bottomAnchor, constant: 12).isActive = true
+        diclaimerOptions.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 90).isActive = true
+        diclaimerOptions.topAnchor.constraint(equalTo: titleOptions.bottomAnchor, constant: 2).isActive = true
+        dark.topAnchor.constraint(equalTo: diclaimerOptions.bottomAnchor, constant: 12).isActive = true
         safe.topAnchor.constraint(equalTo: dark.bottomAnchor, constant: 4).isActive = true
         trackers.topAnchor.constraint(equalTo: safe.bottomAnchor, constant: 4).isActive = true
         cookies.topAnchor.constraint(equalTo: trackers.bottomAnchor, constant: 4).isActive = true
