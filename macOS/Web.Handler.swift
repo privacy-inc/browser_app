@@ -2,7 +2,7 @@ import WebKit
 import Combine
 
 extension Web {
-    final class Message: NSObject, WKScriptMessageHandler {
+    final class Handler: NSObject, WKScriptMessageHandler {
         weak var web: Web?
         
         func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
@@ -13,7 +13,7 @@ extension Web {
                     $0.map {
                         sub?.cancel()
                         self?.web?.evaluateJavaScript(
-                            "locationReceived(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));");
+                            "locationReceived(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));")
                     }
                 }
                 (NSApp as! App).geolocation()

@@ -109,16 +109,17 @@ final class Window: NSWindow {
         
         browser.close.sink { [weak self] in
             self?.browser.page.value = nil
+            self?.browser.error.value = nil
+            self?.browser.backwards.value = false
+            self?.browser.forwards.value = false
+            self?.browser.loading.value = false
+            self?.browser.progress.value = 0
             self?.web?.removeFromSuperview()
             (NSApp as! App).refresh()
             self?.landing()
         }.store(in: &subs)
         
         landing()
-    }
-    
-    deinit {
-        print("gone window")
     }
     
     func newTab(_ url: URL?) {

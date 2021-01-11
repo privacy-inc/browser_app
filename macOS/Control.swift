@@ -47,7 +47,6 @@ class Control: NSView {
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
             state = .on
             click.send()
-            print("send")
         } else {
             state = .on
             super.mouseUp(with: with)

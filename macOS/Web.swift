@@ -10,11 +10,11 @@ final class Web: _Web {
     init(browser: Browser) {
         self.browser = browser
         
-        let message = Message()
+        let handler = Handler()
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
-        configuration.userContentController.add(message, name: "handler")
+        configuration.userContentController.add(handler, name: "handler")
         
         if NSApp.windows.first!.effectiveAppearance == NSAppearance(named: .darkAqua) && Defaults.dark {
             configuration.userContentController.dark()
@@ -28,7 +28,7 @@ final class Web: _Web {
         translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15"
-        message.web = self
+        handler.web = self
         
         publisher(for: \.estimatedProgress).sink {
             browser.progress.value = $0
@@ -87,10 +87,6 @@ final class Web: _Web {
                 browser.page.value?.title = $0
             }
         }.store(in: &subs)
-    }
-    
-    deinit {
-        print("gone web")
     }
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {

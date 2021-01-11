@@ -113,16 +113,19 @@ final class Searchbar: NSView {
             }
         }.store(in: &subs)
         
-        left.click.combineLatest(browser.error, browser.backwards, browser.page).sink {
-            print("received")
-            if $0.1 == nil {
-                if $0.2 {
+        left.click.sink {
+            if browser.error.value == nil {
+                if browser.backwards.value {
                     browser.previous.send()
-                } else if $0.3 != nil {
+                } else if browser.page.value != nil {
                     browser.close.send()
                 }
             } else {
-                browser.unerror.send()
+                if browser.backwards.value {
+                    browser.unerror.send()
+                } else if browser.page.value != nil {
+                    browser.close.send()
+                }
             }
         }.store(in: &subs)
         
