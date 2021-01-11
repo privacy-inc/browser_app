@@ -117,6 +117,10 @@ final class Window: NSWindow {
         landing()
     }
     
+    deinit {
+        print("gone window")
+    }
+    
     func newTab(_ url: URL?) {
         let new = Window()
         addTabbedWindow(new, ordered: .above)

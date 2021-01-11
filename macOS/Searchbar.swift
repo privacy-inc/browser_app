@@ -114,6 +114,7 @@ final class Searchbar: NSView {
         }.store(in: &subs)
         
         left.click.combineLatest(browser.error, browser.backwards, browser.page).sink {
+            print("received")
             if $0.1 == nil {
                 if $0.2 {
                     browser.previous.send()

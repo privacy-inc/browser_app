@@ -2,7 +2,7 @@ import WebKit
 import Combine
 import Sleuth
 
-final class Web: _Web, WKScriptMessageHandler {
+final class Web: _Web {
     private weak var browser: Browser!
     private var destination = Destination.window
     
@@ -10,9 +10,11 @@ final class Web: _Web, WKScriptMessageHandler {
     init(browser: Browser) {
         self.browser = browser
         
+        let message = Message()
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
+        configuration.userContentController.add(message, name: "handler")
         
         if NSApp.windows.first!.effectiveAppearance == NSAppearance(named: .darkAqua) && Defaults.dark {
             configuration.userContentController.dark()
@@ -26,7 +28,7 @@ final class Web: _Web, WKScriptMessageHandler {
         translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.0.2 Safari/605.1.15"
-        self.configuration.userContentController.add(self, name: "handler")
+        message.web = self
         
         publisher(for: \.estimatedProgress).sink {
             browser.progress.value = $0
@@ -85,6 +87,10 @@ final class Web: _Web, WKScriptMessageHandler {
                 browser.page.value?.title = $0
             }
         }.store(in: &subs)
+    }
+    
+    deinit {
+        print("gone web")
     }
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -163,22 +169,6 @@ final class Web: _Web, WKScriptMessageHandler {
                 Share.blocked.append(domain)
                 (NSApp as! App).blocked.send()
             }
-        }
-    }
-    
-    func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
-        switch didReceive.body as? String {
-        case "getCurrentPosition":
-            var sub: AnyCancellable?
-            sub = (NSApp as! App).location.sink { [weak self] in
-                $0.map {
-                    sub?.cancel()
-                    self?.evaluateJavaScript(
-                        "locationReceived(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));");
-                }
-            }
-            (NSApp as! App).geolocation()
-        default: break
         }
     }
     

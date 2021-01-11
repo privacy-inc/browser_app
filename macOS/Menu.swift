@@ -30,12 +30,19 @@ final class Menu: NSMenu, NSMenuDelegate {
                 .separator(),
                 .init(title: "Bring All to Front", action: #selector(NSApplication.arrangeInFront), keyEquivalent: ""),
                 .separator()]
-            NSApp.enumerateWindows { window, _ in
-                guard window is Window, window.tabGroup == nil || window == window.tabGroup?.selectedWindow else { return }
-                let item = NSMenuItem(title: window.tab.title, action: #selector(focus), keyEquivalent: "")
+            (0 ..< NSApp.windows.count).forEach {
+                let title: String
+                if let window = NSApp.windows[$0] as? Window {
+                    guard window.tabGroup == nil || window == window.tabGroup?.selectedWindow else { return }
+                    title = window.tab.title
+                } else {
+                    guard !NSApp.windows[$0].title.isEmpty else { return }
+                    title = NSApp.windows[$0].title
+                }
+                let item = NSMenuItem(title: title, action: #selector(focus), keyEquivalent: "")
                 item.target = self
-                item.representedObject = window
-                item.state = NSApp.keyWindow == window ? .on : .off
+                item.tag = $0
+                item.state = NSApp.keyWindow == NSApp.windows[$0] ? .on : .off
                 menu.items.append(item)
             }
         case "Page":
@@ -147,7 +154,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     @objc private func focus(_ item: NSMenuItem) {
-        (item.representedObject as? Window)?.makeKeyAndOrderFront(nil)
+        NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
     }
     
     @objc private func stop() {
