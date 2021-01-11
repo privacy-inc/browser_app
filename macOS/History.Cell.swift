@@ -50,6 +50,7 @@ extension History {
             self.date = date
             
             let close = Control.Button("xmark")
+            close.layer!.cornerRadius = 15
             sub = close.click.sink { [weak self] in
                 guard let page = self?.page else { return }
                 NSAnimationContext.runAnimationGroup {

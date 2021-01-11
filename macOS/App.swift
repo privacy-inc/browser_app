@@ -2,6 +2,7 @@ import AppKit
 import Combine
 import Sleuth
 import StoreKit
+import WebKit
 import CoreLocation
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate, CLLocationManagerDelegate  {
@@ -22,6 +23,18 @@ import CoreLocation
             forEventClass: AEEventClass(kInternetEventClass),
             andEventID: AEEventID(kAEGetURL)
         )
+    }
+    
+    func forget() {
+        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
+        [WKWebsiteDataStore.default(), WKWebsiteDataStore.nonPersistent()].forEach {
+            $0.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {
+                $0.forEach {
+                    WKWebsiteDataStore.default().removeData(ofTypes: $0.dataTypes, for: [$0]) { }
+                }
+            }
+            $0.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast) { }
+        }
     }
     
     func refresh() {

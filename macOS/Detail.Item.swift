@@ -7,29 +7,30 @@ extension Detail {
             super.init()
             let text = Text()
             text.stringValue = title
-            text.font = .systemFont(ofSize: 12, weight: .regular)
+            text.font = .systemFont(ofSize: 14, weight: .regular)
             addSubview(text)
             
             let icon = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
             icon.translatesAutoresizingMaskIntoConstraints = false
-            icon.imageScaling = .scaleNone
+            icon.symbolConfiguration = .init(textStyle: .title1)
             addSubview(icon)
             
-            heightAnchor.constraint(equalToConstant: 40).isActive = true
+            heightAnchor.constraint(equalToConstant: 60).isActive = true
+            widthAnchor.constraint(equalToConstant: 340).isActive = true
             
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
-            icon.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            icon.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
             icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
             if let caption = caption {
                 let text = Text()
                 text.stringValue = caption
-                text.font = .systemFont(ofSize: 12, weight: .regular)
+                text.font = .monospacedSystemFont(ofSize: 16, weight: .bold)
                 addSubview(text)
                 
-                text.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -2).isActive = true
+                text.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -4).isActive = true
                 text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
             
@@ -39,11 +40,11 @@ extension Detail {
         override func update() {
             switch state {
             case .highlighted:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.5).cgColor
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
             case .pressed:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.6).cgColor
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.5).cgColor
             default:
-                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.1).cgColor
             }
         }
     }

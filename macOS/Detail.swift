@@ -9,7 +9,7 @@ final class Detail: NSPopover {
     init(browser: Browser) {
         super.init()
         behavior = .transient
-        contentSize = .init(width: 400, height: 400)
+        contentSize = .init(width: 440, height: 560)
         contentViewController = .init()
         contentViewController!.view = .init()
         
@@ -21,21 +21,37 @@ final class Detail: NSPopover {
         let chart = Chart()
         contentViewController!.view.addSubview(chart)
         
-        let trackers = Item(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: "\(Share.blocked.count)")
-        contentViewController!.view.addSubview(trackers)
+        let formatter = NumberFormatter()
+        formatter.numberStyle = .decimal
         
+        let trackers = Item(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: formatter.string(from: .init(value: Share.blocked.count)))
         trackers.click.sink {
             (NSApp as! App).trackers()
         }.store(in: &subs)
+        contentViewController!.view.addSubview(trackers)
         
-        image.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 30).isActive = true
+        let forget = Item(title: NSLocalizedString("Forget", comment: ""), icon: "flame")
+        forget.click.sink { [weak self] in
+            FileManager.forget()
+            (NSApp as! App).forget()
+            Share.history = []
+            Share.chart = []
+            Share.blocked = []
+            (NSApp as! App).refresh()
+            self?.close()
+        }.store(in: &subs)
+        contentViewController!.view.addSubview(forget)
+        
+        image.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
         image.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
         
-        chart.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
-        chart.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
+        chart.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 40).isActive = true
+        chart.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 50).isActive = true
         
-        trackers.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 30).isActive = true
-        trackers.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
-        trackers.widthAnchor.constraint(equalToConstant: 200).isActive = true
+        trackers.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 70).isActive = true
+        trackers.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 50).isActive = true
+        
+        forget.topAnchor.constraint(equalTo: trackers.bottomAnchor, constant: 10).isActive = true
+        forget.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 50).isActive = true
     }
 }
