@@ -35,8 +35,8 @@ extension History {
         init(formatter: RelativeDateTimeFormatter) {
             super.init(frame: .zero)
             wantsLayer = true
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
             layer!.cornerRadius = 14
+            layer!.borderWidth = 2
             self.formatter = formatter
             
             let text = Text()
@@ -81,16 +81,16 @@ extension History {
         }
         
         func dequeue() {
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.02).cgColor
+            layer!.borderColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
             close.state = .on
         }
         
         override func mouseEntered(with: NSEvent) {
-            layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.25).cgColor
+            layer!.borderColor = NSColor.controlAccentColor.cgColor
         }
         
         override func mouseExited(with: NSEvent) {
-            layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.02).cgColor
+            layer!.borderColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
         }
     }
 }

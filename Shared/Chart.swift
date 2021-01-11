@@ -2,32 +2,12 @@ import SwiftUI
 import Sleuth
 
 struct Chart: View {
-    let values: [Double]
-    let since: String
-    fileprivate static let divisions = 6
-    fileprivate static let horizontal = 15
-    fileprivate static let vertical = 6
+    private let values: [Double]
+    private let since: String
     
     init(chart: [Date]) {
-        guard !chart.isEmpty else {
-            values = []
-            since = ""
-            return
-        }
-        
-        let interval = (Date().timeIntervalSince1970 - chart.first!.timeIntervalSince1970) / .init(Self.divisions)
-        let ranges = (0 ..< Self.divisions).map {
-            (.init($0) * interval) + chart.first!.timeIntervalSince1970
-        }
-        let array = chart.map(\.timeIntervalSince1970).reduce(into: Array(repeating: Double(), count: Self.divisions)) {
-            var index = 0
-            while index < Self.divisions - 1 && ranges[index + 1] < $1 {
-                index += 1
-            }
-            $0[index] += 1
-        }
-        values = array.map { $0 / array.max()! }
-        since = RelativeDateTimeFormatter().localizedString(for: chart.first!, relativeTo: .init())
+        values = Metrics.values(with: chart)
+        since = chart.isEmpty ? "" : RelativeDateTimeFormatter().localizedString(for: chart.first!, relativeTo: .init())
     }
     
     var body: some View {
@@ -67,25 +47,15 @@ struct Chart: View {
     }
 }
 
-private struct Base: Shape {
-    func path(in rect: CGRect) -> Path {
-        .init {
-            $0.move(to: .zero)
-            $0.addLine(to: .init(x: 0, y: rect.maxY))
-            $0.addLine(to: .init(x: rect.maxX, y: rect.maxY))
-        }
-    }
-}
-
 private struct Pattern: Shape {
     func path(in rect: CGRect) -> Path {
         .init { path in
             path.move(to: .zero)
-            (1 ..< Chart.horizontal).map { rect.maxX / .init(Chart.horizontal) * .init($0) }.forEach {
+            (1 ..< Chart.Metrics.horizontal).map { rect.maxX / .init(Chart.Metrics.horizontal) * .init($0) }.forEach {
                 path.move(to: .init(x: $0, y: 0))
                 path.addLine(to: .init(x: $0, y: rect.maxY))
             }
-            (1 ..< Chart.vertical).map { rect.maxY / .init(Chart.vertical) * .init($0) }.forEach {
+            (1 ..< Chart.Metrics.vertical).map { rect.maxY / .init(Chart.Metrics.vertical) * .init($0) }.forEach {
                 path.move(to: .init(x: 0, y: $0))
                 path.addLine(to: .init(x: rect.maxX, y: $0))
             }

@@ -43,7 +43,7 @@ extension Detail {
             case .pressed:
                 layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.6).cgColor
             default:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
+                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
             }
         }
     }
