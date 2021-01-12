@@ -9,14 +9,9 @@ final class Detail: NSPopover {
     init(browser: Browser) {
         super.init()
         behavior = .transient
-        contentSize = .init(width: 440, height: 560)
+        contentSize = .init(width: 440, height: 480)
         contentViewController = .init()
         contentViewController!.view = .init()
-        
-        let image = NSImageView(image: NSImage(systemSymbolName: "chart.bar.xaxis", accessibilityDescription: nil)!)
-        image.translatesAutoresizingMaskIntoConstraints = false
-        image.symbolConfiguration = .init(textStyle: .largeTitle)
-        contentViewController!.view.addSubview(image)
         
         let chart = Chart()
         contentViewController!.view.addSubview(chart)
@@ -42,13 +37,10 @@ final class Detail: NSPopover {
         }.store(in: &subs)
         contentViewController!.view.addSubview(forget)
         
-        image.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
-        image.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
-        
-        chart.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 40).isActive = true
+        chart.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
         chart.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 50).isActive = true
         
-        trackers.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 70).isActive = true
+        trackers.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 60).isActive = true
         trackers.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 50).isActive = true
         
         forget.topAnchor.constraint(equalTo: trackers.bottomAnchor, constant: 10).isActive = true
