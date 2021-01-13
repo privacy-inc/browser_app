@@ -17,7 +17,6 @@ final class Trackers: NSWindow {
         
         let scroll = Scroll()
         scroll.hasVerticalScroller = true
-        scroll.hasHorizontalScroller = false
         scroll.verticalScroller!.controlSize = .mini
         contentView!.addSubview(scroll)
         self.scroll = scroll
