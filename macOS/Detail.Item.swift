@@ -7,12 +7,13 @@ extension Detail {
             super.init()
             let text = Text()
             text.stringValue = title
-            text.font = .systemFont(ofSize: 14, weight: .regular)
+            text.font = .systemFont(ofSize: 14, weight: .medium)
             addSubview(text)
             
             let icon = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
             icon.translatesAutoresizingMaskIntoConstraints = false
             icon.symbolConfiguration = .init(textStyle: .title1)
+            icon.contentTintColor = .labelColor
             addSubview(icon)
             
             heightAnchor.constraint(equalToConstant: 60).isActive = true
