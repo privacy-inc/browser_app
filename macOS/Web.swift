@@ -80,11 +80,13 @@ final class Web: _Web {
         
         browser.unerror.sink { [weak self] in
             browser.error.value = nil
-            self?.url.map {
-                browser.page.value?.url = $0
-            }
-            self?.title.map {
-                browser.page.value?.title = $0
+            if let url = self?.url {
+                browser.page.value?.url = url
+                self?.title.map {
+                    browser.page.value?.title = $0
+                }
+            } else {
+                browser.close.send()
             }
         }.store(in: &subs)
     }

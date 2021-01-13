@@ -34,4 +34,5 @@ struct Session {
     let dismiss = PassthroughSubject<Void, Never>()
     let forget = PassthroughSubject<Void, Never>()
     let update = PassthroughSubject<Void, Never>()
+    let unerror = PassthroughSubject<Void, Never>()
 }

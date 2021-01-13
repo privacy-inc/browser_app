@@ -14,7 +14,17 @@ struct Searchbar: View {
             if options && session.page != nil {
                 HStack {
                     Control.Circle(state: .ready, image: "arrow.clockwise", action: session.reload.send)
-                    Control.Circle(state: session.backwards ? .ready : .disabled, image: "chevron.left", action: session.previous.send)
+                    Control.Circle(state: .ready, image: "chevron.left") {
+                        if session.error == nil {
+                            if session.backwards {
+                                session.previous.send()
+                            } else {
+                                session.page = nil
+                            }
+                        } else {
+                            session.unerror.send()
+                        }
+                    }
                     Control.Circle(state: session.forwards ? .ready : .disabled, image: "chevron.right", action: session.next.send)
                     Control.Circle(state: .ready, image: "line.horizontal.3") {
                         detail = true

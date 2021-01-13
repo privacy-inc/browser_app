@@ -121,11 +121,7 @@ final class Searchbar: NSView {
                     browser.close.send()
                 }
             } else {
-                if browser.backwards.value {
-                    browser.unerror.send()
-                } else if browser.page.value != nil {
-                    browser.close.send()
-                }
+                browser.unerror.send()
             }
         }.store(in: &subs)
         

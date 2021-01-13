@@ -69,6 +69,18 @@ extension Web {
                 self?.load(.init(url: $0))
             }.store(in: &subs)
             
+            view.session.unerror.sink { [weak self] in
+                view.session.error = nil
+                if let url = self?.url {
+                    view.session.page?.url = url
+                    self?.title.map {
+                        view.session.page?.title = $0
+                    }
+                } else {
+                    view.session.page = nil
+                }
+            }.store(in: &subs)
+            
             view.session.find.sink { [weak self] in
                 self?.select(nil)
                 self?.find($0) { _ in }
@@ -120,11 +132,16 @@ extension Web {
                      .timedOut,
                      .secureConnectionFailed,
                      .serverCertificateUntrusted:
+                    error.failingURL.map {
+                        view.session.page?.url = $0
+                    }
                     view.session.error = error.localizedDescription
+                    view.session.page?.title = error.localizedDescription
                 default: break
                 }
             } else if (withError as NSError).code == 101 {
                 view.session.error = withError.localizedDescription
+                view.session.page?.title = withError.localizedDescription
             }
             view.session.progress = 1
         }
