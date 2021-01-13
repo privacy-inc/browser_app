@@ -18,11 +18,15 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.websiteDataStore = .nonPersistent()
 
         if Defaults.ads {
-            configuration.userContentController.blockAds()
+            configuration.userContentController.ads()
         }
         
         if Defaults.cookies {
-            configuration.userContentController.blockCookies()
+            configuration.userContentController.cookies()
+        }
+        
+        if Defaults.blockers {
+            configuration.userContentController.blockers()
         }
         
         super.init(frame: .zero, configuration: configuration)

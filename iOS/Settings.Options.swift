@@ -10,6 +10,7 @@ extension Settings {
         @AppStorage(Defaults.Key.popups.rawValue) private var popups = true
         @AppStorage(Defaults.Key.javascript.rawValue) private var javascript = true
         @AppStorage(Defaults.Key.ads.rawValue) private var ads = true
+        @AppStorage(Defaults.Key.blockers.rawValue) private var blockers = true
         
         var body: some View {
             Switch(text: "Force dark mode", value: $dark)
@@ -19,6 +20,7 @@ extension Settings {
             Switch(text: "Block pop-ups", value: $popups)
             Switch(text: "Allow JavaScript", value: $javascript)
             Switch(text: "Remove ads", value: $ads)
+            Switch(text: "Remove screen blockers", value: $blockers)
                 .padding(.bottom)
         }
     }
