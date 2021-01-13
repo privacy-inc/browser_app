@@ -29,9 +29,9 @@ struct Window: View {
                         if session.page != nil {
                             Text(verbatim: session.page!.url.absoluteString)
                                 .multilineTextAlignment(.center)
-                                .font(.footnote)
                                 .padding(.top)
                                 .padding(.horizontal)
+                                .padding(.bottom)
                         }
                         Text(verbatim: session.error!)
                             .multilineTextAlignment(.center)
