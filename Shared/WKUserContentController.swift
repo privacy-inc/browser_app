@@ -11,7 +11,7 @@ extension WKUserContentController {
         if let _cookies = Self._cookies {
             add(_cookies)
         } else {
-            WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "cookies", encodedContentRuleList: Cookies.rule) { [weak self] list, _ in
+            WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "cookies", encodedContentRuleList: Block.cookies) { [weak self] list, _ in
                 self?.add(list!)
                 Self._cookies = list!
             }

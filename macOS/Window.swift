@@ -143,6 +143,13 @@ final class Window: NSWindow {
         }
     }
     
+    override func close() {
+        if NSApp.windows.filter({ $0 is Window }).filter({ $0 != self }).isEmpty {
+            (NSApp as! App).newTab()
+        }
+        super.close()
+    }
+    
     override func becomeKey() {
         super.becomeKey()
         if history != nil {
