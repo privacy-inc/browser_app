@@ -20,6 +20,7 @@ struct Window: View {
                 } else {
                     ZStack {
                         Web(session: $session)
+                            .edgesIgnoringSafeArea(.top)
                         if session.error != nil {
                             Color.background
                                 .edgesIgnoringSafeArea(.all)
