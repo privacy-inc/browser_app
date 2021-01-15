@@ -6,6 +6,7 @@ extension WKUserContentController {
     private static var _ads: WKContentRuleList?
     private static var _blockers: WKContentRuleList?
     private static var _dark: WKContentRuleList?
+    private static var _secure: WKContentRuleList?
     
     func cookies() {
         if let _cookies = Self._cookies {
@@ -53,6 +54,17 @@ extension WKUserContentController {
         }
         
         addUserScript(.init(source: Scripts.dark, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
+    }
+    
+    func secure() {
+        if let _secure = Self._secure {
+            add(_secure)
+        } else {
+            WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "secure", encodedContentRuleList: Block.secure) { [weak self] list, _ in
+                self?.add(list!)
+                Self._secure = list!
+            }
+        }
     }
     
     func location() {

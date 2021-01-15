@@ -30,6 +30,10 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             configuration.userContentController.blockers()
         }
         
+        if secure {
+            configuration.userContentController.secure()
+        }
+        
         super.init(frame: .zero, configuration: configuration)
         navigationDelegate = self
         uiDelegate = self

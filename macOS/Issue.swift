@@ -16,6 +16,7 @@ final class Issue: NSView {
         url.stringValue = browser.page.value?.url.absoluteString ?? ""
         url.font = .systemFont(ofSize: 14, weight: .regular)
         url.alignment = .center
+        url.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(url)
         
         let message = Text()
@@ -23,6 +24,7 @@ final class Issue: NSView {
         message.font = .systemFont(ofSize: 14, weight: .light)
         message.textColor = .secondaryLabelColor
         message.alignment = .center
+        message.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         addSubview(message)
         
         image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -30,10 +32,14 @@ final class Issue: NSView {
         
         url.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 50).isActive = true
         url.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        url.widthAnchor.constraint(lessThanOrEqualToConstant: 300).isActive = true
+        url.widthAnchor.constraint(lessThanOrEqualToConstant: 480).isActive = true
+        url.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 40).isActive = true
+        url.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -40).isActive = true
         
         message.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 2).isActive = true
         message.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
-        message.widthAnchor.constraint(lessThanOrEqualToConstant: 300).isActive = true
+        message.widthAnchor.constraint(lessThanOrEqualToConstant: 480).isActive = true
+        message.leftAnchor.constraint(greaterThanOrEqualTo: leftAnchor, constant: 40).isActive = true
+        message.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -40).isActive = true
     }
 }
