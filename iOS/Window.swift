@@ -20,30 +20,8 @@ struct Window: View {
                 } else {
                     ZStack {
                         Web(session: $session)
-                            .edgesIgnoringSafeArea(.top)
                         if session.error != nil {
-                            Color.background
-                                .edgesIgnoringSafeArea(.all)
-                            VStack {
-                                Spacer()
-                                Image(systemName: "exclamationmark.triangle.fill")
-                                    .font(Font.largeTitle.bold())
-                                    .foregroundColor(.accentColor)
-                                    .padding(.bottom)
-                                if session.page != nil {
-                                    Text(verbatim: session.page!.url.absoluteString)
-                                        .multilineTextAlignment(.center)
-                                        .padding(.top)
-                                        .padding(.horizontal)
-                                        .padding(.bottom)
-                                }
-                                Text(verbatim: session.error!)
-                                    .multilineTextAlignment(.center)
-                                    .foregroundColor(.secondary)
-                                    .padding(.horizontal)
-                                    .frame(maxWidth: 280)
-                                Spacer()
-                            }
+                            Issue(session: $session)
                         }
                     }
                 }
