@@ -30,6 +30,7 @@ extension Searchbar {
             bar.searchBarStyle = .minimal
             bar.autocapitalizationType = .none
             bar.autocorrectionType = .no
+            bar.spellCheckingType = .no
             bar.showsCancelButton = true
             bar.enablesReturnKeyAutomatically = false
             bar.barTintColor = .label
@@ -40,10 +41,6 @@ extension Searchbar {
             input.addSubview(bar)
             self.bar = bar
             leftView = bar.searchTextField.leftView
-
-            view.session.resign.sink { [weak self] in
-                self?.bar.resignFirstResponder()
-            }.store(in: &subs)
             
             view.session.type.sink { [weak self] in
                 self?.becomeFirstResponder()
@@ -53,8 +50,8 @@ extension Searchbar {
                 self?.bar.text = $0
             }.store(in: &subs)
             
-            bar.leftAnchor.constraint(equalTo: input.leftAnchor).isActive = true
-            bar.rightAnchor.constraint(equalTo: input.rightAnchor).isActive = true
+            bar.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
+            bar.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor).isActive = true
             bar.centerYAnchor.constraint(equalTo: input.centerYAnchor).isActive = true
         }
         

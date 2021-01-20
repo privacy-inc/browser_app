@@ -24,7 +24,6 @@ struct Session {
     let find = PassthroughSubject<String, Never>()
     let save = PassthroughSubject<Page, Never>()
     let type = PassthroughSubject<Void, Never>()
-    let resign = PassthroughSubject<Void, Never>()
     let previous = PassthroughSubject<Void, Never>()
     let next = PassthroughSubject<Void, Never>()
     let reload = PassthroughSubject<Void, Never>()

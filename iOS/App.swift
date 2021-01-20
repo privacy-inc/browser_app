@@ -40,7 +40,7 @@ import Sleuth
         switch url.scheme.flatMap(Scheme.init(rawValue:)) {
         case .privacy:
             session.dismiss.send()
-            session.resign.send()
+            UIApplication.shared.resign()
             url.absoluteString
                 .dropFirst(Scheme.privacy.url.count)
                 .removingPercentEncoding
@@ -61,7 +61,7 @@ import Sleuth
                 }
         case .privacy_id:
             session.dismiss.send()
-            session.resign.send()
+            UIApplication.shared.resign()
             var sub: AnyCancellable?
             sub = FileManager.page(
                 .init(url.absoluteString.dropFirst(Scheme.privacy_id.url.count)))

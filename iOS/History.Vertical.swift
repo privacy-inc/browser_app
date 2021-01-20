@@ -11,7 +11,7 @@ extension History {
             VStack {
                 ForEach(pages) { page in
                     Cell(page: page, delete: delete) {
-                        session.resign.send()
+                        UIApplication.shared.resign()
                         var page = page
                         page.date = .init()
                         session.page = page
