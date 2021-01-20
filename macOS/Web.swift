@@ -123,26 +123,28 @@ final class Web: _Web {
     
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
         if action.targetFrame == nil && action.navigationType == .other {
-            action.request.url.map { url in
+            action.request.url.map { new in
                 switch destination {
                 case .window:
-                    (NSApp as? App)?.window(url)
+                    (NSApp as? App)?.window(new)
                 case .tab:
-                    (window as? Window)?.newTab(url)
+                    (window as? Window)?.newTab(new)
                 case .download:
-                    URLSession.shared.dataTaskPublisher(for: url)
+                    URLSession.shared.dataTaskPublisher(for: new)
                         .map(\.data)
                         .receive(on: DispatchQueue.main)
                         .replaceError(with: .init())
                         .sink { [weak self] in
-                            (self?.window as? Window)?.save(url.lastPathComponent, data: $0)
+                            (self?.window as? Window)?.save(new.lastPathComponent, data: $0)
                         }.store(in: &subs)
                     break
                 }
                 destination = .window
             }
         } else if action.navigationType == .linkActivated {
-            (window as? Window)?.newTab(url)
+            action.request.url.map {
+                (window as? Window)?.newTab($0)
+            }
         }
         return nil
     }

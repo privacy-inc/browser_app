@@ -55,6 +55,7 @@ import Sleuth
                     }
                     
                     session.page = .init(url: url)
+                    
                     if current != nil {
                         session.browse.send(url)
                     }
@@ -62,18 +63,19 @@ import Sleuth
         case .privacy_id:
             session.dismiss.send()
             UIApplication.shared.resign()
-            var sub: AnyCancellable?
-            sub = FileManager.page(
-                .init(url.absoluteString.dropFirst(Scheme.privacy_id.url.count)))
-                .receive(on: DispatchQueue.main).sink {
+            let id = String(url.absoluteString.dropFirst(Scheme.privacy_id.url.count))
+            if id != current?.id.uuidString {
+                var sub: AnyCancellable?
+                sub = FileManager.page(id).receive(on: DispatchQueue.main).sink {
                     sub?.cancel()
                     var page = $0
                     page.date = .init()
                     session.page = page
                     
                     if current != nil {
-                        session.browse.send(url)
+                        session.browse.send(page.url)
                     }
+                }
             }
         case .privacy_search:
             session.dismiss.send()
