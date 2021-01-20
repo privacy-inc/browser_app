@@ -108,7 +108,7 @@ extension Searchbar {
             bar.resignFirstResponder()
         }
         
-        func insertText(_ text: String) { }
+        func insertText(_: String) { }
         func deleteBackward() { }
         
         private func changed() {
