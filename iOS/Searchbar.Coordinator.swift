@@ -30,7 +30,7 @@ extension Searchbar {
             bar.searchBarStyle = .minimal
             bar.autocapitalizationType = .none
             bar.autocorrectionType = .no
-            bar.spellCheckingType = .no
+            bar.spellCheckingType = .yes
             bar.showsCancelButton = true
             bar.enablesReturnKeyAutomatically = false
             bar.barTintColor = .label
