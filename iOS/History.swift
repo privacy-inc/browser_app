@@ -23,9 +23,7 @@ struct History: View {
                     Spacer()
                     HStack {
                         Spacer()
-                        Image(systemName: "eyeglasses")
-                            .font(Font.system(size: 80).bold())
-                            .foregroundColor(.accentColor)
+                        Image("logo")
                         Spacer()
                     }
                     Spacer()
