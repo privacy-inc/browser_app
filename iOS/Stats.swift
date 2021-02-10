@@ -34,7 +34,19 @@ struct Stats: View {
                     visible.wrappedValue.dismiss()
                 }
             }
-            .padding(.horizontal)
+            .padding(.trailing)
+            HStack {
+                Spacer()
+                Text("Privacy Plus")
+                    .font(.footnote)
+                Control.Circle(background: .init(.systemBackground), image: "plus") {
+                    session.forget.send()
+                    visible.wrappedValue.dismiss()
+                }
+            }
+            .padding([.trailing, .top])
+            Spacer()
+                .frame(height: 40)
         }
         .onReceive(session.dismiss) {
             visible.wrappedValue.dismiss()
