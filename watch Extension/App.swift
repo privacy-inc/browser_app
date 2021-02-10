@@ -6,6 +6,7 @@ import Sleuth
     @ObservedObject var delegate = Delegate()
     @State private var alert = false
     @State private var tab = 0
+    @State private var formatter = NumberFormatter()
     
     var body: some Scene {
         WindowGroup {
@@ -20,6 +21,37 @@ import Sleuth
                 ZStack {
                     Color("Background")
                         .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        HStack {
+                            Text(NSNumber(value: delegate.blocked.count), formatter: formatter)
+                                .font(Font.largeTitle.bold())
+                                .padding(.leading)
+                            Spacer()
+                        }
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Image(systemName: "shield.lefthalf.fill")
+                                .font(.title2)
+                                .padding(.trailing)
+                        }
+                    }
+                    .padding()
+                }
+                .tag(1)
+                ZStack {
+                    Color("Background")
+                        .edgesIgnoringSafeArea(.all)
+                    VStack {
+                        HStack {
+                            Text("Forget")
+                                .foregroundColor(.secondary)
+                                .padding(.leading)
+                            Spacer()
+                        }
+                        Spacer()
+                    }
+                    .padding()
                     Neumorphic(image: "flame")
                         .onTapGesture {
                             alert = true
@@ -28,22 +60,22 @@ import Sleuth
                             Alert(title: .init("Forget everything?"),
                                   primaryButton: .default(.init("Cancel")),
                                   secondaryButton: .destructive(.init("Forget")) {
-                                    delegate.chart = []
                                     delegate.forget()
                             })
                         }
                 }
-                .tag(1)
+                .tag(2)
             }
             .tabViewStyle(PageTabViewStyle())
             .onAppear {
+                formatter.numberStyle = .decimal
                 if WCSession.default.activationState != .activated {
                     WCSession.default.delegate = delegate
                     WCSession.default.activate()
                 }
             }
             .onChange(of: tab) { _ in
-                delegate.chart = Share.chart
+                delegate.refresh()
             }
         }
     }

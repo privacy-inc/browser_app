@@ -14,7 +14,9 @@ final class Watch: NSObject, WCSessionDelegate {
             
             sub = update.sink {
                 if WCSession.isSupported() && WCSession.default.activationState == .activated && WCSession.default.isPaired && WCSession.default.isWatchAppInstalled {
-                    try? WCSession.default.updateApplicationContext([Share.Key.chart.rawValue : Share.chart])
+                    try? WCSession.default.updateApplicationContext(
+                        [Share.Key.chart.rawValue : Share.chart,
+                         Share.Key.blocked.rawValue : Share.blocked])
                 }
             }
         }
