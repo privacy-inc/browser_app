@@ -9,8 +9,7 @@ extension History {
         
         var body: some View {
             ZStack {
-                Color("AccentColor")
-                    .opacity(0.6)
+                Color(white: 0.125)
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 if pages.isEmpty {
                     VStack {
@@ -27,73 +26,76 @@ extension History {
                     GeometryReader { geo in
                         switch family {
                         case .systemLarge:
-                            HStack {
-                                Spacer()
-                                VStack {
-                                    Spacer()
-                                    Cell(page: pages.first!)
-                                        .frame(width: geo.size.width * 0.45)
+                            HStack(spacing: 0) {
+                                VStack(spacing: 0) {
+                                    Cell(page: pages.first!, align: .leading)
+                                        .frame(width: geo.size.width * 0.5)
                                     if pages.count > 2 {
-                                        Spacer()
-                                        Cell(page: pages[2])
-                                            .frame(width: geo.size.width * 0.45)
+                                        Cell(page: pages[2], align: .leading)
+                                            .frame(width: geo.size.width * 0.5)
+                                            .padding(.top)
                                         if pages.count > 4 {
-                                            Spacer()
-                                            Cell(page: pages[4])
-                                                .frame(width: geo.size.width * 0.45)
+                                            Cell(page: pages[4], align: .leading)
+                                                .frame(width: geo.size.width * 0.5)
+                                                .padding(.top)
                                         }
                                     }
                                     Spacer()
                                 }
-                                Spacer()
-                                VStack {
-                                    Spacer()
-                                    if pages.count > 1 {
-                                        Cell(page: pages[1])
-                                            .frame(width: geo.size.width * 0.45)
-                                    }
-                                    if pages.count > 3 {
+                                if pages.count > 1 {
+                                    VStack(spacing: 0) {
+                                        Cell(page: pages[1], align: .trailing)
+                                            .frame(width: geo.size.width * 0.5)
+                                        if pages.count > 3 {
+                                            Cell(page: pages[3], align: .trailing)
+                                                .frame(width: geo.size.width * 0.5)
+                                                .padding(.top)
+                                            if pages.count > 5 {
+                                                Cell(page: pages[5], align: .trailing)
+                                                    .frame(width: geo.size.width * 0.5)
+                                                    .padding(.top)
+                                            }
+                                        }
                                         Spacer()
-                                        Cell(page: pages[3])
-                                            .frame(width: geo.size.width * 0.45)
-                                        if pages.count > 5 {
-                                            Spacer()
-                                            Cell(page: pages[5])
-                                                .frame(width: geo.size.width * 0.45)
-                                        }
                                     }
+                                    .multilineTextAlignment(.trailing)
+                                } else {
                                     Spacer()
                                 }
-                                Spacer()
                             }
                         case .systemMedium:
-                            VStack {
-                                Spacer()
-                                HStack {
+                            HStack(spacing: 0) {
+                                VStack(spacing: 0) {
                                     Spacer()
-                                    Cell(page: pages.first!)
-                                        .frame(width: geo.size.width * 0.45)
-                                    if pages.count > 1 {
-                                        Spacer()
-                                        Cell(page: pages[1])
-                                            .frame(width: geo.size.width * 0.45)
-                                    }
+                                    Cell(page: pages.first!, align: .leading)
+                                        .frame(width: geo.size.width * 0.5)
                                     Spacer()
                                 }
-                                Spacer()
+                                if pages.count > 1 {
+                                    VStack(spacing: 0) {
+                                        Spacer()
+                                        Cell(page: pages[1], align: .trailing)
+                                            .frame(width: geo.size.width * 0.5)
+                                        Spacer()
+                                    }
+                                    .multilineTextAlignment(.trailing)
+                                } else {
+                                    Spacer()
+                                }
                             }
                         default:
                             HStack {
                                 Spacer()
                                 VStack {
                                     Spacer()
-                                    Cell(page: pages.first!)
+                                    Cell(page: pages.first!, align: .leading)
                                     Spacer()
                                 }
                                 Spacer()
                             }
                         }
                     }
+                    .padding(25)
                 }
             }
         }

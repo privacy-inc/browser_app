@@ -8,7 +8,7 @@ extension Search {
         
         var body: some View {
             ZStack {
-                Color("WidgetBackground")
+                Color(white: 0.125)
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 switch family {
                 case .systemMedium:
@@ -26,11 +26,22 @@ extension Search {
                         Spacer()
                     }
                 default:
-                    Neumorphic(image: "magnifyingglass")
+                    VStack {
+                        HStack {
+                            Text("Privacy")
+                                .foregroundColor(.secondary)
+                                .padding([.leading, .top])
+                            Spacer()
+                        }
+                        Spacer()
+                        HStack {
+                            Spacer()
+                            Image(systemName: "magnifyingglass")
+                                .padding([.trailing, .bottom])
+                        }
+                    }
                 }
             }
-            .font(Font.largeTitle.bold())
-            .foregroundColor(.black)
         }
     }
 }

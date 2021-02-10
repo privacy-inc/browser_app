@@ -20,12 +20,9 @@ struct Stats: View {
                 .contentShape(Rectangle())
                 .padding(.top)
             }
-            Image(systemName: "chart.bar.xaxis")
-                .font(.largeTitle)
-                .padding(.bottom)
             Chart(chart: Share.chart)
                 .frame(height: 220)
-                .padding(.vertical)
+                .padding(.bottom)
             Trackers(session: $session)
                 .padding(.vertical)
             HStack {
