@@ -84,13 +84,9 @@ extension History {
                                 }
                             }
                         default:
-                            HStack {
+                            VStack {
                                 Spacer()
-                                VStack {
-                                    Spacer()
-                                    Cell(page: pages.first!, align: .leading)
-                                    Spacer()
-                                }
+                                Cell(page: pages.first!, align: .leading)
                                 Spacer()
                             }
                         }
