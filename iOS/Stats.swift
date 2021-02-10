@@ -40,8 +40,7 @@ struct Stats: View {
                 Text("Privacy Plus")
                     .font(.footnote)
                 Control.Circle(background: .init(.systemBackground), image: "plus") {
-                    session.forget.send()
-                    visible.wrappedValue.dismiss()
+                    session.purchases.open.send()
                 }
             }
             .padding([.trailing, .top])

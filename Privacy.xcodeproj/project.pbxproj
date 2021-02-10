@@ -48,6 +48,15 @@
 		CE7BCCF42599148400444040 /* Preferences.Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7BCCF32599148400444040 /* Preferences.Button.swift */; };
 		CE872F9A25A361B200C98734 /* Neumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE872F9925A361B200C98734 /* Neumorphic.swift */; };
 		CE872FAB25A3733700C98734 /* Neumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE872FAA25A3733700C98734 /* Neumorphic.swift */; };
+		CE8DF90C25D4456A00FC0F19 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF90B25D4456A00FC0F19 /* Purchases.swift */; };
+		CE8DF90D25D4456A00FC0F19 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF90B25D4456A00FC0F19 /* Purchases.swift */; };
+		CE8DF91425D4459C00FC0F19 /* Purchases.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF91325D4459C00FC0F19 /* Purchases.Item.swift */; };
+		CE8DF91525D4459C00FC0F19 /* Purchases.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF91325D4459C00FC0F19 /* Purchases.Item.swift */; };
+		CE8DF92625D4469E00FC0F19 /* Plus.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF92525D4469E00FC0F19 /* Plus.swift */; };
+		CE8DF93725D4471A00FC0F19 /* Plus.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF93625D4471A00FC0F19 /* Plus.Item.swift */; };
+		CE8DF94325D44CF700FC0F19 /* Plus.Why.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF94225D44CF700FC0F19 /* Plus.Why.swift */; };
+		CE8DF94F25D44EA000FC0F19 /* Plus.Alternatives.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF94E25D44EA000FC0F19 /* Plus.Alternatives.swift */; };
+		CE8DF95B25D4587600FC0F19 /* Plus.Timeout.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF95A25D4587600FC0F19 /* Plus.Timeout.swift */; };
 		CEA7F44825A090FB00D84BAF /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7F44725A090FB00D84BAF /* Bundle.swift */; };
 		CEA7F45425A0911F00D84BAF /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7F45325A0911F00D84BAF /* History.swift */; };
 		CEA7F46025A091AE00D84BAF /* History.Provider.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA7F45F25A091AE00D84BAF /* History.Provider.swift */; };
@@ -218,6 +227,13 @@
 		CE7BCCF32599148400444040 /* Preferences.Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Preferences.Button.swift; sourceTree = "<group>"; };
 		CE872F9925A361B200C98734 /* Neumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neumorphic.swift; sourceTree = "<group>"; };
 		CE872FAA25A3733700C98734 /* Neumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neumorphic.swift; sourceTree = "<group>"; };
+		CE8DF90B25D4456A00FC0F19 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
+		CE8DF91325D4459C00FC0F19 /* Purchases.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.Item.swift; sourceTree = "<group>"; };
+		CE8DF92525D4469E00FC0F19 /* Plus.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.swift; sourceTree = "<group>"; };
+		CE8DF93625D4471A00FC0F19 /* Plus.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Item.swift; sourceTree = "<group>"; };
+		CE8DF94225D44CF700FC0F19 /* Plus.Why.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Why.swift; sourceTree = "<group>"; };
+		CE8DF94E25D44EA000FC0F19 /* Plus.Alternatives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Alternatives.swift; sourceTree = "<group>"; };
+		CE8DF95A25D4587600FC0F19 /* Plus.Timeout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Timeout.swift; sourceTree = "<group>"; };
 		CEA7F44725A090FB00D84BAF /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
 		CEA7F45325A0911F00D84BAF /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		CEA7F45F25A091AE00D84BAF /* History.Provider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Provider.swift; sourceTree = "<group>"; };
@@ -401,6 +417,8 @@
 				CE3B3B50259CAF79008C9682 /* _Web.swift */,
 				CED86D3325AC9E2400339314 /* Chart.Metrics.swift */,
 				CE1511E3259F96D000ABBC72 /* Chart.swift */,
+				CE8DF91325D4459C00FC0F19 /* Purchases.Item.swift */,
+				CE8DF90B25D4456A00FC0F19 /* Purchases.swift */,
 				CED75E4D25891F1500352091 /* WKUserContentController.swift */,
 				CE6B9A3425D2ED400072853F /* Media.xcassets */,
 			);
@@ -434,6 +452,11 @@
 				CE4E48B625B301ED00E2A7F6 /* Issue.swift */,
 				CE25612725A4995200BF1753 /* Modal.swift */,
 				CEF78837259B767A001ADEBA /* Neumorphic.swift */,
+				CE8DF94E25D44EA000FC0F19 /* Plus.Alternatives.swift */,
+				CE8DF93625D4471A00FC0F19 /* Plus.Item.swift */,
+				CE8DF92525D4469E00FC0F19 /* Plus.swift */,
+				CE8DF95A25D4587600FC0F19 /* Plus.Timeout.swift */,
+				CE8DF94225D44CF700FC0F19 /* Plus.Why.swift */,
 				CEF78843259B768A001ADEBA /* Searchbar.swift */,
 				CEF7880F259B67EA001ADEBA /* Session.swift */,
 				CE6A32F2259FB62B0083FFBC /* Settings.Options.swift */,
@@ -724,6 +747,7 @@
 				CEE9FBE5258A509400008857 /* History.swift in Sources */,
 				CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */,
 				CECE3BA52587B18000D66221 /* Control.swift in Sources */,
+				CE8DF91425D4459C00FC0F19 /* Purchases.Item.swift in Sources */,
 				CE5B10462583883B00608726 /* Window.swift in Sources */,
 				CECE3BA82587B19F00D66221 /* Control.Button.swift in Sources */,
 				CEEA64142591542B00711A8C /* Preferences.swift in Sources */,
@@ -735,6 +759,7 @@
 				CE1175492588E636005160D9 /* Searchbar.Cell.swift in Sources */,
 				CE296F9325922FEC00E55E99 /* Scroll.swift in Sources */,
 				CE7BCCF42599148400444040 /* Preferences.Button.swift in Sources */,
+				CE8DF90C25D4456A00FC0F19 /* Purchases.swift in Sources */,
 				CEE9FBF3258A723D00008857 /* Menu.swift in Sources */,
 				CE11754F258902C7005160D9 /* Control.State.swift in Sources */,
 				CED86D4C25ACA5E300339314 /* Chart.Content.swift in Sources */,
@@ -763,6 +788,9 @@
 				CE6A32F3259FB62B0083FFBC /* Settings.Options.swift in Sources */,
 				CE3B3B3E259CAEF4008C9682 /* Web.swift in Sources */,
 				CE3B3B62259CB75E008C9682 /* WKUserContentController.swift in Sources */,
+				CE8DF94325D44CF700FC0F19 /* Plus.Why.swift in Sources */,
+				CE8DF92625D4469E00FC0F19 /* Plus.swift in Sources */,
+				CE8DF94F25D44EA000FC0F19 /* Plus.Alternatives.swift in Sources */,
 				CE5DEACB259E127D005F78C8 /* History.Cell.swift in Sources */,
 				CEF78831259B75EA001ADEBA /* Control.swift in Sources */,
 				CEA9B1D4259F75EE00782A87 /* Trackers.swift in Sources */,
@@ -770,6 +798,7 @@
 				CE4E48B725B301ED00E2A7F6 /* Issue.swift in Sources */,
 				CE5DEA8C259DECDC005F78C8 /* History.Vertical.swift in Sources */,
 				CE3B3B45259CAEFB008C9682 /* Web.Coordinator.swift in Sources */,
+				CE8DF95B25D4587600FC0F19 /* Plus.Timeout.swift in Sources */,
 				CED86D3F25AC9E3400339314 /* Chart.Metrics.swift in Sources */,
 				CEF78830259B75EA001ADEBA /* Control.Style.swift in Sources */,
 				CEF78838259B767A001ADEBA /* Neumorphic.swift in Sources */,
@@ -781,9 +810,12 @@
 				CE25612825A4995200BF1753 /* Modal.swift in Sources */,
 				CEA9B1EC259F79FE00782A87 /* Control.Option.swift in Sources */,
 				CEF7888C259B8270001ADEBA /* Field.Coordinator.swift in Sources */,
+				CE8DF91525D4459C00FC0F19 /* Purchases.Item.swift in Sources */,
 				CEA9B1E0259F768900782A87 /* Detail.Find.swift in Sources */,
+				CE8DF93725D4471A00FC0F19 /* Plus.Item.swift in Sources */,
 				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,
 				CEF78844259B768A001ADEBA /* Searchbar.swift in Sources */,
+				CE8DF90D25D4456A00FC0F19 /* Purchases.swift in Sources */,
 				CE3B3B51259CAF7A008C9682 /* _Web.swift in Sources */,
 				CEF7875D259B3E19001ADEBA /* App.swift in Sources */,
 				CEA9B1F3259F7AC000782A87 /* Detail.Options.swift in Sources */,

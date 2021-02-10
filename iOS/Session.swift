@@ -20,6 +20,7 @@ struct Session {
     var forwards = false
     var loading = false
     var progress = Double()
+    let purchases = Purchases()
     let browse = PassthroughSubject<URL, Never>()
     let text = PassthroughSubject<String, Never>()
     let find = PassthroughSubject<String, Never>()

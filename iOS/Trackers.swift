@@ -4,7 +4,6 @@ import Sleuth
 struct Trackers: View {
     @Binding var session: Session
     @State private var formatter = NumberFormatter()
-    @State private var list = false
     @State private var blocked = [String]()
     
     var body: some View {
@@ -19,10 +18,11 @@ struct Trackers: View {
                     .padding(.leading)
             }
             Control.Circle(background: .init(.systemBackground), image: "shield.lefthalf.fill") {
-                list = true
-            }
-            .sheet(isPresented: $list) {
-                List(session: $session)
+                UIApplication.shared.resign()
+                session.dismiss.send()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    session.modal = .trackers
+                }
             }
         }
         .padding(.horizontal)

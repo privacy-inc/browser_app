@@ -5,5 +5,6 @@ enum Modal: Identifiable {
     
     case
     trackers,
-    store
+    store,
+    froob
 }

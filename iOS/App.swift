@@ -21,6 +21,13 @@ import Sleuth
                     Share.blocked = []
                     session.update.send()
                 }
+                .onReceive(delegate.froob) {
+                    UIApplication.shared.resign()
+                    session.dismiss.send()
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        session.modal = .froob
+                    }
+                }
                 .onReceive(session.save.debounce(for: .seconds(1.5), scheduler: DispatchQueue.main)) {
                     FileManager.save($0)
                     Share.chart.append(.init())
@@ -87,9 +94,11 @@ import Sleuth
             session.forget.send()
         case .privacy_trackers:
             if session.modal != .trackers {
-                session.dismiss.send()
                 UIApplication.shared.resign()
-                session.modal = .trackers
+                session.dismiss.send()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    session.modal = .trackers
+                }
             }
         default:
             session.dismiss.send()

@@ -14,7 +14,8 @@ struct Window: View {
                 .sheet(item: $session.modal) {
                     switch $0 {
                     case .trackers: Trackers.List(session: $session)
-                    case .store: Settings(session: $session)
+                    case .store: Plus(session: $session)
+                    case .froob: Plus.Timemout(session: $session)
                     }
                 }
             if session.page == nil {
@@ -83,5 +84,12 @@ struct Window: View {
                 .frame(width: 0, height: 0)
         }
         .animation(.easeInOut(duration: 0.3))
+        .onReceive(session.purchases.open) {
+            UIApplication.shared.resign()
+            session.dismiss.send()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                session.modal = .store
+            }
+        }
     }
 }
