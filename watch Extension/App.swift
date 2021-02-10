@@ -51,7 +51,7 @@ import Sleuth
                         }
                         Spacer()
                     }
-                    .padding()
+                    .padding(.leading)
                     Neumorphic(image: "flame")
                         .onTapGesture {
                             alert = true
