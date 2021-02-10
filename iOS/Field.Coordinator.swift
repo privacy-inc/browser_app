@@ -2,7 +2,7 @@ import UIKit
 import Combine
 import Sleuth
 
-extension Searchbar {
+extension Field {
     final class Coordinator: UIView, UIKeyInput, UISearchBarDelegate {
         private weak var bar: UISearchBar!
         private var leftView: UIView!

@@ -18,7 +18,7 @@ extension History {
                     }
                 }
                 Spacer()
-                    .frame(height: 20)
+                    .frame(height: 100)
             }
         }
     }

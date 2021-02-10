@@ -23,8 +23,6 @@
 		CE3B3B51259CAF7A008C9682 /* _Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B50259CAF79008C9682 /* _Web.swift */; };
 		CE3B3B5C259CAF9A008C9682 /* _Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B50259CAF79008C9682 /* _Web.swift */; };
 		CE3B3B62259CB75E008C9682 /* WKUserContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E4D25891F1500352091 /* WKUserContentController.swift */; };
-		CE3B3B6E259CC21F008C9682 /* Progress.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B6D259CC21F008C9682 /* Progress.swift */; };
-		CE3B3B7A259CC438008C9682 /* Progress.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B79259CC438008C9682 /* Progress.Bar.swift */; };
 		CE42C38125A257C900A9D376 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1511E3259F96D000ABBC72 /* Chart.swift */; };
 		CE4E404425A5EADF007FCCF3 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E404325A5EADF007FCCF3 /* Issue.swift */; };
 		CE4E48B725B301ED00E2A7F6 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E48B625B301ED00E2A7F6 /* Issue.swift */; };
@@ -116,8 +114,8 @@
 		CEF78844259B768A001ADEBA /* Searchbar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78843259B768A001ADEBA /* Searchbar.swift */; };
 		CEF78850259B7707001ADEBA /* Color.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7884F259B7707001ADEBA /* Color.swift */; };
 		CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78862259B7CAB001ADEBA /* UIApplication.swift */; };
-		CEF78885259B8259001ADEBA /* Searchbar.Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78884259B8259001ADEBA /* Searchbar.Field.swift */; };
-		CEF7888C259B8270001ADEBA /* Searchbar.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7888B259B8270001ADEBA /* Searchbar.Coordinator.swift */; };
+		CEF78885259B8259001ADEBA /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78884259B8259001ADEBA /* Field.swift */; };
+		CEF7888C259B8270001ADEBA /* Field.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7888B259B8270001ADEBA /* Field.Coordinator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -194,8 +192,6 @@
 		CE3B3B3D259CAEF4008C9682 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CE3B3B44259CAEFB008C9682 /* Web.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Coordinator.swift; sourceTree = "<group>"; };
 		CE3B3B50259CAF79008C9682 /* _Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Web.swift; sourceTree = "<group>"; };
-		CE3B3B6D259CC21F008C9682 /* Progress.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.swift; sourceTree = "<group>"; };
-		CE3B3B79259CC438008C9682 /* Progress.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Progress.Bar.swift; sourceTree = "<group>"; };
 		CE4E404325A5EADF007FCCF3 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		CE4E48B625B301ED00E2A7F6 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		CE52108D259A154700AF4486 /* Privacy.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Privacy.icns; sourceTree = "<group>"; };
@@ -291,8 +287,8 @@
 		CEF78843259B768A001ADEBA /* Searchbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.swift; sourceTree = "<group>"; };
 		CEF7884F259B7707001ADEBA /* Color.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Color.swift; sourceTree = "<group>"; };
 		CEF78862259B7CAB001ADEBA /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
-		CEF78884259B8259001ADEBA /* Searchbar.Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Field.swift; sourceTree = "<group>"; };
-		CEF7888B259B8270001ADEBA /* Searchbar.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Coordinator.swift; sourceTree = "<group>"; };
+		CEF78884259B8259001ADEBA /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
+		CEF7888B259B8270001ADEBA /* Field.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.Coordinator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +426,8 @@
 				CEA9B1DF259F768900782A87 /* Detail.Find.swift */,
 				CEA9B1F2259F7AC000782A87 /* Detail.Options.swift */,
 				CEA9B1C0259F667900782A87 /* Detail.swift */,
+				CEF7888B259B8270001ADEBA /* Field.Coordinator.swift */,
+				CEF78884259B8259001ADEBA /* Field.swift */,
 				CE5DEACA259E127D005F78C8 /* History.Cell.swift */,
 				CE5DEA92259DEF8A005F78C8 /* History.Horizontal.swift */,
 				CE5DEAD6259E1E06005F78C8 /* History.Size.swift */,
@@ -438,10 +436,6 @@
 				CE4E48B625B301ED00E2A7F6 /* Issue.swift */,
 				CE25612725A4995200BF1753 /* Modal.swift */,
 				CEF78837259B767A001ADEBA /* Neumorphic.swift */,
-				CE3B3B79259CC438008C9682 /* Progress.Bar.swift */,
-				CE3B3B6D259CC21F008C9682 /* Progress.swift */,
-				CEF7888B259B8270001ADEBA /* Searchbar.Coordinator.swift */,
-				CEF78884259B8259001ADEBA /* Searchbar.Field.swift */,
 				CEF78843259B768A001ADEBA /* Searchbar.swift */,
 				CEF7880F259B67EA001ADEBA /* Session.swift */,
 				CE6A32F2259FB62B0083FFBC /* Settings.Options.swift */,
@@ -763,7 +757,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE3B3B7A259CC438008C9682 /* Progress.Bar.swift in Sources */,
 				CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */,
 				CEA9B1C1259F667900782A87 /* Detail.swift in Sources */,
 				CEF78810259B67EA001ADEBA /* Session.swift in Sources */,
@@ -776,21 +769,20 @@
 				CEF78831259B75EA001ADEBA /* Control.swift in Sources */,
 				CEA9B1D4259F75EE00782A87 /* Trackers.swift in Sources */,
 				CEF78850259B7707001ADEBA /* Color.swift in Sources */,
-				CE3B3B6E259CC21F008C9682 /* Progress.swift in Sources */,
 				CE4E48B725B301ED00E2A7F6 /* Issue.swift in Sources */,
 				CE5DEA8C259DECDC005F78C8 /* History.Vertical.swift in Sources */,
 				CE3B3B45259CAEFB008C9682 /* Web.Coordinator.swift in Sources */,
 				CED86D3F25AC9E3400339314 /* Chart.Metrics.swift in Sources */,
 				CEF78830259B75EA001ADEBA /* Control.Style.swift in Sources */,
 				CEF78838259B767A001ADEBA /* Neumorphic.swift in Sources */,
-				CEF78885259B8259001ADEBA /* Searchbar.Field.swift in Sources */,
+				CEF78885259B8259001ADEBA /* Field.swift in Sources */,
 				CEA9B1C8259F6FA800782A87 /* Trackers.List.swift in Sources */,
 				CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */,
 				CEF7882F259B75EA001ADEBA /* Control.Circle.swift in Sources */,
 				CE3B3B37259CAEED008C9682 /* History.swift in Sources */,
 				CE25612825A4995200BF1753 /* Modal.swift in Sources */,
 				CEA9B1EC259F79FE00782A87 /* Control.Option.swift in Sources */,
-				CEF7888C259B8270001ADEBA /* Searchbar.Coordinator.swift in Sources */,
+				CEF7888C259B8270001ADEBA /* Field.Coordinator.swift in Sources */,
 				CEA9B1E0259F768900782A87 /* Detail.Find.swift in Sources */,
 				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,
 				CEF78844259B768A001ADEBA /* Searchbar.swift in Sources */,
