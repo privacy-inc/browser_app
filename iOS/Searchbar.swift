@@ -20,10 +20,18 @@ struct Searchbar: View {
                     }
                 } else {
                     Menu {
-                        Button(action: session.reload.send) {
-                            Text("Reload")
-                            Image(systemName: "arrow.clockwise")
+                        Button {
+                            detail = true
+                        } label: {
+                            Text("Menu")
+                            Image(systemName: "line.horizontal.3")
                         }
+                        
+                        Button(action: session.next.send) {
+                            Text("Forward")
+                            Image(systemName: "chevron.right")
+                        }
+                        .disabled(!session.forwards)
                         
                         Button {
                             if session.error == nil {
@@ -40,17 +48,15 @@ struct Searchbar: View {
                             Image(systemName: "chevron.left")
                         }
                         
-                        Button(action: session.next.send) {
-                            Text("Forward")
-                            Image(systemName: "chevron.right")
+                        Button(action: session.stop.send) {
+                            Text("Stop")
+                            Image(systemName: "xmark")
                         }
-                        .disabled(!session.forwards)
+                        .disabled(!session.loading)
                         
-                        Button {
-                            detail = true
-                        } label: {
-                            Text("Menu")
-                            Image(systemName: "line.horizontal.3")
+                        Button(action: session.reload.send) {
+                            Text("Reload")
+                            Image(systemName: "arrow.clockwise")
                         }
                         
                     } label: {

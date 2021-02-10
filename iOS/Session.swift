@@ -18,6 +18,7 @@ struct Session {
     var typing = false
     var backwards = false
     var forwards = false
+    var loading = false
     var progress = Double()
     let browse = PassthroughSubject<URL, Never>()
     let text = PassthroughSubject<String, Never>()

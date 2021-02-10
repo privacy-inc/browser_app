@@ -28,6 +28,10 @@ extension Web {
                 view.session.progress = $0
             }.store(in: &subs)
             
+            publisher(for: \.isLoading).sink {
+                view.session.loading = $0
+            }.store(in: &subs)
+            
             publisher(for: \.title).sink {
                 $0.map {
                     guard !$0.isEmpty else { return }

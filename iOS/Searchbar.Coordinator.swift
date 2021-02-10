@@ -33,7 +33,7 @@ extension Searchbar {
             bar.spellCheckingType = .yes
             bar.showsCancelButton = true
             bar.enablesReturnKeyAutomatically = false
-            bar.barTintColor = .label
+            bar.barTintColor = .init(white: 0.5, alpha: 1)
             bar.tintColor = .label
             bar.keyboardType = .webSearch
             bar.searchTextField.allowsEditingTextAttributes = false
@@ -112,11 +112,9 @@ extension Searchbar {
         func deleteBackward() { }
         
         private func changed() {
-            if bar.text?.isEmpty == true && !bar.showsCancelButton {
-                bar.setShowsCancelButton(true, animated: true)
+            if bar.text?.isEmpty == true {
                 bar.searchTextField.leftView = leftView
-            } else if bar.text?.isEmpty == false && bar.showsCancelButton {
-                bar.setShowsCancelButton(false, animated: true)
+            } else {
                 bar.searchTextField.leftView = nil
             }
         }
