@@ -116,6 +116,7 @@
 		CEF78863259B7CAB001ADEBA /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78862259B7CAB001ADEBA /* UIApplication.swift */; };
 		CEF78885259B8259001ADEBA /* Field.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF78884259B8259001ADEBA /* Field.swift */; };
 		CEF7888C259B8270001ADEBA /* Field.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF7888B259B8270001ADEBA /* Field.Coordinator.swift */; };
+		CEFCFB6125D421BF007F6949 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6B9A3425D2ED400072853F /* Media.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -697,6 +698,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEFCFB6125D421BF007F6949 /* Media.xcassets in Resources */,
 				CEF7878E259B4312001ADEBA /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

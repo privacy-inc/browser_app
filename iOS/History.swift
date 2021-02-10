@@ -18,33 +18,21 @@ struct History: View {
     
     var body: some View {
         GeometryReader { geo in
-            if pages.isEmpty {
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Image("logo")
-                        Spacer()
-                    }
-                    Spacer()
-                }
+            if UIDevice.current.orientation.isLandscape {
+                Horizontal(
+                    session: $session,
+                    pages: $pages,
+                    size: .init(size: geo.size),
+                    delete: delete)
             } else {
-                if UIDevice.current.orientation.isLandscape {
-                    Horizontal(
-                        session: $session,
-                        pages: $pages,
-                        size: .init(size: geo.size),
-                        delete: delete)
-                } else {
-                    Horizontal(
-                        session: $session,
-                        pages: $pages,
-                        size: .init(size: geo.size),
-                        delete: delete)
-                }
+                Horizontal(
+                    session: $session,
+                    pages: $pages,
+                    size: .init(size: geo.size),
+                    delete: delete)
             }
         }
-        .animation(.easeInOut(duration: 0.4))
+        .animation(.spring(blendDuration: 0.4))
         .onAppear(perform: refresh)
         .onReceive(session.forget) {
             pages = []
