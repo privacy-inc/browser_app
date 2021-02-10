@@ -32,7 +32,7 @@ struct Stats: View {
                 Spacer()
                 Text("Forget")
                     .font(.footnote)
-                Control.Circle(background: .init(.systemBackground), state: .ready, image: "flame") {
+                Control.Circle(background: .init(.systemBackground), image: "flame") {
                     session.forget.send()
                     visible.wrappedValue.dismiss()
                 }

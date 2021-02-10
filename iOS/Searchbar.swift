@@ -2,7 +2,6 @@ import SwiftUI
 
 struct Searchbar: View {
     @Binding var session: Session
-    @State private var options = false
     @State private var stats = false
     @State private var settings = false
     @State private var detail = false
@@ -11,52 +10,66 @@ struct Searchbar: View {
         if !session.typing {
             Spacer()
                 .frame(height: 10)
-            if options && session.page != nil {
-                HStack {
-                    Control.Circle(state: .ready, image: "arrow.clockwise", action: session.reload.send)
-                    Control.Circle(state: .ready, image: "chevron.left") {
-                        if session.error == nil {
-                            if session.backwards {
-                                session.previous.send()
-                            } else {
-                                session.page = nil
-                            }
-                        } else {
-                            session.unerror.send()
-                        }
-                    }
-                    Control.Circle(state: session.forwards ? .ready : .disabled, image: "chevron.right", action: session.next.send)
-                    Control.Circle(state: .ready, image: "line.horizontal.3") {
-                        detail = true
-                    }
-                    .sheet(isPresented: $detail) {
-                        Detail(session: $session)
-                    }
-                }
-            }
             HStack {
                 if session.page == nil {
-                    Control.Circle(state: .ready, image: "eyeglasses") {
+                    Control.Circle(image: "eyeglasses") {
                         stats = true
                     }
                     .sheet(isPresented: $stats) {
                         Stats(session: $session)
                     }
                 } else {
-                    Control.Circle(state: options ? .selected : .ready, image: "plus") {
-                        options.toggle()
+                    Menu {
+                        Button(action: session.reload.send) {
+                            Text("Reload")
+                            Image(systemName: "arrow.clockwise")
+                        }
+                        
+                        Button {
+                            if session.error == nil {
+                                if session.backwards {
+                                    session.previous.send()
+                                } else {
+                                    session.page = nil
+                                }
+                            } else {
+                                session.unerror.send()
+                            }
+                        } label: {
+                            Text("Back")
+                            Image(systemName: "chevron.left")
+                        }
+                        
+                        Button(action: session.next.send) {
+                            Text("Forward")
+                            Image(systemName: "chevron.right")
+                        }
+                        .disabled(!session.forwards)
+                        
+                        Button {
+                            detail = true
+                        } label: {
+                            Text("Menu")
+                            Image(systemName: "line.horizontal.3")
+                        }
+                        
+                    } label: {
+                        Control.Circle.Shape(image: "plus", background: .background, pressed: false)
+                    }
+                    .sheet(isPresented: $detail) {
+                        Detail(session: $session)
                     }
                 }
-                Control.Circle(state: .ready, image: "magnifyingglass", action: session.type.send)
+                Control.Circle(image: "magnifyingglass", action: session.type.send)
                 if session.page == nil {
-                    Control.Circle(state: .ready, image: "slider.horizontal.3") {
+                    Control.Circle(image: "slider.horizontal.3") {
                         settings = true
                     }
                     .sheet(isPresented: $settings) {
                         Settings(session: $session)
                     }
                 } else {
-                    Control.Circle(state: .ready, image: "xmark") {
+                    Control.Circle(image: "xmark") {
                         session.page = nil
                     }
                 }

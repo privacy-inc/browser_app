@@ -18,8 +18,7 @@ struct Trackers: View {
                     .font(Font.title2.bold().monospacedDigit())
                     .padding(.leading)
             }
-            Control.Circle(background: .init(.systemBackground), state: blocked.isEmpty ? .disabled : .ready, image: "shield.lefthalf.fill") {
-                guard !blocked.isEmpty else { return }
+            Control.Circle(background: .init(.systemBackground), image: "shield.lefthalf.fill") {
                 list = true
             }
             .sheet(isPresented: $list) {
