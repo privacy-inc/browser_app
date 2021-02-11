@@ -23,14 +23,14 @@ extension Plus {
                         .fixedSize(horizontal: false, vertical: true)
                         .foregroundColor(.secondary)
                         .padding(.horizontal)
-                    Text(verbatim: price)
-                        .bold()
-                        .padding(.top, 40)
                     if premium {
                         Image(systemName: "checkmark.shield.fill")
-                            .font(Font.title)
+                            .font(Font.largeTitle)
                             .padding(.top)
                     } else {
+                        Text(verbatim: price)
+                            .bold()
+                            .padding(.top, 40)
                         Button(action: action) {
                             ZStack {
                                 Capsule()

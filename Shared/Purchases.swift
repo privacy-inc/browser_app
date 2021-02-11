@@ -34,6 +34,11 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
         }
     }
     
+    func paymentQueue(_: SKPaymentQueue, shouldAddStorePayment: SKPayment, for: SKProduct) -> Bool {
+        open.send()
+        return true
+    }
+    
     func paymentQueue(_: SKPaymentQueue, updatedTransactions: [SKPaymentTransaction]) {
         guard !updatedTransactions.contains(where: { $0.transactionState == .purchasing }) else { return }
         updatedTransactions.forEach { transation in
@@ -42,7 +47,7 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
                 DispatchQueue.main.async {
                     self.error.value = NSLocalizedString("Purchase failed", comment: "")
                 }
-            case .purchased:
+            case .restored, .purchased:
                 DispatchQueue.main.async {
                     switch Item(rawValue: transation.payment.productIdentifier)! {
                     case .plus: Defaults.premium = true
@@ -61,11 +66,6 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
         DispatchQueue.main.async {
             self.error.value = restoreCompletedTransactionsFailedWithError.localizedDescription
         }
-    }
-    
-    func paymentQueue(_: SKPaymentQueue, shouldAddStorePayment: SKPayment, for: SKProduct) -> Bool {
-        open.send()
-        return true
     }
     
     func paymentQueueRestoreCompletedTransactionsFinished(_: SKPaymentQueue) {
