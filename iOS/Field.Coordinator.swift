@@ -67,17 +67,12 @@ extension Field {
             changed()
         }
         
-        func searchBarTextDidBeginEditing(_: UISearchBar) {
-            view.session.typing = true
-        }
-        
         func searchBarShouldEndEditing(_: UISearchBar) -> Bool {
             editable = false
             return true
         }
         
         func searchBarTextDidEndEditing(_: UISearchBar) {
-            view.session.typing = false
             editable = true
         }
         

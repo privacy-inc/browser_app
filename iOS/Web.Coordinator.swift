@@ -115,7 +115,7 @@ extension Web {
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-            view.session.typing = false
+            UIApplication.shared.resign()
             view.session.error = nil
         }
         
