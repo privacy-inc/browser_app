@@ -13,7 +13,16 @@ struct Window: View {
                     switch $0 {
                     case .trackers: Trackers.List(session: $session)
                     case .store: Plus(session: $session)
-                    case .froob: Plus.Timemout(session: $session)
+                    case .froob:
+                        Plus.Card(session: $session, title: "Upgrade to\nPrivacy Plus", message: """
+Your trial period of Privacy expired.
+
+By upgrading to Privacy Plus you get unlimited and permanent access to Privacy.
+
+Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time purchase and you can use it both on iOS and macOS.
+""") {
+                            session.purchases.open.send()
+                        }
                     }
                 }
             if session.page == nil {
