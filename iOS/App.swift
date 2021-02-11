@@ -3,10 +3,11 @@ import Combine
 import Sleuth
 
 @main struct App: SwiftUI.App {
+    @State var session = Session()
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
     @Environment(\.scenePhase) private var phase
-    @State private var session = Session()
     private let watch = Watch()
+    private let widget = Widget()
     
     var body: some Scene {
         WindowGroup {
@@ -16,6 +17,7 @@ import Sleuth
                 .onReceive(session.forget) {
                     FileManager.forget()
                     UIApplication.shared.forget()
+                    session.pages = []
                     Share.history = []
                     Share.chart = []
                     Share.blocked = []
@@ -28,85 +30,26 @@ import Sleuth
                         session.modal = .froob
                     }
                 }
-                .onReceive(session.save.debounce(for: .seconds(1.5), scheduler: DispatchQueue.main)) {
+                .onReceive(session.save.debounce(for: .seconds(1), scheduler: DispatchQueue.main)) {
                     FileManager.save($0)
                     Share.chart.append(.init())
                     session.update.send()
+                }
+                .onReceive(session.update.debounce(for: .seconds(2), scheduler: DispatchQueue.main).merge(with: session.history)) {
+                    var sub: AnyCancellable?
+                    sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
+                        sub?.cancel()
+                        guard $0 != session.pages else { return }
+                        session.pages = $0
+                        watch.update()
+                        widget.update($0)
+                    }
                 }
         }
         .onChange(of: phase) {
             if $0 == .active {
                 delegate.rate()
                 watch.activate(session.update)
-            }
-        }
-    }
-    
-    private func open(_ url: URL) {
-        let current = session.page
-        switch url.scheme.flatMap(Scheme.init(rawValue:)) {
-        case .privacy:
-            session.dismiss.send()
-            UIApplication.shared.resign()
-            url.absoluteString
-                .dropFirst(Scheme.privacy.url.count)
-                .removingPercentEncoding
-                .flatMap(Defaults.engine.browse)
-                .map {
-                    let url: URL
-                    switch $0 {
-                    case let .search(search):
-                        url = search
-                    case let .navigate(navigate):
-                        url = navigate
-                    }
-                    
-                    session.page = .init(url: url)
-                    
-                    if current != nil {
-                        session.browse.send(url)
-                    }
-                }
-        case .privacy_id:
-            session.dismiss.send()
-            UIApplication.shared.resign()
-            let id = String(url.absoluteString.dropFirst(Scheme.privacy_id.url.count))
-            if id != current?.id.uuidString {
-                var sub: AnyCancellable?
-                sub = FileManager.page(id).receive(on: DispatchQueue.main).sink {
-                    sub?.cancel()
-                    var page = $0
-                    page.date = .init()
-                    session.page = page
-                    
-                    if current != nil {
-                        session.browse.send(page.url)
-                    }
-                }
-            }
-        case .privacy_search:
-            session.dismiss.send()
-            session.page = nil
-            session.type.send()
-        case .privacy_forget:
-            session.dismiss.send()
-            UIApplication.shared.resign()
-            session.forget.send()
-        case .privacy_trackers:
-            if session.modal != .trackers {
-                UIApplication.shared.resign()
-                session.dismiss.send()
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    session.modal = .trackers
-                }
-            }
-        default:
-            session.dismiss.send()
-            UIApplication.shared.resign()
-            session.page = .init(url: url)
-            
-            if current != nil {
-                session.browse.send(url)
             }
         }
     }

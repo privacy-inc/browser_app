@@ -4,8 +4,6 @@ import Sleuth
 struct Window: View {
     @Binding var session: Session
     @Environment(\.verticalSizeClass) private var vertical
-    private let bar = CGFloat(100)
-    private let progress = CGFloat(3)
     
     var body: some View {
         ZStack {
@@ -19,12 +17,12 @@ struct Window: View {
                     }
                 }
             if session.page == nil {
-                History(session: $session)
+                History(session: $session, horizontal: vertical == .compact)
             } else {
                 Web(session: $session)
                     .padding(.init(top: 0, leading: 0,
-                                   bottom: session.typing || vertical == .compact ? 0 : bar + progress,
-                                   trailing: vertical == .compact && !session.typing ? bar + progress : 0))
+                                   bottom: session.typing || vertical == .compact ? 0 : Frame.search.bar + Frame.search.progress,
+                                   trailing: vertical == .compact && !session.typing ? Frame.search.bar + Frame.search.progress : 0))
                 if session.error != nil {
                     Issue(session: $session)
                 }
@@ -47,12 +45,12 @@ struct Window: View {
                                     }
                                 }
                             }
-                            .frame(width: progress)
+                            .frame(width: Frame.search.progress)
                         }
                         VStack {
                             Searchbar(session: $session)
                         }
-                        .frame(width: bar)
+                        .frame(width: Frame.search.bar)
                     }
                 } else {
                     VStack(spacing: 0) {
@@ -71,12 +69,12 @@ struct Window: View {
                                     }
                                 }
                             }
-                            .frame(height: progress)
+                            .frame(height: Frame.search.progress)
                         }
                         HStack {
                             Searchbar(session: $session)
                         }
-                        .frame(height: bar)
+                        .frame(height: Frame.search.bar)
                     }
                 }
             }
