@@ -35,13 +35,15 @@ import Sleuth
                     Share.chart.append(.init())
                     session.update.send()
                 }
+                .onReceive(session.update.debounce(for: .seconds(3), scheduler: DispatchQueue.main)) {
+                    watch.update()
+                }
                 .onReceive(session.update.debounce(for: .seconds(2), scheduler: DispatchQueue.main).merge(with: session.history)) {
                     var sub: AnyCancellable?
                     sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
                         sub?.cancel()
                         guard $0 != session.pages else { return }
                         session.pages = $0
-                        watch.update()
                         widget.update($0)
                     }
                 }
