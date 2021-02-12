@@ -20,15 +20,15 @@ final class Searchbar: NSView {
         self.field = field
         addSubview(field)
         
-        let left = Control.Button("chevron.left")
-        let right = Control.Button("chevron.right")
-        let detail = Control.Button("line.horizontal.3")
+        let left = Button(icon: "chevron.left")
+        let right = Button(icon: "chevron.right")
+        let detail = Button(icon: "line.horizontal.3")
         
-        let lupe = Control.Button("magnifyingglass")
-        let lock = Control.Button("lock.fill")
-        let warning = Control.Button("exclamationmark.triangle.fill")
-        let clockwise = Control.Button("arrow.clockwise")
-        let xmark = Control.Button("xmark")
+        let lupe = Button(icon: "magnifyingglass")
+        let lock = Button(icon: "lock.fill")
+        let warning = Button(icon: "exclamationmark.triangle.fill")
+        let clockwise = Button(icon: "arrow.clockwise")
+        let xmark = Button(icon: "xmark")
         
         let google = NSMenuItem(title: "Google", action: #selector(change), keyEquivalent: "")
         google.target = self

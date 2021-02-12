@@ -17,7 +17,7 @@ extension History {
         }
         
         private weak var text: Text!
-        private weak var close: Control.Button!
+        private weak var close: Button!
         private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
@@ -31,7 +31,7 @@ extension History {
             addSubview(text)
             self.text = text
             
-            let close = Control.Button("xmark")
+            let close = Button(icon: "xmark")
             close.layer!.cornerRadius = 15
             sub = close.click.sink { [weak self] in
                 guard let page = self?.page else { return }

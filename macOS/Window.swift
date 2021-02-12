@@ -21,7 +21,7 @@ final class Window: NSWindow {
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         tabbingMode = .disallowed
-        tab.title = NSLocalizedString("New tab", comment: "")
+        tab.title = NSLocalizedString("Privacy", comment: "")
         
         let searchbar = Searchbar(browser: browser)
         self.searchbar = searchbar

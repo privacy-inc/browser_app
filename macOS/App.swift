@@ -139,6 +139,10 @@ import CoreLocation
         (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
     }
     
+    @objc func plus() {
+        (windows.first { $0 is Plus } ?? Plus()).makeKeyAndOrderFront(nil)
+    }
+    
     @objc func trackers() {
         (windows.first { $0 is Trackers } ?? Trackers()).makeKeyAndOrderFront(nil)
     }

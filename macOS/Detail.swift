@@ -9,7 +9,7 @@ final class Detail: NSPopover {
     init(browser: Browser) {
         super.init()
         behavior = .transient
-        contentSize = .init(width: 440, height: 540)
+        contentSize = .init(width: 440, height: 580)
         contentViewController = .init()
         contentViewController!.view = .init()
         
@@ -20,7 +20,6 @@ final class Detail: NSPopover {
         trackers.click.sink {
             (NSApp as! App).trackers()
         }.store(in: &subs)
-        contentViewController!.view.addSubview(trackers)
         
         let forget = Tool(title: NSLocalizedString("Forget", comment: ""), icon: "flame.fill")
         forget.click.sink { [weak self] in
@@ -32,9 +31,14 @@ final class Detail: NSPopover {
             (NSApp as! App).refresh()
             self?.close()
         }.store(in: &subs)
-        contentViewController!.view.addSubview(forget)
         
-        [trackers, forget].forEach {
+        let plus = Tool(title: NSLocalizedString("Privacy Plus", comment: ""), icon: "plus")
+        plus.click.sink {
+            (NSApp as! App).plus()
+        }.store(in: &subs)
+        
+        [trackers, forget, plus].forEach {
+            contentViewController!.view.addSubview($0)
             $0.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 50).isActive = true
             $0.widthAnchor.constraint(equalToConstant: 340).isActive = true
         }
@@ -43,6 +47,7 @@ final class Detail: NSPopover {
         chart.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 50).isActive = true
         
         trackers.topAnchor.constraint(equalTo: chart.bottomAnchor, constant: 60).isActive = true
-        forget.topAnchor.constraint(equalTo: trackers.bottomAnchor, constant: 10).isActive = true
+        forget.topAnchor.constraint(equalTo: trackers.bottomAnchor, constant: 4).isActive = true
+        plus.topAnchor.constraint(equalTo: forget.bottomAnchor, constant: 4).isActive = true
     }
 }
