@@ -89,10 +89,11 @@ final class Plus: NSWindow {
                 if Defaults.premium {
                     let image = NSImageView(image: NSImage(systemSymbolName: "checkmark.shield.fill", accessibilityDescription: nil)!)
                     image.translatesAutoresizingMaskIntoConstraints = false
-                    image.symbolConfiguration = .init(textStyle: .largeTitle)
+                    image.symbolConfiguration = .init(pointSize: 50, weight: .bold)
+                    image.contentTintColor = .labelColor
                     base.addSubview(image)
                     
-                    image.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 40).isActive = true
+                    image.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 60).isActive = true
                     image.centerXAnchor.constraint(equalTo: base.centerXAnchor).isActive = true
                 } else {
                     let price = Text()

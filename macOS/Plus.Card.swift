@@ -17,7 +17,7 @@ extension Plus {
             
             let text = Text()
             text.stringValue = message
-            text.font = .systemFont(ofSize: 14, weight: .regular)
+            text.font = .systemFont(ofSize: 16, weight: .regular)
             text.textColor = .secondaryLabelColor
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             contentView!.addSubview(text)

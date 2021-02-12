@@ -67,11 +67,13 @@ import CoreLocation
     }
     
     func applicationDidFinishLaunching(_: Notification) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             if let created = Defaults.created {
                 if !Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4 {
                     Defaults.rated = true
                     SKStoreReviewController.requestReview()
+                } else if !Defaults.premium && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 6 {
+                    self?.froob()
                 }
             } else {
                 Defaults.created = .init()
@@ -116,31 +118,23 @@ import CoreLocation
     }
     
     func why() {
-        windows.filter { $0 is Plus.Card }.forEach {
-            $0.close()
-        }
-        
-        Plus.Card(title: "Why purchasing Privacy Plus?", message: """
+        card(title: "Why purchasing Privacy Plus?", message: """
 By upgrading to Privacy Plus you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS.
 
 Compared to other browser alternatives, we at Privacy Inc. are an independent team, we don't have the support of big international corporations.
 
 Furthermore, besides our In-App Purchases we don't monetize using any other mean, i.e. we don't monetize with your personal data, and we don't provide advertisements, in fact, is in our mission to remove ads from the web.
-""", action: nil).makeKeyAndOrderFront(nil)
+""", action: nil)
     }
     
     func alternatives() {
-        windows.filter { $0 is Plus.Card }.forEach {
-            $0.close()
-        }
-        
-        Plus.Card(title: "Alternatives to purchasing", message: """
+        card(title: "Alternatives to purchasing", message: """
 We ask you to purchase Privacy Plus only if you consider it a good product, if you think is helping you in some way and if you feel the difference between a mainstream browser and Privacy.
 
 But we are not going to force you to buy it; you will be reminded from time to time that it would be a good idea if you support us with your purchase, but you can as easily ignore the pop-up and continue using Privacy.
 
 We believe we can help you browse securely and privatly even if you can't support us at the moment.
-""", action: nil).makeKeyAndOrderFront(nil)
+""", action: nil)
     }
     
     @objc func newWindow() {
@@ -173,6 +167,26 @@ We believe we can help you browse securely and privatly even if you can't suppor
     
     @objc func trackers() {
         (windows.first { $0 is Trackers } ?? Trackers()).makeKeyAndOrderFront(nil)
+    }
+    
+    private func froob() {
+        card(title: "Upgrade to Privacy Plus", message: """
+Your trial period of Privacy expired.
+
+By upgrading to Privacy Plus you get unlimited and permanent access to Privacy.
+
+Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time purchase and you can use it both on iOS and macOS.
+""") { [weak self] in
+            self?.plus()
+        }
+    }
+    
+    private func card(title: String, message: String, action: (() -> Void)?) {
+        windows.filter { $0 is Plus.Card }.forEach {
+            $0.close()
+        }
+        
+        Plus.Card(title: title, message: message, action: action).makeKeyAndOrderFront(nil)
     }
     
     @objc private func handle(_ event: NSAppleEventDescriptor, _ reply: NSAppleEventDescriptor) {
