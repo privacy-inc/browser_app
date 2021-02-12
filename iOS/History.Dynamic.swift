@@ -42,10 +42,20 @@ extension History {
             .onChange(of: session.pages) { _ in
                 refresh()
             }
+            .onChange(of: session.search) { _ in
+                refresh()
+            }
         }
         
         private func refresh() {
-            list = session.pages.reduce(into: (.init(repeating: [], count: size.lines), size.lines)) {
+            list = ({ search in
+                search.isEmpty
+                    ? session.pages
+                    : session.pages.filter {
+                        $0.title.localizedCaseInsensitiveContains(search)
+                        || $0.url.absoluteString.localizedCaseInsensitiveContains(search)
+                    }
+            } (session.search.trimmingCharacters(in: .whitespacesAndNewlines))).reduce(into: (.init(repeating: [], count: size.lines), size.lines)) {
                 $0.1 = $0.1 < size.lines - 1 ? $0.1 + 1 : 0
                 $0.0[$0.1].append($1)
             }.0

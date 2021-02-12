@@ -7,6 +7,7 @@ struct Session {
         didSet {
             guard let page = page else {
                 error = nil
+                search = ""
                 return
             }
             save.send(page)
@@ -20,6 +21,7 @@ struct Session {
     var forwards = false
     var loading = false
     var progress = Double()
+    var search = ""
     var pages = [Page]()
     let purchases = Purchases()
     let browse = PassthroughSubject<URL, Never>()

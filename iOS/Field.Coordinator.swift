@@ -107,10 +107,13 @@ extension Field {
         func deleteBackward() { }
         
         private func changed() {
-            if bar.text?.isEmpty == true {
-                bar.searchTextField.leftView = leftView
-            } else {
-                bar.searchTextField.leftView = nil
+            bar.text.map {
+                if $0.isEmpty == true {
+                    bar.searchTextField.leftView = leftView
+                } else {
+                    bar.searchTextField.leftView = nil
+                }
+                view.session.search = $0
             }
         }
     }
