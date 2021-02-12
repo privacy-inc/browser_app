@@ -36,7 +36,7 @@ final class Window: NSWindow {
         let separator = NSView()
         separator.translatesAutoresizingMaskIntoConstraints = false
         separator.wantsLayer = true
-        separator.layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.1).cgColor
+        separator.layer!.backgroundColor = .init(gray: 0, alpha: 0.1)
         contentView!.addSubview(separator)
         self.separator = separator
         
@@ -49,7 +49,7 @@ final class Window: NSWindow {
         separator.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
         separator.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor).isActive = true
         separator.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
-        separator.heightAnchor.constraint(equalToConstant: 2).isActive = true
+        separator.heightAnchor.constraint(equalToConstant: 4).isActive = true
         
         progress.topAnchor.constraint(equalTo: separator.topAnchor).isActive = true
         progress.leftAnchor.constraint(equalTo: separator.leftAnchor).isActive = true

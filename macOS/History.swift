@@ -54,7 +54,6 @@ final class History: NSScrollView {
                 } (Cell(formatter: self.formatter))
                 cell.page = item.page
                 cell.frame = item.frame
-                cell.dequeue()
                 self.documentView!.addSubview(cell)
             }
         }.store(in: &subs)
