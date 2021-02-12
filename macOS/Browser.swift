@@ -10,6 +10,7 @@ final class Browser {
     let loading = CurrentValueSubject<Bool, Never>(false)
     let progress = CurrentValueSubject<Double, Never>(.init())
     let browse = PassthroughSubject<URL, Never>()
+    let search = PassthroughSubject<String, Never>()
     let previous = PassthroughSubject<Void, Never>()
     let next = PassthroughSubject<Void, Never>()
     let reload = PassthroughSubject<Void, Never>()

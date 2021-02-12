@@ -32,9 +32,13 @@ final class History: NSScrollView {
             }
         }.store(in: &subs)
         
-        (NSApp as! App).pages.sink { [weak self] in
-            content.subviews.forEach { $0.removeFromSuperview() }
-            self?.map.pages = $0.map(Map.Page.init(page:))
+        (NSApp as! App).pages.combineLatest(browser.search).sink { [weak self] in
+            self?.map.pages = ({ pages, search in
+                search.isEmpty ? pages : pages.filter {
+                    $0.title.localizedCaseInsensitiveContains(search)
+                        || $0.url.absoluteString.localizedCaseInsensitiveContains(search)
+                }
+            } ($0.0, $0.1.trimmingCharacters(in: .whitespacesAndNewlines))).map(Map.Page.init(page:))
         }.store(in: &subs)
         
         map.items.sink { [weak self] items in
@@ -61,6 +65,8 @@ final class History: NSScrollView {
             guard let frame = self?.frame else { return }
             content.frame.size.height = max($0, frame.size.height)
         }.store(in: &subs)
+        
+        browser.search.send("")
     }
     
     override func mouseDown(with: NSEvent) {

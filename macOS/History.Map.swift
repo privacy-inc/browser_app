@@ -1,6 +1,5 @@
 import Foundation
 import Combine
-import Sleuth
 
 extension History {
     final class Map {

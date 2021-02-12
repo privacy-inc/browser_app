@@ -45,6 +45,10 @@ extension Searchbar {
             return super.becomeFirstResponder()
         }
         
+        override func textDidChange(_: Notification) {
+            browser.search.send(stringValue)
+        }
+        
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation):
