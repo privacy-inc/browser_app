@@ -24,12 +24,12 @@ final class Plus: NSWindow {
         
         let why = Tool(title: NSLocalizedString("Why In-App Purchases", comment: ""), icon: "arrow.clockwise.circle.fill")
         why.click.sink {
-            purchases.restore()
+            (NSApp as! App).why()
         }.store(in: &subs)
         
         let alternatives = Tool(title: NSLocalizedString("Alternatives", comment: ""), icon: "arrow.rectanglepath")
         alternatives.click.sink {
-            purchases.restore()
+            (NSApp as! App).alternatives()
         }.store(in: &subs)
         
         purchases.loading.combineLatest(purchases.products, purchases.error).sink { [weak self] in

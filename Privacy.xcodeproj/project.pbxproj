@@ -89,6 +89,7 @@
 		CEDB0C9D259208A100AB6F7C /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB0C9C259208A100AB6F7C /* Tool.swift */; };
 		CEDB0CA125920BC900AB6F7C /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB0CA025920BC900AB6F7C /* Trackers.swift */; };
 		CEDB192D25D6C3C800BCB3D6 /* Capsule.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB192C25D6C3C800BCB3D6 /* Capsule.swift */; };
+		CEDB194825D6CB2F00BCB3D6 /* Plus.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB194725D6CB2F00BCB3D6 /* Plus.Card.swift */; };
 		CEE132B125A2656100E80470 /* Settings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = CEE132B025A2656100E80470 /* Settings.bundle */; };
 		CEE9FBE5258A509400008857 /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9FBE4258A509400008857 /* History.swift */; };
 		CEE9FBE9258A5C2A00008857 /* History.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE9FBE8258A5C2A00008857 /* History.Cell.swift */; };
@@ -264,6 +265,7 @@
 		CEDB0C9C259208A100AB6F7C /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		CEDB0CA025920BC900AB6F7C /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CEDB192C25D6C3C800BCB3D6 /* Capsule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Capsule.swift; sourceTree = "<group>"; };
+		CEDB194725D6CB2F00BCB3D6 /* Plus.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Plus.Card.swift; sourceTree = "<group>"; };
 		CEE132B025A2656100E80470 /* Settings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = Settings.bundle; sourceTree = "<group>"; };
 		CEE9FBE4258A509400008857 /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		CEE9FBE8258A5C2A00008857 /* History.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Cell.swift; sourceTree = "<group>"; };
@@ -398,6 +400,7 @@
 				CE4E404325A5EADF007FCCF3 /* Issue.swift */,
 				CEE9FBF2258A723D00008857 /* Menu.swift */,
 				CE5481FC259905AC000C7A98 /* NSMenuItem.swift */,
+				CEDB194725D6CB2F00BCB3D6 /* Plus.Card.swift */,
 				CED424B825D6B3050012F92D /* Plus.swift */,
 				CEEA64132591542B00711A8C /* Preferences.swift */,
 				CEEA641B25915C2F00711A8C /* Preferences.Toggle.swift */,
@@ -755,6 +758,7 @@
 				CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */,
 				CECE3BA52587B18000D66221 /* Control.swift in Sources */,
 				CE8DF91425D4459C00FC0F19 /* Purchases.Item.swift in Sources */,
+				CEDB194825D6CB2F00BCB3D6 /* Plus.Card.swift in Sources */,
 				CE5B10462583883B00608726 /* Window.swift in Sources */,
 				CECE3BA82587B19F00D66221 /* Button.swift in Sources */,
 				CEEA64142591542B00711A8C /* Preferences.swift in Sources */,

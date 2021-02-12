@@ -111,6 +111,38 @@ import CoreLocation
     
     func locationManager(_: CLLocationManager, didFailWithError: Error) { }
     
+    func plus() {
+        (windows.first { $0 is Plus } ?? Plus()).makeKeyAndOrderFront(nil)
+    }
+    
+    func why() {
+        windows.filter { $0 is Plus.Card }.forEach {
+            $0.close()
+        }
+        
+        Plus.Card(title: "Why purchasing Privacy Plus?", message: """
+By upgrading to Privacy Plus you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS.
+
+Compared to other browser alternatives, we at Privacy Inc. are an independent team, we don't have the support of big international corporations.
+
+Furthermore, besides our In-App Purchases we don't monetize using any other mean, i.e. we don't monetize with your personal data, and we don't provide advertisements, in fact, is in our mission to remove ads from the web.
+""", action: nil).makeKeyAndOrderFront(nil)
+    }
+    
+    func alternatives() {
+        windows.filter { $0 is Plus.Card }.forEach {
+            $0.close()
+        }
+        
+        Plus.Card(title: "Alternatives to purchasing", message: """
+We ask you to purchase Privacy Plus only if you consider it a good product, if you think is helping you in some way and if you feel the difference between a mainstream browser and Privacy.
+
+But we are not going to force you to buy it; you will be reminded from time to time that it would be a good idea if you support us with your purchase, but you can as easily ignore the pop-up and continue using Privacy.
+
+We believe we can help you browse securely and privatly even if you can't support us at the moment.
+""", action: nil).makeKeyAndOrderFront(nil)
+    }
+    
     @objc func newWindow() {
         Window().makeKeyAndOrderFront(nil)
     }
@@ -137,10 +169,6 @@ import CoreLocation
     
     @objc func preferences() {
         (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
-    }
-    
-    @objc func plus() {
-        (windows.first { $0 is Plus } ?? Plus()).makeKeyAndOrderFront(nil)
     }
     
     @objc func trackers() {
