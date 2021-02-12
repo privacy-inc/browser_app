@@ -15,7 +15,7 @@ extension Search {
                     HStack {
                         Spacer()
                         Link(destination: URL(string: Scheme.privacy_forget.url)!) {
-                            Neumorphic(image: "flame")
+                            Neumorphic(image: "flame.fill")
                         }
                         Spacer()
                         Neumorphic(image: "magnifyingglass")

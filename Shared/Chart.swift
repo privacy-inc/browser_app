@@ -13,8 +13,7 @@ struct Chart: View {
     var body: some View {
         VStack {
             HStack {
-                Text("Usage")
-                    .font(.footnote)
+                Text("Activity")
                     .padding(.leading)
                 Spacer()
             }
