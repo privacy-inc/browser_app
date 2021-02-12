@@ -47,7 +47,7 @@ extension History {
         init(formatter: RelativeDateTimeFormatter) {
             super.init(frame: .zero)
             wantsLayer = true
-            layer!.cornerRadius = 12
+            layer!.cornerRadius = 10
             layer!.borderWidth = 2
             self.formatter = formatter
             
@@ -71,10 +71,10 @@ extension History {
             addSubview(close)
             self.close = close
             
-            text.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-            text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -20).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -20).isActive = true
+            text.topAnchor.constraint(equalTo: topAnchor, constant: Frame.history.margin).isActive = true
+            text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Frame.history.margin).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: Frame.history.margin).isActive = true
+            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -Frame.history.margin).isActive = true
             
             close.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
             close.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true

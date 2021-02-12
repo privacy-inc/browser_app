@@ -19,11 +19,11 @@ extension History {
                     } (visibility)
                     return
                 }
-                let total = bounds.width - (Frame.horizontal * 2) - Frame.padding
-                let width = Frame.width + Frame.padding
+                let total = bounds.width - (Frame.history.horizontal * 2) - Frame.history.padding
+                let width = Frame.history.width + Frame.history.padding
                 let count = floor(total / width)
                 let delta = total.truncatingRemainder(dividingBy: width) / count
-                size = .init(width: Frame.width + delta, height: Frame.height + max(0, Frame.delta - delta))
+                size = .init(width: Frame.history.width + delta, height: Frame.history.height + max(0, Frame.history.delta - delta))
             }
         }
         
@@ -70,16 +70,16 @@ extension History {
         
         private func reposition() {
             var positions = [UUID : CGPoint]()
-            var carry = CGPoint(x: Frame.horizontal - size.width, y: Frame.vertical)
+            var carry = CGPoint(x: Frame.history.horizontal - size.width, y: Frame.history.top)
             pages.forEach {
-                carry.x += size.width + Frame.padding
-                if carry.x + size.width > bounds.width - Frame.horizontal {
-                    carry = .init(x: Frame.horizontal + Frame.padding, y: carry.y + size.height + Frame.padding)
+                carry.x += size.width + Frame.history.padding
+                if carry.x + size.width > bounds.width - Frame.history.horizontal {
+                    carry = .init(x: Frame.history.horizontal + Frame.history.padding, y: carry.y + size.height + Frame.history.padding)
                 }
                 positions[$0.id] = carry
             }
             self.positions = positions
-            height.send(carry.y + size.height + Frame.vertical)
+            height.send(carry.y + size.height + Frame.history.bottom)
         }
     }
 }
