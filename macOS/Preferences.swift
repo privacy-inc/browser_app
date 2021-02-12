@@ -104,7 +104,7 @@ final class Preferences: NSWindow {
         titleAdvanced.stringValue = NSLocalizedString("Advanced", comment: "")
         
         let browser = defaultBrowser
-        let makeDefault = Button(title: NSLocalizedString(browser ? "Default browser" : "Make default browser", comment: ""), icon: NSImage(named: "logoSmall")!)
+        let makeDefault = Tool(title: NSLocalizedString(browser ? "Default browser" : "Make default browser", comment: ""), icon: "star.fill")
         if !browser {
             makeDefault.click.sink { [weak self] in
                 LSSetDefaultHandlerForURLScheme(Scheme.http.rawValue as CFString, "incognit" as CFString)
@@ -115,7 +115,7 @@ final class Preferences: NSWindow {
             makeDefault.state = .off
         }
         
-        let authorization = Button(title: NSLocalizedString("Location authorization", comment: ""), icon: NSImage(systemSymbolName: "location", accessibilityDescription: nil)!)
+        let authorization = Tool(title: NSLocalizedString("Location authorization", comment: ""), icon: "location.fill")
         authorization.click.sink {
             NSWorkspace.shared.open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")!)
         }.store(in: &subs)

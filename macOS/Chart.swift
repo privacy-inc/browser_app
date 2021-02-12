@@ -7,15 +7,15 @@ final class Chart: NSView {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         wantsLayer = true
-        layer!.frame.size = .init(width: 340, height: 200)
-        layer!.addSublayer(Content(frame: .init(x: 0, y: 30, width: layer!.frame.width, height: layer!.frame.height - 60)))
+        layer!.frame.size = .init(width: 340, height: 290)
+        layer!.addSublayer(Content(frame: .init(x: 0, y: 30, width: layer!.frame.width, height: layer!.frame.height - 80)))
         layer!.masksToBounds = false
         
         let chart = Share.chart
         
         let title = Text()
-        title.stringValue = NSLocalizedString("Usage", comment: "")
-        title.font = .systemFont(ofSize: 14, weight: .medium)
+        title.stringValue = NSLocalizedString("Activity", comment: "")
+        title.font = .systemFont(ofSize: 18, weight: .regular)
         addSubview(title)
         
         let since = Text()
