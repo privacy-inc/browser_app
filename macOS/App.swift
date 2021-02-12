@@ -9,6 +9,7 @@ import CoreLocation
     let location = CurrentValueSubject<CLLocation?, Never>(nil)
     let pages = CurrentValueSubject<[Page], Never>([])
     let blocked = PassthroughSubject<Void, Never>()
+    let decimal = NumberFormatter()
     private var sub: AnyCancellable?
     private var manager: CLLocationManager?
     
@@ -16,6 +17,7 @@ import CoreLocation
     override init() {
         super.init()
         delegate = self
+        decimal.numberStyle = .decimal
         
         NSAppleEventManager.shared().setEventHandler(
             self,

@@ -5,7 +5,6 @@ import Sleuth
 final class Trackers: NSWindow {
     private weak var scroll: Scroll!
     private var sub: AnyCancellable?
-    private let formatter = NumberFormatter()
     
     init() {
         super.init(contentRect: .init(x: 0, y: 0, width: 400, height: 320),
@@ -16,7 +15,6 @@ final class Trackers: NSWindow {
         isReleasedWhenClosed = false
         title = NSLocalizedString("Trackers blocked", comment: "")
         center()
-        formatter.numberStyle = .decimal
         
         let scroll = Scroll()
         scroll.hasVerticalScroller = true
@@ -47,7 +45,7 @@ final class Trackers: NSWindow {
         scroll.add(icon)
         
         let count = Text()
-        count.stringValue = formatter.string(from: .init(value: blocked.count))!
+        count.stringValue = (NSApp as! App).decimal.string(from: .init(value: blocked.count))!
         count.font = .monospacedSystemFont(ofSize: 36, weight: .bold)
         scroll.add(count)
         

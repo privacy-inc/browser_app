@@ -1,37 +1,15 @@
 import AppKit
 import Combine
-import Sleuth
 
 extension History {
     final class Cell: NSView {
-        var page: Page? {
+        var page: Map.Page? {
             didSet {
                 if let page = page {
                     layer!.borderColor = .clear
                     layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.03).cgColor
                     close.state = .on
-                    
-                    text.attributedStringValue = {
-                        $0.append(.init(string: formatter.localizedString(for: page.date, relativeTo: .init()) + "\n", attributes: [
-                                                .font : NSFont.systemFont(ofSize: 12, weight: .regular),
-                                                .foregroundColor : NSColor.secondaryLabelColor]))
-
-                        if !page.title.isEmpty {
-                            $0.append(.init(string: page.title + "\n", attributes: [
-                                                    .font : NSFont.systemFont(ofSize: 14, weight: .regular),
-                                                    .foregroundColor : NSColor.labelColor]))
-                        }
-                        $0.append(.init(string: {
-                            $0.count > 60
-                                ? page.title.isEmpty
-                                    ? $0
-                                    : .init($0.prefix(57)) + "..."
-                                : $0
-                        } (page.url.absoluteString), attributes: [
-                                                .font : NSFont.systemFont(ofSize: 12, weight: .regular),
-                                                .foregroundColor : NSColor.tertiaryLabelColor]))
-                        return $0
-                    } (NSMutableAttributedString())
+                    text.attributedStringValue = page.text
                 } else {
                     text.attributedStringValue = .init()
                 }
@@ -40,16 +18,14 @@ extension History {
         
         private weak var text: Text!
         private weak var close: Control.Button!
-        private weak var formatter: RelativeDateTimeFormatter!
         private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
-        init(formatter: RelativeDateTimeFormatter) {
+        init() {
             super.init(frame: .zero)
             wantsLayer = true
             layer!.cornerRadius = 10
             layer!.borderWidth = 2
-            self.formatter = formatter
             
             let text = Text()
             addSubview(text)
@@ -64,7 +40,7 @@ extension History {
                     $0.allowsImplicitAnimation = true
                     self?.layer!.backgroundColor = NSColor.systemPink.withAlphaComponent(0.6).cgColor
                 } completionHandler: {
-                    FileManager.delete(page)
+                    FileManager.delete(page.page)
                     (NSApp as! App).refresh()
                 }
             }

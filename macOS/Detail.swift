@@ -16,10 +16,7 @@ final class Detail: NSPopover {
         let chart = Chart()
         contentViewController!.view.addSubview(chart)
         
-        let formatter = NumberFormatter()
-        formatter.numberStyle = .decimal
-        
-        let trackers = Tool(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: formatter.string(from: .init(value: Share.blocked.count)))
+        let trackers = Tool(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: (NSApp as! App).decimal.string(from: .init(value: Share.blocked.count)))
         trackers.click.sink {
             (NSApp as! App).trackers()
         }.store(in: &subs)

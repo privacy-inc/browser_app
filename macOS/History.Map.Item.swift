@@ -1,5 +1,4 @@
 import Foundation
-import Sleuth
 
 extension History.Map {
     struct Item: Hashable {
@@ -7,11 +6,11 @@ extension History.Map {
         let frame: CGRect
         
         func hash(into: inout Hasher) {
-            into.combine(page)
+            into.combine(page.page)
         }
         
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.page == rhs.page
+            lhs.page.page == rhs.page.page
         }
     }
 }

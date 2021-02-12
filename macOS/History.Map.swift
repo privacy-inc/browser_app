@@ -20,23 +20,24 @@ extension History {
                     return
                 }
                 let total = bounds.width - (Frame.history.horizontal * 2) - Frame.history.padding
-                let width = Frame.history.width + Frame.history.padding
-                let count = floor(total / width)
-                let delta = total.truncatingRemainder(dividingBy: width) / count
-                size = .init(width: Frame.history.width + delta, height: Frame.history.height + max(0, Frame.history.delta - delta))
+                let horizontal = Frame.history.width + Frame.history.padding
+                count = .init(floor(total / horizontal))
+                let delta = total.truncatingRemainder(dividingBy: horizontal) / .init(count)
+                width = Frame.history.width + delta
             }
         }
         
         let items = PassthroughSubject<Set<Item>, Never>()
         let height = PassthroughSubject<CGFloat, Never>()
+        private var count = 0
         
-        private var size = CGSize.zero {
+        private var width = CGFloat() {
             didSet {
                 reposition()
             }
         }
         
-        private var positions = [UUID : CGPoint]() {
+        private var frames = [UUID : CGRect]() {
             didSet {
                 visible = visibility
             }
@@ -45,41 +46,52 @@ extension History {
         private var visible = Set<UUID>() {
             didSet {
                 items.send(.init(visible.map { id in .init(
-                                    page: pages.first { $0.id == id }!,
-                                    frame: .init(origin: positions[id]!, size: size)) }))
+                                    page: pages.first { $0.page.id == id }!,
+                                    frame: frames[id]!) }))
             }
         }
         
         private var visibility: Set<UUID> {
-            let min = bounds.minY - size.height
-            let max = bounds.maxY + 1
-            return .init(positions.filter {
-                $0.1.y > min && $0.1.y < max
+            .init(frames.filter {
+                $0.1.maxY > bounds.minY && $0.1.minY < bounds.maxY
             }.map(\.0))
         }
         
         func page(for point: CGPoint) -> Page? {
-            positions
-                .map { ($0.0, CGRect(origin: $0.1, size: size)) }
-                .first { $0.1.contains(point) }
-                .flatMap { item in
-                    pages
-                        .first { $0.id == item.0 }
+            frames.first {
+                $0.1.contains(point)
+            }.flatMap { frame in
+                pages.first {
+                    $0.page.id == frame.0
                 }
+            }
         }
         
         private func reposition() {
-            var positions = [UUID : CGPoint]()
-            var carry = CGPoint(x: Frame.history.horizontal - size.width, y: Frame.history.top)
-            pages.forEach {
-                carry.x += size.width + Frame.history.padding
-                if carry.x + size.width > bounds.width - Frame.history.horizontal {
-                    carry = .init(x: Frame.history.horizontal + Frame.history.padding, y: carry.y + size.height + Frame.history.padding)
-                }
-                positions[$0.id] = carry
+            guard count > 0 else { return }
+            let margin = Frame.history.margin * 2
+            let size = CGSize(width: width - margin, height: 600)
+            var maxY = Frame.history.top
+            frames = pages.reduce(into: (Array(repeating: [(CGRect, UUID)](), count: count), count)) {
+                $0.1 = $0.1 < count - 1 ? $0.1 + 1 : 0
+                $0.0[$0.1].append(
+                    (.init(
+                        x: $0.0[$0.1].last?.0.minX ?? Frame.history.horizontal + Frame.history.padding + ((width + Frame.history.padding) * .init($0.1)),
+                        y: $0.0[$0.1].last.map {
+                            $0.0.maxY + Frame.history.padding
+                        } ?? Frame.history.top,
+                        width: width,
+                        height: ceil($1.text.boundingRect(with: size, options: [.usesFontLeading, .usesLineFragmentOrigin]).height) + margin),
+                     $1.page.id)
+                )
+                maxY = max(maxY, $0.0[$0.1].last!.0.maxY)
+            }.0.flatMap {
+                $0
+            }.reduce(into: [:]) {
+                $0[$1.1] = $1.0
             }
-            self.positions = positions
-            height.send(carry.y + size.height + Frame.history.bottom)
+            
+            height.send(maxY + Frame.history.bottom)
         }
     }
 }

@@ -24,6 +24,7 @@
 		CE3B3B5C259CAF9A008C9682 /* _Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B50259CAF79008C9682 /* _Web.swift */; };
 		CE3B3B62259CB75E008C9682 /* WKUserContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E4D25891F1500352091 /* WKUserContentController.swift */; };
 		CE42C38125A257C900A9D376 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1511E3259F96D000ABBC72 /* Chart.swift */; };
+		CE4B19F225D6989C003EF4D3 /* History.Map.Page.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4B19F125D6989C003EF4D3 /* History.Map.Page.swift */; };
 		CE4E404425A5EADF007FCCF3 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E404325A5EADF007FCCF3 /* Issue.swift */; };
 		CE4E48B725B301ED00E2A7F6 /* Issue.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4E48B625B301ED00E2A7F6 /* Issue.swift */; };
 		CE52108E259A154700AF4486 /* Privacy.icns in Resources */ = {isa = PBXBuildFile; fileRef = CE52108D259A154700AF4486 /* Privacy.icns */; };
@@ -200,6 +201,7 @@
 		CE3B3B3D259CAEF4008C9682 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CE3B3B44259CAEFB008C9682 /* Web.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Coordinator.swift; sourceTree = "<group>"; };
 		CE3B3B50259CAF79008C9682 /* _Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Web.swift; sourceTree = "<group>"; };
+		CE4B19F125D6989C003EF4D3 /* History.Map.Page.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Map.Page.swift; sourceTree = "<group>"; };
 		CE4E404325A5EADF007FCCF3 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		CE4E48B625B301ED00E2A7F6 /* Issue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Issue.swift; sourceTree = "<group>"; };
 		CE52108D259A154700AF4486 /* Privacy.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = Privacy.icns; sourceTree = "<group>"; };
@@ -385,6 +387,7 @@
 				CE7765FD2595ED9200D4C50A /* Frame.swift */,
 				CEE9FBE8258A5C2A00008857 /* History.Cell.swift */,
 				CE7766052595F53C00D4C50A /* History.Map.Item.swift */,
+				CE4B19F125D6989C003EF4D3 /* History.Map.Page.swift */,
 				CE7766012595EFC300D4C50A /* History.Map.swift */,
 				CEE9FBE4258A509400008857 /* History.swift */,
 				CE4E404325A5EADF007FCCF3 /* Issue.swift */,
@@ -764,6 +767,7 @@
 				CED86D2D25AC9DB400339314 /* Chart.swift in Sources */,
 				CE7766022595EFC300D4C50A /* History.Map.swift in Sources */,
 				CE31358F258CB3BE00A20487 /* Text.swift in Sources */,
+				CE4B19F225D6989C003EF4D3 /* History.Map.Page.swift in Sources */,
 				CED75E4E25891F1500352091 /* WKUserContentController.swift in Sources */,
 				CE5481FD259905AC000C7A98 /* NSMenuItem.swift in Sources */,
 				CEF2A9BB2587878300C29CAB /* Searchbar.swift in Sources */,
