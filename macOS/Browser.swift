@@ -20,7 +20,7 @@ final class Browser {
     private var subscription: AnyCancellable?
     
     init() {
-        subscription = page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink {
+        subscription = page.debounce(for: .seconds(0.8), scheduler: DispatchQueue.main).sink {
             guard let page = $0 else { return }
             Share.chart.append(.init())
             FileManager.save(page)
