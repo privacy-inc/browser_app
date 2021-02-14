@@ -12,7 +12,7 @@ extension Chart {
             super.init()
             self.frame = frame
             
-            let values = Metrics.values(with: Share.chart)
+            let values = Chart.values(with: Share.chart)
             
             let pattern = CAShapeLayer()
             pattern.strokeColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor
@@ -22,11 +22,11 @@ extension Chart {
             pattern.lineDashPattern = [1, 4]
             pattern.path = { path in
                 path.move(to: .zero)
-                (1 ..< Chart.Metrics.horizontal).map { bounds.maxX / .init(Metrics.horizontal) * .init($0) }.forEach {
+                (1 ..< Metrics.chart.horizontal).map { bounds.maxX / .init(Metrics.chart.horizontal) * .init($0) }.forEach {
                     path.move(to: .init(x: $0, y: 0))
                     path.addLine(to: .init(x: $0, y: bounds.maxY))
                 }
-                (1 ..< Chart.Metrics.vertical).map { bounds.maxY / .init(Metrics.vertical) * .init($0) }.forEach {
+                (1 ..< Metrics.chart.vertical).map { bounds.maxY / .init(Metrics.chart.vertical) * .init($0) }.forEach {
                     path.move(to: .init(x: 0, y: $0))
                     path.addLine(to: .init(x: bounds.maxX, y: $0))
                 }
