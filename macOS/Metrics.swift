@@ -1,6 +1,6 @@
 import Foundation
 
-struct Frame {
+extension Metrics {
     struct history {
         static let width = CGFloat(230)
         static let padding = CGFloat(6)

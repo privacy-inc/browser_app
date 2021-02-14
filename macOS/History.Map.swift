@@ -18,11 +18,11 @@ extension History {
                     } (visibility)
                     return
                 }
-                let total = bounds.width - (Frame.history.horizontal * 2) - Frame.history.padding
-                let horizontal = Frame.history.width + Frame.history.padding
+                let total = bounds.width - (Metrics.history.horizontal * 2) - Metrics.history.padding
+                let horizontal = Metrics.history.width + Metrics.history.padding
                 count = .init(floor(total / horizontal))
                 let delta = total.truncatingRemainder(dividingBy: horizontal) / .init(count)
-                width = Frame.history.width + delta
+                width = Metrics.history.width + delta
             }
         }
         
@@ -68,17 +68,17 @@ extension History {
         
         private func reposition() {
             guard count > 0 else { return }
-            let margin = Frame.history.margin * 2
+            let margin = Metrics.history.margin * 2
             let size = CGSize(width: width - margin, height: 600)
-            var maxY = Frame.history.top
+            var maxY = Metrics.history.top
             frames = pages.reduce(into: (Array(repeating: [(CGRect, UUID)](), count: count), count)) {
                 $0.1 = $0.1 < count - 1 ? $0.1 + 1 : 0
                 $0.0[$0.1].append(
                     (.init(
-                        x: $0.0[$0.1].last?.0.minX ?? Frame.history.horizontal + Frame.history.padding + ((width + Frame.history.padding) * .init($0.1)),
+                        x: $0.0[$0.1].last?.0.minX ?? Metrics.history.horizontal + Metrics.history.padding + ((width + Metrics.history.padding) * .init($0.1)),
                         y: $0.0[$0.1].last.map {
-                            $0.0.maxY + Frame.history.padding
-                        } ?? Frame.history.top,
+                            $0.0.maxY + Metrics.history.padding
+                        } ?? Metrics.history.top,
                         width: width,
                         height: ceil($1.text.boundingRect(with: size, options: [.usesFontLeading, .usesLineFragmentOrigin]).height) + margin),
                      $1.page.id)
@@ -90,7 +90,7 @@ extension History {
                 $0[$1.1] = $1.0
             }
             
-            height.send(maxY + Frame.history.bottom)
+            height.send(maxY + Metrics.history.bottom)
         }
     }
 }

@@ -38,16 +38,19 @@
 		CE5DEAD7259E1E06005F78C8 /* History.Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DEAD6259E1E06005F78C8 /* History.Size.swift */; };
 		CE6768FF25D5634600C4A1AE /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6768FE25D5634600C4A1AE /* Widget.swift */; };
 		CE67690B25D5685400C4A1AE /* App.URL.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE67690A25D5685400C4A1AE /* App.URL.swift */; };
-		CE67691C25D56A7400C4A1AE /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE67691B25D56A7400C4A1AE /* Frame.swift */; };
+		CE67691C25D56A7400C4A1AE /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE67691B25D56A7400C4A1AE /* Metrics.swift */; };
 		CE67693725D5730A00C4A1AE /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE67693625D5730A00C4A1AE /* History.swift */; };
 		CE6A32D6259FB3990083FFBC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A32D5259FB3990083FFBC /* Settings.swift */; };
 		CE6A32DD259FB3D70083FFBC /* Settings.Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A32DC259FB3D70083FFBC /* Settings.Switch.swift */; };
 		CE6A32F3259FB62B0083FFBC /* Settings.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A32F2259FB62B0083FFBC /* Settings.Options.swift */; };
 		CE6B9A3525D2ED400072853F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6B9A3425D2ED400072853F /* Media.xcassets */; };
 		CE6B9A3625D2ED400072853F /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE6B9A3425D2ED400072853F /* Media.xcassets */; };
-		CE7765FE2595ED9200D4C50A /* Frame.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7765FD2595ED9200D4C50A /* Frame.swift */; };
+		CE7765FE2595ED9200D4C50A /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7765FD2595ED9200D4C50A /* Metrics.swift */; };
 		CE7766022595EFC300D4C50A /* History.Map.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7766012595EFC300D4C50A /* History.Map.swift */; };
 		CE7766062595F53C00D4C50A /* History.Map.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7766052595F53C00D4C50A /* History.Map.Item.swift */; };
+		CE826EBE25D8AC11004B547D /* _Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE826EBD25D8AC11004B547D /* _Metrics.swift */; };
+		CE826EC425D8AC1F004B547D /* _Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE826EBD25D8AC11004B547D /* _Metrics.swift */; };
+		CE826ECA25D8AC20004B547D /* _Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE826EBD25D8AC11004B547D /* _Metrics.swift */; };
 		CE872F9A25A361B200C98734 /* Neumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE872F9925A361B200C98734 /* Neumorphic.swift */; };
 		CE872FAB25A3733700C98734 /* Neumorphic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE872FAA25A3733700C98734 /* Neumorphic.swift */; };
 		CE8DF90C25D4456A00FC0F19 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8DF90B25D4456A00FC0F19 /* Purchases.swift */; };
@@ -82,9 +85,9 @@
 		CED75E4E25891F1500352091 /* WKUserContentController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED75E4D25891F1500352091 /* WKUserContentController.swift */; };
 		CED86D1725AC812000339314 /* Web.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D1625AC812000339314 /* Web.Handler.swift */; };
 		CED86D2D25AC9DB400339314 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D2C25AC9DB400339314 /* Chart.swift */; };
-		CED86D3425AC9E2400339314 /* Chart.Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D3325AC9E2400339314 /* Chart.Metrics.swift */; };
-		CED86D3F25AC9E3400339314 /* Chart.Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D3325AC9E2400339314 /* Chart.Metrics.swift */; };
-		CED86D4525AC9E3500339314 /* Chart.Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D3325AC9E2400339314 /* Chart.Metrics.swift */; };
+		CED86D3425AC9E2400339314 /* Chart.Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D3325AC9E2400339314 /* Chart.Values.swift */; };
+		CED86D3F25AC9E3400339314 /* Chart.Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D3325AC9E2400339314 /* Chart.Values.swift */; };
+		CED86D4525AC9E3500339314 /* Chart.Values.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D3325AC9E2400339314 /* Chart.Values.swift */; };
 		CED86D4C25ACA5E300339314 /* Chart.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED86D4B25ACA5E300339314 /* Chart.Content.swift */; };
 		CEDB0C9D259208A100AB6F7C /* Tool.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB0C9C259208A100AB6F7C /* Tool.swift */; };
 		CEDB0CA125920BC900AB6F7C /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDB0CA025920BC900AB6F7C /* Trackers.swift */; };
@@ -221,15 +224,16 @@
 		CE5DEAD6259E1E06005F78C8 /* History.Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Size.swift; sourceTree = "<group>"; };
 		CE6768FE25D5634600C4A1AE /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		CE67690A25D5685400C4A1AE /* App.URL.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.URL.swift; sourceTree = "<group>"; };
-		CE67691B25D56A7400C4A1AE /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
+		CE67691B25D56A7400C4A1AE /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		CE67693625D5730A00C4A1AE /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		CE6A32D5259FB3990083FFBC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE6A32DC259FB3D70083FFBC /* Settings.Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Switch.swift; sourceTree = "<group>"; };
 		CE6A32F2259FB62B0083FFBC /* Settings.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Options.swift; sourceTree = "<group>"; };
 		CE6B9A3425D2ED400072853F /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
-		CE7765FD2595ED9200D4C50A /* Frame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Frame.swift; sourceTree = "<group>"; };
+		CE7765FD2595ED9200D4C50A /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		CE7766012595EFC300D4C50A /* History.Map.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Map.swift; sourceTree = "<group>"; };
 		CE7766052595F53C00D4C50A /* History.Map.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Map.Item.swift; sourceTree = "<group>"; };
+		CE826EBD25D8AC11004B547D /* _Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _Metrics.swift; sourceTree = "<group>"; };
 		CE872F9925A361B200C98734 /* Neumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neumorphic.swift; sourceTree = "<group>"; };
 		CE872FAA25A3733700C98734 /* Neumorphic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neumorphic.swift; sourceTree = "<group>"; };
 		CE8DF90B25D4456A00FC0F19 /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
@@ -260,7 +264,7 @@
 		CED75E4D25891F1500352091 /* WKUserContentController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WKUserContentController.swift; sourceTree = "<group>"; };
 		CED86D1625AC812000339314 /* Web.Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Handler.swift; sourceTree = "<group>"; };
 		CED86D2C25AC9DB400339314 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
-		CED86D3325AC9E2400339314 /* Chart.Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.Metrics.swift; sourceTree = "<group>"; };
+		CED86D3325AC9E2400339314 /* Chart.Values.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.Values.swift; sourceTree = "<group>"; };
 		CED86D4B25ACA5E300339314 /* Chart.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.Content.swift; sourceTree = "<group>"; };
 		CEDB0C9C259208A100AB6F7C /* Tool.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tool.swift; sourceTree = "<group>"; };
 		CEDB0CA025920BC900AB6F7C /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
@@ -391,7 +395,6 @@
 				CECE3BA42587B18000D66221 /* Control.swift */,
 				CEEDA546258BBF200023CF9F /* Detail.swift */,
 				CEE9FBEC258A5DC600008857 /* Flip.swift */,
-				CE7765FD2595ED9200D4C50A /* Frame.swift */,
 				CEE9FBE8258A5C2A00008857 /* History.Cell.swift */,
 				CE7766052595F53C00D4C50A /* History.Map.Item.swift */,
 				CE4B19F125D6989C003EF4D3 /* History.Map.Page.swift */,
@@ -399,6 +402,7 @@
 				CEE9FBE4258A509400008857 /* History.swift */,
 				CE4E404325A5EADF007FCCF3 /* Issue.swift */,
 				CEE9FBF2258A723D00008857 /* Menu.swift */,
+				CE7765FD2595ED9200D4C50A /* Metrics.swift */,
 				CE5481FC259905AC000C7A98 /* NSMenuItem.swift */,
 				CEDB194725D6CB2F00BCB3D6 /* Plus.Card.swift */,
 				CED424B825D6B3050012F92D /* Plus.swift */,
@@ -423,9 +427,10 @@
 		CED75E3425891A9800352091 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CE826EBD25D8AC11004B547D /* _Metrics.swift */,
 				CE3B3B50259CAF79008C9682 /* _Web.swift */,
-				CED86D3325AC9E2400339314 /* Chart.Metrics.swift */,
 				CE1511E3259F96D000ABBC72 /* Chart.swift */,
+				CED86D3325AC9E2400339314 /* Chart.Values.swift */,
 				CE8DF91325D4459C00FC0F19 /* Purchases.Item.swift */,
 				CE8DF90B25D4456A00FC0F19 /* Purchases.swift */,
 				CED75E4D25891F1500352091 /* WKUserContentController.swift */,
@@ -454,7 +459,7 @@
 				CEA9B1C0259F667900782A87 /* Detail.swift */,
 				CEF7888B259B8270001ADEBA /* Field.Coordinator.swift */,
 				CEF78884259B8259001ADEBA /* Field.swift */,
-				CE67691B25D56A7400C4A1AE /* Frame.swift */,
+				CE67691B25D56A7400C4A1AE /* Metrics.swift */,
 				CE5DEACA259E127D005F78C8 /* History.Cell.swift */,
 				CE3B3B36259CAEED008C9682 /* History.Dynamic.swift */,
 				CE5DEAD6259E1E06005F78C8 /* History.Size.swift */,
@@ -753,6 +758,7 @@
 				CEE9FBE9258A5C2A00008857 /* History.Cell.swift in Sources */,
 				CE4E404425A5EADF007FCCF3 /* Issue.swift in Sources */,
 				CE5DEAA4259DF1B3005F78C8 /* Browser.swift in Sources */,
+				CE826EBE25D8AC11004B547D /* _Metrics.swift in Sources */,
 				CED424B925D6B3050012F92D /* Plus.swift in Sources */,
 				CEE9FBE5258A509400008857 /* History.swift in Sources */,
 				CEF2A9BF258790AD00C29CAB /* Searchbar.Field.swift in Sources */,
@@ -765,7 +771,7 @@
 				CEDB192D25D6C3C800BCB3D6 /* Capsule.swift in Sources */,
 				CED86D1725AC812000339314 /* Web.Handler.swift in Sources */,
 				CEDB0CA125920BC900AB6F7C /* Trackers.swift in Sources */,
-				CE7765FE2595ED9200D4C50A /* Frame.swift in Sources */,
+				CE7765FE2595ED9200D4C50A /* Metrics.swift in Sources */,
 				CEDB0C9D259208A100AB6F7C /* Tool.swift in Sources */,
 				CE3B3B5C259CAF9A008C9682 /* _Web.swift in Sources */,
 				CE1175492588E636005160D9 /* Searchbar.Cell.swift in Sources */,
@@ -774,7 +780,7 @@
 				CEE9FBF3258A723D00008857 /* Menu.swift in Sources */,
 				CE11754F258902C7005160D9 /* Control.State.swift in Sources */,
 				CED86D4C25ACA5E300339314 /* Chart.Content.swift in Sources */,
-				CED86D3425AC9E2400339314 /* Chart.Metrics.swift in Sources */,
+				CED86D3425AC9E2400339314 /* Chart.Values.swift in Sources */,
 				CEEA641C25915C2F00711A8C /* Preferences.Toggle.swift in Sources */,
 				CED86D2D25AC9DB400339314 /* Chart.swift in Sources */,
 				CE7766022595EFC300D4C50A /* History.Map.swift in Sources */,
@@ -799,6 +805,7 @@
 				CE6A32D6259FB3990083FFBC /* Settings.swift in Sources */,
 				CE6A32F3259FB62B0083FFBC /* Settings.Options.swift in Sources */,
 				CEEA947225D57A0100590852 /* Plus.Card.swift in Sources */,
+				CE826EC425D8AC1F004B547D /* _Metrics.swift in Sources */,
 				CE67690B25D5685400C4A1AE /* App.URL.swift in Sources */,
 				CE3B3B3E259CAEF4008C9682 /* Web.swift in Sources */,
 				CE3B3B62259CB75E008C9682 /* WKUserContentController.swift in Sources */,
@@ -811,7 +818,7 @@
 				CE4E48B725B301ED00E2A7F6 /* Issue.swift in Sources */,
 				CE3B3B45259CAEFB008C9682 /* Web.Coordinator.swift in Sources */,
 				CE67693725D5730A00C4A1AE /* History.swift in Sources */,
-				CED86D3F25AC9E3400339314 /* Chart.Metrics.swift in Sources */,
+				CED86D3F25AC9E3400339314 /* Chart.Values.swift in Sources */,
 				CEF78830259B75EA001ADEBA /* Control.Style.swift in Sources */,
 				CEF78838259B767A001ADEBA /* Neumorphic.swift in Sources */,
 				CEF78885259B8259001ADEBA /* Field.swift in Sources */,
@@ -823,7 +830,7 @@
 				CEA9B1EC259F79FE00782A87 /* Control.Option.swift in Sources */,
 				CEF7888C259B8270001ADEBA /* Field.Coordinator.swift in Sources */,
 				CE8DF91525D4459C00FC0F19 /* Purchases.Item.swift in Sources */,
-				CE67691C25D56A7400C4A1AE /* Frame.swift in Sources */,
+				CE67691C25D56A7400C4A1AE /* Metrics.swift in Sources */,
 				CEA9B1E0259F768900782A87 /* Detail.Find.swift in Sources */,
 				CE8DF93725D4471A00FC0F19 /* Plus.Item.swift in Sources */,
 				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,
@@ -864,10 +871,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE42C38125A257C900A9D376 /* Chart.swift in Sources */,
+				CE826ECA25D8AC20004B547D /* _Metrics.swift in Sources */,
 				CE872FAB25A3733700C98734 /* Neumorphic.swift in Sources */,
 				CE26C3A925A253500091A529 /* Delegate.swift in Sources */,
 				CEF7879C259B4312001ADEBA /* App.swift in Sources */,
-				CED86D4525AC9E3500339314 /* Chart.Metrics.swift in Sources */,
+				CED86D4525AC9E3500339314 /* Chart.Values.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

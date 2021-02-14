@@ -30,8 +30,8 @@ Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time pur
             } else {
                 Web(session: $session)
                     .padding(.init(top: 0, leading: 0,
-                                   bottom: session.typing || vertical == .compact ? 0 : Frame.search.bar + Frame.search.progress,
-                                   trailing: vertical == .compact && !session.typing ? Frame.search.bar + Frame.search.progress : 0))
+                                   bottom: session.typing || vertical == .compact ? 0 : Metrics.search.bar + Metrics.search.progress,
+                                   trailing: vertical == .compact && !session.typing ? Metrics.search.bar + Metrics.search.progress : 0))
                 if session.error != nil {
                     Issue(session: $session)
                 }
@@ -54,12 +54,12 @@ Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time pur
                                     }
                                 }
                             }
-                            .frame(width: Frame.search.progress)
+                            .frame(width: Metrics.search.progress)
                         }
                         VStack {
                             Searchbar(session: $session)
                         }
-                        .frame(width: Frame.search.bar)
+                        .frame(width: Metrics.search.bar)
                     }
                 } else {
                     VStack(spacing: 0) {
@@ -78,12 +78,12 @@ Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time pur
                                     }
                                 }
                             }
-                            .frame(height: Frame.search.progress)
+                            .frame(height: Metrics.search.progress)
                         }
                         HStack {
                             Searchbar(session: $session)
                         }
-                        .frame(height: Frame.search.bar)
+                        .frame(height: Metrics.search.bar)
                     }
                 }
             }

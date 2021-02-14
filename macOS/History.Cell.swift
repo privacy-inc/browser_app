@@ -47,10 +47,10 @@ extension History {
             addSubview(close)
             self.close = close
             
-            text.topAnchor.constraint(equalTo: topAnchor, constant: Frame.history.margin).isActive = true
-            text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Frame.history.margin).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: Frame.history.margin).isActive = true
-            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -Frame.history.margin).isActive = true
+            text.topAnchor.constraint(equalTo: topAnchor, constant: Metrics.history.margin).isActive = true
+            text.bottomAnchor.constraint(lessThanOrEqualTo: bottomAnchor, constant: -Metrics.history.margin).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: Metrics.history.margin).isActive = true
+            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -Metrics.history.margin).isActive = true
             
             close.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
             close.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true

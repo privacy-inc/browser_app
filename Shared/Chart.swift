@@ -6,7 +6,7 @@ struct Chart: View {
     private let since: String
     
     init(chart: [Date]) {
-        values = Metrics.values(with: chart)
+        values = Self.values(with: chart)
         since = chart.isEmpty ? "" : RelativeDateTimeFormatter().localizedString(for: chart.first!, relativeTo: .init())
     }
     
@@ -50,11 +50,11 @@ private struct Pattern: Shape {
     func path(in rect: CGRect) -> Path {
         .init { path in
             path.move(to: .zero)
-            (1 ..< Chart.Metrics.horizontal).map { rect.maxX / .init(Chart.Metrics.horizontal) * .init($0) }.forEach {
+            (1 ..< Metrics.chart.horizontal).map { rect.maxX / .init(Metrics.chart.horizontal) * .init($0) }.forEach {
                 path.move(to: .init(x: $0, y: 0))
                 path.addLine(to: .init(x: $0, y: rect.maxY))
             }
-            (1 ..< Chart.Metrics.vertical).map { rect.maxY / .init(Chart.Metrics.vertical) * .init($0) }.forEach {
+            (1 ..< Metrics.chart.vertical).map { rect.maxY / .init(Metrics.chart.vertical) * .init($0) }.forEach {
                 path.move(to: .init(x: 0, y: $0))
                 path.addLine(to: .init(x: rect.maxX, y: $0))
             }

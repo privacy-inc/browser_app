@@ -24,7 +24,7 @@ extension History {
                             }
                             if !horizontal {
                                 Spacer()
-                                    .frame(height: Frame.search.bar)
+                                    .frame(height: Metrics.search.bar)
                             }
                         }.frame(width: size.width)
                         Spacer()

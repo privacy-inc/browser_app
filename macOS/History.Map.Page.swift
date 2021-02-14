@@ -20,10 +20,10 @@ extension History.Map {
                                             .foregroundColor : NSColor.labelColor]))
                 }
                 $0.append(.init(string: {
-                    $0.count > Frame.history.url
+                    $0.count > Metrics.history.url
                         ? page.title.isEmpty
                             ? $0
-                            : .init($0.prefix(Frame.history.url - 3)) + "..."
+                            : .init($0.prefix(Metrics.history.url - 3)) + "..."
                         : $0
                 } (page.url.absoluteString), attributes: [
                                         .font : NSFont.systemFont(ofSize: 12, weight: .regular),

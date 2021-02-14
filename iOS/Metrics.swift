@@ -1,6 +1,6 @@
 import CoreGraphics
 
-struct Frame {
+extension Metrics {
     struct search {
         static let bar = CGFloat(100)
         static let progress = CGFloat(3)
