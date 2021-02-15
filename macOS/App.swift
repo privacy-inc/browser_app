@@ -171,9 +171,9 @@ We believe we can help you browse securely and privatly even if you can't suppor
     
     private func froob() {
         card(title: "Upgrade to Privacy Plus", message: """
-Your trial period of Privacy expired.
+Support the development of Privacy Browser.
 
-By upgrading to Privacy Plus you get unlimited and permanent access to Privacy.
+By upgrading to Privacy Plus you support research and development at Privacy Inc.
 
 Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time purchase and you can use it both on iOS and macOS.
 """) { [weak self] in

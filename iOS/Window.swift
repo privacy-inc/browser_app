@@ -15,9 +15,9 @@ struct Window: View {
                     case .store: Plus(session: $session)
                     case .froob:
                         Plus.Card(session: $session, title: "Upgrade to\nPrivacy Plus", message: """
-Your trial period of Privacy expired.
+Support the development of Privacy Browser.
 
-By upgrading to Privacy Plus you get unlimited and permanent access to Privacy.
+By upgrading to Privacy Plus you support research and development at Privacy Inc.
 
 Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time purchase and you can use it both on iOS and macOS.
 """) {
