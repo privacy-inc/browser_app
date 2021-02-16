@@ -52,6 +52,7 @@ extension Searchbar {
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation):
+                browser.search.send("")
                 window!.makeFirstResponder(superview!)
             default: return false
             }

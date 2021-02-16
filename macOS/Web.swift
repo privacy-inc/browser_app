@@ -71,7 +71,13 @@ final class Web: _Web {
         
         browser.reload.sink { [weak self] in
             browser.error.value = nil
-            self?.reload()
+            if let url = browser.page.value?.url {
+                if self?.url == nil {
+                    self?.load(.init(url: url))
+                } else {
+                    self?.reload()
+                }
+            }
         }.store(in: &subs)
         
         browser.stop.sink { [weak self] in
