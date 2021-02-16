@@ -6,7 +6,7 @@ final class Preferences: NSWindow {
     private var subs = Set<AnyCancellable>()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 420),
+        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 520),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
         toolbar = .init()
         title = NSLocalizedString("Preferences", comment: "")
@@ -104,7 +104,7 @@ final class Preferences: NSWindow {
         titleAdvanced.stringValue = NSLocalizedString("Advanced", comment: "")
         
         let browser = defaultBrowser
-        let makeDefault = Tool(title: NSLocalizedString(browser ? "Default browser" : "Make default browser", comment: ""), icon: "star.fill")
+        let makeDefault = Tool(title: NSLocalizedString(browser ? "Default browser" : "Make default browser", comment: ""), icon: "magnifyingglass")
         if !browser {
             makeDefault.click.sink { [weak self] in
                 LSSetDefaultHandlerForURLScheme(Scheme.http.rawValue as CFString, "incognit" as CFString)
