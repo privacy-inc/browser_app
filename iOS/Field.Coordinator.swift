@@ -100,6 +100,7 @@ extension Field {
         }
         
         func searchBarCancelButtonClicked(_: UISearchBar) {
+            view.session.search = ""
             bar.resignFirstResponder()
         }
         
