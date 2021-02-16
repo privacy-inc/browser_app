@@ -2,7 +2,6 @@ import AppKit
 
 extension Searchbar {
     final class Editor: NSTextView {
-        
         override func paste(_ sender: Any?) {
             let clean = {
                 $0.replacingOccurrences(of: "\n", with: "")
