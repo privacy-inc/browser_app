@@ -34,8 +34,7 @@ extension Web {
             
             publisher(for: \.title).sink {
                 $0.map {
-                    guard !$0.isEmpty else { return }
-                    view.session.page?.title = $0
+                    view.session.page?.title = $0.trimmingCharacters(in: .whitespacesAndNewlines)
                 }
             }.store(in: &subs)
             

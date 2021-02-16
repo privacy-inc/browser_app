@@ -40,8 +40,7 @@ final class Web: _Web {
         
         publisher(for: \.title).sink {
             $0.map {
-                guard !$0.isEmpty else { return }
-                browser.page.value?.title = $0
+                browser.page.value?.title = $0.trimmingCharacters(in: .whitespacesAndNewlines)
             }
         }.store(in: &subs)
         
