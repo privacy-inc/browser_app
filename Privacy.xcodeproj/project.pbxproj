@@ -315,6 +315,7 @@
 		CEF78862259B7CAB001ADEBA /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CEF78884259B8259001ADEBA /* Field.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.swift; sourceTree = "<group>"; };
 		CEF7888B259B8270001ADEBA /* Field.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Field.Coordinator.swift; sourceTree = "<group>"; };
+		CEF9AA7E25DC7F95005F0670 /* Configuration.storekit */ = {isa = PBXFileReference; lastKnownFileType = text; path = Configuration.storekit; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -430,6 +431,7 @@
 		CED75E3425891A9800352091 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
+				CEF9AA7E25DC7F95005F0670 /* Configuration.storekit */,
 				CE826EBD25D8AC11004B547D /* _Metrics.swift */,
 				CE3B3B50259CAF79008C9682 /* _Web.swift */,
 				CE1511E3259F96D000ABBC72 /* Chart.swift */,

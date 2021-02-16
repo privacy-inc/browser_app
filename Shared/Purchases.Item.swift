@@ -20,7 +20,7 @@ extension Purchases {
         var subtitle: String {
             switch self {
             case .plus: return NSLocalizedString("""
-Support the development of Privacy\nNon-consumable (1 time only) purchase
+Support Privacy
 """, comment: "")
             }
         }
