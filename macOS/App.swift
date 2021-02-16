@@ -63,6 +63,7 @@ import CoreLocation
     }
     
     func applicationDidFinishLaunching(_: Notification) {
+        Defaults.premium = false
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
             if let created = Defaults.created {
                 if !Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4 {
@@ -115,7 +116,7 @@ import CoreLocation
     
     func why() {
         card(title: "Why purchasing Privacy Plus?", message: """
-By upgrading to Privacy Plus you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS.
+By purchasing Privacy Plus you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS.
 
 Compared to other browser alternatives, we at Privacy Inc. are an independent team, we don't have the support of big international corporations.
 
@@ -169,9 +170,9 @@ We believe we can help you browse securely and privatly even if you can't suppor
         card(title: "Upgrade to Privacy Plus", message: """
 Support the development of Privacy Browser.
 
-By upgrading to Privacy Plus you support research and development at Privacy Inc.
+By purchasing Privacy Plus you support research and development at Privacy Inc.
 
-Privacy Plus is an In-App Purchase, it is consumable, meaning it is a 1 time purchase and you can use it both on iOS and macOS.
+Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time only purchase and you can use it both on iOS and macOS.
 """) { [weak self] in
             self?.plus()
         }
