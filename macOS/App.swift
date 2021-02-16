@@ -57,10 +57,6 @@ import CoreLocation
         open.forEach(tab)
     }
     
-    func applicationShouldTerminateAfterLastWindowClosed(_: NSApplication) -> Bool {
-        false
-    }
-    
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
         newWindow()
