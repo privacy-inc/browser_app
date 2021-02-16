@@ -71,7 +71,7 @@ struct Plus: View {
                 .padding(.top)
                 .sheet(isPresented: $why) {
                     Plus.Card(session: $session, title: "Why purchasing\nPrivacy Plus?", message: """
-By upgrading to Privacy Plus you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS.
+By purchasing Privacy Plus you are supporting the development and research necessary to fulfil our mission of bringing the most secure and private browser to iOS and macOS.
 
 Compared to other browser alternatives, we at Privacy Inc. are an independent team, we don't have the support of big international corporations.
 

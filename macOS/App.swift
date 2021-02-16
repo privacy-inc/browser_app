@@ -167,7 +167,7 @@ We believe we can help you browse securely and privatly even if you can't suppor
     }
     
     private func froob() {
-        card(title: "Upgrade to Privacy Plus", message: """
+        card(title: "Purchase Privacy Plus", message: """
 Support the development of Privacy Browser.
 
 By purchasing Privacy Plus you support research and development at Privacy Inc.
