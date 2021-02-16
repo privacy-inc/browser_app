@@ -161,13 +161,6 @@ final class Window: NSWindow {
         makeFirstResponder(searchbar.field)
     }
     
-    @objc func copyLink() {
-        browser.page.value.map {
-            NSPasteboard.general.clearContents()
-            NSPasteboard.general.setString($0.url.absoluteString, forType: .string)
-        }
-    }
-    
     private func landing() {
         let history = History(browser: browser)
         add(history)

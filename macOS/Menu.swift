@@ -4,6 +4,10 @@ import Combine
 final class Menu: NSMenu, NSMenuDelegate {
     private var sub: AnyCancellable?
     
+    private var url: URL {
+        (NSApp.keyWindow as? Window)?.browser.page.value?.url ?? URL(string: "https://privacy-inc.github.io/about")!
+    }
+    
     required init(coder: NSCoder) { super.init(coder: coder) }
     init() {
         super.init(title: "")
@@ -13,16 +17,18 @@ final class Menu: NSMenu, NSMenuDelegate {
     func menuNeedsUpdate(_ menu: NSMenu) {
         switch menu.title {
         case "Share":
-            menu.items = NSSharingService.sharingServices(forItems: [(NSApp.keyWindow as? Window)?.browser.page.value?.url ?? ""]).map {
+            menu.items = NSSharingService.sharingServices(forItems: [url]).map {
                 let item = NSMenuItem(title: $0.menuItemTitle, action: #selector(share), keyEquivalent: "")
                 item.target = self
                 item.image = $0.image
                 item.representedObject = $0
                 return item
-            }
-            menu.items.append(contentsOf: [
-                                .separator(),
-                                .init(title: "Copy Link", action: #selector(Window.copyLink), keyEquivalent: "C")])
+            } + [
+                .separator(),
+                {
+                    $0.target = self
+                    return $0
+                } (NSMenuItem(title: "Copy Link", action: #selector(link), keyEquivalent: "C"))]
         case "Window":
             menu.items = [
                 .init(title: "Minimize", action: #selector(NSWindow.miniaturize), keyEquivalent: "m"),
@@ -149,7 +155,6 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     @objc private func share(_ item: NSMenuItem) {
-        guard let url = (NSApp.keyWindow as? Window)?.browser.page.value?.url else { return }
         (item.representedObject as? NSSharingService)?.perform(withItems: [url])
     }
     
@@ -175,5 +180,10 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func zoomOut() {
         (NSApp.keyWindow as? Window)?.web?.pageZoom /= 1.1
+    }
+    
+    @objc private func link() {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(url.absoluteString, forType: .string)
     }
 }
