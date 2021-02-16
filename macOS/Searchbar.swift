@@ -5,7 +5,7 @@ import Sleuth
 final class Searchbar: NSView {
     private(set) weak var field: Field!
     private var subs = Set<AnyCancellable>()
-
+    
     required init?(coder: NSCoder) { nil }
     init(browser: Browser) {
         super.init(frame: .zero)
