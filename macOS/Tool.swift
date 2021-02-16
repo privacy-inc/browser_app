@@ -26,7 +26,7 @@ final class Tool: Control {
         if let caption = caption {
             let text = Text()
             text.stringValue = caption
-            text.font = .monospacedSystemFont(ofSize: 14, weight: .bold)
+            text.font = .systemFont(ofSize: 14, weight: .regular)
             addSubview(text)
             
             text.rightAnchor.constraint(equalTo: icon.leftAnchor, constant: -4).isActive = true
