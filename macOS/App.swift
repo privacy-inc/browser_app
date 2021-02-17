@@ -70,7 +70,7 @@ import CoreLocation
                     Defaults.rated = true
                     SKStoreReviewController.requestReview()
                 } else if !Defaults.premium && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 6 {
-                    self?.froob()
+//                    self?.froob()
                 }
             } else {
                 Defaults.created = .init()
