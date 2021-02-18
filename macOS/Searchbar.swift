@@ -84,7 +84,7 @@ final class Searchbar: NSView {
         }.store(in: &subs)
         
         detail.click.sink {
-            Detail(browser: browser).show(relativeTo: detail.bounds, of: detail, preferredEdge: .maxY)
+            Detail(browser: browser).show(relativeTo: detail.bounds, of: detail, preferredEdge: .minY)
         }.store(in: &subs)
         
         lock.click.sink { [weak self] in
