@@ -23,6 +23,7 @@ extension Searchbar {
             target = self
             action = #selector(search)
             textColor = .labelColor
+            isAutomaticTextCompletionEnabled = false
             
             browser.page.sink { [weak self] in
                 guard let url = $0?.url else { return }
