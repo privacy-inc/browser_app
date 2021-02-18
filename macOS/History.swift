@@ -22,6 +22,7 @@ final class History: NSScrollView {
         translatesAutoresizingMaskIntoConstraints = false
         documentView = content
         hasVerticalScroller = true
+        verticalScroller!.controlSize = .mini
         contentView.postsBoundsChangedNotifications = true
         drawsBackground = false
         self.browser = browser
