@@ -74,7 +74,6 @@
 		CEA9B1C1259F667900782A87 /* Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1C0259F667900782A87 /* Detail.swift */; };
 		CEA9B1C8259F6FA800782A87 /* Trackers.List.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1C7259F6FA800782A87 /* Trackers.List.swift */; };
 		CEA9B1D4259F75EE00782A87 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1D3259F75EE00782A87 /* Trackers.swift */; };
-		CEA9B1E0259F768900782A87 /* Detail.Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1DF259F768900782A87 /* Detail.Find.swift */; };
 		CEA9B1EC259F79FE00782A87 /* Control.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1EB259F79FE00782A87 /* Control.Option.swift */; };
 		CEA9B1F3259F7AC000782A87 /* Detail.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA9B1F2259F7AC000782A87 /* Detail.Options.swift */; };
 		CEB2F7C825DC113400138B99 /* Searchbar.Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEB2F7C725DC113400138B99 /* Searchbar.Editor.swift */; };
@@ -255,7 +254,6 @@
 		CEA9B1C0259F667900782A87 /* Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.swift; sourceTree = "<group>"; };
 		CEA9B1C7259F6FA800782A87 /* Trackers.List.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.List.swift; sourceTree = "<group>"; };
 		CEA9B1D3259F75EE00782A87 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
-		CEA9B1DF259F768900782A87 /* Detail.Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Find.swift; sourceTree = "<group>"; };
 		CEA9B1EB259F79FE00782A87 /* Control.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Option.swift; sourceTree = "<group>"; };
 		CEA9B1F2259F7AC000782A87 /* Detail.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Detail.Options.swift; sourceTree = "<group>"; };
 		CEB2F7C725DC113400138B99 /* Searchbar.Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Searchbar.Editor.swift; sourceTree = "<group>"; };
@@ -459,7 +457,6 @@
 				CEA9B1EB259F79FE00782A87 /* Control.Option.swift */,
 				CEF7882D259B75EA001ADEBA /* Control.Style.swift */,
 				CEF7882E259B75EA001ADEBA /* Control.swift */,
-				CEA9B1DF259F768900782A87 /* Detail.Find.swift */,
 				CEA9B1F2259F7AC000782A87 /* Detail.Options.swift */,
 				CEA9B1C0259F667900782A87 /* Detail.swift */,
 				CEF7888B259B8270001ADEBA /* Field.Coordinator.swift */,
@@ -837,7 +834,6 @@
 				CEF7888C259B8270001ADEBA /* Field.Coordinator.swift in Sources */,
 				CE8DF91525D4459C00FC0F19 /* Purchases.Item.swift in Sources */,
 				CE67691C25D56A7400C4A1AE /* Metrics.swift in Sources */,
-				CEA9B1E0259F768900782A87 /* Detail.Find.swift in Sources */,
 				CE8DF93725D4471A00FC0F19 /* Plus.Item.swift in Sources */,
 				CEF787FF259B5E7E001ADEBA /* Watch.swift in Sources */,
 				CEF78844259B768A001ADEBA /* Searchbar.swift in Sources */,

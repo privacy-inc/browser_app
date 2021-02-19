@@ -23,27 +23,6 @@ struct Searchbar: View {
                     Image(systemName: "ellipsis")
                 }
                 
-                Button(action: session.next.send) {
-                    Text("Forward")
-                    Image(systemName: "chevron.right")
-                }
-                .disabled(!session.forwards)
-                
-                Button {
-                    if session.error == nil {
-                        if session.backwards {
-                            session.previous.send()
-                        } else {
-                            session.page = nil
-                        }
-                    } else {
-                        session.unerror.send()
-                    }
-                } label: {
-                    Text("Back")
-                    Image(systemName: "chevron.left")
-                }
-                
                 Button(action: session.stop.send) {
                     Text("Stop")
                     Image(systemName: "xmark")
@@ -55,19 +34,50 @@ struct Searchbar: View {
                     Image(systemName: "arrow.clockwise")
                 }
                 
-                Button {
-                    session.text.send(session.page!.url.absoluteString)
-                    session.type.send()
+                Menu {
+                    Button {
+                        if session.error == nil {
+                            if session.backwards {
+                                session.previous.send()
+                            } else {
+                                session.page = nil
+                            }
+                        } else {
+                            session.unerror.send()
+                        }
+                    } label: {
+                        Text("Back")
+                        Image(systemName: "chevron.left")
+                    }
+                    
+                    Button(action: session.next.send) {
+                        Text("Forward")
+                        Image(systemName: "chevron.right")
+                    }
+                    .disabled(!session.forwards)
                 } label: {
-                    Text("Edit URL")
-                    Image(systemName: "pencil")
+                    Text("Move")
+                    Image(systemName: "arrow.left.arrow.right")
                 }
                 
-                Button {
-                    UIPasteboard.general.string = session.page!.url.absoluteString
+                Menu {
+                    Button {
+                        session.text.send(session.page!.url.absoluteString)
+                        session.type.send()
+                    } label: {
+                        Text("Edit")
+                        Image(systemName: "pencil")
+                    }
+                    
+                    Button {
+                        UIPasteboard.general.string = session.page!.url.absoluteString
+                    } label: {
+                        Text("Copy")
+                        Image(systemName: "doc.on.doc")
+                    }
                 } label: {
-                    Text("Copy URL")
-                    Image(systemName: "doc.on.doc")
+                    Text("URL")
+                    Image(systemName: "link")
                 }
                 
             } label: {

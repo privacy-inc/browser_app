@@ -35,7 +35,6 @@ struct Detail: View {
             }
             .padding(.horizontal)
             Trackers(session: $session)
-            Find(session: $session)
             Options(session: $session)
         }
         .onReceive(session.dismiss) {
