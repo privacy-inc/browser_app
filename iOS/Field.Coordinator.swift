@@ -5,6 +5,7 @@ import Sleuth
 extension Field {
     final class Coordinator: UIView, UIKeyInput, UISearchBarDelegate {
         private weak var bar: UISearchBar!
+        private weak var rightView: NSLayoutConstraint!
         private var leftView: UIView!
         private var editable = true
         private var subs = Set<AnyCancellable>()
@@ -42,6 +43,14 @@ extension Field {
             self.bar = bar
             leftView = bar.searchTextField.leftView
             
+            let find = UIButton()
+            find.translatesAutoresizingMaskIntoConstraints = false
+            find.setTitle(NSLocalizedString("Find", comment: ""), for: .normal)
+            find.setTitleColor(.label, for: .normal)
+            find.setTitleColor(.secondaryLabel, for: .highlighted)
+            find.addTarget(self, action: #selector(self.find), for: .touchUpInside)
+            input.addSubview(find)
+            
             view.session.type.sink { [weak self] in
                 self?.becomeFirstResponder()
             }.store(in: &subs)
@@ -51,14 +60,21 @@ extension Field {
             }.store(in: &subs)
             
             bar.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
-            bar.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor).isActive = true
+            bar.rightAnchor.constraint(equalTo: find.leftAnchor).isActive = true
             bar.centerYAnchor.constraint(equalTo: input.centerYAnchor).isActive = true
+            
+            find.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
+            find.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
+            find.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor).isActive = true
+            rightView = find.widthAnchor.constraint(equalToConstant: 0)
+            rightView.isActive = true
         }
         
         @discardableResult override func becomeFirstResponder() -> Bool {
             DispatchQueue.main.async { [weak self] in
                 self?.bar.becomeFirstResponder()
                 self?.bar.searchTextField.selectAll(nil)
+                self?.changed()
             }
             return super.becomeFirstResponder()
         }
@@ -112,11 +128,24 @@ extension Field {
                 if $0.isEmpty == true {
                     bar.setShowsCancelButton(true, animated: true)
                     bar.searchTextField.leftView = leftView
-                } else if bar.showsCancelButton {
+                    rightView.constant = 0
+                } else {
                     bar.setShowsCancelButton(false, animated: true)
                     bar.searchTextField.leftView = nil
+                    if view.session.page?.url != nil {
+                        rightView.constant = 60
+                    } else {
+                        rightView.constant = 0
+                    }
                 }
                 view.session.search = $0
+            }
+        }
+        
+        @objc private func find() {
+            bar.resignFirstResponder()
+            bar.text.map {
+                view.session.find.send($0)
             }
         }
     }

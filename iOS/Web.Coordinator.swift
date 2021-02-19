@@ -21,7 +21,7 @@ extension Web {
             
             self.view = view
             super.init(configuration: configuration)
-            scrollView.keyboardDismissMode = .onDrag
+            scrollView.keyboardDismissMode = .none
             isOpaque = !dark
             
             publisher(for: \.estimatedProgress).sink {
@@ -83,10 +83,15 @@ extension Web {
                     view.session.page = nil
                 }
             }.store(in: &subs)
-            
             view.session.find.sink { [weak self] in
                 self?.select(nil)
-                self?.find($0) { _ in }
+                self?.find($0) {
+                    guard $0.matchFound else { return }
+                    self?.evaluateJavaScript("window.getSelection().getRangeAt(0).getBoundingClientRect().top") { offset, _ in
+                        guard let offset = offset as? CGFloat, let current = self?.scrollView.contentOffset.y else { return }
+                        self?.scrollView.scrollRectToVisible(.init(x: 0, y: offset + current - 200, width: 100, height: 400), animated: true)
+                    }
+                }
             }.store(in: &subs)
             
             view.session.print.sink { [weak self] in
