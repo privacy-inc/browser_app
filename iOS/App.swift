@@ -57,7 +57,7 @@ import Sleuth
         .onChange(of: phase) {
             if $0 == .active {
                 delegate.rate()
-                watch.activate(session.update)
+                watch.activate()
             }
         }
     }

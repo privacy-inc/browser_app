@@ -3,7 +3,7 @@ import WatchConnectivity
 import Sleuth
 
 @main struct App: SwiftUI.App {
-    @ObservedObject var delegate = Delegate()
+    @ObservedObject private var delegate = Delegate()
     @State private var alert = false
     @State private var tab = 0
     @State private var formatter = NumberFormatter()
