@@ -58,7 +58,7 @@ final class History: NSScrollView {
                 } (Cell())
                 cell.page = item.page
                 cell.frame = item.frame
-                self.documentView!.addSubview(cell)
+                content.addSubview(cell)
             }
         }.store(in: &subs)
         
