@@ -19,8 +19,8 @@ struct Searchbar: View {
                 Button {
                     detail = true
                 } label: {
-                    Text("Menu")
-                    Image(systemName: "line.horizontal.3")
+                    Text("More")
+                    Image(systemName: "ellipsis")
                 }
                 
                 Button(action: session.next.send) {
@@ -53,6 +53,21 @@ struct Searchbar: View {
                 Button(action: session.reload.send) {
                     Text("Reload")
                     Image(systemName: "arrow.clockwise")
+                }
+                
+                Button {
+                    session.text.send(session.page!.url.absoluteString)
+                    session.type.send()
+                } label: {
+                    Text("Edit URL")
+                    Image(systemName: "pencil")
+                }
+                
+                Button {
+                    UIPasteboard.general.string = session.page!.url.absoluteString
+                } label: {
+                    Text("Copy URL")
+                    Image(systemName: "doc.on.doc")
                 }
                 
             } label: {
