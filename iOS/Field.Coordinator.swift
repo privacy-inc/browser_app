@@ -110,8 +110,10 @@ extension Field {
         private func changed() {
             bar.text.map {
                 if $0.isEmpty == true {
+                    bar.setShowsCancelButton(true, animated: true)
                     bar.searchTextField.leftView = leftView
-                } else {
+                } else if bar.showsCancelButton {
+                    bar.setShowsCancelButton(false, animated: true)
                     bar.searchTextField.leftView = nil
                 }
                 view.session.search = $0
