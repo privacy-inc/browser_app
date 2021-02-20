@@ -40,6 +40,7 @@ extension Search {
                                 .padding([.trailing, .bottom])
                         }
                     }
+                    .padding(5)
                 }
             }
         }

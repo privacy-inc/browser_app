@@ -4,28 +4,23 @@ import Sleuth
 extension History {
     struct Cell: View {
         let page: Share.Page
-        let align: HorizontalAlignment
         
         var body: some View {
             Link(destination: page.url) {
                 HStack {
-                    if align == .trailing {
-                        Spacer()
-                    }
-                    VStack(alignment: align) {
+                    VStack(alignment: .leading) {
                         if !page.title.isEmpty {
                             Text(verbatim: page.title)
-                                .lineLimit(3)
                                 .font(.footnote)
+                                .lineLimit(4)
                         }
                         Text(verbatim: page.subtitle)
-                            .lineLimit(3)
                             .font(.caption2)
                             .foregroundColor(.secondary)
+                            .lineLimit(page.title.isEmpty ? 5 : 3)
                     }
-                    if align == .leading {
-                        Spacer()
-                    }
+                    .fixedSize(horizontal: false, vertical: true)
+                    Spacer()
                 }
             }
         }

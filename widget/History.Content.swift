@@ -26,72 +26,54 @@ extension History {
                     GeometryReader { geo in
                         switch family {
                         case .systemLarge:
-                            HStack(spacing: 0) {
+                            HStack(alignment: .top, spacing: 0) {
                                 VStack(spacing: 0) {
-                                    Cell(page: pages.first!, align: .leading)
-                                        .frame(width: geo.size.width * 0.5)
+                                    Cell(page: pages.first!)
                                     if pages.count > 2 {
-                                        Cell(page: pages[2], align: .leading)
-                                            .frame(width: geo.size.width * 0.5)
+                                        Cell(page: pages[2])
                                             .padding(.top)
                                         if pages.count > 4 {
-                                            Cell(page: pages[4], align: .leading)
-                                                .frame(width: geo.size.width * 0.5)
+                                            Cell(page: pages[4])
                                                 .padding(.top)
                                         }
                                     }
-                                    Spacer()
                                 }
+                                .frame(width: (geo.size.width * 0.5) - 10)
                                 if pages.count > 1 {
                                     VStack(spacing: 0) {
-                                        Cell(page: pages[1], align: .trailing)
-                                            .frame(width: geo.size.width * 0.5)
+                                        Cell(page: pages[1])
                                         if pages.count > 3 {
-                                            Cell(page: pages[3], align: .trailing)
-                                                .frame(width: geo.size.width * 0.5)
+                                            Cell(page: pages[3])
                                                 .padding(.top)
                                             if pages.count > 5 {
-                                                Cell(page: pages[5], align: .trailing)
-                                                    .frame(width: geo.size.width * 0.5)
+                                                Cell(page: pages[5])
                                                     .padding(.top)
                                             }
                                         }
-                                        Spacer()
                                     }
-                                    .multilineTextAlignment(.trailing)
+                                    .frame(width: (geo.size.width * 0.5) - 10)
+                                    .padding(.leading, 20)
                                 } else {
                                     Spacer()
                                 }
                             }
                         case .systemMedium:
-                            HStack(spacing: 0) {
-                                VStack(spacing: 0) {
-                                    Spacer()
-                                    Cell(page: pages.first!, align: .leading)
-                                        .frame(width: geo.size.width * 0.5)
-                                    Spacer()
-                                }
+                            HStack(alignment: .top, spacing: 0) {
+                                Cell(page: pages.first!)
+                                    .frame(width: (geo.size.width * 0.5) - 10)
                                 if pages.count > 1 {
-                                    VStack(spacing: 0) {
-                                        Spacer()
-                                        Cell(page: pages[1], align: .trailing)
-                                            .frame(width: geo.size.width * 0.5)
-                                        Spacer()
-                                    }
-                                    .multilineTextAlignment(.trailing)
+                                    Cell(page: pages[1])
+                                        .frame(width: (geo.size.width * 0.5) - 10)
+                                        .padding(.leading, 20)
                                 } else {
                                     Spacer()
                                 }
                             }
                         default:
-                            VStack {
-                                Spacer()
-                                Cell(page: pages.first!, align: .leading)
-                                Spacer()
-                            }
+                            Cell(page: pages.first!)
                         }
                     }
-                    .padding(25)
+                    .padding([.leading, .trailing, .top], 20)
                 }
             }
         }
