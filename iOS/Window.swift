@@ -14,10 +14,8 @@ struct Window: View {
                     case .trackers: Trackers.List(session: $session)
                     case .store: Plus(session: $session)
                     case .froob:
-                        Plus.Card(session: $session, title: "Purchase\nPrivacy Plus", message: """
-Support the development of Privacy Browser.
-
-By purchasing Privacy Plus you support research and development at Privacy Inc.
+                        Plus.Card(session: $session, title: "Privacy\nPlus", message: """
+By purchasing Privacy Plus you support research and development at Privacy Inc and for Privacy Browser.
 
 Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time only purchase and you can use it both on iOS and macOS.
 """) {

@@ -24,7 +24,7 @@ extension Plus {
                         .foregroundColor(.secondary)
                         .padding(.horizontal)
                     if premium {
-                        Image(systemName: "checkmark.shield.fill")
+                        Image(systemName: "checkmark.seal.fill")
                             .font(Font.largeTitle)
                             .padding(.top)
                     } else {

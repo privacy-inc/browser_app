@@ -63,14 +63,13 @@ import CoreLocation
     }
     
     func applicationDidFinishLaunching(_: Notification) {
-        Defaults.premium = false
-        DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 4) { [weak self] in
             if let created = Defaults.created {
                 if !Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4 {
                     Defaults.rated = true
                     SKStoreReviewController.requestReview()
-                } else if !Defaults.premium && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 6 {
-//                    self?.froob()
+                } else if !Defaults.premium && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 9 {
+                    self?.froob()
                 }
             } else {
                 Defaults.created = .init()
@@ -167,10 +166,8 @@ We believe we can help you browse securely and privatly even if you can't suppor
     }
     
     private func froob() {
-        card(title: "Purchase Privacy Plus", message: """
-Support the development of Privacy Browser.
-
-By purchasing Privacy Plus you support research and development at Privacy Inc.
+        card(title: "Privacy Plus", message: """
+By purchasing Privacy Plus you support research and development at Privacy Inc and for Privacy Browser.
 
 Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time only purchase and you can use it both on iOS and macOS.
 """) { [weak self] in

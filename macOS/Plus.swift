@@ -87,7 +87,7 @@ final class Plus: NSWindow {
                 }
                 
                 if Defaults.premium {
-                    let image = NSImageView(image: NSImage(systemSymbolName: "checkmark.shield.fill", accessibilityDescription: nil)!)
+                    let image = NSImageView(image: NSImage(systemSymbolName: "checkmark.seal.fill", accessibilityDescription: nil)!)
                     image.translatesAutoresizingMaskIntoConstraints = false
                     image.symbolConfiguration = .init(pointSize: 50, weight: .bold)
                     image.contentTintColor = .labelColor
