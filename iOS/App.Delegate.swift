@@ -28,7 +28,7 @@ extension App {
             if !Defaults.premium {
                 DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
                     if let created = Defaults.created {
-                        if Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 9 {
+                        if Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 6 {
                             self?.froob.send()
                         }
                     }

@@ -68,7 +68,7 @@ import CoreLocation
                 if !Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4 {
                     Defaults.rated = true
                     SKStoreReviewController.requestReview()
-                } else if !Defaults.premium && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 9 {
+                } else if !Defaults.premium && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 6 {
                     self?.froob()
                 }
             } else {
