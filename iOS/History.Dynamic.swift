@@ -62,9 +62,11 @@ extension History {
         }
         
         private func delete(_ page: Page) {
+            UIApplication.shared.resign()
             FileManager.delete(page)
             session.pages.firstIndex(of: page).map {
-                _ = session.pages.remove(at: $0)
+                session.pages.remove(at: $0)
+                session.update.send()
             }
         }
     }

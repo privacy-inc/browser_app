@@ -42,9 +42,9 @@ import Sleuth
                     var sub: AnyCancellable?
                     sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
                         sub?.cancel()
+                        widget.update($0)
                         guard $0 != session.pages else { return }
                         session.pages = $0
-                        widget.update($0)
                     }
                 }
                 .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification, object: nil)) { _ in
