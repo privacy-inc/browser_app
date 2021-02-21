@@ -12,12 +12,12 @@ extension History {
                         if !page.title.isEmpty {
                             Text(verbatim: page.title)
                                 .font(.footnote)
-                                .lineLimit(4)
+                                .lineLimit(3)
                         }
                         Text(verbatim: page.subtitle)
                             .font(.caption2)
                             .foregroundColor(.secondary)
-                            .lineLimit(page.title.isEmpty ? 5 : 3)
+                            .lineLimit(page.title.isEmpty ? 4 : 2)
                     }
                     .fixedSize(horizontal: false, vertical: true)
                     Spacer()
