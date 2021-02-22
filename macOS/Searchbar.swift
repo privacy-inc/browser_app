@@ -87,7 +87,7 @@ final class Searchbar: NSView {
             Detail(browser: browser).show(relativeTo: detail.bounds, of: detail, preferredEdge: .minY)
         }.store(in: &subs)
         
-        lock.click.sink { [weak self] in
+        lock.click.sink {
             let site = browser.page.value?.url.host ?? "this site"
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("Secure Connection", comment: "")
@@ -95,12 +95,10 @@ final class Searchbar: NSView {
             alert.addButton(withTitle: NSLocalizedString("Accept", comment: ""))
             alert.alertStyle = .informational
             alert.icon = NSImage(systemSymbolName: "lock.fill", accessibilityDescription: nil)
-            self?.window.map {
-                alert.beginSheetModal(for: $0)
-            }
+            alert.runModal()
         }.store(in: &subs)
         
-        warning.click.sink { [weak self] in
+        warning.click.sink {
             let site = browser.page.value?.url.host ?? "this site"
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("Site Not Secure", comment: "")
@@ -108,9 +106,7 @@ final class Searchbar: NSView {
             alert.addButton(withTitle: NSLocalizedString("Accept", comment: ""))
             alert.alertStyle = .critical
             alert.icon = NSImage(systemSymbolName: "lock.slash.fill", accessibilityDescription: nil)
-            self?.window.map {
-                alert.beginSheetModal(for: $0)
-            }
+            alert.runModal()
         }.store(in: &subs)
         
         left.click.sink {
