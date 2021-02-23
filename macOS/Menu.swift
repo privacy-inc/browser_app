@@ -1,9 +1,6 @@
 import AppKit
-import Combine
 
 final class Menu: NSMenu, NSMenuDelegate {
-    private var sub: AnyCancellable?
-    
     private var url: URL {
         (NSApp.keyWindow as? Window)?.browser.page.value?.url ?? URL(string: "https://privacy-inc.github.io/about")!
     }
