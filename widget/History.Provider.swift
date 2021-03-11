@@ -1,5 +1,4 @@
 import WidgetKit
-import Sleuth
 
 extension History {
     struct Provider: TimelineProvider {
