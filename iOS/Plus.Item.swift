@@ -25,7 +25,7 @@ extension Plus {
                         .padding(.horizontal)
                     if premium {
                         Image(systemName: "checkmark.seal.fill")
-                            .font(Font.largeTitle)
+                            .font(.largeTitle)
                             .padding(.top)
                     } else {
                         Text(verbatim: price)
