@@ -11,7 +11,7 @@ extension History {
                     VStack(alignment: .leading) {
                         if !page.title.isEmpty {
                             Text(verbatim: page.title)
-                                .font(.footnote)
+                                .font(.caption)
                                 .lineLimit(3)
                         }
                         Text(verbatim: page.subtitle)

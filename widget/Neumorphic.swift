@@ -6,8 +6,8 @@ struct Neumorphic: View {
     var body: some View {
         ZStack {
             Circle()
-                .fill(Color(white: 0.125))
-                .shadow(color: Color.black.opacity(0.4), radius: 10, x: 8, y: 8)
+                .fill(Color(.secondarySystemBackground))
+                .shadow(color: Color.black.opacity(0.2), radius: 10, x: 8, y: 8)
                 .shadow(color: Color.white.opacity(0.04), radius: 5, x: -4, y: -4)
                 .frame(width: 54, height: 54)
             Image(systemName: image)
