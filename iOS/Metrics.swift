@@ -9,8 +9,8 @@ extension Metrics {
     }
     
     struct history {
-        static let horizontal = CGFloat(6)
         static let widthSmall = CGFloat(160)
         static let widthBig = CGFloat(200)
+        static let spacing = CGFloat(6)
     }
 }

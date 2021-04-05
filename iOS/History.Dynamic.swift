@@ -13,7 +13,7 @@ extension History {
                 HStack(alignment: .top) {
                     Spacer()
                     ForEach(list, id: \.self) { pages in
-                        VStack {
+                        VStack(spacing: Metrics.history.spacing * 2) {
                             ForEach(pages) { page in
                                 Cell(page: page, delete: delete) {
                                     UIApplication.shared.resign()
@@ -26,7 +26,8 @@ extension History {
                                 Spacer()
                                     .frame(height: Metrics.search.bar)
                             }
-                        }.frame(width: size.width)
+                        }
+                        .frame(width: size.width)
                         Spacer()
                     }
                 }

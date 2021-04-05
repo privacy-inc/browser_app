@@ -10,7 +10,7 @@ extension History {
         @State private var background = Color.primary.opacity(0.03)
         
         var body: some View {
-            HStack(spacing: 0) {
+            HStack(alignment: .top, spacing: 0) {
                 Button(action: open) {
                     VStack(alignment: .leading) {
                         Text(verbatim: date)
@@ -29,6 +29,8 @@ extension History {
                             .foregroundColor(.init(.tertiaryLabel))
                     }
                 }
+                .padding(.vertical)
+                .padding(.leading)
                 Spacer()
                 Button {
                     withAnimation(.easeInOut(duration: 0.2)) {
@@ -39,14 +41,11 @@ extension History {
                     Image(systemName: "xmark")
                         .font(.caption2)
                         .foregroundColor(.secondary)
-                        .padding(.trailing)
                         .contentShape(Rectangle())
                         .frame(width: 40, height: 40)
                 }
             }
-            .padding(.vertical)
-            .padding(.leading)
-            .background(RoundedRectangle(cornerRadius: 14)
+            .background(RoundedRectangle(cornerRadius: 12)
                             .fill(background))
             .onAppear {
                 date = RelativeDateTimeFormatter().localizedString(for: page.date, relativeTo: .init())
