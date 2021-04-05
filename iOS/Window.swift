@@ -42,7 +42,7 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                             GeometryReader { geo in
                                 ZStack {
                                     Rectangle()
-                                        .fill(Color(white: 0, opacity: 0.2))
+                                        .fill(Color(white: 0, opacity: 0.1))
                                     VStack {
                                         Rectangle()
                                             .fill(Color.accentColor)
@@ -54,10 +54,10 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                             }
                             .frame(width: Metrics.search.progress)
                         }
-                        VStack {
+                        VStack(spacing: Metrics.search.spacing) {
                             Searchbar(session: $session)
                         }
-                        .frame(width: Metrics.search.bar)
+                        .frame(width: Metrics.search.bar, alignment: .trailing)
                     }
                 } else {
                     VStack(spacing: 0) {
@@ -66,7 +66,7 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                             GeometryReader { geo in
                                 ZStack {
                                     Rectangle()
-                                        .fill(Color(white: 0, opacity: 0.2))
+                                        .fill(Color(white: 0, opacity: 0.1))
                                     HStack {
                                         Rectangle()
                                             .fill(Color.accentColor)
@@ -78,10 +78,10 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                             }
                             .frame(height: Metrics.search.progress)
                         }
-                        HStack {
+                        HStack(spacing: Metrics.search.spacing) {
                             Searchbar(session: $session)
                         }
-                        .frame(height: Metrics.search.bar)
+                        .frame(height: Metrics.search.bar, alignment: .bottom)
                     }
                 }
             }

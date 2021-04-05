@@ -10,21 +10,15 @@ extension Control.Circle {
             ZStack {
                 Circle()
                     .fill(Color.clear)
-                    .frame(width: 80, height: 80)
-                if pressed {
-                    Circle()
-                        .fill(UIApplication.dark ? Color.black : .white)
-                        .frame(width: 44, height: 44)
-                } else {
-                    Circle()
-                        .fill(background)
-                        .modifier(Neumorphic())
-                        .frame(width: 50, height: 50)
-                }
+                Circle()
+                    .fill(background)
+                    .modifier(Neumorphic())
+                    .frame(width: 42, height: 42)
                 Image(systemName: image)
+                    .font(.callout)
                     .foregroundColor(pressed ? .init(.tertiaryLabel) : .primary)
             }
-            .contentShape(Circle())
+            .frame(width: Metrics.search.circle, height: Metrics.search.circle)
         }
     }
 }
