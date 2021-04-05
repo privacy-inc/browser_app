@@ -30,9 +30,10 @@ extension Plus {
                         Capsule()
                             .fill(Color.blue)
                         Text("Accept")
+                            .font(Font.footnote.bold())
                             .foregroundColor(.white)
                     }
-                    .frame(width: 140, height: 40)
+                    .frame(width: 140, height: 36)
                 }
                 .contentShape(Rectangle())
                 .padding(.bottom)

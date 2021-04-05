@@ -49,6 +49,7 @@ extension App {
             session.dismiss.send()
             session.page = nil
             session.type.send()
+            session.text.send("")
         case .privacy_forget:
             session.dismiss.send()
             UIApplication.shared.resign()
