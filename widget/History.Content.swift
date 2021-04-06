@@ -40,7 +40,7 @@ extension History {
                                     }
                                 }
                             }
-                            .frame(width: family == .systemSmall ? geo.size.width : (geo.size.width * 0.5) - 10)
+                            .frame(width: family == .systemSmall ? geo.size.width : (geo.size.width * 0.5) - 5)
                             if family != .systemSmall, pages.count > 1 {
                                 VStack(spacing: 10) {
                                     Cell(page: pages[1])
@@ -57,14 +57,15 @@ extension History {
                                         }
                                     }
                                 }
-                                .frame(width: (geo.size.width * 0.5) - 10)
-                                .padding(.leading, 20)
+                                .frame(width: (geo.size.width * 0.5) - 5)
+                                .padding(.leading, 10)
                             } else {
                                 Spacer()
                             }
                         }
                     }
-                    .padding([.leading, .trailing, .top], 30)
+                    .padding([.leading, .top], 30)
+                    .padding(.trailing, 25)
                 }
             }
         }
