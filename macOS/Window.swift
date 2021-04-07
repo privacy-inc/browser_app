@@ -119,9 +119,7 @@ final class Window: NSWindow {
             self?.landing()
         }.store(in: &subs)
         
-        DispatchQueue.main.async { [weak self] in
-            self?.landing()
-        }
+        landing()
     }
     
     func newTab(_ url: URL?) {
