@@ -5,7 +5,7 @@ import Sleuth
 extension Field {
     final class Coordinator: UIView, UIKeyInput, UISearchBarDelegate {
         private weak var bar: UISearchBar!
-        private weak var rightView: NSLayoutConstraint!
+        private weak var findWidth: NSLayoutConstraint!
         private var leftView: UIView!
         private var editable = true
         private var subs = Set<AnyCancellable>()
@@ -59,15 +59,15 @@ extension Field {
                 self?.bar.text = $0
             }.store(in: &subs)
             
-            bar.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
-            bar.rightAnchor.constraint(equalTo: find.leftAnchor).isActive = true
+            bar.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor).isActive = true
+            bar.leftAnchor.constraint(equalTo: find.rightAnchor).isActive = true
             bar.centerYAnchor.constraint(equalTo: input.centerYAnchor).isActive = true
             
             find.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
             find.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
-            find.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor).isActive = true
-            rightView = find.widthAnchor.constraint(equalToConstant: 0)
-            rightView.isActive = true
+            find.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
+            findWidth = find.widthAnchor.constraint(equalToConstant: 0)
+            findWidth.isActive = true
         }
         
         @discardableResult override func becomeFirstResponder() -> Bool {
@@ -126,19 +126,20 @@ extension Field {
         private func changed() {
             bar.text.map {
                 if $0.isEmpty == true {
-                    bar.setShowsCancelButton(true, animated: true)
                     bar.searchTextField.leftView = leftView
-                    rightView.constant = 0
+                    findWidth.constant = 0
                 } else {
-                    bar.setShowsCancelButton(false, animated: true)
                     bar.searchTextField.leftView = nil
                     if view.session.page?.url != nil {
-                        rightView.constant = 60
+                        findWidth.constant = 60
                     } else {
-                        rightView.constant = 0
+                        findWidth.constant = 0
                     }
                 }
                 view.session.search = $0
+                UIView.animate(withDuration: 0.3) { [weak self] in
+                    self?.input.layoutIfNeeded()
+                }
             }
         }
         
