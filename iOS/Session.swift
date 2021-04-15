@@ -16,7 +16,6 @@ struct Session {
     
     var error: String?
     var modal: Modal?
-    var typing = false
     var backwards = false
     var forwards = false
     var loading = false

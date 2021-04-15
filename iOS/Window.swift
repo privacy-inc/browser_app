@@ -28,66 +28,65 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
             } else {
                 Web(session: $session)
                     .padding(.init(top: 0, leading: 0,
-                                   bottom: session.typing || vertical == .compact ? 0 : Metrics.search.bar + Metrics.search.progress,
-                                   trailing: vertical == .compact && !session.typing ? Metrics.search.bar + Metrics.search.progress : 0))
+                                   bottom: vertical == .compact ? 0 : Metrics.search.bar + Metrics.search.progress,
+                                   trailing: vertical == .compact ? Metrics.search.bar + Metrics.search.progress : 0))
                 if session.error != nil {
                     Issue(session: $session)
                 }
             }
-            if !session.typing {
-                if vertical == .compact {
-                    HStack(spacing: 0) {
-                        Spacer()
-                        if session.page != nil {
-                            GeometryReader { geo in
-                                ZStack {
+            if vertical == .compact {
+                HStack(spacing: 0) {
+                    Spacer()
+                    if session.page != nil {
+                        GeometryReader { geo in
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color(white: 0, opacity: 0.1))
+                                VStack {
                                     Rectangle()
-                                        .fill(Color(white: 0, opacity: 0.1))
-                                    VStack {
-                                        Rectangle()
-                                            .fill(Color.accentColor)
-                                            .frame(height: geo.size.height * .init(session.progress))
-                                            .animation(.spring(blendDuration: 0.4))
-                                        Spacer()
-                                    }
+                                        .fill(Color.accentColor)
+                                        .frame(height: geo.size.height * .init(session.progress))
+                                        .animation(.spring(blendDuration: 0.4))
+                                    Spacer()
                                 }
                             }
-                            .frame(width: Metrics.search.progress)
                         }
-                        VStack(spacing: Metrics.search.spacing) {
-                            Searchbar(session: $session)
-                        }
-                        .frame(width: Metrics.search.bar, alignment: .trailing)
+                        .frame(width: Metrics.search.progress)
                     }
-                } else {
-                    VStack(spacing: 0) {
-                        Spacer()
-                        if session.page != nil {
-                            GeometryReader { geo in
-                                ZStack {
+                    VStack(spacing: Metrics.search.spacing) {
+                        Searchbar(session: $session)
+                    }
+                    .frame(width: Metrics.search.bar, alignment: .trailing)
+                }
+            } else {
+                VStack(spacing: 0) {
+                    Spacer()
+                    if session.page != nil {
+                        GeometryReader { geo in
+                            ZStack {
+                                Rectangle()
+                                    .fill(Color(white: 0, opacity: 0.1))
+                                HStack {
                                     Rectangle()
-                                        .fill(Color(white: 0, opacity: 0.1))
-                                    HStack {
-                                        Rectangle()
-                                            .fill(Color.accentColor)
-                                            .frame(width: geo.size.width * .init(session.progress))
-                                            .animation(.spring(blendDuration: 0.4))
-                                        Spacer()
-                                    }
+                                        .fill(Color.accentColor)
+                                        .frame(width: geo.size.width * .init(session.progress))
+                                        .animation(.spring(blendDuration: 0.4))
+                                    Spacer()
                                 }
                             }
-                            .frame(height: Metrics.search.progress)
                         }
-                        HStack(spacing: Metrics.search.spacing) {
-                            Searchbar(session: $session)
-                        }
-                        .frame(height: Metrics.search.bar, alignment: .bottom)
+                        .frame(height: Metrics.search.progress)
                     }
+                    HStack(spacing: Metrics.search.spacing) {
+                        Searchbar(session: $session)
+                    }
+                    .frame(height: Metrics.search.bar, alignment: .bottom)
                 }
             }
             Field(session: $session)
                 .frame(width: 0, height: 0)
         }
+        .ignoresSafeArea(.keyboard)
         .animation(.easeInOut(duration: 0.3))
         .onReceive(session.purchases.open) {
             UIApplication.shared.resign()

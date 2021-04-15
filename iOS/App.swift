@@ -47,12 +47,6 @@ import Sleuth
                         session.pages = $0
                     }
                 }
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillShowNotification, object: nil)) { _ in
-                    session.typing = true
-                }
-                .onReceive(NotificationCenter.default.publisher(for: UIResponder.keyboardWillHideNotification, object: nil)) { _ in
-                    session.typing = false
-                }
         }
         .onChange(of: phase) {
             if $0 == .active {

@@ -79,10 +79,11 @@ struct Searchbar: View {
                     Text("URL")
                     Image(systemName: "link")
                 }
-                
             } label: {
                 Control.Circle.Shape(image: "plus", background: .background, pressed: false)
             }
+            .fixedSize()
+            .ignoresSafeArea(.all)
             .sheet(isPresented: $detail) {
                 Detail(session: $session)
             }

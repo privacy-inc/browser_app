@@ -11,7 +11,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     required init?(coder: NSCoder) { nil }
     init(configuration: WKWebViewConfiguration) {
-        configuration.suppressesIncrementalRendering = true
+        configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = Defaults.popups && Defaults.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = secure
