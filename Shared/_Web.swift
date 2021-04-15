@@ -4,9 +4,8 @@ import Sleuth
 
 class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     var subs = Set<AnyCancellable>()
-    let shield = Shield()
-    let trackers = Defaults.trackers
     let javascript = Defaults.javascript
+    let protection: Protection = Defaults.trackers ? Antitracker() : Simple()
     private let secure = Defaults.secure
     
     required init?(coder: NSCoder) { nil }

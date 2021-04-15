@@ -162,25 +162,21 @@ extension Web {
         }
         
         func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-            var sub: AnyCancellable?
-            sub = shield.policy(for: decidePolicyFor.request.url!, shield: trackers).receive(on: DispatchQueue.main).sink { [weak self] in
-                sub?.cancel()
-                switch $0 {
-                case .allow:
-                    print("allow \(decidePolicyFor.request.url!)")
-                    preferences.allowsContentJavaScript = self?.javascript ?? false
-                    decisionHandler(.allow, preferences)
-                case .external:
-                    print("external \(decidePolicyFor.request.url!)")
-                    decisionHandler(.cancel, preferences)
-                    UIApplication.shared.open(decidePolicyFor.request.url!)
-                case .ignore:
-                    decisionHandler(.cancel, preferences)
-                case .block(let domain):
-                    decisionHandler(.cancel, preferences)
-                    Share.blocked.append(domain)
-                    self?.view.session.update.send()
-                }
+            switch protection.policy(for: decidePolicyFor.request.url!) {
+            case .allow:
+                print("allow \(decidePolicyFor.request.url!)")
+                preferences.allowsContentJavaScript = javascript
+                decisionHandler(.allow, preferences)
+            case .external:
+                print("external \(decidePolicyFor.request.url!)")
+                decisionHandler(.cancel, preferences)
+                UIApplication.shared.open(decidePolicyFor.request.url!)
+            case .ignore:
+                decisionHandler(.cancel, preferences)
+            case .block(let domain):
+                decisionHandler(.cancel, preferences)
+                Share.blocked.append(domain)
+                view.session.update.send()
             }
         }
     }
