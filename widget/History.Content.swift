@@ -25,7 +25,7 @@ extension History {
                 } else {
                     GeometryReader { geo in
                         HStack(alignment: .top, spacing: 0) {
-                            VStack(spacing: 10) {
+                            VStack(spacing: 6) {
                                 Cell(page: pages.first!)
                                 if pages.count > 2 {
                                     Cell(page: pages[2])
@@ -36,13 +36,17 @@ extension History {
                                         if pages.count > 6 {
                                             Cell(page: pages[6])
                                                 .padding(.top)
+                                            if pages.count > 8 {
+                                                Cell(page: pages[8])
+                                                    .padding(.top)
+                                            }
                                         }
                                     }
                                 }
                             }
-                            .frame(width: family == .systemSmall ? geo.size.width : (geo.size.width * 0.5) - 5)
+                            .frame(width: family == .systemSmall ? geo.size.width : (geo.size.width * 0.5) - 3)
                             if family != .systemSmall, pages.count > 1 {
-                                VStack(spacing: 10) {
+                                VStack(spacing: 6) {
                                     Cell(page: pages[1])
                                     if pages.count > 3 {
                                         Cell(page: pages[3])
@@ -53,19 +57,23 @@ extension History {
                                             if pages.count > 7 {
                                                 Cell(page: pages[7])
                                                     .padding(.top)
+                                                if pages.count > 9 {
+                                                    Cell(page: pages[9])
+                                                        .padding(.top)
+                                                }
                                             }
                                         }
                                     }
                                 }
-                                .frame(width: (geo.size.width * 0.5) - 5)
-                                .padding(.leading, 10)
+                                .frame(width: (geo.size.width * 0.5) - 3)
+                                .padding(.leading, 6)
                             } else {
                                 Spacer()
                             }
                         }
                     }
                     .padding([.leading, .top], 30)
-                    .padding(.trailing, 25)
+                    .padding(.trailing, 23)
                 }
             }
         }

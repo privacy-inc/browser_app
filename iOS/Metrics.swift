@@ -3,7 +3,7 @@ import CoreGraphics
 extension Metrics {
     struct search {
         static let circle = CGFloat(50)
-        static let bar = CGFloat(60)
+        static let bar = CGFloat(75)
         static let progress = CGFloat(3)
         static let spacing = CGFloat(30)
     }

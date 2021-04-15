@@ -56,7 +56,7 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                     VStack(spacing: Metrics.search.spacing) {
                         Searchbar(session: $session)
                     }
-                    .frame(width: Metrics.search.bar, alignment: .trailing)
+                    .frame(width: Metrics.search.bar)
                 }
             } else {
                 VStack(spacing: 0) {
@@ -80,7 +80,7 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                     HStack(spacing: Metrics.search.spacing) {
                         Searchbar(session: $session)
                     }
-                    .frame(height: Metrics.search.bar, alignment: .bottom)
+                    .frame(height: Metrics.search.bar)
                 }
             }
             Field(session: $session)
