@@ -85,8 +85,14 @@ function makeDark(element) {
     }
 }
 
+                        
+setTimeout(function(){
+    
                         event = function(event){
-                                if (event.animationName == 'nodeInserted') makeDark(event.target);
+                                if (event.animationName == 'nodeInserted') {
+                                    makeDark(event.target);
+                                    window.webkit.messageHandlers.handler.postMessage('genesis');
+                                }
                             }
                                 
                         document.addEventListener('webkitAnimationStart', event, false);
@@ -95,6 +101,7 @@ function makeDark(element) {
                             style.innerHTML = " @-webkit-keyframes nodeInserted {   from { outline-color: #fff;  } to { outline-color: #000; } } * { -webkit-animation-duration: 0.01s; -webkit-animation-name: nodeInserted; }  ";
                             document.head.appendChild(style);
 
+}, 1);
 """, injectionTime: .atDocumentStart, forMainFrameOnly: false))
     }
     
