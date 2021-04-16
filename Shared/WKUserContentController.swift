@@ -53,56 +53,7 @@ extension WKUserContentController {
             }
         }
         
-//        addUserScript(.init(source: Scripts.dark, injectionTime: .atDocumentEnd, forMainFrameOnly: false))
-        
-        
-        addUserScript(.init(source: """
-
-function makeDark(element) {
-    const background_color = getComputedStyle(element).getPropertyValue("background-color");
-    const parts = background_color.match(/[\\d.]+/g);
-    const shadow = getComputedStyle(element).getPropertyValue("box-shadow");
-    const text_color = element.style.color;
-    const gradient = getComputedStyle(element).getPropertyValue("background").includes("gradient");
-
-    if (element.tagName != "A" && text_color != "") {
-        element.style.setProperty("color", "#cecccf", "important");
-    }
-
-    if (shadow != "none") {
-        element.style.setProperty("box-shadow", "none", "important");
-    }
-
-    if (gradient) {
-        element.style.background = "none";
-        element.style.backgroundColor = "rgba(37, 34, 40)";
-    } else if (parts.length > 3) {
-        if (parts[3] > 0) {
-            element.style.backgroundColor = `rgba(37, 34, 40, ${ parts[3] })`;
-        }
-    } else {
-        element.style.backgroundColor = "rgba(37, 34, 40)";
-    }
-}
-
-                        
-setTimeout(function(){
-    
-                        event = function(event){
-                                if (event.animationName == 'nodeInserted') {
-                                    makeDark(event.target);
-                                    window.webkit.messageHandlers.handler.postMessage('genesis');
-                                }
-                            }
-                                
-                        document.addEventListener('webkitAnimationStart', event, false);
-
-                        const style = document.createElement('style');
-                            style.innerHTML = " @-webkit-keyframes nodeInserted {   from { outline-color: #fff;  } to { outline-color: #000; } } * { -webkit-animation-duration: 0.01s; -webkit-animation-name: nodeInserted; }  ";
-                            document.head.appendChild(style);
-
-}, 1);
-""", injectionTime: .atDocumentStart, forMainFrameOnly: false))
+        addUserScript(.init(source: Scripts.dark, injectionTime: .atDocumentStart, forMainFrameOnly: true))
     }
     
     func secure() {

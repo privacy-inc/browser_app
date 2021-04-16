@@ -17,8 +17,6 @@ extension Web {
                     }
                 }
                 (NSApp as! App).geolocation()
-            case "genesis":
-                print("genesis")
             default: break
             }
         }
