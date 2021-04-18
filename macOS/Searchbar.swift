@@ -110,15 +110,7 @@ final class Searchbar: NSView {
         }.store(in: &subs)
         
         left.click.sink {
-            if browser.error.value == nil {
-                if browser.backwards.value {
-                    browser.previous.send()
-                } else if browser.page.value != nil {
-                    browser.close.send()
-                }
-            } else {
-                browser.unerror.send()
-            }
+            browser.previous.send()
         }.store(in: &subs)
         
         right.click.sink {
@@ -135,11 +127,13 @@ final class Searchbar: NSView {
         
         browser.page.sink {
             guard let url = $0?.url else {
+                left.state = .off
                 lupe.isHidden = false
                 lock.isHidden = true
                 warning.isHidden = true
                 return
             }
+            left.state = .on
             lupe.isHidden = true
             lock.isHidden = url.scheme != Scheme.https.rawValue
             warning.isHidden = url.scheme == Scheme.https.rawValue
@@ -153,12 +147,6 @@ final class Searchbar: NSView {
             }
             xmark.isHidden = !$0.1
             clockwise.isHidden = $0.1
-        }.store(in: &subs)
-        
-        browser.backwards.combineLatest(browser.error, browser.page).sink {
-            left.state = $0.0 ? .on
-                : $0.1 != nil ? .on
-                : $0.2 != nil ? .on : .off
         }.store(in: &subs)
         
         browser.forwards.sink {

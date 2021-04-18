@@ -124,6 +124,7 @@ extension Web {
         func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
             loadHTMLString("<div style='margin: 50px; font-size: 3rem; font-family: -apple-system;'>\(withError.localizedDescription)</div>",
                            baseURL: (withError as? URLError)?.failingURL ?? URL(string: "data:text/html")!)
+            view.session.forwards = false
             view.session.page?.title = withError.localizedDescription
             view.session.progress = 1
         }

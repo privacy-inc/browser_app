@@ -50,26 +50,29 @@ final class Web: _Web {
             }
         }.store(in: &subs)
         
-        publisher(for: \.canGoBack).sink {
-            browser.backwards.value = $0
-        }.store(in: &subs)
-        
         publisher(for: \.canGoForward).sink {
             browser.forwards.value = $0
         }.store(in: &subs)
         
         browser.previous.sink { [weak self] in
-            browser.error.value = nil
-            self?.goBack()
+            if let url = self?.backForwardList.currentItem?.url {
+                if url != browser.page.value?.url {
+                    self?.load(.init(url: url))
+                } else if self?.backForwardList.backItem != nil {
+                    self?.goBack()
+                } else {
+                    browser.close.send()
+                }
+            } else {
+                browser.close.send()
+            }
         }.store(in: &subs)
         
         browser.next.sink { [weak self] in
-            browser.error.value = nil
             self?.goForward()
         }.store(in: &subs)
         
         browser.reload.sink { [weak self] in
-            browser.error.value = nil
             if let url = browser.page.value?.url {
                 if self?.url == nil {
                     self?.load(.init(url: url))
@@ -82,28 +85,13 @@ final class Web: _Web {
         browser.stop.sink { [weak self] in
             self?.stopLoading()
         }.store(in: &subs)
-        
-        browser.unerror.sink { [weak self] in
-            browser.error.value = nil
-            if let url = self?.url {
-                browser.page.value?.url = url
-                self?.title.map {
-                    browser.page.value?.title = $0
-                }
-            } else {
-                browser.close.send()
-            }
-        }.store(in: &subs)
-    }
-    
-    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-        browser.error.value = nil
     }
     
     func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
         loadHTMLString("<div style='margin: 20px; font-size: 1.2rem; font-family: -apple-system;'>\(withError.localizedDescription)</div>",
                        baseURL: (withError as? URLError)?.failingURL ?? URL(string: "data:text/html")!)
         browser.page.value?.title = withError.localizedDescription
+        browser.forwards.send(false)
         browser.progress.value = 1
     }
     

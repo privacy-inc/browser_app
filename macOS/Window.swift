@@ -6,7 +6,6 @@ final class Window: NSWindow {
     private(set) weak var web: Web?
     let browser = Browser()
     private weak var history: History?
-    private weak var issue: Issue?
     private weak var searchbar: Searchbar!
     private weak var separator: NSView!
     private var subs = Set<AnyCancellable>()
@@ -67,7 +66,6 @@ final class Window: NSWindow {
             guard let browser = self?.browser else { return }
             
             self?.history?.removeFromSuperview()
-            self?.issue?.removeFromSuperview()
             
             if browser.page.value == nil {
                 browser.page.value = .init(url: $0)
@@ -80,20 +78,6 @@ final class Window: NSWindow {
             }
             
             self?.web?.load(.init(url: $0))
-        }.store(in: &subs)
-        
-        browser.error.sink { [weak self] in
-            self?.issue?.removeFromSuperview()
-            
-            if $0 == nil {
-                self?.web?.isHidden = false
-            } else {
-                guard let browser = self?.browser else { return }
-                self?.web?.isHidden = true
-                let issue = Issue(browser: browser)
-                self?.add(issue)
-                self?.issue = issue
-            }
         }.store(in: &subs)
         
         browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
@@ -109,8 +93,6 @@ final class Window: NSWindow {
         
         browser.close.sink { [weak self] in
             self?.browser.page.value = nil
-            self?.browser.error.value = nil
-            self?.browser.backwards.value = false
             self?.browser.forwards.value = false
             self?.browser.loading.value = false
             self?.browser.progress.value = 0
