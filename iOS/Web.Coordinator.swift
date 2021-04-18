@@ -44,16 +44,22 @@ extension Web {
                 }
             }.store(in: &subs)
             
-            publisher(for: \.canGoBack).sink {
-                view.session.backwards = $0
-            }.store(in: &subs)
-            
             publisher(for: \.canGoForward).sink {
                 view.session.forwards = $0
             }.store(in: &subs)
             
             view.session.previous.sink { [weak self] in
-                self?.goBack()
+                if let url = self?.backForwardList.currentItem?.url {
+                    if url != view.session.page?.url {
+                        self?.load(.init(url: url))
+                    } else if self?.backForwardList.backItem != nil {
+                        self?.goBack()
+                    } else {
+                        view.session.page = nil
+                    }
+                } else {
+                    view.session.page = nil
+                }
             }.store(in: &subs)
             
             view.session.next.sink { [weak self] in
@@ -72,17 +78,6 @@ extension Web {
                 self?.load(.init(url: $0))
             }.store(in: &subs)
             
-            view.session.unerror.sink { [weak self] in
-                view.session.error = nil
-                if let url = self?.url {
-                    view.session.page?.url = url
-                    self?.title.map {
-                        view.session.page?.title = $0
-                    }
-                } else {
-                    view.session.page = nil
-                }
-            }.store(in: &subs)
             view.session.find.sink { [weak self] in
                 self?.select(nil)
                 self?.find($0) {
@@ -120,7 +115,6 @@ extension Web {
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
             UIApplication.shared.resign()
-            view.session.error = nil
         }
         
         func webView(_: WKWebView, didFinish: WKNavigation!) {

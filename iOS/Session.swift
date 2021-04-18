@@ -6,7 +6,6 @@ struct Session {
     var page: Page? {
         didSet {
             guard let page = page else {
-                error = nil
                 search = ""
                 return
             }
@@ -14,9 +13,7 @@ struct Session {
         }
     }
     
-    var error: String?
     var modal: Modal?
-    var backwards = false
     var forwards = false
     var loading = false
     var progress = Double()
@@ -37,6 +34,5 @@ struct Session {
     let dismiss = PassthroughSubject<Void, Never>()
     let forget = PassthroughSubject<Void, Never>()
     let update = PassthroughSubject<Void, Never>()
-    let unerror = PassthroughSubject<Void, Never>()
     let history = PassthroughSubject<Void, Never>()
 }

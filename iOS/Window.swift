@@ -30,9 +30,6 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                     .padding(.init(top: 0, leading: 0,
                                    bottom: vertical == .compact ? 0 : Metrics.search.bar + Metrics.search.progress,
                                    trailing: vertical == .compact ? Metrics.search.bar + Metrics.search.progress : 0))
-                if session.error != nil {
-                    Issue(session: $session)
-                }
             }
             if vertical == .compact {
                 HStack(spacing: 0) {

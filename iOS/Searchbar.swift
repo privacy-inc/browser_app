@@ -36,15 +36,7 @@ struct Searchbar: View {
                 
                 Menu {
                     Button {
-                        if session.error == nil {
-                            if session.backwards {
-                                session.previous.send()
-                            } else {
-                                session.page = nil
-                            }
-                        } else {
-                            session.unerror.send()
-                        }
+                        session.previous.send()
                     } label: {
                         Text("Back")
                         Image(systemName: "chevron.left")
