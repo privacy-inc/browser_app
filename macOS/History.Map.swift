@@ -69,7 +69,7 @@ extension History {
         private func reposition() {
             guard count > 0 else { return }
             let margin = Metrics.history.margin * 2
-            let size = CGSize(width: width - margin, height: 600)
+            let size = CGSize(width: width - (margin + 4), height: 600)
             var maxY = Metrics.history.top
             frames = pages.reduce(into: (Array(repeating: [(CGRect, UUID)](), count: count), count)) {
                 $0.1 = $0.1 < count - 1 ? $0.1 + 1 : 0
@@ -80,7 +80,7 @@ extension History {
                             $0.0.maxY + Metrics.history.padding
                         } ?? Metrics.history.top,
                         width: width,
-                        height: ceil($1.text.boundingRect(with: size, options: [.usesFontLeading, .usesLineFragmentOrigin]).height) + margin),
+                        height: ceil(CTFramesetterSuggestFrameSizeWithConstraints(CTFramesetterCreateWithAttributedString($1.text), CFRange(), nil, size, nil).height) + margin),
                      $1.page.id)
                 )
                 maxY = max(maxY, $0.0[$0.1].last!.0.maxY)

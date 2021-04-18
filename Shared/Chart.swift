@@ -7,7 +7,7 @@ struct Chart: View {
     
     init(chart: [Date]) {
         values = Self.values(with: chart)
-        since = chart.isEmpty ? "" : RelativeDateTimeFormatter().localizedString(for: chart.first!, relativeTo: .init())
+        since = chart.isEmpty ? "" : RelativeDateTimeFormatter().string(from: chart.first!, to: .init())
     }
     
     var body: some View {

@@ -128,29 +128,9 @@ extension Web {
         }
         
         func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-            if let error = withError as? URLError {
-                switch error.code {
-                case .networkConnectionLost,
-                     .notConnectedToInternet,
-                     .dnsLookupFailed,
-                     .resourceUnavailable,
-                     .unsupportedURL,
-                     .cannotFindHost,
-                     .cannotConnectToHost,
-                     .timedOut,
-                     .secureConnectionFailed,
-                     .serverCertificateUntrusted:
-                    error.failingURL.map {
-                        view.session.page?.url = $0
-                    }
-                    view.session.error = error.localizedDescription
-                    view.session.page?.title = error.localizedDescription
-                default: break
-                }
-            } else if (withError as NSError).code == 101 {
-                view.session.error = withError.localizedDescription
-                view.session.page?.title = withError.localizedDescription
-            }
+            loadHTMLString("<div style='margin: 50px; font-size: 3rem; font-family: -apple-system;'>\(withError.localizedDescription)</div>",
+                           baseURL: (withError as? URLError)?.failingURL ?? URL(string: "data:text/html")!)
+            view.session.page?.title = withError.localizedDescription
             view.session.progress = 1
         }
         

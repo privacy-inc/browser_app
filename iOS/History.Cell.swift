@@ -48,7 +48,7 @@ extension History {
             .background(RoundedRectangle(cornerRadius: 12)
                             .fill(background))
             .onAppear {
-                date = RelativeDateTimeFormatter().localizedString(for: page.date, relativeTo: .init())
+                date = RelativeDateTimeFormatter().string(from: page.date, to: .init())
             }
         }
     }

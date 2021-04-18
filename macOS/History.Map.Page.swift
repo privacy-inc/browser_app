@@ -10,7 +10,7 @@ extension History.Map {
             self.page = page
             text = {
                 $0.append(.init(string:
-                                    RelativeDateTimeFormatter().localizedString(for: page.date, relativeTo: .init()) + "\n", attributes: [
+                                    RelativeDateTimeFormatter().string(from: page.date, to: .init()) + "\n", attributes: [
                                         .font : NSFont.systemFont(ofSize: 12, weight: .regular),
                                         .foregroundColor : NSColor.secondaryLabelColor]))
 

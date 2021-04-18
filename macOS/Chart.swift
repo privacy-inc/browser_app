@@ -19,7 +19,7 @@ final class Chart: NSView {
         addSubview(title)
         
         let since = Text()
-        since.stringValue = chart.isEmpty ? "" : RelativeDateTimeFormatter().localizedString(for: chart.first!, relativeTo: .init())
+        since.stringValue = chart.isEmpty ? "" : RelativeDateTimeFormatter().string(from: chart.first!, to: .init())
         since.font = .systemFont(ofSize: 12, weight: .regular)
         since.textColor = .secondaryLabelColor
         addSubview(since)

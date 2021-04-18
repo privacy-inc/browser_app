@@ -101,29 +101,10 @@ final class Web: _Web {
     }
     
     func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-        if let error = withError as? URLError {
-            switch error.code {
-            case .networkConnectionLost,
-                 .notConnectedToInternet,
-                 .dnsLookupFailed,
-                 .resourceUnavailable,
-                 .unsupportedURL,
-                 .cannotFindHost,
-                 .cannotConnectToHost,
-                 .timedOut,
-                 .secureConnectionFailed,
-                 .serverCertificateUntrusted:
-                error.failingURL.map {
-                    browser.page.value!.url = $0
-                }
-                browser.error.value = error.localizedDescription
-                browser.page.value!.title = error.localizedDescription
-            default: break
-            }
-        } else if (withError as NSError).code == 101 {
-            browser.error.value = withError.localizedDescription
-            browser.page.value!.title = withError.localizedDescription
-        }
+        loadHTMLString("<div style='margin: 20px; font-size: 1.2rem; font-family: -apple-system;'>\(withError.localizedDescription)</div>",
+                       baseURL: (withError as? URLError)?.failingURL ?? URL(string: "data:text/html")!)
+        browser.page.value?.title = withError.localizedDescription
+        browser.progress.value = 1
     }
     
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

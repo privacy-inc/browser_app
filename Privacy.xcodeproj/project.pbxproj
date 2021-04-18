@@ -17,6 +17,9 @@
 		CE26C3B025A254D90091A529 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE26C3AF25A254D90091A529 /* Sleuth */; };
 		CE296F9325922FEC00E55E99 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE296F9225922FEC00E55E99 /* Scroll.swift */; };
 		CE31358F258CB3BE00A20487 /* Text.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE31358E258CB3BE00A20487 /* Text.swift */; };
+		CE382FD0262C45360090C032 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE382FCF262C45360090C032 /* RelativeDateTimeFormatter.swift */; };
+		CE382FD6262C453E0090C032 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE382FCF262C45360090C032 /* RelativeDateTimeFormatter.swift */; };
+		CE382FFC262C48700090C032 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE382FCF262C45360090C032 /* RelativeDateTimeFormatter.swift */; };
 		CE3B3B37259CAEED008C9682 /* History.Dynamic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B36259CAEED008C9682 /* History.Dynamic.swift */; };
 		CE3B3B3E259CAEF4008C9682 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B3D259CAEF4008C9682 /* Web.swift */; };
 		CE3B3B45259CAEFB008C9682 /* Web.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3B3B44259CAEFB008C9682 /* Web.Coordinator.swift */; };
@@ -203,6 +206,7 @@
 		CE26C3A825A253500091A529 /* Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Delegate.swift; sourceTree = "<group>"; };
 		CE296F9225922FEC00E55E99 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		CE31358E258CB3BE00A20487 /* Text.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Text.swift; sourceTree = "<group>"; };
+		CE382FCF262C45360090C032 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		CE3B3B36259CAEED008C9682 /* History.Dynamic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Dynamic.swift; sourceTree = "<group>"; };
 		CE3B3B3D259CAEF4008C9682 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CE3B3B44259CAEFB008C9682 /* Web.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Coordinator.swift; sourceTree = "<group>"; };
@@ -436,6 +440,7 @@
 				CED86D3325AC9E2400339314 /* Chart.Values.swift */,
 				CE8DF91325D4459C00FC0F19 /* Purchases.Item.swift */,
 				CE8DF90B25D4456A00FC0F19 /* Purchases.swift */,
+				CE382FCF262C45360090C032 /* RelativeDateTimeFormatter.swift */,
 				CED75E4D25891F1500352091 /* WKUserContentController.swift */,
 				CE6B9A3425D2ED400072853F /* Media.xcassets */,
 			);
@@ -760,6 +765,7 @@
 				CEE9FBE9258A5C2A00008857 /* History.Cell.swift in Sources */,
 				CE4E404425A5EADF007FCCF3 /* Issue.swift in Sources */,
 				CE5DEAA4259DF1B3005F78C8 /* Browser.swift in Sources */,
+				CE382FD0262C45360090C032 /* RelativeDateTimeFormatter.swift in Sources */,
 				CE826EBE25D8AC11004B547D /* _Metrics.swift in Sources */,
 				CED424B925D6B3050012F92D /* Plus.swift in Sources */,
 				CEE9FBE5258A509400008857 /* History.swift in Sources */,
@@ -828,6 +834,7 @@
 				CEA9B1C8259F6FA800782A87 /* Trackers.List.swift in Sources */,
 				CEF7881C259B6A9A001ADEBA /* Window.swift in Sources */,
 				CEF7882F259B75EA001ADEBA /* Control.Circle.swift in Sources */,
+				CE382FD6262C453E0090C032 /* RelativeDateTimeFormatter.swift in Sources */,
 				CE3B3B37259CAEED008C9682 /* History.Dynamic.swift in Sources */,
 				CE25612825A4995200BF1753 /* Modal.swift in Sources */,
 				CEA9B1EC259F79FE00782A87 /* Control.Option.swift in Sources */,
@@ -878,6 +885,7 @@
 				CE26C3A925A253500091A529 /* Delegate.swift in Sources */,
 				CEF7879C259B4312001ADEBA /* App.swift in Sources */,
 				CED86D4525AC9E3500339314 /* Chart.Values.swift in Sources */,
+				CE382FFC262C48700090C032 /* RelativeDateTimeFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
