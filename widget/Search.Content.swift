@@ -8,7 +8,7 @@ extension Search {
         
         var body: some View {
             ZStack {
-                Color(.secondarySystemBackground)
+                Color(.systemBackground)
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 switch family {
                 case .systemMedium:

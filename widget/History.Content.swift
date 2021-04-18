@@ -9,7 +9,7 @@ extension History {
         
         var body: some View {
             ZStack {
-                Color(.secondarySystemBackground)
+                Color(.systemBackground)
                     .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 if pages.isEmpty {
                     VStack {
@@ -29,51 +29,36 @@ extension History {
                                 Cell(page: pages.first!)
                                 if pages.count > 2 {
                                     Cell(page: pages[2])
-                                        .padding(.top)
                                     if pages.count > 4 {
                                         Cell(page: pages[4])
-                                            .padding(.top)
                                         if pages.count > 6 {
                                             Cell(page: pages[6])
-                                                .padding(.top)
-                                            if pages.count > 8 {
-                                                Cell(page: pages[8])
-                                                    .padding(.top)
-                                            }
                                         }
                                     }
                                 }
                             }
-                            .frame(width: family == .systemSmall ? geo.size.width : (geo.size.width * 0.5) - 3)
+                            .frame(width: family == .systemSmall ? geo.size.width : (geo.size.width * 0.5) - 6)
                             if family != .systemSmall, pages.count > 1 {
                                 VStack(spacing: 6) {
                                     Cell(page: pages[1])
                                     if pages.count > 3 {
                                         Cell(page: pages[3])
-                                            .padding(.top)
                                         if pages.count > 5 {
                                             Cell(page: pages[5])
-                                                .padding(.top)
                                             if pages.count > 7 {
                                                 Cell(page: pages[7])
-                                                    .padding(.top)
-                                                if pages.count > 9 {
-                                                    Cell(page: pages[9])
-                                                        .padding(.top)
-                                                }
                                             }
                                         }
                                     }
                                 }
-                                .frame(width: (geo.size.width * 0.5) - 3)
+                                .frame(width: (geo.size.width * 0.5) - 6)
                                 .padding(.leading, 6)
                             } else {
                                 Spacer()
                             }
                         }
                     }
-                    .padding([.leading, .top], 30)
-                    .padding(.trailing, 23)
+                    .padding([.leading, .top, .trailing], 20)
                 }
             }
         }
