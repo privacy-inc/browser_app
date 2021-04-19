@@ -21,10 +21,10 @@ extension History {
                             .foregroundColor(.init(.tertiaryLabel))
                             .lineLimit(page.title.isEmpty ? 5 : 3)
                     }
-                    .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding()
                 }
+                .fixedSize(horizontal: false, vertical: true)
             }
         }
     }
