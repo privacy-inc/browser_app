@@ -60,7 +60,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-        load(URLRequest(url: URL(string: "data:text/html," + """
+        load(.init(url: URL(string: "data:text/html," + """
 <html>\
     <head>\
         <title>\
