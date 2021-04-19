@@ -8,6 +8,13 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     let protection: Protection = Defaults.trackers ? Antitracker() : Simple()
     private let secure = Defaults.secure
     
+#if os(macOS)
+    private let rem = 1.1
+#endif
+#if os(iOS)
+private let rem = 2.5
+#endif
+    
     required init?(coder: NSCoder) { nil }
     init(configuration: WKWebViewConfiguration) {
         configuration.suppressesIncrementalRendering = false
@@ -50,5 +57,29 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
             return
         }
         completionHandler(.performDefaultHandling, nil)
+    }
+    
+    final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
+        load(URLRequest(url: URL(string: "data:text/html," + """
+<html>\
+    <head>\
+        <title>\
+            \(withError.localizedDescription)\
+        </title>\
+    </head>\
+    <body style='margin: 100px 30px; font-size: \(rem)rem; font-family: -apple-system; text-align: center;'>\
+        \((withError as? URLError)?.failingURL.map {
+            """
+        <a href="\($0)">\
+            \($0)\
+        </a>
+"""
+        } ?? "")
+        <div>\
+            \(withError.localizedDescription)\
+        </div>\
+    </body>\
+</html>
+""".addingPercentEncoding(withAllowedCharacters: [])!)!))
     }
 }

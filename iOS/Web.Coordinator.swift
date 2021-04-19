@@ -49,14 +49,8 @@ extension Web {
             }.store(in: &subs)
             
             view.session.previous.sink { [weak self] in
-                if let url = self?.backForwardList.currentItem?.url {
-                    if url != view.session.page?.url {
-                        self?.load(.init(url: url))
-                    } else if self?.backForwardList.backItem != nil {
-                        self?.goBack()
-                    } else {
-                        view.session.page = nil
-                    }
+                if self?.canGoBack == true {
+                    self?.goBack()
                 } else {
                     view.session.page = nil
                 }
@@ -120,15 +114,7 @@ extension Web {
         func webView(_: WKWebView, didFinish: WKNavigation!) {
             view.session.progress = 1
         }
-        
-        func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-            loadHTMLString("<div style='margin: 50px; font-size: 3rem; font-family: -apple-system;'>\(withError.localizedDescription)</div>",
-                           baseURL: (withError as? URLError)?.failingURL ?? URL(string: "data:text/html")!)
-            view.session.forwards = false
-            view.session.page?.title = withError.localizedDescription
-            view.session.progress = 1
-        }
-        
+
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
             if (action.targetFrame == nil && action.navigationType == .other) || action.navigationType == .linkActivated {
                 action.request.url.map(view.session.browse.send)

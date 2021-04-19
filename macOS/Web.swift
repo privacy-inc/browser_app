@@ -55,14 +55,8 @@ final class Web: _Web {
         }.store(in: &subs)
         
         browser.previous.sink { [weak self] in
-            if let url = self?.backForwardList.currentItem?.url {
-                if url != browser.page.value?.url {
-                    self?.load(.init(url: url))
-                } else if self?.backForwardList.backItem != nil {
-                    self?.goBack()
-                } else {
-                    browser.close.send()
-                }
+            if self?.canGoBack == true {
+                self?.goBack()
             } else {
                 browser.close.send()
             }
@@ -85,14 +79,6 @@ final class Web: _Web {
         browser.stop.sink { [weak self] in
             self?.stopLoading()
         }.store(in: &subs)
-    }
-    
-    func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-        loadHTMLString("<div style='margin: 20px; font-size: 1.2rem; font-family: -apple-system;'>\(withError.localizedDescription)</div>",
-                       baseURL: (withError as? URLError)?.failingURL ?? URL(string: "data:text/html")!)
-        browser.page.value?.title = withError.localizedDescription
-        browser.forwards.send(false)
-        browser.progress.value = 1
     }
     
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

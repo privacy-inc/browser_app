@@ -80,7 +80,7 @@ final class Window: NSWindow {
             self?.web?.load(.init(url: $0))
         }.store(in: &subs)
         
-        browser.page.debounce(for: .seconds(1), scheduler: DispatchQueue.main).sink { [weak self] in
+        browser.page.debounce(for: .milliseconds(100), scheduler: DispatchQueue.main).sink { [weak self] in
             $0.map {
                 guard !$0.title.isEmpty else { return }
                 self?.tab.title = $0.title
