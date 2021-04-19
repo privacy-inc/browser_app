@@ -12,7 +12,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     private let rem = 1.1
 #endif
 #if os(iOS)
-private let rem = 2.5
+    private let rem = 2.5
 #endif
     
     required init?(coder: NSCoder) { nil }
