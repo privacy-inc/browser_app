@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Sleuth
 
 struct Session {
     var modal: Modal?
@@ -19,4 +20,13 @@ struct Session {
     let print = PassthroughSubject<Void, Never>()
     let pdf = PassthroughSubject<Void, Never>()
     let dismiss = PassthroughSubject<Void, Never>()
+    
+    var entry: Entry? {
+        guard case let .browse(id) = section else { return nil }
+        return Synch.cloud.entry(id)
+    }
+    
+    var access: URL? {
+        entry?.access
+    }
 }

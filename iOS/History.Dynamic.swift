@@ -6,20 +6,18 @@ extension History {
         @Binding var session: Session
         let size: Size
         let horizontal: Bool
-        @State private var list = [[Page]]()
+        @State private var list = [[Entry]]()
         
         var body: some View {
             ScrollView {
                 HStack(alignment: .top) {
                     Spacer()
-                    ForEach(list, id: \.self) { pages in
+                    ForEach(0 ..< list.count, id: \.self) { listed in
                         VStack(spacing: Metrics.history.spacing * 2) {
-                            ForEach(pages) { page in
-                                Cell(page: page, delete: delete) {
+                            ForEach(0 ..< list[listed].count, id: \.self) { index in
+                                Cell(entry: list[listed][index], delete: delete) {
                                     UIApplication.shared.resign()
-                                    var page = page
-                                    page.date = .init()
-                                    session.page = page
+                                    session.section = .browse(list[listed][index].id)
                                 }
                             }
                             if !horizontal {
@@ -33,14 +31,8 @@ extension History {
                 }
             }
             .animation(.spring(blendDuration: 0.4))
-            .onAppear {
-                if session.pages.isEmpty {
-                    session.history.send()
-                } else {
-                    refresh()
-                }
-            }
-            .onChange(of: session.pages) { _ in
+            .onAppear(perform: refresh)
+            .onReceive(Synch.cloud.archive.receive(on: DispatchQueue.main)) { _ in
                 refresh()
             }
             .onChange(of: session.search) { _ in
@@ -49,26 +41,26 @@ extension History {
         }
         
         private func refresh() {
-            list = ({ search in
+            list = ({ search, entries in
                 search.isEmpty
-                    ? session.pages
-                    : session.pages.filter {
-                        $0.title.localizedCaseInsensitiveContains(search)
-                        || $0.url.absoluteString.localizedCaseInsensitiveContains(search)
-                    }
-            } (session.search.trimmingCharacters(in: .whitespacesAndNewlines))).reduce(into: (Array(repeating: [], count: size.lines), size.lines)) {
+                    ? entries
+                    : entries
+                        .filter {
+                            $0.title.localizedCaseInsensitiveContains(search)
+                            || $0.url.localizedCaseInsensitiveContains(search)
+                        }
+            } (session
+                .search
+                .trimmingCharacters(in: .whitespacesAndNewlines), Synch.cloud.archive.value.entries.reversed()))
+            .reduce(into: (Array(repeating: [], count: size.lines), size.lines)) {
                 $0.1 = $0.1 < size.lines - 1 ? $0.1 + 1 : 0
                 $0.0[$0.1].append($1)
             }.0
         }
         
-        private func delete(_ page: Page) {
+        private func delete(_ id: Int) {
             UIApplication.shared.resign()
-            FileManager.delete(page)
-            session.pages.firstIndex(of: page).map {
-                session.pages.remove(at: $0)
-                session.update.send()
-            }
+            Synch.cloud.remove(id)
         }
     }
 }

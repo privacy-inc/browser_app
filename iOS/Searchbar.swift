@@ -7,14 +7,15 @@ struct Searchbar: View {
     @State private var detail = false
     
     var body: some View {
-        if session.page == nil {
+        switch session.section {
+        case .history:
             Control.Circle(image: "eyeglasses") {
                 stats = true
             }
             .sheet(isPresented: $stats) {
                 Stats(session: $session)
             }
-        } else {
+        case .browse:
             Menu {
                 Button {
                     detail = true
@@ -54,7 +55,10 @@ struct Searchbar: View {
                 
                 Menu {
                     Button {
-                        session.text.send(session.page!.url.absoluteString)
+                        session
+                            .entry
+                            .map(\.url)
+                            .map(session.text.send)
                         session.type.send()
                     } label: {
                         Text("Edit")
@@ -62,7 +66,11 @@ struct Searchbar: View {
                     }
                     
                     Button {
-                        UIPasteboard.general.string = session.page!.url.absoluteString
+                        session
+                            .entry
+                            .map {
+                                UIPasteboard.general.string = $0.url
+                            }
                     } label: {
                         Text("Copy")
                         Image(systemName: "doc.on.doc")
@@ -80,17 +88,20 @@ struct Searchbar: View {
                 Detail(session: $session)
             }
         }
+        
         Control.Circle(image: "magnifyingglass", action: session.type.send)
-        if session.page == nil {
+        
+        switch session.section {
+        case .history:
             Control.Circle(image: "slider.horizontal.3") {
                 settings = true
             }
             .sheet(isPresented: $settings) {
                 Settings(session: $session)
             }
-        } else {
+        case .browse:
             Control.Circle(image: "xmark") {
-                session.page = nil
+                session.section = .history
             }
         }
     }

@@ -20,7 +20,7 @@ struct Stats: View {
                 .contentShape(Rectangle())
                 .padding(.top)
             }
-            Chart(chart: Share.chart)
+            Chart(chart: Synch.cloud.archive.value.activity)
                 .frame(height: 220)
                 .padding(.bottom)
             Trackers(session: $session)
@@ -30,7 +30,7 @@ struct Stats: View {
                 Text("Forget")
                     .font(.footnote)
                 Control.Circle(background: .init(.systemBackground), image: "flame.fill") {
-                    session.forget.send()
+                    Synch.cloud.forget()
                     visible.wrappedValue.dismiss()
                 }
             }

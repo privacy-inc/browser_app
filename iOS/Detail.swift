@@ -1,4 +1,5 @@
 import SwiftUI
+import Sleuth
 
 struct Detail: View {
     @Binding var session: Session
@@ -21,11 +22,11 @@ struct Detail: View {
             }
             HStack {
                 VStack(alignment: .leading) {
-                    Text(verbatim: session.page!.title)
+                    Text(verbatim: session.entry!.title)
                         .fixedSize(horizontal: false, vertical: true)
                         .font(Font.title2.bold())
                         .foregroundColor(.primary)
-                    Text(verbatim: session.page!.url.absoluteString)
+                    Text(verbatim: session.entry!.url)
                         .fixedSize(horizontal: false, vertical: true)
                         .font(.footnote)
                         .foregroundColor(.secondary)

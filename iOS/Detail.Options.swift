@@ -1,4 +1,5 @@
 import SwiftUI
+import Sleuth
 
 extension Detail {
     struct Options: View {
@@ -21,23 +22,36 @@ extension Detail {
                     .frame(height: 50)
                 } else {
                     Control.Option(text: "Add to Photos", image: "photo") {
-                        (try? Data(contentsOf: session.page!.url)).flatMap(UIImage.init(data:)).map {
-                            UIImageWriteToSavedPhotosAlbum($0, nil, nil, nil)
-                            added = true
-                        }
+                        session
+                            .access
+                            .flatMap {
+                                try? Data(contentsOf: $0)
+                            }
+                            .flatMap(UIImage.init(data:))
+                            .map {
+                                UIImageWriteToSavedPhotosAlbum($0, nil, nil, nil)
+                                added = true
+                            }
                     }
                 }
             }
             Control.Option(text: "Share", image: "square.and.arrow.up") {
-                UIApplication.shared.share(session.page!.url)
+                session
+                    .access
+                    .map(UIApplication.shared.share)
             }
             Control.Option(text: "Download", image: "square.and.arrow.down") {
-                (try? Data(contentsOf: session.page!.url))
-                    .map {
-                        $0.temporal({
-                            $0.isEmpty ? "Page.webarchive" : $0.contains(".") ? $0 : $0 + ".webarchive"
-                        } (session.page!.url.lastPathComponent.replacingOccurrences(of: "/", with: "")))
-                    }.map(UIApplication.shared.share)
+                session
+                    .access
+                    .flatMap { access in
+                        (try? Data(contentsOf: access))
+                            .map {
+                                $0.temporal({
+                                    $0.isEmpty ? "Page.webarchive" : $0.contains(".") ? $0 : $0 + ".webarchive"
+                                } (access.lastPathComponent.replacingOccurrences(of: "/", with: "")))
+                            }
+                    }
+                    .map(UIApplication.shared.share)
             }
             Control.Option(text: "Print", image: "printer") {
                 session.print.send()
@@ -48,10 +62,14 @@ extension Detail {
         }
         
         private var photo: Bool {
-            switch session.page!.url.absoluteString.components(separatedBy: ".").last!.lowercased() {
-            case "png", "jpg", "jpeg", "bmp", "gif": return true
-            default: return false
-            }
+            session
+                .access
+                .map {
+                    switch $0.absoluteString.components(separatedBy: ".").last!.lowercased() {
+                    case "png", "jpg", "jpeg", "bmp", "gif": return true
+                    default: return false
+                    }
+                } ?? false
         }
     }
 }

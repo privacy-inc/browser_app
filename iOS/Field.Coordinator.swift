@@ -95,26 +95,18 @@ extension Field {
         func searchBarSearchButtonClicked(_: UISearchBar) {
             bar.text.map {
                 var sub: AnyCancellable?
-                sub = Synch.cloud.browse(Defaults.engine, $0)
+                sub = Synch.cloud.browse($0)
                     .receive(on: DispatchQueue.main)
                     .sink { [weak self] in
                         sub?.cancel()
                         $0.map {
-                            let url: URL
                             switch $0.0 {
-                            case let .search(search):
-                                url = search
-                            case let .navigate(navigate):
-                                url = navigate
-                                bar.text = nil
-                                changed()
+                            case .navigate:
+                                self?.bar.text = nil
+                                self?.changed()
+                            default: break
                             }
-                            
-                            if view.session.page == nil {
-                                view.session.page = .init(url: url)
-                            } else {
-                                view.session.browse.send(url)
-                            }
+                            self?.view.session.section = .browse($0.1)
                         }
                     }
                 bar.resignFirstResponder()
@@ -136,10 +128,11 @@ extension Field {
                     findWidth.constant = 0
                 } else {
                     bar.searchTextField.leftView = nil
-                    if view.session.page?.url != nil {
-                        findWidth.constant = 60
-                    } else {
+                    switch view.session.section {
+                    case .history:
                         findWidth.constant = 0
+                    case .browse:
+                        findWidth.constant = 60
                     }
                 }
                 view.session.search = $0

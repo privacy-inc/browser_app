@@ -3,8 +3,8 @@ import Sleuth
 
 extension History {
     struct Cell: View {
-        let page: Page
-        let delete: (Page) -> Void
+        let entry: Entry
+        let delete: (Int) -> Void
         let open: () -> Void
         @State private var date = ""
         @State private var background = Color.primary.opacity(0.03)
@@ -16,13 +16,13 @@ extension History {
                         Text(verbatim: date)
                             .font(.caption2)
                             .foregroundColor(.init(.secondary))
-                        if !page.title.isEmpty {
-                            Text(verbatim: page.title)
+                        if !entry.title.isEmpty {
+                            Text(verbatim: entry.title)
                                 .font(.footnote)
                                 .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(.primary)
                         }
-                        Text(verbatim: page.url.absoluteString)
+                        Text(verbatim: entry.url)
                             .font(.caption2)
                             .fixedSize(horizontal: false, vertical: true)
                             .lineLimit(3)
@@ -36,7 +36,7 @@ extension History {
                     withAnimation(.easeInOut(duration: 0.2)) {
                         background = .pink
                     }
-                    delete(page)
+                    delete(entry.id)
                 } label: {
                     Image(systemName: "xmark")
                         .font(.caption2)
@@ -48,7 +48,7 @@ extension History {
             .background(RoundedRectangle(cornerRadius: 12)
                             .fill(background))
             .onAppear {
-                date = RelativeDateTimeFormatter().string(from: page.date, to: .init())
+                date = RelativeDateTimeFormatter().string(from: entry.date, to: .init())
             }
         }
     }
