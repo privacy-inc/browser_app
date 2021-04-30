@@ -14,6 +14,8 @@ struct Web: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: Coordinator, context: Context) {
-        uiView.load(id)
+        if uiView.id != id {
+            uiView.load(id)
+        }
     }
 }

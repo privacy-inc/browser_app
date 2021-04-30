@@ -100,8 +100,6 @@ extension Web {
                     UIApplication.shared.share(data.temporal(name))
                 }
             }.store(in: &subs)
-            
-            load(view.id)
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -110,6 +108,7 @@ extension Web {
         
         func webView(_: WKWebView, didFinish: WKNavigation!) {
             view.session.progress = 1
+            Synch.cloud.activity()
         }
 
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {

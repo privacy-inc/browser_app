@@ -3,6 +3,7 @@ import Combine
 import Sleuth
 
 class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
+    var id: Int?
     var subs = Set<AnyCancellable>()
     let javascript = Defaults.javascript
     let protection = Defaults.trackers ? Protection.antitracker : .simple
@@ -52,6 +53,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     final func load(_ id: Int) {
+        self.id = id
         _ = Synch
             .cloud
             .entry(id)
