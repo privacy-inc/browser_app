@@ -1,9 +1,7 @@
 import SwiftUI
-import WatchConnectivity
 import Sleuth
 
 @main struct App: SwiftUI.App {
-    @ObservedObject private var delegate = Delegate()
     @State private var alert = false
     @State private var tab = 0
     @State private var formatter = NumberFormatter()
@@ -14,8 +12,8 @@ import Sleuth
                 ZStack {
                     Color("Background")
                         .edgesIgnoringSafeArea(.all)
-                    Chart(chart: delegate.chart)
-                        .padding()
+//                    Chart(chart: delegate.chart)
+//                        .padding()
                 }
                 .tag(0)
                 ZStack {
@@ -23,9 +21,9 @@ import Sleuth
                         .edgesIgnoringSafeArea(.all)
                     VStack {
                         HStack {
-                            Text(NSNumber(value: delegate.blocked.count), formatter: formatter)
-                                .font(Font.largeTitle.bold())
-                                .padding(.leading)
+//                            Text(NSNumber(value: delegate.blocked.count), formatter: formatter)
+//                                .font(Font.largeTitle.bold())
+//                                .padding(.leading)
                             Spacer()
                         }
                         Spacer()
@@ -60,7 +58,7 @@ import Sleuth
                             Alert(title: .init("Forget everything?"),
                                   primaryButton: .default(.init("Cancel")),
                                   secondaryButton: .destructive(.init("Forget")) {
-                                    delegate.forget()
+//                                    delegate.forget()
                             })
                         }
                 }
@@ -69,13 +67,6 @@ import Sleuth
             .tabViewStyle(PageTabViewStyle())
             .onAppear {
                 formatter.numberStyle = .decimal
-                if WCSession.default.activationState != .activated {
-                    WCSession.default.delegate = delegate
-                    WCSession.default.activate()
-                }
-            }
-            .onChange(of: tab) { _ in
-                delegate.refresh()
             }
         }
     }

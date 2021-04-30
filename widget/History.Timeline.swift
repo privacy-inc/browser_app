@@ -3,10 +3,10 @@ import Sleuth
 
 extension History {
     struct Timeline: TimelineEntry {
-        static var current: Self { .init(pages: Share.history, date: .init()) }
-        static let placeholder = Self(pages: [], date: .distantPast)
+        static var current: Self { .init(entries: [], date: .init()) }
+        static let placeholder = Self(entries: [], date: .distantPast)
         
-        let pages: [Share.Page]
+        let entries: [Entry]
         let date: Date
     }
 }

@@ -94,23 +94,29 @@ extension Field {
         
         func searchBarSearchButtonClicked(_: UISearchBar) {
             bar.text.map {
-                Defaults.engine.browse($0).map {
-                    let url: URL
-                    switch $0 {
-                    case let .search(search):
-                        url = search
-                    case let .navigate(navigate):
-                        url = navigate
-                        bar.text = nil
-                        changed()
+                var sub: AnyCancellable?
+                sub = Synch.cloud.browse(Defaults.engine, $0)
+                    .receive(on: DispatchQueue.main)
+                    .sink { [weak self] in
+                        sub?.cancel()
+                        $0.map {
+                            let url: URL
+                            switch $0.0 {
+                            case let .search(search):
+                                url = search
+                            case let .navigate(navigate):
+                                url = navigate
+                                bar.text = nil
+                                changed()
+                            }
+                            
+                            if view.session.page == nil {
+                                view.session.page = .init(url: url)
+                            } else {
+                                view.session.browse.send(url)
+                            }
+                        }
                     }
-                    
-                    if view.session.page == nil {
-                        view.session.page = .init(url: url)
-                    } else {
-                        view.session.browse.send(url)
-                    }
-                }
                 bar.resignFirstResponder()
             }
         }

@@ -3,23 +3,23 @@ import Sleuth
 
 extension History {
     struct Cell: View {
-        let page: Share.Page
+        let entry: Entry
         
         var body: some View {
-            Link(destination: page.url) {
+            Link(destination: entry.access!) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 14)
                         .fill(Color.primary.opacity(0.04))
                     VStack(alignment: .leading) {
-                        if !page.title.isEmpty {
-                            Text(verbatim: page.title)
+                        if !entry.title.isEmpty {
+                            Text(verbatim: entry.title)
                                 .font(.caption)
                                 .lineLimit(4)
                         }
-                        Text(verbatim: page.subtitle)
+                        Text(verbatim: entry.url)
                             .font(.caption2)
                             .foregroundColor(.init(.tertiaryLabel))
-                            .lineLimit(page.title.isEmpty ? 5 : 3)
+                            .lineLimit(entry.title.isEmpty ? 5 : 3)
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding()

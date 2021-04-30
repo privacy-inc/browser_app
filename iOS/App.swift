@@ -3,26 +3,15 @@ import Combine
 import Sleuth
 
 @main struct App: SwiftUI.App {
-    @State var session = Session()
+    @State private var session = Session()
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
     @Environment(\.scenePhase) private var phase
-    private let watch = Watch()
     private let widget = Widget()
     
     var body: some Scene {
         WindowGroup {
             Window(session: $session)
                 .onOpenURL(perform: open)
-                .onReceive(watch.forget, perform: session.forget.send)
-                .onReceive(session.forget) {
-                    FileManager.forget()
-                    UIApplication.shared.forget()
-                    session.pages = []
-                    Share.history = []
-                    Share.chart = []
-                    Share.blocked = []
-                    session.update.send()
-                }
                 .onReceive(delegate.froob) {
                     UIApplication.shared.resign()
                     session.dismiss.send()
@@ -30,29 +19,72 @@ import Sleuth
                         session.modal = .froob
                     }
                 }
-                .onReceive(session.save.debounce(for: .seconds(1), scheduler: DispatchQueue.main)) {
-                    FileManager.save($0)
-                    Share.chart.append(.init())
-                    session.update.send()
-                }
-                .onReceive(session.update.debounce(for: .seconds(3), scheduler: DispatchQueue.main)) {
-                    watch.update()
-                }
-                .onReceive(session.update.debounce(for: .seconds(2), scheduler: DispatchQueue.main).merge(with: session.history)) {
-                    var sub: AnyCancellable?
-                    sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-                        sub?.cancel()
-                        widget.update($0)
-                        guard $0 != session.pages else { return }
-                        session.pages = $0
-                    }
-                }
         }
         .onChange(of: phase) {
             if $0 == .active {
                 delegate.rate()
-                watch.activate()
             }
+        }
+    }
+    
+    private func open(_ url: URL) {
+        switch url.scheme.flatMap(Scheme.init(rawValue:)) {
+        case .privacy:
+            session.dismiss.send()
+            UIApplication.shared.resign()
+            url
+                .absoluteString
+                .dropFirst(Scheme.privacy.url.count)
+                .removingPercentEncoding
+                .map {
+                    var sub: AnyCancellable?
+                    sub = Synch
+                        .cloud
+                        .browse($0)
+                        .receive(on: DispatchQueue.main)
+                        .sink {
+                            sub?.cancel()
+                            $0.map {
+                                session.section = .browse($0.1)
+                            }
+                        }
+                }
+        case .privacy_id:
+            session.dismiss.send()
+            UIApplication.shared.resign()
+            Int(url.absoluteString.dropFirst(Scheme.privacy_id.url.count))
+                .map {
+                    Synch.cloud.revisit($0)
+                    session.section = .browse($0)
+                }
+        case .privacy_search:
+            session.dismiss.send()
+            session.section = .history
+            session.type.send()
+            session.text.send("")
+        case .privacy_forget:
+            session.dismiss.send()
+            UIApplication.shared.resign()
+            Synch.cloud.forget()
+        case .privacy_trackers:
+            if session.modal != .trackers {
+                UIApplication.shared.resign()
+                session.dismiss.send()
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    session.modal = .trackers
+                }
+            }
+        default:
+            session.dismiss.send()
+            UIApplication.shared.resign()
+            var sub: AnyCancellable?
+            sub = Synch
+                .cloud
+                .navigate(url)
+                .sink {
+                    sub?.cancel()
+                    session.section = .browse($0)
+                }
         }
     }
 }
