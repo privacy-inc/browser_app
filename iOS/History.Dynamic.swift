@@ -56,7 +56,7 @@ extension History {
                         $0.title.localizedCaseInsensitiveContains(search)
                         || $0.url.absoluteString.localizedCaseInsensitiveContains(search)
                     }
-            } (session.search.trimmingCharacters(in: .whitespacesAndNewlines))).reduce(into: (.init(repeating: [], count: size.lines), size.lines)) {
+            } (session.search.trimmingCharacters(in: .whitespacesAndNewlines))).reduce(into: (Array(repeating: [], count: size.lines), size.lines)) {
                 $0.1 = $0.1 < size.lines - 1 ? $0.1 + 1 : 0
                 $0.0[$0.1].append($1)
             }.0
