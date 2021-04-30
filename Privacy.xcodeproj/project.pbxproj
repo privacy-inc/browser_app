@@ -37,7 +37,6 @@
 		CE5DEAA4259DF1B3005F78C8 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DEAA3259DF1B3005F78C8 /* Browser.swift */; };
 		CE5DEACB259E127D005F78C8 /* History.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DEACA259E127D005F78C8 /* History.Cell.swift */; };
 		CE5DEAD7259E1E06005F78C8 /* History.Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE5DEAD6259E1E06005F78C8 /* History.Size.swift */; };
-		CE6768FF25D5634600C4A1AE /* Widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6768FE25D5634600C4A1AE /* Widget.swift */; };
 		CE67691C25D56A7400C4A1AE /* Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE67691B25D56A7400C4A1AE /* Metrics.swift */; };
 		CE67693725D5730A00C4A1AE /* History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE67693625D5730A00C4A1AE /* History.swift */; };
 		CE6A32D6259FB3990083FFBC /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A32D5259FB3990083FFBC /* Settings.swift */; };
@@ -224,7 +223,6 @@
 		CE5DEAA3259DF1B3005F78C8 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		CE5DEACA259E127D005F78C8 /* History.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Cell.swift; sourceTree = "<group>"; };
 		CE5DEAD6259E1E06005F78C8 /* History.Size.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.Size.swift; sourceTree = "<group>"; };
-		CE6768FE25D5634600C4A1AE /* Widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Widget.swift; sourceTree = "<group>"; };
 		CE67691B25D56A7400C4A1AE /* Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Metrics.swift; sourceTree = "<group>"; };
 		CE67693625D5730A00C4A1AE /* History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = History.swift; sourceTree = "<group>"; };
 		CE6A32D5259FB3990083FFBC /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
@@ -489,7 +487,6 @@
 				CEF78862259B7CAB001ADEBA /* UIApplication.swift */,
 				CE3B3B44259CAEFB008C9682 /* Web.Coordinator.swift */,
 				CE3B3B3D259CAEF4008C9682 /* Web.swift */,
-				CE6768FE25D5634600C4A1AE /* Widget.swift */,
 				CEF7881B259B6A9A001ADEBA /* Window.swift */,
 				CEF78760259B3E19001ADEBA /* Assets.xcassets */,
 			);
@@ -820,7 +817,6 @@
 				CE3B3B3E259CAEF4008C9682 /* Web.swift in Sources */,
 				CE3B3B62259CB75E008C9682 /* WKUserContentController.swift in Sources */,
 				CE8DF92625D4469E00FC0F19 /* Plus.swift in Sources */,
-				CE6768FF25D5634600C4A1AE /* Widget.swift in Sources */,
 				CE5DEACB259E127D005F78C8 /* History.Cell.swift in Sources */,
 				CEF78831259B75EA001ADEBA /* Control.swift in Sources */,
 				CEA9B1D4259F75EE00782A87 /* Trackers.swift in Sources */,

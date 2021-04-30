@@ -1,7 +1,9 @@
 import SwiftUI
+import Sleuth
 
 struct Web: UIViewRepresentable {
     @Binding var session: Session
+    let id: Int
     
     func makeCoordinator() -> Coordinator {
         .init(view: self)
@@ -11,5 +13,7 @@ struct Web: UIViewRepresentable {
         context.coordinator
     }
     
-    func updateUIView(_ uiView: Coordinator, context: Context) { }
+    func updateUIView(_ uiView: Coordinator, context: Context) {
+        uiView.load(id)
+    }
 }

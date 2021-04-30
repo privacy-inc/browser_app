@@ -34,13 +34,13 @@ extension Web {
             
             publisher(for: \.title).sink {
                 $0.map {
-                    view.session.page?.title = $0.trimmingCharacters(in: .whitespacesAndNewlines)
+                    Synch.cloud.update(view.id, title: $0)
                 }
             }.store(in: &subs)
             
             publisher(for: \.url).sink {
                 $0.map {
-                    view.session.page?.url = $0
+                    Synch.cloud.update(view.id, url: $0)
                 }
             }.store(in: &subs)
             
@@ -52,7 +52,7 @@ extension Web {
                 if self?.canGoBack == true {
                     self?.goBack()
                 } else {
-                    view.session.page = nil
+                    view.session.section = .history
                 }
             }.store(in: &subs)
             
@@ -66,10 +66,6 @@ extension Web {
             
             view.session.stop.sink { [weak self] in
                 self?.stopLoading()
-            }.store(in: &subs)
-            
-            view.session.browse.sink { [weak self] in
-                self?.load(.init(url: $0))
             }.store(in: &subs)
             
             view.session.find.sink { [weak self] in
@@ -90,21 +86,22 @@ extension Web {
             
             view.session.pdf.sink { [weak self] in
                 self?.createPDF {
-                    if case .success(let data) = $0 {
-                        guard var name = self?.view.session.page?.url.lastPathComponent.replacingOccurrences(of: "/", with: "") else { return }
-                        if name.isEmpty {
-                            name = "Page.pdf"
-                        } else if !name.hasSuffix(".pdf") {
-                            name = {
-                                $0.count > 1 ? $0.dropLast().joined(separator: ".") : $0.first!
-                            } (name.components(separatedBy: ".")) + ".pdf"
-                        }
-                        UIApplication.shared.share(data.temporal(name))
+                    guard
+                        case let .success(data) = $0,
+                        var name = view.session.entry?.url.components(separatedBy: "/").last
+                    else { return }
+                    if name.isEmpty {
+                        name = "Page.pdf"
+                    } else if !name.hasSuffix(".pdf") {
+                        name = {
+                            $0.count > 1 ? $0.dropLast().joined(separator: ".") : $0.first!
+                        } (name.components(separatedBy: ".")) + ".pdf"
                     }
+                    UIApplication.shared.share(data.temporal(name))
                 }
             }.store(in: &subs)
             
-            load(.init(url: view.session.page!.url))
+            load(view.id)
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -117,13 +114,19 @@ extension Web {
 
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
             if (action.targetFrame == nil && action.navigationType == .other) || action.navigationType == .linkActivated {
-                action.request.url.map(view.session.browse.send)
+                _ = action
+                    .request
+                    .url
+                    .map {
+                        .init(url: $0)
+                    }
+                    .map(load)
             }
             return nil
         }
         
         func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-            switch protection.policy(for: decidePolicyFor.request.url!) {
+            switch Synch.cloud.validate(decidePolicyFor.request.url!, with: protection) {
             case .allow:
                 print("allow \(decidePolicyFor.request.url!)")
                 preferences.allowsContentJavaScript = javascript
@@ -134,10 +137,8 @@ extension Web {
                 UIApplication.shared.open(decidePolicyFor.request.url!)
             case .ignore:
                 decisionHandler(.cancel, preferences)
-            case .block(let domain):
+            case .block:
                 decisionHandler(.cancel, preferences)
-                Share.blocked.append(domain)
-                view.session.update.send()
             }
         }
     }

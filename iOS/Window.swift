@@ -23,10 +23,11 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
                         }
                     }
                 }
-            if session.page == nil {
+            switch session.section {
+            case .history:
                 History(session: $session, horizontal: vertical == .compact)
-            } else {
-                Web(session: $session)
+            case let .browse(id):
+                Web(session: $session, id: id)
                     .padding(.init(top: 0, leading: 0,
                                    bottom: vertical == .compact ? 0 : Metrics.search.bar + Metrics.search.progress,
                                    trailing: vertical == .compact ? Metrics.search.bar + Metrics.search.progress : 0))
@@ -34,7 +35,7 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
             if vertical == .compact {
                 HStack(spacing: 0) {
                     Spacer()
-                    if session.page != nil {
+                    if case .browse = session.section {
                         GeometryReader { geo in
                             ZStack {
                                 Rectangle()
@@ -58,7 +59,7 @@ Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time
             } else {
                 VStack(spacing: 0) {
                     Spacer()
-                    if session.page != nil {
+                    if case .browse = session.section {
                         GeometryReader { geo in
                             ZStack {
                                 Rectangle()

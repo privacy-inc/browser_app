@@ -6,7 +6,6 @@ import Sleuth
     @State private var session = Session()
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
     @Environment(\.scenePhase) private var phase
-    private let widget = Widget()
     
     var body: some Scene {
         WindowGroup {

@@ -1,11 +1,13 @@
 import UIKit
 import Combine
+import WidgetKit
 import StoreKit
 import Sleuth
 
 extension App {
     final class Delegate: NSObject, UIApplicationDelegate {
         let froob = PassthroughSubject<Void, Never>()
+        private var subs = Set<AnyCancellable>()
         
         func rate() {
             DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
@@ -34,6 +36,21 @@ extension App {
                     }
                 }
             }
+            
+            
+            /*
+             Repository
+                 .memory
+                 .archive
+                 .merge(with: Repository.memory.save)
+                 .removeDuplicates()
+                 .debounce(for: .seconds(3), scheduler: DispatchQueue.global(qos: .utility))
+                 .sink {
+                     Defaults.archive = $0
+                     WidgetCenter.shared.reloadAllTimelines()
+                 }
+                 .store(in: &subs)
+             */
             
             return true
         }

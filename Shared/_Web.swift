@@ -5,7 +5,7 @@ import Sleuth
 class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     var subs = Set<AnyCancellable>()
     let javascript = Defaults.javascript
-    let protection: Protection = Defaults.trackers ? Antitracker() : Simple()
+    let protection = Defaults.trackers ? Protection.antitracker : .simple
     private let secure = Defaults.secure
     
 #if os(macOS)
@@ -49,6 +49,17 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     deinit {
         uiDelegate = nil
         navigationDelegate = nil
+    }
+    
+    final func load(_ id: Int) {
+        _ = Synch
+            .cloud
+            .entry(id)
+            .flatMap(\.access)
+            .map {
+                .init(url: $0)
+            }
+            .map(load)
     }
     
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {

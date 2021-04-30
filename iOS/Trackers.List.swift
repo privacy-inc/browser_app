@@ -28,13 +28,13 @@ extension Trackers {
                         .font(Font.footnote.bold())
                         .padding(.vertical)
                 }
-                ForEach(Share.blocked, id: \.self) { tracker in
+                ForEach(0 ..< Synch.cloud.archive.value.blocked.keys.count, id: \.self) { index in
                     Rectangle()
                         .fill(Color(.quaternarySystemFill))
                         .frame(height: 1)
                         .padding(.horizontal)
                     HStack {
-                        Text(tracker)
+                        Text(verbatim: Array(Synch.cloud.archive.value.blocked.keys)[index])
                             .font(.callout)
                             .foregroundColor(.secondary)
                         Spacer()
