@@ -7,6 +7,7 @@ import Sleuth
 extension App {
     final class Delegate: NSObject, UIApplicationDelegate {
         let froob = PassthroughSubject<Void, Never>()
+        private var fetch: AnyCancellable?
         private var subs = Set<AnyCancellable>()
         
         func rate() {
@@ -22,7 +23,9 @@ extension App {
             }
         }
         
-        func application(_: UIApplication, willFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+        func application(_ application: UIApplication, willFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
+            application.registerForRemoteNotifications()
+            
             UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(named: "AccentColor")!
             UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor : UIColor.white], for: .selected)
             UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor : UIColor(white: 0.7, alpha: 1)], for: .normal)
@@ -53,6 +56,15 @@ extension App {
              */
             
             return true
+        }
+        
+        func application(_: UIApplication, didReceiveRemoteNotification: [AnyHashable : Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+            fetch = Synch
+                    .cloud
+                    .receipt
+                    .sink {
+                        fetchCompletionHandler($0 ? .newData : .noData)
+                    }
         }
     }
 }

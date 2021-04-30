@@ -4,6 +4,7 @@ import Sleuth
 
 @main struct App: SwiftUI.App {
     @State private var session = Session()
+    @State private var migrate = true
     @UIApplicationDelegateAdaptor(Delegate.self) private var delegate
     @Environment(\.scenePhase) private var phase
     
@@ -11,6 +12,11 @@ import Sleuth
         WindowGroup {
             Window(session: $session)
                 .onOpenURL(perform: open)
+                .onReceive(Synch.cloud.archive.dropFirst().receive(on: DispatchQueue.main)) { _ in
+                    guard migrate else { return }
+                    migrate = false
+                    Synch.cloud.migrate()
+                }
                 .onReceive(delegate.froob) {
                     UIApplication.shared.resign()
                     session.dismiss.send()
@@ -21,6 +27,7 @@ import Sleuth
         }
         .onChange(of: phase) {
             if $0 == .active {
+                Synch.cloud.pull.send()
                 delegate.rate()
             }
         }
