@@ -2,11 +2,20 @@
   "object": {
     "pins": [
       {
+        "package": "Archivable",
+        "repositoryURL": "https://github.com/archivable/package.git",
+        "state": {
+          "branch": "main",
+          "revision": "50a8f540a4cc68ac4feb91ff6c24020bb432c707",
+          "version": null
+        }
+      },
+      {
         "package": "Sleuth",
         "repositoryURL": "https://github.com/privacy-inc/sleuth.git",
         "state": {
           "branch": "main",
-          "revision": "fa02ebfefc80559534c74d947d0412bec5dd29af",
+          "revision": "f3f97433ace5a77790e934ff6780217a23e0a13e",
           "version": null
         }
       }
