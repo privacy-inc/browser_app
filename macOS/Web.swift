@@ -125,6 +125,10 @@ final class Web: _Web {
         return nil
     }
     
+    func webView(_: WKWebView, didFinish: WKNavigation!) {
+        Synch.cloud.activity()
+    }
+    
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
         switch Synch.cloud.validate(decidePolicyFor.request.url!, with: protection) {
         case .allow:
