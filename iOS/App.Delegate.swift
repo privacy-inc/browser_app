@@ -40,20 +40,17 @@ extension App {
                 }
             }
             
-            
-            /*
-             Repository
-                 .memory
-                 .archive
-                 .merge(with: Repository.memory.save)
-                 .removeDuplicates()
-                 .debounce(for: .seconds(3), scheduler: DispatchQueue.global(qos: .utility))
-                 .sink {
-                     Defaults.archive = $0
-                     WidgetCenter.shared.reloadAllTimelines()
-                 }
-                 .store(in: &subs)
-             */
+            Synch
+                .cloud
+                .archive
+                .merge(with: Synch.cloud.save)
+                .removeDuplicates()
+                .debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility))
+                .sink {
+                    Defaults.archive = $0
+                    WidgetCenter.shared.reloadAllTimelines()
+                }
+                .store(in: &subs)
             
             return true
         }
