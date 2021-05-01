@@ -94,6 +94,7 @@ final class Window: NSWindow {
                 !$0.isEmpty
             }
             .removeDuplicates()
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.tab.title = $0
             }

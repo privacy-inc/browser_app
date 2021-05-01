@@ -48,7 +48,7 @@ final class Trackers: NSWindow {
         scroll.add(icon)
         
         let count = Text()
-        count.stringValue = (NSApp as! App).decimal.string(from: .init(value: blocked.count))!
+        count.stringValue = (NSApp as! App).decimal.string(from: .init(value: blocked.map(\.value.count).reduce(0, +)))!
         count.font = .monospacedSystemFont(ofSize: 36, weight: .bold)
         scroll.add(count)
         

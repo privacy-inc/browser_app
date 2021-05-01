@@ -37,6 +37,7 @@ final class History: NSScrollView {
             .cloud
             .archive
             .combineLatest(browser.search)
+            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.map.pages = ({ entries, search in
                     search.isEmpty
