@@ -5,6 +5,8 @@ import Sleuth
     @State private var alert = false
     @State private var tab = 0
     @State private var formatter = NumberFormatter()
+    @Environment(\.scenePhase) private var phase
+    @WKExtensionDelegateAdaptor(Delegate.self) private var delegate
     
     var body: some Scene {
         WindowGroup {
@@ -66,7 +68,13 @@ import Sleuth
             }
             .tabViewStyle(PageTabViewStyle())
             .onAppear {
+                Synch.cloud.pull.send()
                 formatter.numberStyle = .decimal
+            }
+        }
+        .onChange(of: phase) {
+            if $0 == .active {
+                Synch.cloud.pull.send()
             }
         }
     }
