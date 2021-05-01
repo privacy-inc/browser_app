@@ -1,8 +1,12 @@
 import AppKit
+import Sleuth
 
 final class Menu: NSMenu, NSMenuDelegate {
     private var url: URL {
-        (NSApp.keyWindow as? Window)?.browser.page.value?.url ?? URL(string: "https://privacy-inc.github.io/about")!
+        (NSApp.keyWindow as? Window)
+            .flatMap(\.browser.entry.value)
+            .flatMap(Synch.cloud.entry)
+            .flatMap(\.access) ?? URL(string: "https://privacy-inc.github.io/about")!
     }
     
     required init(coder: NSCoder) { super.init(coder: coder) }

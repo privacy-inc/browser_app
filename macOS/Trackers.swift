@@ -28,15 +28,18 @@ final class Trackers: NSWindow {
         scroll.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
         scroll.right.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
         
-        sub = (NSApp as! App).blocked.receive(on: DispatchQueue.main).sink { [weak self] in
-            self?.refresh()
-        }
-        refresh()
+        sub = Synch
+            .cloud
+            .archive
+            .map(\.blocked)
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.refresh($0)
+            }
     }
     
-    private func refresh() {
+    private func refresh(_ blocked: [String : [Date]]) {
         scroll.views.forEach { $0.removeFromSuperview() }
-        let blocked = Share.blocked
         
         let icon = NSImageView(image: NSImage(systemSymbolName: "shield.lefthalf.fill", accessibilityDescription: nil)!)
         icon.translatesAutoresizingMaskIntoConstraints = false
@@ -56,7 +59,7 @@ final class Trackers: NSWindow {
         count.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 10).isActive = true
         var top = count.bottomAnchor
         
-        blocked.forEach {
+        blocked.keys.sorted().forEach {
             let text = Text()
             text.isSelectable = true
             text.stringValue = $0

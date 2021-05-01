@@ -36,21 +36,21 @@ extension History {
             }
         }
         
-        private var frames = [UUID : CGRect]() {
+        private var frames = [Int : CGRect]() {
             didSet {
                 visible = visibility
             }
         }
         
-        private var visible = Set<UUID>() {
+        private var visible = Set<Int>() {
             didSet {
                 items.send(.init(visible.map { id in .init(
-                                    page: pages.first { $0.page.id == id }!,
+                                    page: pages.first { $0.entry == id }!,
                                     frame: frames[id]!) }))
             }
         }
         
-        private var visibility: Set<UUID> {
+        private var visibility: Set<Int> {
             .init(frames.filter {
                 $0.1.maxY > bounds.minY && $0.1.minY < bounds.maxY
             }.map(\.0))
@@ -61,7 +61,7 @@ extension History {
                 $0.1.contains(point)
             }.flatMap { frame in
                 pages.first {
-                    $0.page.id == frame.0
+                    $0.entry == frame.0
                 }
             }
         }
@@ -71,7 +71,7 @@ extension History {
             let margin = Metrics.history.margin * 2
             let size = CGSize(width: width - (margin + 4), height: 600)
             var maxY = Metrics.history.top
-            frames = pages.reduce(into: (Array(repeating: [(CGRect, UUID)](), count: count), count)) {
+            frames = pages.reduce(into: (Array(repeating: [(CGRect, Int)](), count: count), count)) {
                 $0.1 = $0.1 < count - 1 ? $0.1 + 1 : 0
                 $0.0[$0.1].append(
                     (.init(
@@ -81,7 +81,7 @@ extension History {
                         } ?? Metrics.history.top,
                         width: width,
                         height: ceil(CTFramesetterSuggestFrameSizeWithConstraints(CTFramesetterCreateWithAttributedString($1.text), CFRange(), nil, size, nil).height) + margin),
-                     $1.page.id)
+                     $1.entry)
                 )
                 maxY = max(maxY, $0.0[$0.1].last!.0.maxY)
             }.0.flatMap {

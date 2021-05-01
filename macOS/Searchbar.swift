@@ -88,7 +88,15 @@ final class Searchbar: NSView {
         }.store(in: &subs)
         
         lock.click.sink {
-            let site = browser.page.value?.url.host ?? "this site"
+            let site = browser
+                .entry
+                .value
+                .flatMap {
+                    $0
+                }
+                .flatMap(Synch.cloud.entry)
+                .flatMap(\.access)
+                .flatMap(\.host) ?? "this site"
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("Secure Connection", comment: "")
             alert.informativeText = NSLocalizedString("Using an encrypted connection to \(site)", comment: "")
@@ -99,7 +107,15 @@ final class Searchbar: NSView {
         }.store(in: &subs)
         
         warning.click.sink {
-            let site = browser.page.value?.url.host ?? "this site"
+            let site = browser
+                .entry
+                .value
+                .flatMap {
+                    $0
+                }
+                .flatMap(Synch.cloud.entry)
+                .flatMap(\.access)
+                .flatMap(\.host) ?? "this site"
             let alert = NSAlert()
             alert.messageText = NSLocalizedString("Site Not Secure", comment: "")
             alert.informativeText = NSLocalizedString("Connection to \(site) is NOT encrypted", comment: "")
@@ -125,8 +141,13 @@ final class Searchbar: NSView {
             browser.stop.send()
         }.store(in: &subs)
         
-        browser.page.sink {
-            guard let url = $0?.url else {
+        browser
+            .entry
+            .sink {
+            guard
+                let id = $0,
+                let url = Synch.cloud.entry(id)?.url
+            else {
                 left.state = .off
                 lupe.isHidden = false
                 lock.isHidden = true
@@ -135,19 +156,22 @@ final class Searchbar: NSView {
             }
             left.state = .on
             lupe.isHidden = true
-            lock.isHidden = url.scheme != Scheme.https.rawValue
-            warning.isHidden = url.scheme == Scheme.https.rawValue
+            lock.isHidden = !url.hasPrefix(Scheme.https.rawValue)
+            warning.isHidden = url.hasPrefix(Scheme.https.rawValue)
         }.store(in: &subs)
         
-        browser.page.combineLatest(browser.loading).sink {
-            guard $0.0 != nil else {
-                clockwise.isHidden = true
-                xmark.isHidden = true
-                return
-            }
-            xmark.isHidden = !$0.1
-            clockwise.isHidden = $0.1
-        }.store(in: &subs)
+        browser
+            .entry
+            .combineLatest(browser.loading)
+            .sink {
+                guard $0.0 != nil else {
+                    clockwise.isHidden = true
+                    xmark.isHidden = true
+                    return
+                }
+                xmark.isHidden = !$0.1
+                clockwise.isHidden = $0.1
+            }.store(in: &subs)
         
         browser.forwards.sink {
             right.state = $0 ? .on : .off

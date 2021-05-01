@@ -25,10 +25,17 @@ extension Searchbar {
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
             
-            browser.page.sink { [weak self] in
-                guard let url = $0?.url else { return }
-                self?.stringValue = url.absoluteString
-            }.store(in: &subs)
+            browser
+                .entry
+                .compactMap {
+                    $0
+                }
+                .compactMap(Synch.cloud.entry)
+                .map(\.url)
+                .sink { [weak self] in
+                    self?.stringValue = $0
+                }
+                .store(in: &subs)
             
             browser.close.sink { [weak self] in
                 self?.stringValue = ""
@@ -69,15 +76,20 @@ extension Searchbar {
         }
         
         @objc private func search() {
-            Defaults.engine.browse(stringValue).map {
-                switch $0 {
-                case let .search(url):
-                    browser.browse.send(url)
-                case let .navigate(url):
-                    browser.browse.send(url)
-                    window?.makeFirstResponder(window?.contentView)
+            var sub: AnyCancellable?
+            sub = Synch.cloud.browse(stringValue)
+                .receive(on: DispatchQueue.main)
+                .sink { [weak self] in
+                    sub?.cancel()
+                    $0.map {
+                        switch $0.0 {
+                        case .navigate:
+                            self?.window?.makeFirstResponder(self?.window?.contentView)
+                        default: break
+                        }
+                        self?.browser.entry.value = $0.1
+                    }
                 }
-            }
         }
     }
 }

@@ -33,26 +33,34 @@ final class History: NSScrollView {
             }
         }.store(in: &subs)
         
-        (NSApp as! App).pages.combineLatest(browser.search).sink { [weak self] in
-            self?.map.pages = ({ pages, search in
-                search.isEmpty ? pages : pages.filter {
-                    $0.title.localizedCaseInsensitiveContains(search)
-                        || $0.url.absoluteString.localizedCaseInsensitiveContains(search)
-                }
-            } ($0.0, $0.1.trimmingCharacters(in: .whitespacesAndNewlines))).map(Map.Page.init(page:))
-        }.store(in: &subs)
+        Synch
+            .cloud
+            .archive
+            .combineLatest(browser.search)
+            .sink { [weak self] in
+                self?.map.pages = ({ entries, search in
+                    search.isEmpty
+                        ? entries
+                        : entries
+                            .filter {
+                                $0.title.localizedCaseInsensitiveContains(search)
+                                    || $0.url.localizedCaseInsensitiveContains(search)
+                            }
+                } ($0.0.entries.reversed(), $0.1.trimmingCharacters(in: .whitespacesAndNewlines))).map(Map.Page.init(entry:))
+            }
+            .store(in: &subs)
         
         map.items.sink { [weak self] items in
             guard let self = self else { return }
             self.cells
                 .filter { $0.page != nil }
-                .filter { cell in !items.contains { $0.page.page == cell.page?.page } }
+                .filter { cell in !items.contains { $0.page.entry == cell.page?.entry } }
                 .forEach {
                     $0.removeFromSuperview()
                     $0.page = nil
                 }
             items.forEach { item in
-                let cell = self.cells.first { $0.page?.page == item.page.page } ?? self.cells.first { $0.page == nil } ?? {
+                let cell = self.cells.first { $0.page?.entry == item.page.entry } ?? self.cells.first { $0.page == nil } ?? {
                     self.cells.insert($0)
                     return $0
                 } (Cell())
@@ -76,9 +84,8 @@ final class History: NSScrollView {
     }
     
     override func mouseUp(with: NSEvent) {
-        guard var page = map.page(for: documentView!.convert(with.locationInWindow, from: nil))?.page else { return }
-        page.date = .init()
-        browser.page.value = page
-        browser.browse.send(page.url)
+        guard let entry = map.page(for: documentView!.convert(with.locationInWindow, from: nil))?.entry else { return }
+        Synch.cloud.revisit(entry)
+        browser.entry.value = entry
     }
 }
