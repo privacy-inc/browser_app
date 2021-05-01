@@ -52,6 +52,16 @@ extension App {
                 }
                 .store(in: &subs)
             
+            Synch
+                .cloud
+                .archive
+                .debounce(for: .seconds(1), scheduler: DispatchQueue.global(qos: .utility))
+                .sink {
+                    guard $0 == .new else { return }
+                    Synch.cloud.migrate()
+                }
+                .store(in: &subs)
+            
             return true
         }
         
