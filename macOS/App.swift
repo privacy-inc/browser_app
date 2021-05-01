@@ -8,8 +8,8 @@ import CoreLocation
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate, CLLocationManagerDelegate  {
     let location = CurrentValueSubject<CLLocation?, Never>(nil)
     let decimal = NumberFormatter()
-    private var sub: AnyCancellable?
     private var manager: CLLocationManager?
+    private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
     override init() {
@@ -51,6 +51,16 @@ import CoreLocation
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
         newWindow()
+        
+        Synch
+            .cloud
+            .archive
+            .debounce(for: .seconds(3), scheduler: DispatchQueue.global(qos: .utility))
+            .sink {
+                guard $0 == .new else { return }
+                Synch.cloud.migrate()
+            }
+            .store(in: &subs)
     }
     
     func applicationDidFinishLaunching(_: Notification) {
