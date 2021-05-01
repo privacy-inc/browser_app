@@ -62,42 +62,53 @@ final class Window: NSWindow {
             progressWidth?.isActive = true
         }.store(in: &subs)
         
-        browser.browse.sink { [weak self] in
-            guard let browser = self?.browser else { return }
-            
-            self?.history?.removeFromSuperview()
-            
-            if browser.page.value == nil {
-                browser.page.value = .init(url: $0)
+        browser
+            .entry
+            .compactMap {
+                $0
             }
-            
-            if self?.web == nil {
-                let web = Web(browser: browser)
-                self?.add(web)
-                self?.web = web
+            .sink { [weak self] in
+                self?.history?.removeFromSuperview()
+                
+                if self?.web == nil {
+                    if let browser = self?.browser {
+                        let web = Web(browser: browser)
+                        self?.add(web)
+                        self?.web = web
+                    }
+                }
+                
+                self?.web?.load($0)
             }
-            
-            self?.web?.load(.init(url: $0))
-        }.store(in: &subs)
+            .store(in: &subs)
         
-        browser.page.debounce(for: .milliseconds(100), scheduler: DispatchQueue.main).sink { [weak self] in
-            $0.map {
-                guard !$0.title.isEmpty else { return }
-                self?.tab.title = $0.title
+        Synch
+            .cloud
+            .archive
+            .map(\.entries)
+            .compactMap { [weak self] in
+                $0.first { $0.id == self?.browser.entry.value }
             }
-        }.store(in: &subs)
+            .map(\.title)
+            .filter {
+                !$0.isEmpty
+            }
+            .removeDuplicates()
+            .sink { [weak self] in
+                self?.tab.title = $0
+            }
+            .store(in: &subs)
         
         browser.loading.sink {
             progress.isHidden = !$0
         }.store(in: &subs)
         
         browser.close.sink { [weak self] in
-            self?.browser.page.value = nil
+            self?.browser.entry.value = nil
             self?.browser.forwards.value = false
             self?.browser.loading.value = false
             self?.browser.progress.value = 0
             self?.web?.removeFromSuperview()
-            (NSApp as! App).refresh()
             self?.landing()
         }.store(in: &subs)
         
@@ -109,8 +120,15 @@ final class Window: NSWindow {
         addTabbedWindow(new, ordered: .above)
         tabGroup?.selectedWindow = new
         url.map {
-            new.browser.page.value = .init(url: $0)
-            new.browser.browse.send($0)
+            var sub: AnyCancellable?
+            sub = Synch
+                .cloud
+                .navigate($0)
+                .receive(on: DispatchQueue.main)
+                .sink {
+                    sub?.cancel()
+                    new.browser.entry.value = $0
+                }
         }
     }
     
@@ -126,17 +144,10 @@ final class Window: NSWindow {
     }
     
     override func close() {
-        if browser.page.value != nil, NSApp.windows.filter({ $0 is Window }).filter({ $0 != self }).isEmpty {
+        if browser.entry.value != nil, NSApp.windows.filter({ $0 is Window }).filter({ $0 != self }).isEmpty {
             (NSApp as! App).newTab()
         }
         super.close()
-    }
-    
-    override func becomeKey() {
-        super.becomeKey()
-        if history != nil {
-            (NSApp as! App).refresh()
-        }
     }
     
     @objc func location() {

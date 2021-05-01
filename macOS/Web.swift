@@ -38,17 +38,33 @@ final class Web: _Web {
             browser.loading.value = $0
         }.store(in: &subs)
         
-        publisher(for: \.title).sink {
-            $0.map {
-                browser.page.value?.title = $0.trimmingCharacters(in: .whitespacesAndNewlines)
+        publisher(for: \.title)
+            .compactMap {
+                $0
             }
-        }.store(in: &subs)
+            .combineLatest(browser
+                            .entry
+                            .compactMap {
+                                $0
+                            })
+            .sink {
+                Synch.cloud.update($1, title: $0)
+            }
+            .store(in: &subs)
         
-        publisher(for: \.url, options: .new).sink {
-            $0.map {
-                browser.page.value?.url = $0
+        publisher(for: \.url, options: .new)
+            .compactMap {
+                $0
             }
-        }.store(in: &subs)
+            .combineLatest(browser
+                            .entry
+                            .compactMap {
+                                $0
+                            })
+            .sink {
+                Synch.cloud.update($1, url: $0)
+            }
+            .store(in: &subs)
         
         publisher(for: \.canGoForward).sink {
             browser.forwards.value = $0
@@ -67,9 +83,9 @@ final class Web: _Web {
         }.store(in: &subs)
         
         browser.reload.sink { [weak self] in
-            if let url = browser.page.value?.url {
+            if let entry = browser.entry.value {
                 if self?.url == nil {
-                    self?.load(.init(url: url))
+                    self?.load(entry)
                 } else {
                     self?.reload()
                 }
@@ -110,7 +126,7 @@ final class Web: _Web {
     }
     
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch protection.policy(for: decidePolicyFor.request.url!) {
+        switch Synch.cloud.validate(decidePolicyFor.request.url!, with: protection) {
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")
             preferences.allowsContentJavaScript = javascript
@@ -121,10 +137,8 @@ final class Web: _Web {
             NSWorkspace.shared.open(decidePolicyFor.request.url!)
         case .ignore:
             decisionHandler(.cancel, preferences)
-        case .block(let domain):
+        case .block:
             decisionHandler(.cancel, preferences)
-            Share.blocked.append(domain)
-            (NSApp as! App).blocked.send()
         }
     }
     
