@@ -66,6 +66,15 @@ import CoreLocation
                 Defaults.created = .init()
             }
         }
+        registerForRemoteNotifications()
+    }
+    
+    func applicationDidBecomeActive(_: Notification) {
+        Synch.cloud.pull.send()
+    }
+    
+    func application(_: NSApplication, didReceiveRemoteNotification: [String : Any]) {
+        Synch.cloud.pull.send()
     }
     
     func window(_ url: URL) {
