@@ -3,29 +3,29 @@ import Sleuth
 
 @main struct App: SwiftUI.App {
     @State private var alert = false
-    @State private var tab = 0
     @State private var formatter = NumberFormatter()
+    @State private var activity = [Date]()
+    @State private var blocked = 0
     @Environment(\.scenePhase) private var phase
     @WKExtensionDelegateAdaptor(Delegate.self) private var delegate
     
     var body: some Scene {
         WindowGroup {
-            TabView(selection: $tab) {
+            TabView {
                 ZStack {
                     Color("Background")
                         .edgesIgnoringSafeArea(.all)
-//                    Chart(chart: delegate.chart)
-//                        .padding()
+                    Chart(chart: activity)
+                        .padding()
                 }
-                .tag(0)
                 ZStack {
                     Color("Background")
                         .edgesIgnoringSafeArea(.all)
                     VStack {
                         HStack {
-//                            Text(NSNumber(value: delegate.blocked.count), formatter: formatter)
-//                                .font(Font.largeTitle.bold())
-//                                .padding(.leading)
+                            Text(NSNumber(value: blocked), formatter: formatter)
+                                .font(Font.largeTitle.bold())
+                                .padding(.leading)
                             Spacer()
                         }
                         Spacer()
@@ -38,7 +38,6 @@ import Sleuth
                     }
                     .padding()
                 }
-                .tag(1)
                 ZStack {
                     Color("Background")
                         .edgesIgnoringSafeArea(.all)
@@ -60,13 +59,16 @@ import Sleuth
                             Alert(title: .init("Forget everything?"),
                                   primaryButton: .default(.init("Cancel")),
                                   secondaryButton: .destructive(.init("Forget")) {
-//                                    delegate.forget()
+                                    Synch.cloud.forget()
                             })
                         }
                 }
-                .tag(2)
             }
             .tabViewStyle(PageTabViewStyle())
+            .onReceive(Synch.cloud.archive) {
+                activity = $0.activity
+                blocked = $0.blocked.map(\.value.count).reduce(0, +)
+            }
             .onAppear {
                 Synch.cloud.pull.send()
                 formatter.numberStyle = .decimal

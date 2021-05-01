@@ -33,9 +33,6 @@ extension History {
                 .padding(.leading)
                 Spacer()
                 Button {
-                    withAnimation(.easeInOut(duration: 0.2)) {
-                        background = .pink
-                    }
                     delete(entry.id)
                 } label: {
                     Image(systemName: "xmark")

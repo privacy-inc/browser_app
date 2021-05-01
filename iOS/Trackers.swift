@@ -12,7 +12,7 @@ struct Trackers: View {
             Text("Trackers blocked")
                 .font(.footnote)
                 .foregroundColor(blocked.isEmpty ? .secondary : .primary)
-            Text(NSNumber(value: Synch.cloud.archive.value.blocked.count), formatter: formatter)
+            Text(NSNumber(value: Synch.cloud.archive.value.blocked.map(\.value.count).reduce(0, +)), formatter: formatter)
                 .font(Font.title2.bold().monospacedDigit())
                 .padding(.leading)
             Control.Circle(background: .init(.systemBackground), image: "shield.lefthalf.fill") {
