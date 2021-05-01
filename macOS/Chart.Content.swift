@@ -12,7 +12,7 @@ extension Chart {
             super.init()
             self.frame = frame
             
-            let values = Chart.values(with: Share.chart)
+            let values = Chart.values(with: Synch.cloud.archive.value.activity)
             
             let pattern = CAShapeLayer()
             pattern.strokeColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor

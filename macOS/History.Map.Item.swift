@@ -6,11 +6,11 @@ extension History.Map {
         let frame: CGRect
         
         func hash(into: inout Hasher) {
-            into.combine(page.page)
+            into.combine(page.entry)
         }
         
         static func == (lhs: Self, rhs: Self) -> Bool {
-            lhs.page.page == rhs.page.page
+            lhs.page.entry == rhs.page.entry
         }
     }
 }

@@ -16,19 +16,15 @@ final class Detail: NSPopover {
         let chart = Chart()
         contentViewController!.view.addSubview(chart)
         
-        let trackers = Tool(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: (NSApp as! App).decimal.string(from: .init(value: Share.blocked.count)))
+        let trackers = Tool(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: (NSApp as! App).decimal.string(from: .init(value: Synch.cloud.archive.value.blocked.map(\.value.count).reduce(0, +))))
         trackers.click.sink {
             (NSApp as! App).trackers()
         }.store(in: &subs)
         
         let forget = Tool(title: NSLocalizedString("Forget", comment: ""), icon: "flame.fill")
         forget.click.sink { [weak self] in
-            FileManager.forget()
+            Synch.cloud.forget()
             (NSApp as! App).forget()
-            Share.history = []
-            Share.chart = []
-            Share.blocked = []
-            (NSApp as! App).refresh()
             self?.close()
         }.store(in: &subs)
         

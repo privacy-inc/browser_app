@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Sleuth
 
 extension History {
     final class Cell: NSView {
@@ -40,8 +41,7 @@ extension History {
                     $0.allowsImplicitAnimation = true
                     self?.layer!.backgroundColor = NSColor.systemPink.withAlphaComponent(0.6).cgColor
                 } completionHandler: {
-                    FileManager.delete(page.page)
-                    (NSApp as! App).refresh()
+                    Synch.cloud.remove(page.entry)
                 }
             }
             addSubview(close)

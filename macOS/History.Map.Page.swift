@@ -3,29 +3,29 @@ import Sleuth
 
 extension History.Map {
     struct Page {
-        let page: Sleuth.Page
+        let entry: Int
         let text: NSAttributedString
         
-        init(page: Sleuth.Page) {
-            self.page = page
+        init(entry: Entry) {
+            self.entry = entry.id
             text = {
                 $0.append(.init(string:
-                                    RelativeDateTimeFormatter().string(from: page.date, to: .init()) + "\n", attributes: [
+                                    RelativeDateTimeFormatter().string(from: entry.date, to: .init()) + "\n", attributes: [
                                         .font : NSFont.systemFont(ofSize: 12, weight: .regular),
                                         .foregroundColor : NSColor.secondaryLabelColor]))
 
-                if !page.title.isEmpty {
-                    $0.append(.init(string: page.title + "\n", attributes: [
+                if !entry.title.isEmpty {
+                    $0.append(.init(string: entry.title + "\n", attributes: [
                                             .font : NSFont.systemFont(ofSize: 14, weight: .regular),
                                             .foregroundColor : NSColor.labelColor]))
                 }
                 $0.append(.init(string: {
-                    $0.count > Metrics.history.url
-                        ? page.title.isEmpty
-                            ? $0
-                            : .init($0.prefix(Metrics.history.url - 3)) + "..."
-                        : $0
-                } (page.url.absoluteString), attributes: [
+                    entry.url.count > Metrics.history.url
+                        ? entry.title.isEmpty
+                            ? entry.url
+                            : .init(entry.url.prefix(Metrics.history.url - 3)) + "..."
+                        : entry.url
+                } (), attributes: [
                                         .font : NSFont.systemFont(ofSize: 12, weight: .regular),
                                         .foregroundColor : NSColor.tertiaryLabelColor]))
                 return $0

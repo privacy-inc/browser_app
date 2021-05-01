@@ -7,8 +7,6 @@ import CoreLocation
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate, CLLocationManagerDelegate  {
     let location = CurrentValueSubject<CLLocation?, Never>(nil)
-    let pages = CurrentValueSubject<[Page], Never>([])
-    let blocked = PassthroughSubject<Void, Never>()
     let decimal = NumberFormatter()
     private var sub: AnyCancellable?
     private var manager: CLLocationManager?
@@ -36,13 +34,6 @@ import CoreLocation
                 }
             }
             $0.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast) { }
-        }
-    }
-    
-    func refresh() {
-        sub = FileManager.pages.receive(on: DispatchQueue.main).sink {
-            guard $0 != self.pages.value else { return }
-            self.pages.value = $0
         }
     }
     
@@ -80,18 +71,36 @@ import CoreLocation
     func window(_ url: URL) {
         let window = Window()
         window.makeKeyAndOrderFront(nil)
-        window.browser.page.value = .init(url: url)
-        window.browser.browse.send(url)
+        
+        var sub: AnyCancellable?
+        sub = Synch
+            .cloud
+            .navigate(url)
+            .receive(on: DispatchQueue.main)
+            .sink {
+                sub?.cancel()
+                window.browser.entry.value = $0
+            }
     }
     
     func tab(_ url: URL) {
         guard let key = keyWindow as? Window,
-              key.browser.page.value == nil
+              key.browser.entry.value == nil
         else {
             if let empty = windows
                 .compactMap({ $0 as? Window })
-                .first(where: { $0.browser.page.value == nil }) {
-                empty.browser.browse.send(url)
+                .first(where: { $0.browser.entry.value == nil }) {
+                
+                var sub: AnyCancellable?
+                sub = Synch
+                    .cloud
+                    .navigate(url)
+                    .receive(on: DispatchQueue.main)
+                    .sink {
+                        sub?.cancel()
+                        empty.browser.entry.value = $0
+                    }
+                
             } else if let window = windows.compactMap({ $0 as? Window }).first {
                 window.newTab(url)
             } else {
@@ -99,7 +108,16 @@ import CoreLocation
             }
             return
         }
-        key.browser.browse.send(url)
+        
+        var sub: AnyCancellable?
+        sub = Synch
+            .cloud
+            .navigate(url)
+            .receive(on: DispatchQueue.main)
+            .sink {
+                sub?.cancel()
+                key.browser.entry.value = $0
+            }
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {

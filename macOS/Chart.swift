@@ -11,15 +11,13 @@ final class Chart: NSView {
         layer!.addSublayer(Content(frame: .init(x: 0, y: 30, width: layer!.frame.width, height: layer!.frame.height - 80)))
         layer!.masksToBounds = false
         
-        let chart = Share.chart
-        
         let title = Text()
         title.stringValue = NSLocalizedString("Activity", comment: "")
         title.font = .systemFont(ofSize: 18, weight: .regular)
         addSubview(title)
         
         let since = Text()
-        since.stringValue = chart.isEmpty ? "" : RelativeDateTimeFormatter().string(from: chart.first!, to: .init())
+        since.stringValue = Synch.cloud.archive.value.activity.isEmpty ? "" : RelativeDateTimeFormatter().string(from: Synch.cloud.archive.value.activity.first!, to: .init())
         since.font = .systemFont(ofSize: 12, weight: .regular)
         since.textColor = .secondaryLabelColor
         addSubview(since)
