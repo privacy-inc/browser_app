@@ -55,7 +55,7 @@ extension App {
             Synch
                 .cloud
                 .archive
-                .debounce(for: .seconds(1), scheduler: DispatchQueue.global(qos: .utility))
+                .debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility))
                 .sink {
                     guard $0 == .new else { return }
                     Synch.cloud.migrate()
