@@ -26,13 +26,15 @@ extension Searchbar {
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
             
-            browser
-                .entry
-                .compactMap {
-                    $0
+            Cloud
+                .shared
+                .archive
+                .map(\.entries)
+                .compactMap { [weak self] in
+                    $0.first { $0.id == self?.browser.entry.value }
                 }
-                .compactMap(Cloud.shared.entry)
                 .map(\.url)
+                .removeDuplicates()
                 .sink { [weak self] in
                     self?.stringValue = $0
                 }
