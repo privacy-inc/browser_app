@@ -93,6 +93,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
         </div>\
     </body>\
 </html>
-""".addingPercentEncoding(withAllowedCharacters: [])!)!))
+""".replacingOccurrences(of: "’", with: "'")
+                                .addingPercentEncoding(withAllowedCharacters: [])!)!))
     }
 }
