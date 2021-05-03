@@ -1,4 +1,5 @@
 import AppKit
+import Archivable
 import Sleuth
 
 final class Chart: NSView {
@@ -17,7 +18,7 @@ final class Chart: NSView {
         addSubview(title)
         
         let since = Text()
-        since.stringValue = Synch.cloud.archive.value.activity.isEmpty ? "" : RelativeDateTimeFormatter().string(from: Synch.cloud.archive.value.activity.first!, to: .init())
+        since.stringValue = Cloud.shared.archive.value.activity.isEmpty ? "" : RelativeDateTimeFormatter().string(from: Cloud.shared.archive.value.activity.first!, to: .init())
         since.font = .systemFont(ofSize: 12, weight: .regular)
         since.textColor = .secondaryLabelColor
         addSubview(since)

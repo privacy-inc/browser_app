@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 
 final class Searchbar: NSView {
@@ -94,7 +95,7 @@ final class Searchbar: NSView {
                 .flatMap {
                     $0
                 }
-                .flatMap(Synch.cloud.entry)
+                .flatMap(Cloud.shared.entry)
                 .flatMap(\.access)
                 .flatMap(\.host) ?? "this site"
             let alert = NSAlert()
@@ -113,7 +114,7 @@ final class Searchbar: NSView {
                 .flatMap {
                     $0
                 }
-                .flatMap(Synch.cloud.entry)
+                .flatMap(Cloud.shared.entry)
                 .flatMap(\.access)
                 .flatMap(\.host) ?? "this site"
             let alert = NSAlert()
@@ -146,7 +147,7 @@ final class Searchbar: NSView {
             .sink {
             guard
                 let id = $0,
-                let url = Synch.cloud.entry(id)?.url
+                let url = Cloud.shared.entry(id)?.url
             else {
                 left.state = .off
                 lupe.isHidden = false

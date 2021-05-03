@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 
 extension History {
@@ -41,7 +42,7 @@ extension History {
                     $0.allowsImplicitAnimation = true
                     self?.layer!.backgroundColor = NSColor.systemPink.withAlphaComponent(0.6).cgColor
                 } completionHandler: {
-                    Synch.cloud.remove(page.entry)
+                    Cloud.shared.remove(page.entry)
                 }
             }
             addSubview(close)

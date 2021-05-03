@@ -9,6 +9,7 @@ final class Browser {
     let search = PassthroughSubject<String, Never>()
     let previous = PassthroughSubject<Void, Never>()
     let next = PassthroughSubject<Void, Never>()
+    let load = PassthroughSubject<Void, Never>()
     let reload = PassthroughSubject<Void, Never>()
     let stop = PassthroughSubject<Void, Never>()
     let close = PassthroughSubject<Void, Never>()

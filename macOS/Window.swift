@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 
 final class Window: NSWindow {
@@ -82,8 +83,8 @@ final class Window: NSWindow {
             }
             .store(in: &subs)
         
-        Synch
-            .cloud
+        Cloud
+            .shared
             .archive
             .map(\.entries)
             .compactMap { [weak self] in
@@ -94,7 +95,6 @@ final class Window: NSWindow {
                 !$0.isEmpty
             }
             .removeDuplicates()
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.tab.title = $0
             }
@@ -121,15 +121,9 @@ final class Window: NSWindow {
         addTabbedWindow(new, ordered: .above)
         tabGroup?.selectedWindow = new
         url.map {
-            var sub: AnyCancellable?
-            sub = Synch
-                .cloud
-                .navigate($0)
-                .receive(on: DispatchQueue.main)
-                .sink {
-                    sub?.cancel()
-                    new.browser.entry.value = $0
-                }
+            Cloud.shared.navigate($0) {
+                new.browser.entry.value = $0
+            }
         }
     }
     

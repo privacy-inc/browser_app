@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 
 extension Searchbar {
@@ -30,7 +31,7 @@ extension Searchbar {
                 .compactMap {
                     $0
                 }
-                .compactMap(Synch.cloud.entry)
+                .compactMap(Cloud.shared.entry)
                 .map(\.url)
                 .sink { [weak self] in
                     self?.stringValue = $0
@@ -76,20 +77,25 @@ extension Searchbar {
         }
         
         @objc private func search() {
-            var sub: AnyCancellable?
-            sub = Synch.cloud.browse(stringValue)
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] in
-                    sub?.cancel()
-                    $0.map {
-                        switch $0.0 {
-                        case .navigate:
-                            self?.window?.makeFirstResponder(self?.window?.contentView)
-                        default: break
-                        }
-                        self?.browser.entry.value = $0.1
+            if let id = browser.entry.value {
+                Cloud.shared.browse(id, stringValue) { [weak self] in
+                    switch $0 {
+                    case .navigate:
+                        self?.window?.makeFirstResponder(self?.window?.contentView)
+                    default: break
                     }
+                    self?.browser.load.send()
                 }
+            } else {
+                Cloud.shared.browse(stringValue) { [weak self] in
+                    switch $0 {
+                    case .navigate:
+                        self?.window?.makeFirstResponder(self?.window?.contentView)
+                    default: break
+                    }
+                    self?.browser.entry.value = $1
+                }
+            }
         }
     }
 }

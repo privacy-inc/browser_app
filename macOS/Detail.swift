@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 
 final class Detail: NSPopover {
@@ -16,14 +17,14 @@ final class Detail: NSPopover {
         let chart = Chart()
         contentViewController!.view.addSubview(chart)
         
-        let trackers = Tool(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: (NSApp as! App).decimal.string(from: .init(value: Synch.cloud.archive.value.blocked.map(\.value.count).reduce(0, +))))
+        let trackers = Tool(title: NSLocalizedString("Trackers blocked", comment: ""), icon: "shield.lefthalf.fill", caption: (NSApp as! App).decimal.string(from: .init(value: Cloud.shared.archive.value.blocked.map(\.value.count).reduce(0, +))))
         trackers.click.sink {
             (NSApp as! App).trackers()
         }.store(in: &subs)
         
         let forget = Tool(title: NSLocalizedString("Forget", comment: ""), icon: "flame.fill")
         forget.click.sink { [weak self] in
-            Synch.cloud.forget()
+            Cloud.shared.forget()
             (NSApp as! App).forget()
             self?.close()
         }.store(in: &subs)

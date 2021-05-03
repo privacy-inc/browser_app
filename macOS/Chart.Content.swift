@@ -1,4 +1,5 @@
 import AppKit
+import Archivable
 import Sleuth
 
 extension Chart {
@@ -12,7 +13,7 @@ extension Chart {
             super.init()
             self.frame = frame
             
-            let values = Chart.values(with: Synch.cloud.archive.value.activity)
+            let values = Chart.values(with: Cloud.shared.archive.value.activity)
             
             let pattern = CAShapeLayer()
             pattern.strokeColor = NSColor.labelColor.withAlphaComponent(0.15).cgColor

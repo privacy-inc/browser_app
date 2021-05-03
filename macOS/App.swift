@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 import StoreKit
 import WebKit
@@ -52,13 +53,13 @@ import CoreLocation
         mainMenu = Menu()
         newWindow()
         
-        Synch
-            .cloud
+        Cloud
+            .shared
             .archive
             .debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility))
             .sink {
                 guard $0 == .new else { return }
-                Synch.cloud.migrate()
+                Cloud.shared.migrate()
             }
             .store(in: &subs)
     }
@@ -80,26 +81,19 @@ import CoreLocation
     }
     
     func applicationDidBecomeActive(_: Notification) {
-        Synch.cloud.pull.send()
+        Cloud.shared.pull.send()
     }
     
     func application(_: NSApplication, didReceiveRemoteNotification: [String : Any]) {
-        Synch.cloud.pull.send()
+        Cloud.shared.pull.send()
     }
     
     func window(_ url: URL) {
         let window = Window()
         window.makeKeyAndOrderFront(nil)
-        
-        var sub: AnyCancellable?
-        sub = Synch
-            .cloud
-            .navigate(url)
-            .receive(on: DispatchQueue.main)
-            .sink {
-                sub?.cancel()
-                window.browser.entry.value = $0
-            }
+        Cloud.shared.navigate(url) {
+            window.browser.entry.value = $0
+        }
     }
     
     func tab(_ url: URL) {
@@ -110,16 +104,9 @@ import CoreLocation
                 .compactMap({ $0 as? Window })
                 .first(where: { $0.browser.entry.value == nil }) {
                 
-                var sub: AnyCancellable?
-                sub = Synch
-                    .cloud
-                    .navigate(url)
-                    .receive(on: DispatchQueue.main)
-                    .sink {
-                        sub?.cancel()
-                        empty.browser.entry.value = $0
-                    }
-                
+                Cloud.shared.navigate(url) {
+                    empty.browser.entry.value = $0
+                }
             } else if let window = windows.compactMap({ $0 as? Window }).first {
                 window.newTab(url)
             } else {
@@ -128,15 +115,9 @@ import CoreLocation
             return
         }
         
-        var sub: AnyCancellable?
-        sub = Synch
-            .cloud
-            .navigate(url)
-            .receive(on: DispatchQueue.main)
-            .sink {
-                sub?.cancel()
-                key.browser.entry.value = $0
-            }
+        Cloud.shared.navigate(url) {
+            key.browser.entry.value = $0
+        }
     }
     
     func locationManager(_: CLLocationManager, didUpdateLocations: [CLLocation]) {

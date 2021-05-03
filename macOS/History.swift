@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 
 final class History: NSScrollView {
@@ -33,11 +34,10 @@ final class History: NSScrollView {
             }
         }.store(in: &subs)
         
-        Synch
-            .cloud
+        Cloud
+            .shared
             .archive
             .combineLatest(browser.search)
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.map.pages = ({ entries, search in
                     search.isEmpty
@@ -86,7 +86,7 @@ final class History: NSScrollView {
     
     override func mouseUp(with: NSEvent) {
         guard let entry = map.page(for: documentView!.convert(with.locationInWindow, from: nil))?.entry else { return }
-        Synch.cloud.revisit(entry)
+        Cloud.shared.revisit(entry)
         browser.entry.value = entry
     }
 }

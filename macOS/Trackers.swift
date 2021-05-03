@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Archivable
 import Sleuth
 
 final class Trackers: NSWindow {
@@ -28,11 +29,10 @@ final class Trackers: NSWindow {
         scroll.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
         scroll.right.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor).isActive = true
         
-        sub = Synch
-            .cloud
+        sub = Cloud
+            .shared
             .archive
             .map(\.blocked)
-            .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.refresh($0)
             }

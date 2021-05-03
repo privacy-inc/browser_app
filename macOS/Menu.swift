@@ -1,11 +1,12 @@
 import AppKit
+import Archivable
 import Sleuth
 
 final class Menu: NSMenu, NSMenuDelegate {
     private var url: URL {
         (NSApp.keyWindow as? Window)
             .flatMap(\.browser.entry.value)
-            .flatMap(Synch.cloud.entry)
+            .flatMap(Cloud.shared.entry)
             .flatMap(\.access) ?? URL(string: "https://privacy-inc.github.io/about")!
     }
     

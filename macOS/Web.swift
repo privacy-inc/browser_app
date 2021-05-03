@@ -1,5 +1,6 @@
 import WebKit
 import Combine
+import Archivable
 import Sleuth
 
 final class Web: _Web {
@@ -48,7 +49,7 @@ final class Web: _Web {
                                 $0
                             })
             .sink {
-                Synch.cloud.update($1, title: $0)
+                Cloud.shared.update($1, title: $0)
             }
             .store(in: &subs)
         
@@ -62,7 +63,7 @@ final class Web: _Web {
                                 $0
                             })
             .sink {
-                Synch.cloud.update($1, url: $0)
+                Cloud.shared.update($1, url: $0)
             }
             .store(in: &subs)
         
@@ -80,6 +81,12 @@ final class Web: _Web {
         
         browser.next.sink { [weak self] in
             self?.goForward()
+        }.store(in: &subs)
+        
+        browser.load.sink { [weak self] in
+            if let entry = browser.entry.value {
+                self?.load(entry)
+            }
         }.store(in: &subs)
         
         browser.reload.sink { [weak self] in
@@ -126,11 +133,11 @@ final class Web: _Web {
     }
     
     func webView(_: WKWebView, didFinish: WKNavigation!) {
-        Synch.cloud.activity()
+        Cloud.shared.activity()
     }
     
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch Synch.cloud.validate(decidePolicyFor.request.url!, with: protection) {
+        switch Cloud.shared.validate(decidePolicyFor.request.url!, with: protection) {
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")
             preferences.allowsContentJavaScript = javascript
