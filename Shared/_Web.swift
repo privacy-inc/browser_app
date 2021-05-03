@@ -1,5 +1,6 @@
 import WebKit
 import Combine
+import Archivable
 import Sleuth
 
 class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
@@ -54,8 +55,8 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     final func load(_ id: Int) {
         self.id = id
-        _ = Synch
-            .cloud
+        _ = Cloud
+            .shared
             .entry(id)
             .flatMap(\.access)
             .map {

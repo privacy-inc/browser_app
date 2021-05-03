@@ -1,5 +1,6 @@
 import SwiftUI
 import Combine
+import Archivable
 import Sleuth
 
 @main struct App: SwiftUI.App {
@@ -21,7 +22,7 @@ import Sleuth
         }
         .onChange(of: phase) {
             if $0 == .active {
-                Synch.cloud.pull.send()
+                Cloud.shared.pull.send()
                 delegate.rate()
             }
         }
@@ -37,24 +38,23 @@ import Sleuth
                 .dropFirst(Scheme.privacy.url.count)
                 .removingPercentEncoding
                 .map {
-                    var sub: AnyCancellable?
-                    sub = Synch
-                        .cloud
-                        .browse($0)
-                        .receive(on: DispatchQueue.main)
-                        .sink {
-                            sub?.cancel()
-                            $0.map {
-                                session.section = .browse($0.1)
-                            }
+                    switch session.section {
+                    case let .browse(id):
+                        Cloud.shared.browse(id, $0) { _ in
+                            session.load.send()
                         }
+                    case .history:
+                        Cloud.shared.browse($0) {
+                            session.section = .browse($1)
+                        }
+                    }
                 }
         case .privacy_id:
             session.dismiss.send()
             UIApplication.shared.resign()
             Int(url.absoluteString.dropFirst(Scheme.privacy_id.url.count))
                 .map {
-                    Synch.cloud.revisit($0)
+                    Cloud.shared.revisit($0)
                     session.section = .browse($0)
                 }
         case .privacy_search:
@@ -65,7 +65,7 @@ import Sleuth
         case .privacy_forget:
             session.dismiss.send()
             UIApplication.shared.resign()
-            Synch.cloud.forget()
+            Cloud.shared.forget()
         case .privacy_trackers:
             if session.modal != .trackers {
                 UIApplication.shared.resign()
@@ -77,14 +77,9 @@ import Sleuth
         default:
             session.dismiss.send()
             UIApplication.shared.resign()
-            var sub: AnyCancellable?
-            sub = Synch
-                .cloud
-                .navigate(url)
-                .sink {
-                    sub?.cancel()
-                    session.section = .browse($0)
-                }
+            Cloud.shared.navigate(url) {
+                session.section = .browse($0)
+            }
         }
     }
 }

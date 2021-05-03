@@ -1,4 +1,5 @@
 import SwiftUI
+import Archivable
 import Sleuth
 
 struct Trackers: View {
@@ -12,7 +13,7 @@ struct Trackers: View {
             Text("Trackers blocked")
                 .font(.footnote)
                 .foregroundColor(blocked.isEmpty ? .secondary : .primary)
-            Text(NSNumber(value: Synch.cloud.archive.value.blocked.map(\.value.count).reduce(0, +)), formatter: formatter)
+            Text(NSNumber(value: Cloud.shared.archive.value.blocked.map(\.value.count).reduce(0, +)), formatter: formatter)
                 .font(Font.title2.bold().monospacedDigit())
                 .padding(.leading)
             Control.Circle(background: .init(.systemBackground), image: "shield.lefthalf.fill") {

@@ -1,5 +1,6 @@
 import Foundation
 import Combine
+import Archivable
 import Sleuth
 
 struct Session {
@@ -15,6 +16,7 @@ struct Session {
     let type = PassthroughSubject<Void, Never>()
     let previous = PassthroughSubject<Void, Never>()
     let next = PassthroughSubject<Void, Never>()
+    let load = PassthroughSubject<Void, Never>()
     let reload = PassthroughSubject<Void, Never>()
     let stop = PassthroughSubject<Void, Never>()
     let print = PassthroughSubject<Void, Never>()
@@ -23,7 +25,7 @@ struct Session {
     
     var entry: Entry? {
         guard case let .browse(id) = section else { return nil }
-        return Synch.cloud.entry(id)
+        return Cloud.shared.entry(id)
     }
     
     var access: URL? {

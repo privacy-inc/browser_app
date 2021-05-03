@@ -1,4 +1,5 @@
 import SwiftUI
+import Archivable
 import Sleuth
 
 extension History {
@@ -32,7 +33,7 @@ extension History {
             }
             .animation(.spring(blendDuration: 0.4))
             .onAppear(perform: refresh)
-            .onReceive(Synch.cloud.archive.receive(on: DispatchQueue.main)) { _ in
+            .onReceive(Cloud.shared.archive.receive(on: DispatchQueue.main)) { _ in
                 refresh()
             }
             .onChange(of: session.search) { _ in
@@ -51,7 +52,7 @@ extension History {
                         }
             } (session
                 .search
-                .trimmingCharacters(in: .whitespacesAndNewlines), Synch.cloud.archive.value.entries.reversed()))
+                .trimmingCharacters(in: .whitespacesAndNewlines), Cloud.shared.archive.value.entries.reversed()))
             .reduce(into: (Array(repeating: [], count: size.lines), size.lines)) {
                 $0.1 = $0.1 < size.lines - 1 ? $0.1 + 1 : 0
                 $0.0[$0.1].append($1)
@@ -60,7 +61,7 @@ extension History {
         
         private func delete(_ id: Int) {
             UIApplication.shared.resign()
-            Synch.cloud.remove(id)
+            Cloud.shared.remove(id)
         }
     }
 }

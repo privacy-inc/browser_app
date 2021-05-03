@@ -1,4 +1,5 @@
 import SwiftUI
+import Archivable
 import Sleuth
 
 extension Trackers {
@@ -28,13 +29,13 @@ extension Trackers {
                         .font(Font.footnote.bold())
                         .padding(.vertical)
                 }
-                ForEach(0 ..< Synch.cloud.archive.value.blocked.keys.count, id: \.self) { index in
+                ForEach(0 ..< Cloud.shared.archive.value.blocked.keys.count, id: \.self) { index in
                     Rectangle()
                         .fill(Color(.quaternarySystemFill))
                         .frame(height: 1)
                         .padding(.horizontal)
                     HStack {
-                        Text(verbatim: Array(Synch.cloud.archive.value.blocked.keys)[index])
+                        Text(verbatim: Array(Cloud.shared.archive.value.blocked.keys)[index])
                             .font(.callout)
                             .foregroundColor(.secondary)
                         Spacer()

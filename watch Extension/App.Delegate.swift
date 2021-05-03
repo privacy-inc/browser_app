@@ -1,6 +1,6 @@
 import WatchKit
 import Combine
-import Sleuth
+import Archivable
 
 extension App {
     final class Delegate: NSObject, WKExtensionDelegate {
@@ -11,16 +11,13 @@ extension App {
         }
         
         func applicationDidBecomeActive() {
-            Synch.cloud.pull.send()
+            Cloud.shared.pull.send()
         }
         
         func didReceiveRemoteNotification(_: [AnyHashable : Any], fetchCompletionHandler: @escaping (WKBackgroundFetchResult) -> Void) {
-            fetch = Synch
-                    .cloud
-                    .receipt
-                    .sink {
-                        fetchCompletionHandler($0 ? .newData : .noData)
-                    }
+            Cloud.shared.receipt {
+                fetchCompletionHandler($0 ? .newData : .noData)
+            }
         }
     }
 }

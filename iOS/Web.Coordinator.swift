@@ -1,5 +1,6 @@
 import WebKit
 import Combine
+import Archivable
 import Sleuth
 
 extension Web {
@@ -34,13 +35,13 @@ extension Web {
             
             publisher(for: \.title).sink {
                 $0.map {
-                    Synch.cloud.update(view.id, title: $0)
+                    Cloud.shared.update(view.id, title: $0)
                 }
             }.store(in: &subs)
             
             publisher(for: \.url).sink {
                 $0.map {
-                    Synch.cloud.update(view.id, url: $0)
+                    Cloud.shared.update(view.id, url: $0)
                 }
             }.store(in: &subs)
             
@@ -58,6 +59,10 @@ extension Web {
             
             view.session.next.sink { [weak self] in
                 self?.goForward()
+            }.store(in: &subs)
+            
+            view.session.load.sink { [weak self] in
+                self?.load(view.id)
             }.store(in: &subs)
             
             view.session.reload.sink { [weak self] in
@@ -108,7 +113,7 @@ extension Web {
         
         func webView(_: WKWebView, didFinish: WKNavigation!) {
             view.session.progress = 1
-            Synch.cloud.activity()
+            Cloud.shared.activity()
         }
 
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -125,7 +130,7 @@ extension Web {
         }
         
         func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-            switch Synch.cloud.validate(decidePolicyFor.request.url!, with: protection) {
+            switch Cloud.shared.validate(decidePolicyFor.request.url!, with: protection) {
             case .allow:
                 print("allow \(decidePolicyFor.request.url!)")
                 preferences.allowsContentJavaScript = javascript

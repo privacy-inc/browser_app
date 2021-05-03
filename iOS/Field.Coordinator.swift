@@ -1,5 +1,6 @@
 import UIKit
 import Combine
+import Archivable
 import Sleuth
 
 extension Field {
@@ -94,21 +95,28 @@ extension Field {
         
         func searchBarSearchButtonClicked(_: UISearchBar) {
             bar.text.map {
-                var sub: AnyCancellable?
-                sub = Synch.cloud.browse($0)
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] in
-                        sub?.cancel()
-                        $0.map {
-                            switch $0.0 {
-                            case .navigate:
-                                self?.bar.text = nil
-                                self?.changed()
-                            default: break
-                            }
-                            self?.view.session.section = .browse($0.1)
+                switch view.session.section {
+                case let .browse(id):
+                    Cloud.shared.browse(id, $0) { [weak self] in
+                        switch $0 {
+                        case .navigate:
+                            self?.bar.text = nil
+                            self?.changed()
+                        default: break
                         }
+                        self?.view.session.load.send()
                     }
+                case .history:
+                    Cloud.shared.browse($0) { [weak self] in
+                        switch $0 {
+                        case .navigate:
+                            self?.bar.text = nil
+                            self?.changed()
+                        default: break
+                        }
+                        self?.view.session.section = .browse($1)
+                    }
+                }
                 bar.resignFirstResponder()
             }
             view.session.search = ""

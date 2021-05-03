@@ -1,4 +1,5 @@
 import SwiftUI
+import Archivable
 import Sleuth
 
 struct Stats: View {
@@ -20,7 +21,7 @@ struct Stats: View {
                 .contentShape(Rectangle())
                 .padding(.top)
             }
-            Chart(chart: Synch.cloud.archive.value.activity)
+            Chart(chart: Cloud.shared.archive.value.activity)
                 .frame(height: 220)
                 .padding(.bottom)
             Trackers(session: $session)
@@ -30,7 +31,7 @@ struct Stats: View {
                 Text("Forget")
                     .font(.footnote)
                 Control.Circle(background: .init(.systemBackground), image: "flame.fill") {
-                    Synch.cloud.forget()
+                    Cloud.shared.forget()
                     visible.wrappedValue.dismiss()
                 }
             }

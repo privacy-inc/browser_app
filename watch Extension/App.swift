@@ -1,4 +1,5 @@
 import SwiftUI
+import Archivable
 import Sleuth
 
 @main struct App: SwiftUI.App {
@@ -59,24 +60,24 @@ import Sleuth
                             Alert(title: .init("Forget everything?"),
                                   primaryButton: .default(.init("Cancel")),
                                   secondaryButton: .destructive(.init("Forget")) {
-                                    Synch.cloud.forget()
+                                    Cloud.shared.forget()
                             })
                         }
                 }
             }
             .tabViewStyle(PageTabViewStyle())
-            .onReceive(Synch.cloud.archive) {
+            .onReceive(Cloud.shared.archive) {
                 activity = $0.activity
                 blocked = $0.blocked.map(\.value.count).reduce(0, +)
             }
             .onAppear {
-                Synch.cloud.pull.send()
+                Cloud.shared.pull.send()
                 formatter.numberStyle = .decimal
             }
         }
         .onChange(of: phase) {
             if $0 == .active {
-                Synch.cloud.pull.send()
+                Cloud.shared.pull.send()
             }
         }
     }

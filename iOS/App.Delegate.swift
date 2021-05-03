@@ -2,6 +2,7 @@ import UIKit
 import Combine
 import WidgetKit
 import StoreKit
+import Archivable
 import Sleuth
 
 extension App {
@@ -40,25 +41,24 @@ extension App {
                 }
             }
             
-            Synch
-                .cloud
+            Cloud
+                .shared
                 .archive
-                .merge(with: Synch.cloud.save)
                 .removeDuplicates()
-                .debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility))
+                .debounce(for: .seconds(3), scheduler: DispatchQueue.global(qos: .utility))
                 .sink {
                     Defaults.archive = $0
                     WidgetCenter.shared.reloadAllTimelines()
                 }
                 .store(in: &subs)
             
-            Synch
-                .cloud
+            Cloud
+                .shared
                 .archive
                 .debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility))
                 .sink {
                     guard $0 == .new else { return }
-                    Synch.cloud.migrate()
+                    Cloud.shared.migrate()
                 }
                 .store(in: &subs)
             
@@ -66,12 +66,9 @@ extension App {
         }
         
         func application(_: UIApplication, didReceiveRemoteNotification: [AnyHashable : Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-            fetch = Synch
-                    .cloud
-                    .receipt
-                    .sink {
-                        fetchCompletionHandler($0 ? .newData : .noData)
-                    }
+            Cloud.shared.receipt {
+                fetchCompletionHandler($0 ? .newData : .noData)
+            }
         }
     }
 }
