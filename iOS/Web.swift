@@ -15,7 +15,6 @@ struct Web: UIViewRepresentable {
     
     func updateUIView(_ uiView: Coordinator, context: Context) {
         if uiView.id != id {
-            print("changing")
             uiView.load(id)
         }
     }

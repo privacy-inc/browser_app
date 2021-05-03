@@ -33,7 +33,7 @@ extension History {
             }
             .animation(.spring(blendDuration: 0.4))
             .onAppear(perform: refresh)
-            .onReceive(Cloud.shared.archive.receive(on: DispatchQueue.main)) { _ in
+            .onReceive(Cloud.shared.archive) { _ in
                 refresh()
             }
             .onChange(of: session.search) { _ in
