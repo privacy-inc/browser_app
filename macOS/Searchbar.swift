@@ -157,8 +157,8 @@ final class Searchbar: NSView {
             }
             left.state = .on
             lupe.isHidden = true
-            lock.isHidden = !url.hasPrefix(Scheme.https.rawValue)
-            warning.isHidden = url.hasPrefix(Scheme.https.rawValue)
+            lock.isHidden = !url.hasPrefix(URL.Scheme.https.rawValue)
+            warning.isHidden = url.hasPrefix(URL.Scheme.https.rawValue)
         }.store(in: &subs)
         
         browser

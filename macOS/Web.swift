@@ -137,7 +137,7 @@ final class Web: _Web {
     }
     
     func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch Cloud.shared.validate(decidePolicyFor.request.url!, with: protection) {
+        switch router(decidePolicyFor.request.url!) {
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")
             preferences.allowsContentJavaScript = javascript
@@ -148,7 +148,8 @@ final class Web: _Web {
             NSWorkspace.shared.open(decidePolicyFor.request.url!)
         case .ignore:
             decisionHandler(.cancel, preferences)
-        case .block:
+        case let .block(block):
+            print("block \(block)")
             decisionHandler(.cancel, preferences)
         }
     }

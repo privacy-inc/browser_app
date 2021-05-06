@@ -23,7 +23,7 @@ extension WKUserContentController {
         if let _ads = Self._ads {
             add(_ads)
         } else {
-            WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "ads", encodedContentRuleList: Block.ads) { [weak self] list, _ in
+            WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "ads", encodedContentRuleList: Blocker.ads.content) { [weak self] list, _ in
                 self?.add(list!)
                 Self._ads = list!
             }

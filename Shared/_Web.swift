@@ -7,7 +7,7 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     var id: Int?
     var subs = Set<AnyCancellable>()
     let javascript = Defaults.javascript
-    let protection = Defaults.trackers ? Protection.antitracker : .simple
+    let router = Defaults.trackers ? Router.secure : .regular
     private let secure = Defaults.secure
     
 #if os(macOS)

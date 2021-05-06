@@ -107,8 +107,8 @@ final class Preferences: NSWindow {
         let makeDefault = Tool(title: NSLocalizedString(browser ? "Default browser" : "Make default browser", comment: ""), icon: "magnifyingglass")
         if !browser {
             makeDefault.click.sink { [weak self] in
-                LSSetDefaultHandlerForURLScheme(Scheme.http.rawValue as CFString, "incognit" as CFString)
-                LSSetDefaultHandlerForURLScheme(Scheme.https.rawValue as CFString, "incognit" as CFString)
+                LSSetDefaultHandlerForURLScheme(URL.Scheme.http.rawValue as CFString, "incognit" as CFString)
+                LSSetDefaultHandlerForURLScheme(URL.Scheme.https.rawValue as CFString, "incognit" as CFString)
                 self?.close()
             }.store(in: &subs)
         } else {
@@ -153,7 +153,7 @@ final class Preferences: NSWindow {
     }
     
     private var defaultBrowser: Bool {
-        NSWorkspace.shared.urlForApplication(toOpen: URL(string: Scheme.http.url)!)
+        NSWorkspace.shared.urlForApplication(toOpen: URL(string: URL.Scheme.http.rawValue + "://")!)
             .map {
                 $0 == Bundle.main.bundleURL
             } ?? false

@@ -59,7 +59,7 @@ import CoreLocation
             .debounce(for: .seconds(2), scheduler: DispatchQueue.global(qos: .utility))
             .sink {
                 guard $0 == .new else { return }
-                Cloud.shared.migrate()
+//                Cloud.shared.migrate()
             }
             .store(in: &subs)
     }
