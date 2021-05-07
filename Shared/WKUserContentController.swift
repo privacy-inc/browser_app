@@ -20,10 +20,27 @@ extension WKUserContentController {
     }
     
     func ads() {
+        let a = """
+[
+    {
+        "trigger": {
+            "url-filter": "^https?://www\\\\.google\\\\.com[:/]",
+            "url-filter-is-case-sensitive": true,
+            "if-domain": ["www.google.com"],
+            "resource-type": ["document"],
+            "load-type": ["first-party"]
+        },
+        "action": {
+            "type": "css-display-none",
+            "selector": "#taw, #rhs, #tadsb, .commercial, .Rn1jbe, .kxhcC, .isv-r.PNCib.BC7Tfc, .isv-r.PNCib.o05QGe"
+        }
+    }
+]
+"""
         if let _ads = Self._ads {
             add(_ads)
         } else {
-            WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "ads", encodedContentRuleList: Blocker.ads.content) { [weak self] list, _ in
+            WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "ads", encodedContentRuleList: a) { [weak self] list, _ in
                 self?.add(list!)
                 Self._ads = list!
             }
