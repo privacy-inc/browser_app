@@ -24,9 +24,9 @@ extension WKUserContentController {
 [
     {
         "trigger": {
-            "url-filter": "^https?://www\\\\.google\\\\.com[:/]",
+            "url-filter": "^https?://+([^:/]+\\\\.)?google\\\\.com[:/]",
             "url-filter-is-case-sensitive": true,
-            "if-domain": ["www.google.com"],
+            "if-domain": ["*google.com"],
             "resource-type": ["document"],
             "load-type": ["first-party"]
         },
