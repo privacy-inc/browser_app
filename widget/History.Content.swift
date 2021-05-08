@@ -10,7 +10,7 @@ extension History {
         var body: some View {
             ZStack {
                 Color(.systemBackground)
-                    .widgetURL(URL(string: Scheme.privacy_search.url)!)
+//                    .widgetURL(URL(string: Scheme.privacy_search.url)!)
                 if entries.isEmpty {
                     VStack {
                         Spacer()

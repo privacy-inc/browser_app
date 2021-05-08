@@ -9,20 +9,20 @@ extension Search {
         var body: some View {
             ZStack {
                 Color(.systemBackground)
-                    .widgetURL(URL(string: Scheme.privacy_search.url)!)
+//                    .widgetURL(URL(string: URL.Scheme.privacy_search.url)!)
                 switch family {
                 case .systemMedium:
                     HStack {
                         Spacer()
-                        Link(destination: URL(string: Scheme.privacy_forget.url)!) {
-                            Neumorphic(image: "flame.fill")
-                        }
-                        Spacer()
-                        Neumorphic(image: "magnifyingglass")
-                        Spacer()
-                        Link(destination: URL(string: Scheme.privacy_trackers.url)!) {
-                            Neumorphic(image: "shield.lefthalf.fill")
-                        }
+//                        Link(destination: URL(string: Scheme.privacy_forget.url)!) {
+//                            Neumorphic(image: "flame.fill")
+//                        }
+//                        Spacer()
+//                        Neumorphic(image: "magnifyingglass")
+//                        Spacer()
+//                        Link(destination: URL(string: Scheme.privacy_trackers.url)!) {
+//                            Neumorphic(image: "shield.lefthalf.fill")
+//                        }
                         Spacer()
                     }
                 default:

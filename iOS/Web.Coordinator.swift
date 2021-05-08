@@ -130,20 +130,20 @@ extension Web {
         }
         
         func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-            switch Cloud.shared.validate(decidePolicyFor.request.url!, with: protection) {
-            case .allow:
-                print("allow \(decidePolicyFor.request.url!)")
-                preferences.allowsContentJavaScript = javascript
-                decisionHandler(.allow, preferences)
-            case .external:
-                print("external \(decidePolicyFor.request.url!)")
-                decisionHandler(.cancel, preferences)
-                UIApplication.shared.open(decidePolicyFor.request.url!)
-            case .ignore:
-                decisionHandler(.cancel, preferences)
-            case .block:
-                decisionHandler(.cancel, preferences)
-            }
+//            switch Cloud.shared.validate(decidePolicyFor.request.url!, with: router) {
+//            case .allow:
+//                print("allow \(decidePolicyFor.request.url!)")
+//                preferences.allowsContentJavaScript = javascript
+//                decisionHandler(.allow, preferences)
+//            case .external:
+//                print("external \(decidePolicyFor.request.url!)")
+//                decisionHandler(.cancel, preferences)
+//                UIApplication.shared.open(decidePolicyFor.request.url!)
+//            case .ignore:
+//                decisionHandler(.cancel, preferences)
+//            case .block:
+//                decisionHandler(.cancel, preferences)
+//            }
         }
     }
 }
