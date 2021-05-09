@@ -74,27 +74,32 @@ class _Web: WKWebView, WKNavigationDelegate, WKUIDelegate {
     }
     
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-        load(.init(url: URL(string: "data:text/html," + """
-<html>\
-    <head>\
-        <title>\
-            \(withError.localizedDescription)\
-        </title>\
-    </head>\
-    <body style='margin: 100px 30px; font-size: \(rem)rem; font-family: -apple-system; text-align: center;'>\
-        \((withError as? URLError)?.failingURL.map {
-            """
-        <a href="\($0)">\
-            \($0)\
-        </a>
-"""
-        } ?? "")
-        <div>\
-            \(withError.localizedDescription)\
-        </div>\
-    </body>\
-</html>
-""".replacingOccurrences(of: "’", with: "'")
-                                .addingPercentEncoding(withAllowedCharacters: [])!)!))
+        load(.init(url: URL(string: "about:")!))
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.loadHTMLString("<html><body>hello world</body></html>", baseURL: (withError as? URLError)?.failingURL)
+        }
+//        load(.init(url: URL(string: "data:text/html," + """
+//<html>\
+//    <head>\
+//        <title>\
+//            \(withError.localizedDescription)\
+//        </title>\
+//    </head>\
+//    <body style='margin: 100px 30px; font-size: \(rem)rem; font-family: -apple-system; text-align: center;'>\
+//        \((withError as? URLError)?.failingURL.map {
+//            """
+//        <a href="\($0)">\
+//            \($0)\
+//        </a>
+//"""
+//        } ?? "")
+//        <div>\
+//            \(withError.localizedDescription)\
+//        </div>\
+//    </body>\
+//</html>
+//""".replacingOccurrences(of: "’", with: "'")
+//                                .addingPercentEncoding(withAllowedCharacters: [])!)!))
     }
 }

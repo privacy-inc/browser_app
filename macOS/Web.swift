@@ -147,7 +147,10 @@ final class Web: _Web {
             decisionHandler(.cancel, preferences)
             NSWorkspace.shared.open(decidePolicyFor.request.url!)
         case .ignore:
-            decisionHandler(.cancel, preferences)
+//            decisionHandler(.cancel, preferences)
+            print("ignore-allow \(decidePolicyFor.request.url!)")
+            preferences.allowsContentJavaScript = javascript
+            decisionHandler(.allow, preferences)
         case let .block(block):
             print("block \(block)")
             decisionHandler(.cancel, preferences)
