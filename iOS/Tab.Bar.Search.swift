@@ -10,7 +10,7 @@ extension Tab.Bar {
                     .fill(Color(.systemFill))
                 Image(systemName: "magnifyingglass")
             }
-            .frame(width: 140)
+            .frame(width: 60)
         }
     }
 }

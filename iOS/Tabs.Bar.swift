@@ -1,30 +1,29 @@
 import SwiftUI
 
-extension Tab {
+extension Tabs {
     struct Bar: View {
         @Binding var session: Session
-        let snapshot: () -> Void
         
         var body: some View {
             ZStack {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                 HStack(spacing: 0) {
-                    Control(disabled: true, image: "arrow.left") {
+                    Control(image: "xmark") {
                         
                     }
-                    Control(disabled: true, image: "arrow.right") {
+                    Control(image: "chart.bar.xaxis") {
                         
                     }
-                    Search(session: $session)
-                        .padding(.horizontal, 10)
-                    Control(image: "app") {
+                    Control(image: "plus") {
                         withAnimation(.spring(blendDuration: 0.6)) {
-                            session.section = .tabs
-                            snapshot()
+                            session.section = .tab(session.tab.new())
                         }
                     }
-                    Control(image: "line.horizontal.3") {
+                    Control(image: "shield.lefthalf.fill") {
+                        
+                    }
+                    Control(image: "slider.horizontal.3") {
                         
                     }
                 }

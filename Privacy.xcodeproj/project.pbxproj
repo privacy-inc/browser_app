@@ -16,6 +16,10 @@
 		CE91FA86264ABDEC009A1F88 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91FA85264ABDEC009A1F88 /* CloudKit.framework */; };
 		CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */; };
 		CE91FA8A264AC21D009A1F88 /* Tab.Bar.Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */; };
+		CE91FA8C264AC5A0009A1F88 /* Tab.Bar.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA8B264AC5A0009A1F88 /* Tab.Bar.Control.swift */; };
+		CE91FA8E264ACBA5009A1F88 /* Tabs.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA8D264ACBA5009A1F88 /* Tabs.Item.swift */; };
+		CE91FA90264ACE5A009A1F88 /* Tabs.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */; };
+		CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */; };
 		CE9C2002264821E0001504A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C2001264821E0001504A2 /* App.swift */; };
 		CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9C2005264821E1001504A2 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
@@ -30,6 +34,10 @@
 		CE91FA85264ABDEC009A1F88 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.5.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Bar.swift; sourceTree = "<group>"; };
 		CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Bar.Search.swift; sourceTree = "<group>"; };
+		CE91FA8B264AC5A0009A1F88 /* Tab.Bar.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Bar.Control.swift; sourceTree = "<group>"; };
+		CE91FA8D264ACBA5009A1F88 /* Tabs.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.swift; sourceTree = "<group>"; };
+		CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Bar.swift; sourceTree = "<group>"; };
+		CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Bar.Control.swift; sourceTree = "<group>"; };
 		CE9C1FFE264821E0001504A2 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9C2001264821E0001504A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE9C2005264821E1001504A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -82,9 +90,13 @@
 				CE9C2001264821E0001504A2 /* App.swift */,
 				CE91FA7F264AB70B009A1F88 /* Session.Section.swift */,
 				CE91FA7B264AB2D3009A1F88 /* Session.swift */,
+				CE91FA8B264AC5A0009A1F88 /* Tab.Bar.Control.swift */,
 				CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */,
 				CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */,
 				CE91FA7D264AB338009A1F88 /* Tab.swift */,
+				CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */,
+				CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */,
+				CE91FA8D264ACBA5009A1F88 /* Tabs.Item.swift */,
 				CE91FA81264AB79C009A1F88 /* Tabs.swift */,
 				CE91FA79264AB2B8009A1F88 /* Window.swift */,
 				CE9C2005264821E1001504A2 /* Assets.xcassets */,
@@ -167,12 +179,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				CE91FA80264AB70B009A1F88 /* Session.Section.swift in Sources */,
+				CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */,
+				CE91FA8E264ACBA5009A1F88 /* Tabs.Item.swift in Sources */,
 				CE9C2002264821E0001504A2 /* App.swift in Sources */,
+				CE91FA90264ACE5A009A1F88 /* Tabs.Bar.swift in Sources */,
 				CE91FA7A264AB2B8009A1F88 /* Window.swift in Sources */,
 				CE91FA7C264AB2D3009A1F88 /* Session.swift in Sources */,
 				CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */,
 				CE91FA8A264AC21D009A1F88 /* Tab.Bar.Search.swift in Sources */,
 				CE91FA7E264AB338009A1F88 /* Tab.swift in Sources */,
+				CE91FA8C264AC5A0009A1F88 /* Tab.Bar.Control.swift in Sources */,
 				CE91FA82264AB79C009A1F88 /* Tabs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
