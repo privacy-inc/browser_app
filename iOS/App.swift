@@ -1,9 +1,15 @@
 import SwiftUI
+import Archivable
 
 @main struct App: SwiftUI.App {
+    @State private var session = Session()
+    
     var body: some Scene {
         WindowGroup {
-            Circle()
+            Window(session: $session)
+                .onReceive(Cloud.shared.archive) {
+                    session.archive = $0
+                }
         }
     }
 }

@@ -3,15 +3,33 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE91FA78264AB2A3009A1F88 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE91FA77264AB2A3009A1F88 /* Sleuth */; };
+		CE91FA7A264AB2B8009A1F88 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA79264AB2B8009A1F88 /* Window.swift */; };
+		CE91FA7C264AB2D3009A1F88 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA7B264AB2D3009A1F88 /* Session.swift */; };
+		CE91FA7E264AB338009A1F88 /* Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA7D264AB338009A1F88 /* Tab.swift */; };
+		CE91FA80264AB70B009A1F88 /* Session.Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA7F264AB70B009A1F88 /* Session.Section.swift */; };
+		CE91FA82264AB79C009A1F88 /* Tabs.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA81264AB79C009A1F88 /* Tabs.swift */; };
+		CE91FA86264ABDEC009A1F88 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE91FA85264ABDEC009A1F88 /* CloudKit.framework */; };
+		CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */; };
+		CE91FA8A264AC21D009A1F88 /* Tab.Bar.Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */; };
 		CE9C2002264821E0001504A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C2001264821E0001504A2 /* App.swift */; };
 		CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9C2005264821E1001504A2 /* Assets.xcassets */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE91FA79264AB2B8009A1F88 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CE91FA7B264AB2D3009A1F88 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CE91FA7D264AB338009A1F88 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
+		CE91FA7F264AB70B009A1F88 /* Session.Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Section.swift; sourceTree = "<group>"; };
+		CE91FA81264AB79C009A1F88 /* Tabs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.swift; sourceTree = "<group>"; };
+		CE91FA83264ABDE8009A1F88 /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
+		CE91FA85264ABDEC009A1F88 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS14.5.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
+		CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Bar.swift; sourceTree = "<group>"; };
+		CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Bar.Search.swift; sourceTree = "<group>"; };
 		CE9C1FFE264821E0001504A2 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9C2001264821E0001504A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE9C2005264821E1001504A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -23,6 +41,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE91FA78264AB2A3009A1F88 /* Sleuth in Frameworks */,
+				CE91FA86264ABDEC009A1F88 /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -34,7 +54,16 @@
 			children = (
 				CE9C2000264821E0001504A2 /* iOS */,
 				CE9C1FFF264821E0001504A2 /* Products */,
+				CE91FA84264ABDEC009A1F88 /* Frameworks */,
 			);
+			sourceTree = "<group>";
+		};
+		CE91FA84264ABDEC009A1F88 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				CE91FA85264ABDEC009A1F88 /* CloudKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 		CE9C1FFF264821E0001504A2 /* Products */ = {
@@ -48,8 +77,16 @@
 		CE9C2000264821E0001504A2 /* iOS */ = {
 			isa = PBXGroup;
 			children = (
+				CE91FA83264ABDE8009A1F88 /* Privacy.entitlements */,
 				CE9C200A264821E1001504A2 /* Info.plist */,
 				CE9C2001264821E0001504A2 /* App.swift */,
+				CE91FA7F264AB70B009A1F88 /* Session.Section.swift */,
+				CE91FA7B264AB2D3009A1F88 /* Session.swift */,
+				CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */,
+				CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */,
+				CE91FA7D264AB338009A1F88 /* Tab.swift */,
+				CE91FA81264AB79C009A1F88 /* Tabs.swift */,
+				CE91FA79264AB2B8009A1F88 /* Window.swift */,
 				CE9C2005264821E1001504A2 /* Assets.xcassets */,
 			);
 			path = iOS;
@@ -71,6 +108,9 @@
 			dependencies = (
 			);
 			name = iOS;
+			packageProductDependencies = (
+				CE91FA77264AB2A3009A1F88 /* Sleuth */,
+			);
 			productName = iOS;
 			productReference = CE9C1FFE264821E0001504A2 /* Privacy.app */;
 			productType = "com.apple.product-type.application";
@@ -98,6 +138,9 @@
 				Base,
 			);
 			mainGroup = CE85774C264821A50026C302;
+			packageReferences = (
+				CE91FA76264AB2A3009A1F88 /* XCRemoteSwiftPackageReference "sleuth" */,
+			);
 			productRefGroup = CE9C1FFF264821E0001504A2 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -123,7 +166,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE91FA80264AB70B009A1F88 /* Session.Section.swift in Sources */,
 				CE9C2002264821E0001504A2 /* App.swift in Sources */,
+				CE91FA7A264AB2B8009A1F88 /* Window.swift in Sources */,
+				CE91FA7C264AB2D3009A1F88 /* Session.swift in Sources */,
+				CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */,
+				CE91FA8A264AC21D009A1F88 /* Tab.Bar.Search.swift in Sources */,
+				CE91FA7E264AB338009A1F88 /* Tab.swift in Sources */,
+				CE91FA82264AB79C009A1F88 /* Tabs.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -198,7 +248,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = iOS/Privacy.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 7AMWG3RLHN;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -225,6 +277,7 @@
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit;
+				PROVISIONING_PROFILE_SPECIFIER = "Incognit dev";
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -265,7 +318,9 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_ENTITLEMENTS = iOS/Privacy.entitlements;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 7AMWG3RLHN;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -286,6 +341,7 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = incognit;
+				PROVISIONING_PROFILE_SPECIFIER = "Incognit store";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -314,6 +370,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		CE91FA76264AB2A3009A1F88 /* XCRemoteSwiftPackageReference "sleuth" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/privacy-inc/sleuth.git";
+			requirement = {
+				branch = main;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		CE91FA77264AB2A3009A1F88 /* Sleuth */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = CE91FA76264AB2A3009A1F88 /* XCRemoteSwiftPackageReference "sleuth" */;
+			productName = Sleuth;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = CE85774D264821A50026C302 /* Project object */;
 }
