@@ -3,6 +3,7 @@ import SwiftUI
 extension Tab {
     struct Bar: View {
         @Binding var session: Session
+        let id: UUID
         let snapshot: () -> Void
         
         var body: some View {
@@ -16,7 +17,7 @@ extension Tab {
                     Control(disabled: true, image: "arrow.right") {
                         
                     }
-                    Search(session: $session)
+                    Search(session: $session, id: id)
                         .padding(.horizontal, 10)
                     Control(image: "app") {
                         withAnimation(.spring(blendDuration: 0.6)) {

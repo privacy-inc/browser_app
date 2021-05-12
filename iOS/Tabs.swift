@@ -10,11 +10,13 @@ struct Tabs: View {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
                 ScrollView(.horizontal) {
-                    ForEach(0 ..< session.tab.items.count, id: \.self) {
-                        Item(session: $session, id: session.tab.items[$0].id)
-                            .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
-                            .padding([.leading, .trailing, .bottom])
+                    HStack {
+                        ForEach(0 ..< session.tab.items.count, id: \.self) {
+                            Item(session: $session, id: session.tab.items[$0].id)
+                                .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
+                        }
                     }
+                    .padding([.leading, .trailing, .bottom])
                 }
             }
             Rectangle()

@@ -6,16 +6,18 @@ struct Tab: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView {
-                VStack(spacing: 0) {
-                    Text("Hello world!")
-                }
+            switch session.tab.state(id) {
+            case .new:
+                New(session: $session)
+            case let .history(history):
+                Text(session.archive.history.first { $0.id == history }!.subtitle)
+            case let .error(history, error):
+                Circle()
             }
-            .frame(maxHeight: .greatestFiniteMagnitude)
             Rectangle()
                 .fill(Color(.secondarySystemFill))
                 .frame(height: 1)
-            Bar(session: $session, snapshot: snapshot)
+            Bar(session: $session, id: id, snapshot: snapshot)
         }
     }
     

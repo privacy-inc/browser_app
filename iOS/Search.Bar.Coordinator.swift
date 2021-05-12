@@ -1,4 +1,5 @@
 import UIKit
+import Archivable
 
 extension Search.Bar {
     final class Coordinator: UIView, UIKeyInput, UITextFieldDelegate {
@@ -25,7 +26,7 @@ extension Search.Bar {
             field.translatesAutoresizingMaskIntoConstraints = false
             field.clearButtonMode = .always
             field.autocorrectionType = .no
-            field.autocapitalizationType = .sentences
+            field.autocapitalizationType = .none
             field.spellCheckingType = .yes
             field.backgroundColor = UIApplication.dark ? .init(white: 1, alpha: 0.2) : .init(white: 1, alpha: 0.6)
             field.tintColor = .label
@@ -74,32 +75,18 @@ extension Search.Bar {
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
-            field.resignFirstResponder()
-            field.text.map {
-                print($0)
-//                switch view.session.section {
-//                case let .browse(id):
-//                    Cloud.shared.browse(id, $0) { [weak self] in
-//                        switch $0 {
-//                        case .navigate:
-//                            self?.bar.text = nil
-//                            self?.changed()
-//                        default: break
-//                        }
-//                        self?.view.session.load.send()
-//                    }
-//                case .history:
-//                    Cloud.shared.browse($0) { [weak self] in
-//                        switch $0 {
-//                        case .navigate:
-//                            self?.bar.text = nil
-//                            self?.changed()
-//                        default: break
-//                        }
-//                        self?.view.session.section = .browse($1)
-//                    }
-//                }
+            switch wrapper.session.tab.state(wrapper.id) {
+            case .new:
+                Cloud.shared.browse(field.text!) { [weak self] id, _ in
+                    guard let self = self else { return }
+                    self.wrapper.session.tab.history(self.wrapper.id, id)
+                }
+            case let .history(id), let .error(id, _):
+                Cloud.shared.browse(id, field.text!) { _ in
+
+                }
             }
+            dismiss()
             return true
         }
         
@@ -107,9 +94,9 @@ extension Search.Bar {
         func deleteBackward() { }
         
         @objc private func dismiss() {
-            field.text = nil
+            wrapper.session.section = .tab(wrapper.id)
+            field.text = ""
             field.resignFirstResponder()
-            wrapper.session.section = wrapper.session.section.tab
         }
     }
 }

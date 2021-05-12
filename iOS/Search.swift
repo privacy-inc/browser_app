@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Search: View {
     @Binding var session: Session
+    let id: UUID
     
     var body: some View {
         ZStack {
@@ -14,7 +15,7 @@ struct Search: View {
                     .padding(.top)
                 Spacer()
             }
-            Bar(session: $session)
+            Bar(session: $session, id: id)
         }
     }
 }

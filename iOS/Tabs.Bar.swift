@@ -15,7 +15,7 @@ extension Tabs {
                           buttons: [
                             .destructive(.init("Close all")) {
                                 withAnimation(.spring(blendDuration: 0.6)) {
-                                    session.section = .tab(session.tab.closeAll())
+                                    session.section = .search(session.tab.closeAll())
                                     session.snapsshots = [:]
                                 }
                             },
@@ -28,7 +28,7 @@ extension Tabs {
                 
                 Control(image: "plus") {
                     withAnimation(.spring(blendDuration: 0.6)) {
-                        session.section = .tab(session.tab.new())
+                        session.section = .search(session.tab.new())
                     }
                 }
                 

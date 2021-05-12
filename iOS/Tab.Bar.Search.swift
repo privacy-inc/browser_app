@@ -3,6 +3,7 @@ import SwiftUI
 extension Tab.Bar {
     struct Search: View {
         @Binding var session: Session
+        let id: UUID
         
         var body: some View {
             ZStack {
@@ -12,7 +13,7 @@ extension Tab.Bar {
             }
             .frame(width: 60)
             .onTapGesture {
-                session.section = session.section.search
+                session.section = .search(id)
             }
         }
     }

@@ -3,6 +3,7 @@ import SwiftUI
 extension Search {
     struct Bar: UIViewRepresentable {
         @Binding var session: Session
+        let id: UUID
         
         func makeCoordinator() -> Coordinator {
             .init(wrapper: self)
