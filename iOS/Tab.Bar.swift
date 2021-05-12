@@ -7,7 +7,7 @@ extension Tab {
         
         var body: some View {
             ZStack {
-                Color(.secondarySystemBackground)
+                Color(.quaternarySystemFill)
                     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                 HStack(spacing: 0) {
                     Control(disabled: true, image: "arrow.left") {
@@ -29,7 +29,7 @@ extension Tab {
                     }
                 }
                 .padding(.horizontal)
-                .frame(height: 32)
+                .frame(height: 34)
                 .padding(.vertical, 10)
             }
             .fixedSize(horizontal: false, vertical: true)

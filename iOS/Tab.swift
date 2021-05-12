@@ -12,17 +12,19 @@ struct Tab: View {
                 }
             }
             .frame(maxHeight: .greatestFiniteMagnitude)
+            Rectangle()
+                .fill(Color(.secondarySystemFill))
+                .frame(height: 1)
             Bar(session: $session, snapshot: snapshot)
         }
     }
     
     private func snapshot() {
         let controller = UIHostingController(rootView: self)
-        controller.view?.bounds = .init(origin: .zero, size: controller.view.intrinsicContentSize)
-//        controller.view?.backgroundColor = .clear
-        session.snapsshots[id] = UIGraphicsImageRenderer(size: controller.view.bounds.size)
+        controller.view!.bounds = .init(origin: .zero, size: UIScreen.main.bounds.size)
+        session.snapsshots[id] = UIGraphicsImageRenderer(size: UIScreen.main.bounds.size)
             .image { _ in
-                controller.view?.drawHierarchy(in: controller.view.bounds, afterScreenUpdates: true)
+                controller.view!.drawHierarchy(in: UIScreen.main.bounds, afterScreenUpdates: true)
             }
     }
 }

@@ -6,13 +6,20 @@ struct Tabs: View {
     
     var body: some View {
         VStack(spacing: 0) {
-            ScrollView(.horizontal) {
-                ForEach(0 ..< session.tab.items.count, id: \.self) {
-                    Item(session: $session, id: session.tab.items[$0].id)
-                        .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
-                        .padding()
+            ZStack {
+                Color(.secondarySystemBackground)
+                    .edgesIgnoringSafeArea([.top, .leading, .trailing])
+                ScrollView(.horizontal) {
+                    ForEach(0 ..< session.tab.items.count, id: \.self) {
+                        Item(session: $session, id: session.tab.items[$0].id)
+                            .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
+                            .padding()
+                    }
                 }
             }
+            Rectangle()
+                .fill(Color(.systemFill))
+                .frame(height: 1)
             Bar(session: $session)
         }
     }
