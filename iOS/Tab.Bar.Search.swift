@@ -7,10 +7,13 @@ extension Tab.Bar {
         var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 6)
-                    .fill(Color(.systemFill))
+                    .fill(Color(.tertiarySystemFill))
                 Image(systemName: "magnifyingglass")
             }
             .frame(width: 60)
+            .onTapGesture {
+                session.section = session.section.search
+            }
         }
     }
 }

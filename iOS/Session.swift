@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 import Sleuth
 
 struct Session {
@@ -6,6 +7,7 @@ struct Session {
     var tab = Sleuth.Tab()
     var section: Section
     var snapsshots = [UUID : UIImage]()
+    var search = PassthroughSubject<Void, Never>()
     
     init() {
         section = tab
