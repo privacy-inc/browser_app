@@ -13,7 +13,7 @@ struct Tabs: View {
                     ForEach(0 ..< session.tab.items.count, id: \.self) {
                         Item(session: $session, id: session.tab.items[$0].id)
                             .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
-                            .padding()
+                            .padding([.leading, .trailing, .bottom])
                     }
                 }
             }

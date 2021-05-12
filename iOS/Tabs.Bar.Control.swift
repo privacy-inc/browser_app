@@ -8,7 +8,7 @@ extension Tabs.Bar {
         var body: some View {
             Button(action: action) {
                 Image(systemName: image)
-//                    .font(.title3)
+                    .font(.title3)
                     .frame(width: 60)
                     .frame(maxHeight: .greatestFiniteMagnitude)
                     .contentShape(Rectangle())
