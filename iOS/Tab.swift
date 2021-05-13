@@ -24,7 +24,7 @@ struct Tab: View {
     private func snapshot() {
         let controller = UIHostingController(rootView: self)
         controller.view!.bounds = .init(origin: .zero, size: UIScreen.main.bounds.size)
-        session.snapsshots[id] = UIGraphicsImageRenderer(size: UIScreen.main.bounds.size)
+        session[id].image = UIGraphicsImageRenderer(size: UIScreen.main.bounds.size)
             .image { _ in
                 controller.view!.drawHierarchy(in: UIScreen.main.bounds, afterScreenUpdates: true)
             }

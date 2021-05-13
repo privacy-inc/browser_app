@@ -9,7 +9,7 @@ extension Tabs {
             VStack {
                 Header(session: $session, id: id)
                 ZStack {
-                    if let image = session.snapsshots[id] {
+                    if let image = session[id].image {
                         RoundedRectangle(cornerRadius: 20)
                             .fill(Color(.systemBackground))
                         Image(uiImage: image)

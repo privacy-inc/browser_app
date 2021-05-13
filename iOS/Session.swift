@@ -6,8 +6,8 @@ struct Session {
     var archive = Archive.new
     var tab = Sleuth.Tab()
     var section: Section
-    var snapsshots = [UUID : UIImage]()
     var search = PassthroughSubject<Void, Never>()
+    private var state = [UUID : State]()
     
     init() {
         section = tab
@@ -16,5 +16,22 @@ struct Session {
             .map(\.id)
             .map(Section.tab)
             ?? .tabs
+    }
+    
+    subscript(_ id: UUID) -> State {
+        get {
+            state[id] ?? .new
+        }
+        set {
+            state[id] = newValue
+        }
+    }
+    
+    mutating func remove(_ id: UUID) {
+        state.removeValue(forKey: id)
+    }
+    
+    mutating func clear() {
+        state = [:]
     }
 }

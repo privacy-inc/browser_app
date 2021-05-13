@@ -11,7 +11,7 @@ extension Tabs.Item {
                     Button {
                         withAnimation(.spring(blendDuration: 0.6)) {
                             session.tab.close(id)
-                            session.snapsshots.removeValue(forKey: id)
+                            session.remove(id)
                         }
                     } label: {
                         Image(systemName: "xmark")
