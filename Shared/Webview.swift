@@ -1,6 +1,5 @@
 import WebKit
 import Combine
-import Archivable
 import Sleuth
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
@@ -28,13 +27,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
-        
-        activity
-            .debounce(for: .seconds(3), scheduler: DispatchQueue.global(qos: .utility))
-            .sink {
-                Cloud.shared.activity()
-            }
-            .store(in: &subs)
     }
     
     deinit {

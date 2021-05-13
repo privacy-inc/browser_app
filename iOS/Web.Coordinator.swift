@@ -139,7 +139,7 @@ extension Web {
         
         func webView(_: WKWebView, didFinish: WKNavigation!) {
             wrapper.session[wrapper.id].progress = 1
-            activity.send()
+            Cloud.shared.activity()
         }
 
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -156,21 +156,20 @@ extension Web {
         }
         
         func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-            cl
-//            switch Cloud.shared.validate(decidePolicyFor.request.url!, with: router) {
-//            case .allow:
-//                print("allow \(decidePolicyFor.request.url!)")
-//                preferences.allowsContentJavaScript = javascript
-//                decisionHandler(.allow, preferences)
-//            case .external:
-//                print("external \(decidePolicyFor.request.url!)")
-//                decisionHandler(.cancel, preferences)
-//                UIApplication.shared.open(decidePolicyFor.request.url!)
-//            case .ignore:
-//                decisionHandler(.cancel, preferences)
-//            case .block:
-//                decisionHandler(.cancel, preferences)
-//            }
+            switch Cloud.shared.policy(decidePolicyFor.request.url!) {
+            case .allow:
+                print("allow \(decidePolicyFor.request.url!)")
+                preferences.allowsContentJavaScript = settings.javascript
+                decisionHandler(.allow, preferences)
+            case .external:
+                print("external \(decidePolicyFor.request.url!)")
+                decisionHandler(.cancel, preferences)
+                UIApplication.shared.open(decidePolicyFor.request.url!)
+            case .ignore:
+                decisionHandler(.cancel, preferences)
+            case .block:
+                decisionHandler(.cancel, preferences)
+            }
         }
     }
 }
