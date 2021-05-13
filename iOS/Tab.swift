@@ -10,7 +10,7 @@ struct Tab: View {
             case .new:
                 New(session: $session)
             case let .history(history):
-                Text(session.archive.history.first { $0.id == history }!.subtitle)
+                Text(verbatim: session.archive.page(history).domain)
             case let .error(history, error):
                 Circle()
             }

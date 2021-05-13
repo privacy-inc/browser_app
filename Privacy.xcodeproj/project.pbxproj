@@ -12,6 +12,8 @@
 		CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111E264BFCBE0097FAC2 /* UIApplication.swift */; };
 		CE781121264C00580097FAC2 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781120264C00580097FAC2 /* Search.swift */; };
 		CE781123264C08990097FAC2 /* Tab.New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781122264C08990097FAC2 /* Tab.New.swift */; };
+		CE919A88264D4CFC0051EE27 /* Tabs.Item.Header.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE919A87264D4CFC0051EE27 /* Tabs.Item.Header.swift */; };
+		CE919A8B264D53A70051EE27 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
 		CE91FA78264AB2A3009A1F88 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CE91FA77264AB2A3009A1F88 /* Sleuth */; };
 		CE91FA7A264AB2B8009A1F88 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA79264AB2B8009A1F88 /* Window.swift */; };
 		CE91FA7C264AB2D3009A1F88 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA7B264AB2D3009A1F88 /* Session.swift */; };
@@ -35,6 +37,8 @@
 		CE78111E264BFCBE0097FAC2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE781120264C00580097FAC2 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE781122264C08990097FAC2 /* Tab.New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.swift; sourceTree = "<group>"; };
+		CE919A87264D4CFC0051EE27 /* Tabs.Item.Header.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.Header.swift; sourceTree = "<group>"; };
+		CE919A8A264D53A70051EE27 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CE91FA79264AB2B8009A1F88 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CE91FA7B264AB2D3009A1F88 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CE91FA7D264AB338009A1F88 /* Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.swift; sourceTree = "<group>"; };
@@ -70,10 +74,19 @@
 		CE85774C264821A50026C302 = {
 			isa = PBXGroup;
 			children = (
+				CE91FA84264ABDEC009A1F88 /* Frameworks */,
 				CE9C2000264821E0001504A2 /* iOS */,
 				CE9C1FFF264821E0001504A2 /* Products */,
-				CE91FA84264ABDEC009A1F88 /* Frameworks */,
+				CE919A89264D53930051EE27 /* Shared */,
 			);
+			sourceTree = "<group>";
+		};
+		CE919A89264D53930051EE27 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				CE919A8A264D53A70051EE27 /* Media.xcassets */,
+			);
+			path = Shared;
 			sourceTree = "<group>";
 		};
 		CE91FA84264ABDEC009A1F88 /* Frameworks */ = {
@@ -110,6 +123,7 @@
 				CE91FA7D264AB338009A1F88 /* Tab.swift */,
 				CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */,
 				CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */,
+				CE919A87264D4CFC0051EE27 /* Tabs.Item.Header.swift */,
 				CE91FA8D264ACBA5009A1F88 /* Tabs.Item.swift */,
 				CE91FA81264AB79C009A1F88 /* Tabs.swift */,
 				CE78111E264BFCBE0097FAC2 /* UIApplication.swift */,
@@ -182,6 +196,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE919A8B264D53A70051EE27 /* Media.xcassets in Resources */,
 				CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -198,6 +213,7 @@
 				CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */,
 				CE781123264C08990097FAC2 /* Tab.New.swift in Sources */,
 				CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */,
+				CE919A88264D4CFC0051EE27 /* Tabs.Item.Header.swift in Sources */,
 				CE78111D264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift in Sources */,
 				CE91FA8E264ACBA5009A1F88 /* Tabs.Item.swift in Sources */,
 				CE9C2002264821E0001504A2 /* App.swift in Sources */,

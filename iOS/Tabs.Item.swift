@@ -1,5 +1,4 @@
 import SwiftUI
-import Sleuth
 
 extension Tabs {
     struct Item: View {
@@ -8,21 +7,11 @@ extension Tabs {
         
         var body: some View {
             VStack {
-                Button {
-                    withAnimation(.spring(blendDuration: 0.6)) {
-                        session.tab.close(id)
-                        session.snapsshots.removeValue(forKey: id)
-                    }
-                } label: {
-                    Image(systemName: "xmark")
-                        .foregroundColor(.secondary)
-                        .frame(width: 50, height: 50)
-                        .contentShape(Rectangle())
-                }
+                Header(session: $session, id: id)
                 ZStack {
-                    RoundedRectangle(cornerRadius: 20)
-                        .fill(Color(.systemBackground))
                     if let image = session.snapsshots[id] {
+                        RoundedRectangle(cornerRadius: 20)
+                            .fill(Color(.systemBackground))
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
@@ -30,9 +19,7 @@ extension Tabs {
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                             .padding(2)
                     } else {
-                        Image(systemName: "magnifyingglass")
-                            .font(.largeTitle)
-                            .foregroundColor(.accentColor)
+                        Image("blank")
                     }
                 }
                 .frame(maxHeight: .greatestFiniteMagnitude)

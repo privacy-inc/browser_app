@@ -10,7 +10,7 @@ struct Tabs: View {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
                 ScrollView(.horizontal) {
-                    HStack {
+                    HStack(spacing: 10) {
                         ForEach(0 ..< session.tab.items.count, id: \.self) {
                             Item(session: $session, id: session.tab.items[$0].id)
                                 .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
