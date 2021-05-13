@@ -9,8 +9,8 @@ struct Tab: View {
             switch session.tab.state(id) {
             case .new:
                 New(session: $session)
-            case let .history(history):
-                Text(verbatim: session.archive.page(history).domain)
+            case .history:
+                Web(session: $session, id: id)
             case let .error(history, error):
                 Circle()
             }

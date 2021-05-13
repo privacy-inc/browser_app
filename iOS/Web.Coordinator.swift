@@ -6,8 +6,13 @@ extension Web {
     final class Coordinator: Webview {
         private let wrapper: Web
         
+        deinit {
+            print("gone")
+        }
+        
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web) {
+            print("init")
             self.wrapper = wrapper
             var settings = wrapper.session.archive.settings
             
@@ -25,19 +30,31 @@ extension Web {
             scrollView.keyboardDismissMode = .none
             isOpaque = !settings.dark
             
-            publisher(for: \.estimatedProgress)
+            publisher(for: \.estimatedProgress, options: .new)
                 .sink {
                     wrapper.session[wrapper.id].progress = $0
                 }
                 .store(in: &subs)
-            
-            publisher(for: \.isLoading)
+
+            publisher(for: \.isLoading, options: .new)
                 .sink {
                     wrapper.session[wrapper.id].loading = $0
                 }
                 .store(in: &subs)
             
-            publisher(for: \.title)
+            publisher(for: \.canGoForward, options: .new)
+                .sink {
+                    wrapper.session[wrapper.id].forward = $0
+                }
+                .store(in: &subs)
+            
+            publisher(for: \.canGoBack, options: .new)
+                .sink {
+                    wrapper.session[wrapper.id].back = $0
+                }
+                .store(in: &subs)
+            
+            publisher(for: \.title, options: .new)
                 .sink {
                     $0.map {
                         switch wrapper.session.tab.state(wrapper.id) {
@@ -50,7 +67,7 @@ extension Web {
                 }
                 .store(in: &subs)
             
-            publisher(for: \.url)
+            publisher(for: \.url, options: .new)
                 .sink {
                     $0.map {
                         switch wrapper.session.tab.state(wrapper.id) {
@@ -60,18 +77,6 @@ extension Web {
                             break
                         }
                     }
-                }
-                .store(in: &subs)
-            
-            publisher(for: \.canGoForward)
-                .sink {
-                    wrapper.session[wrapper.id].forward = $0
-                }
-                .store(in: &subs)
-            
-            publisher(for: \.canGoBack)
-                .sink {
-                    wrapper.session[wrapper.id].back = $0
                 }
                 .store(in: &subs)
             

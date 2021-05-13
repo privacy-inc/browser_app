@@ -5,12 +5,21 @@ struct Web: UIViewRepresentable {
     let id: UUID
     
     func makeCoordinator() -> Coordinator {
-        .init(wrapper: self)
+        let coordinator = session[id].web ?? .init(wrapper: self)
+        if session[id].web == nil {
+            session[id].web = coordinator
+        }
+        print(session[id])
+        return coordinator
     }
     
     func makeUIView(context: Context) -> Coordinator {
-        context.coordinator
+        
+        print("b")
+        return context.coordinator
     }
     
-    func updateUIView(_: Coordinator, context: Context) { }
+    func updateUIView(_: Coordinator, context: Context) {
+        print("a")
+    }
 }
