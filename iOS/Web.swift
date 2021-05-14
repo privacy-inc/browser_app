@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct Web: UIViewRepresentable {
+struct Web: UIViewRepresentable, Tabber {
     @Binding var session: Session
     let id: UUID
     
@@ -9,17 +9,12 @@ struct Web: UIViewRepresentable {
         if session[id].web == nil {
             session[id].web = coordinator
         }
-        print(session[id])
         return coordinator
     }
     
     func makeUIView(context: Context) -> Coordinator {
-        
-        print("b")
-        return context.coordinator
+        context.coordinator
     }
     
-    func updateUIView(_: Coordinator, context: Context) {
-        print("a")
-    }
+    func updateUIView(_: Coordinator, context: Context) { }
 }

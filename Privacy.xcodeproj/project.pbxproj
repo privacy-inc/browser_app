@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		CE08AB4D264E7BB0008E631F /* Tabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB4C264E7BB0008E631F /* Tabber.swift */; };
 		CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */; };
 		CE78111D264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111C264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift */; };
 		CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111E264BFCBE0097FAC2 /* UIApplication.swift */; };
@@ -36,6 +37,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		CE08AB4C264E7BB0008E631F /* Tabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabber.swift; sourceTree = "<group>"; };
 		CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Bar.swift; sourceTree = "<group>"; };
 		CE78111C264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Bar.Coordinator.swift; sourceTree = "<group>"; };
 		CE78111E264BFCBE0097FAC2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -131,6 +133,7 @@
 				CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */,
 				CE781122264C08990097FAC2 /* Tab.New.swift */,
 				CE91FA7D264AB338009A1F88 /* Tab.swift */,
+				CE08AB4C264E7BB0008E631F /* Tabber.swift */,
 				CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */,
 				CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */,
 				CE919A87264D4CFC0051EE27 /* Tabs.Item.Header.swift */,
@@ -235,6 +238,7 @@
 				CE919A91264D58480051EE27 /* Webview.swift in Sources */,
 				CE91FA7C264AB2D3009A1F88 /* Session.swift in Sources */,
 				CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */,
+				CE08AB4D264E7BB0008E631F /* Tabber.swift in Sources */,
 				CE91FA8A264AC21D009A1F88 /* Tab.Bar.Search.swift in Sources */,
 				CE91FA7E264AB338009A1F88 /* Tab.swift in Sources */,
 				CE919A93264D5F6B0051EE27 /* Session.State.swift in Sources */,

@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Search {
-    struct Bar: UIViewRepresentable {
+    struct Bar: UIViewRepresentable, Tabber {
         @Binding var session: Session
         let id: UUID
         
@@ -10,9 +10,12 @@ extension Search {
         }
         
         func makeUIView(context: Context) -> Coordinator {
-            context.coordinator
+            print("field created")
+            return context.coordinator
         }
         
-        func updateUIView(_: Coordinator, context: Context) { }
+        func updateUIView(_: Coordinator, context: Context) {
+            print("field changed")
+        }
     }
 }

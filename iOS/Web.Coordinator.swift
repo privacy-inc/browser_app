@@ -56,26 +56,24 @@ extension Web {
             
             publisher(for: \.title, options: .new)
                 .sink {
-                    $0.map {
-                        switch wrapper.session.tab.state(wrapper.id) {
-                        case let .history(id), let .error(id, _):
-                            Cloud.shared.update(id, title: $0)
-                        default:
-                            break
-                        }
+                    $0.map { title in
+                        wrapper
+                            .history
+                            .map {
+                                Cloud.shared.update($0, title: title)
+                            }
                     }
                 }
                 .store(in: &subs)
             
             publisher(for: \.url, options: .new)
                 .sink {
-                    $0.map {
-                        switch wrapper.session.tab.state(wrapper.id) {
-                        case let .history(id), let .error(id, _):
-                            Cloud.shared.update(id, url: $0)
-                        default:
-                            break
-                        }
+                    $0.map { url in
+                        wrapper
+                            .history
+                            .map {
+                                Cloud.shared.update($0, url: url)
+                            }
                     }
                 }
                 .store(in: &subs)
@@ -136,6 +134,19 @@ extension Web {
 //                    UIApplication.shared.share(data.temporal(name))
 //                }
 //            }.store(in: &subs)
+            
+            wrapper
+                .session
+                .load
+                .filter {
+                    $0 == wrapper.id
+                }
+                .sink { [weak self] _ in
+                    self?.history()
+                }
+                .store(in: &subs)
+            
+            history()
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -175,6 +186,17 @@ extension Web {
             case .block:
                 decisionHandler(.cancel, preferences)
             }
+        }
+        
+        private func history() {
+            _ = wrapper
+                .history
+                .map(wrapper.session.archive.page)
+                .flatMap(\.url)
+                .map {
+                    .init(url: $0)
+                }
+                .map(load)
         }
     }
 }

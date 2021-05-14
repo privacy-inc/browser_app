@@ -7,6 +7,7 @@ struct Session {
     var tab = Sleuth.Tab()
     var section: Section
     var search = PassthroughSubject<Void, Never>()
+    var load = PassthroughSubject<UUID, Never>()
     private var state = [UUID : State]()
     
     init() {
