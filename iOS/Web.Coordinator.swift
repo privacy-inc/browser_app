@@ -74,6 +74,8 @@ extension Web {
                 }
                 .store(in: &subs)
             
+            
+            
 //            view.session.previous.sink { [weak self] in
 //                if self?.canGoBack == true {
 //                    self?.goBack()
@@ -141,6 +143,51 @@ extension Web {
                     self?.history()
                 }
                 .store(in: &subs)
+            
+            wrapper
+                .session
+                .reload
+                .filter {
+                    $0 == wrapper.id
+                }
+                .sink { [weak self] _ in
+                    self?.reload()
+                }
+                .store(in: &subs)
+            
+            wrapper
+                .session
+                .stop
+                .filter {
+                    $0 == wrapper.id
+                }
+                .sink { [weak self] _ in
+                    self?.stopLoading()
+                }
+                .store(in: &subs)
+            
+            wrapper
+                .session
+                .back
+                .filter {
+                    $0 == wrapper.id
+                }
+                .sink { [weak self] _ in
+                    self?.goBack()
+                }
+                .store(in: &subs)
+            
+            wrapper
+                .session
+                .forward
+                .filter {
+                    $0 == wrapper.id
+                }
+                .sink { [weak self] _ in
+                    self?.goForward()
+                }
+                .store(in: &subs)
+            
             
             history()
         }

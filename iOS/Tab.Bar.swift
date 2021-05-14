@@ -11,11 +11,11 @@ extension Tab {
                 Color(.quaternarySystemFill)
                     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                 HStack(spacing: 0) {
-                    Control(disabled: true, image: "arrow.left") {
-                        
+                    Control(disabled: !session[id].back, image: "arrow.left") {
+                        session.back.send(id)
                     }
-                    Control(disabled: true, image: "arrow.right") {
-                        
+                    Control(disabled: !session[id].forward, image: "arrow.right") {
+                        session.forward.send(id)
                     }
                     Search(session: $session, id: id)
                         .padding(.horizontal, 10)
