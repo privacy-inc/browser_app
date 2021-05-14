@@ -8,7 +8,7 @@ struct Tab: View {
         VStack(spacing: 0) {
             switch session.tab.state(id) {
             case .new:
-                New(session: $session)
+                New(session: $session, id: id)
             case .history:
                 Web(session: $session, id: id)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])

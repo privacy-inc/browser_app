@@ -3,11 +3,13 @@ import SwiftUI
 extension Tab {
     struct New: View {
         @Binding var session: Session
+        let id: UUID
         
         var body: some View {
-            ScrollView {
-                VStack(spacing: 0) {
-                    Text("Hello world!")
+            GeometryReader { proxy in
+                ScrollView {
+                    Bookmarks(session: $session, id: id)
+                    History(session: $session, id: id, metrics: .init(size: proxy.size))
                 }
             }
         }
