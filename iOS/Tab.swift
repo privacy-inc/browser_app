@@ -11,6 +11,7 @@ struct Tab: View {
                 New(session: $session)
             case .history:
                 Web(session: $session, id: id)
+                    .edgesIgnoringSafeArea([.top, .leading, .trailing])
             case let .error(history, error):
                 Circle()
             }

@@ -4,6 +4,7 @@ extension Tabs {
     struct Item: View {
         @Binding var session: Session
         let id: UUID
+        let size: CGSize
         
         var body: some View {
             VStack {
@@ -15,21 +16,20 @@ extension Tabs {
                         Image(uiImage: image)
                             .resizable()
                             .aspectRatio(contentMode: .fill)
-                            .frame(width: 276)
+                            .frame(width: size.width * 0.7, height: size.height - 102)
                             .clipShape(RoundedRectangle(cornerRadius: 20))
                             .padding(2)
                     } else {
                         Image("blank")
+                            .frame(width: size.width * 0.7, height: size.height - 102)
                     }
                 }
-                .frame(maxHeight: .greatestFiniteMagnitude)
                 .onTapGesture {
                     withAnimation(.spring(blendDuration: 0.6)) {
                         session.section = .tab(id)
                     }
                 }
             }
-            .frame(width: 280)
         }
     }
 }

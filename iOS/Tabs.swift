@@ -9,14 +9,16 @@ struct Tabs: View {
             ZStack {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
-                ScrollView(.horizontal) {
-                    HStack(spacing: 10) {
-                        ForEach(0 ..< session.tab.items.count, id: \.self) {
-                            Item(session: $session, id: session.tab.items[$0].id)
-                                .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
+                GeometryReader { proxy in
+                    ScrollView(.horizontal) {
+                        HStack(spacing: 3) {
+                            ForEach(0 ..< session.tab.items.count, id: \.self) {
+                                Item(session: $session, id: session.tab.items[$0].id, size: proxy.size)
+                                    .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
+                            }
                         }
+                        .padding()
                     }
-                    .padding([.leading, .trailing, .bottom])
                 }
             }
             Rectangle()

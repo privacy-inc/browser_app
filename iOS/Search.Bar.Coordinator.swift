@@ -71,7 +71,7 @@ extension Search.Bar {
         }
         
         func textFieldDidEndEditing(_: UITextField) {
-            editable = true
+            wrapper.session.section = .tab(wrapper.id)
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
@@ -91,8 +91,6 @@ extension Search.Bar {
         func deleteBackward() { }
         
         @objc private func dismiss() {
-            wrapper.session.section = .tab(wrapper.id)
-            field.text = ""
             field.resignFirstResponder()
         }
     }

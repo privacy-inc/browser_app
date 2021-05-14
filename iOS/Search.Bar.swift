@@ -10,12 +10,9 @@ extension Search {
         }
         
         func makeUIView(context: Context) -> Coordinator {
-            print("field created")
-            return context.coordinator
+            context.coordinator
         }
         
-        func updateUIView(_: Coordinator, context: Context) {
-            print("field changed")
-        }
+        func updateUIView(_: Coordinator, context: Context) { }
     }
 }

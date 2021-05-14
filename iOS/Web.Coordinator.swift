@@ -6,13 +6,8 @@ extension Web {
     final class Coordinator: Webview {
         private let wrapper: Web
         
-        deinit {
-            print("gone")
-        }
-        
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web) {
-            print("init")
             self.wrapper = wrapper
             var settings = wrapper.session.archive.settings
             
@@ -28,6 +23,7 @@ extension Web {
             
             super.init(configuration: configuration, settings: settings)
             scrollView.keyboardDismissMode = .none
+            scrollView.contentInsetAdjustmentBehavior = .always
             isOpaque = !settings.dark
             
             publisher(for: \.estimatedProgress, options: .new)

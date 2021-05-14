@@ -15,22 +15,25 @@ extension Tabs.Item {
                         }
                     } label: {
                         Image(systemName: "xmark")
-                            .foregroundColor(.secondary)
-                            .frame(width: 50, height: 50)
+                            .foregroundColor(.primary)
+                            .frame(width: 46, height: 36)
                             .contentShape(Rectangle())
                     }
                     Text(verbatim: subtitle)
                         .font(.caption)
                         .lineLimit(1)
                         .foregroundColor(.secondary)
+                        .offset(x: -10)
                     Spacer()
                 }
                 Text(verbatim: title)
-                    .font(.callout)
+                    .font(.footnote)
                     .lineLimit(1)
+                    .foregroundColor(.secondary)
+                    .padding(.horizontal)
                 Spacer()
             }
-            .frame(height: 80)
+            .frame(height: 65)
         }
         
         private var title: String {
