@@ -16,7 +16,7 @@ struct Session {
             .first
             .map(\.id)
             .map(Section.tab)
-            ?? .tabs
+            ?? .tabs(nil)
     }
     
     subscript(_ id: UUID) -> State {

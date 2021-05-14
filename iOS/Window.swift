@@ -6,8 +6,8 @@ struct Window: View {
     
     var body: some View {
         switch session.section {
-        case .tabs:
-            Tabs(session: $session, tabs: tabs)
+        case let .tabs(previous):
+            Tabs(session: $session, tabs: tabs, previous: previous)
         case let .tab(id):
             Tab(session: $session, id: id)
                 .matchedGeometryEffect(id: id, in: tabs)

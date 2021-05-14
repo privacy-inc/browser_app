@@ -3,7 +3,7 @@ import Foundation
 extension Session {
     enum Section {
         case
-        tabs,
+        tabs(UUID?),
         tab(UUID),
         search(UUID)
     }

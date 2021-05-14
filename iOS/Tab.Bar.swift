@@ -21,7 +21,7 @@ extension Tab {
                         .padding(.horizontal, 10)
                     Control(image: "app") {
                         withAnimation(.spring(blendDuration: 0.6)) {
-                            session.section = .tabs
+                            session.section = .tabs(id)
                             snapshot()
                         }
                     }
