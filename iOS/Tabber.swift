@@ -1,4 +1,4 @@
-import Foundation
+import SwiftUI
 
 protocol Tabber {
     var session: Session { get }

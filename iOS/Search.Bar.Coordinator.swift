@@ -87,6 +87,10 @@ extension Search.Bar {
             return true
         }
         
+        func textFieldDidChangeSelection(_: UITextField) {
+            wrapper.filter = field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
+        }
+        
         func insertText(_: String) { }
         func deleteBackward() { }
         
