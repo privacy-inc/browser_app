@@ -6,7 +6,7 @@ extension Tab.New {
         let id: UUID
         
         var body: some View {
-            Text("hello world")
+            EmptyView()
         }
     }
 }

@@ -8,13 +8,13 @@ extension Tab.New.History {
         let spacing = CGFloat(6)
         
         init(size: CGSize) {
-            let currentWidth = size.width > 550 ? CGFloat(200) : 160
+            let aprox = size.width > 550 ? CGFloat(200) : 160
             let total = size.width - (spacing * 3)
-            let width = currentWidth + spacing
-            let count = floor(total / width)
-            let delta = total.truncatingRemainder(dividingBy: width) / count
-            self.width = currentWidth + delta
-            columns = .init(size.width / self.width)
+            let width_spacing = aprox + spacing
+            let count = floor(total / width_spacing)
+            let delta = total.truncatingRemainder(dividingBy: width_spacing) / count
+            width = aprox + delta
+            columns = .init(size.width / width)
         }
     }
 }

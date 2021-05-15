@@ -16,7 +16,7 @@ struct Tab: View {
                 Circle()
             }
             Rectangle()
-                .fill(Color(.secondarySystemFill))
+                .fill(Color(.systemFill))
                 .frame(height: 1)
             Bar(session: $session, id: id, snapshot: snapshot)
         }

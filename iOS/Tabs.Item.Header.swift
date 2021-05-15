@@ -33,7 +33,6 @@ extension Tabs.Item {
                     .padding(.horizontal)
                 Spacer()
             }
-            .frame(height: 65)
         }
         
         private var title: String {
