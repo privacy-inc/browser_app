@@ -3,22 +3,26 @@ import SwiftUI
 struct Tab: View {
     @Binding var session: Session
     let id: UUID
+    @State private var modal = false
     
     var body: some View {
-        VStack(spacing: 0) {
-            switch session.tab.state(id) {
-            case .new:
-                New(session: $session, id: id)
-            case .browse:
-                Web(session: $session, id: id)
-                    .edgesIgnoringSafeArea([.top, .leading, .trailing])
-            case let .error:
-                Circle()
+        ZStack {
+            VStack(spacing: 0) {
+                switch session.tab.state(id) {
+                case .new:
+                    New(session: $session, id: id)
+                case .browse:
+                    Web(session: $session, id: id)
+                        .edgesIgnoringSafeArea([.top, .leading, .trailing])
+                case let .error:
+                    Circle()
+                }
+                Rectangle()
+                    .fill(Color(.systemFill))
+                    .frame(height: 1)
+                Bar(session: $session, modal: $modal, id: id, snapshot: snapshot)
             }
-            Rectangle()
-                .fill(Color(.systemFill))
-                .frame(height: 1)
-            Bar(session: $session, id: id, snapshot: snapshot)
+            Modal(session: $session, show: $modal, id: id)
         }
     }
     

@@ -3,6 +3,7 @@ import SwiftUI
 extension Tab {
     struct Bar: View {
         @Binding var session: Session
+        @Binding var modal: Bool
         let id: UUID
         let snapshot: () -> Void
         
@@ -26,7 +27,7 @@ extension Tab {
                         }
                     }
                     Control(image: "line.horizontal.3") {
-                        
+                        modal = true
                     }
                 }
                 .padding(.horizontal)

@@ -11,6 +11,9 @@
 		CE03EDD1264FBFC20031B649 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */; };
 		CE03EDD3264FCF1A0031B649 /* Search.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD2264FCF1A0031B649 /* Search.Item.swift */; };
 		CE03EDD5264FD3450031B649 /* Search.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD4264FD3450031B649 /* Search.Cell.swift */; };
+		CE03EDD7264FE4300031B649 /* Tab.Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD6264FE4300031B649 /* Tab.Modal.swift */; };
+		CE03EDD9264FEDD90031B649 /* Tab.Modal.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */; };
+		CE03EDDB264FF5510031B649 /* Tab.Modal.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDDA264FF5510031B649 /* Tab.Modal.Control.swift */; };
 		CE08AB4D264E7BB0008E631F /* Tabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB4C264E7BB0008E631F /* Tabber.swift */; };
 		CE08AB4F264EB59B008E631F /* Tab.New.History.Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB4E264EB59B008E631F /* Tab.New.History.Metrics.swift */; };
 		CE08AB51264EB6B8008E631F /* Tab.New.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB50264EB6B8008E631F /* Tab.New.History.swift */; };
@@ -48,6 +51,9 @@
 		CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
 		CE03EDD2264FCF1A0031B649 /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
 		CE03EDD4264FD3450031B649 /* Search.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Cell.swift; sourceTree = "<group>"; };
+		CE03EDD6264FE4300031B649 /* Tab.Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.swift; sourceTree = "<group>"; };
+		CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.Card.swift; sourceTree = "<group>"; };
+		CE03EDDA264FF5510031B649 /* Tab.Modal.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.Control.swift; sourceTree = "<group>"; };
 		CE08AB4C264E7BB0008E631F /* Tabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabber.swift; sourceTree = "<group>"; };
 		CE08AB4E264EB59B008E631F /* Tab.New.History.Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.History.Metrics.swift; sourceTree = "<group>"; };
 		CE08AB50264EB6B8008E631F /* Tab.New.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.History.swift; sourceTree = "<group>"; };
@@ -148,6 +154,9 @@
 				CE91FA8B264AC5A0009A1F88 /* Tab.Bar.Control.swift */,
 				CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */,
 				CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */,
+				CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */,
+				CE03EDDA264FF5510031B649 /* Tab.Modal.Control.swift */,
+				CE03EDD6264FE4300031B649 /* Tab.Modal.swift */,
 				CE08AB52264EB6F7008E631F /* Tab.New.Bookmarks.swift */,
 				CE03EDCE264FBE8E0031B649 /* Tab.New.History.Cell.swift */,
 				CE08AB4E264EB59B008E631F /* Tab.New.History.Metrics.swift */,
@@ -247,11 +256,14 @@
 				CE91FA80264AB70B009A1F88 /* Session.Section.swift in Sources */,
 				CE03EDD3264FCF1A0031B649 /* Search.Item.swift in Sources */,
 				CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */,
+				CE03EDDB264FF5510031B649 /* Tab.Modal.Control.swift in Sources */,
 				CE919A8D264D575A0051EE27 /* Web.swift in Sources */,
 				CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */,
 				CE08AB4F264EB59B008E631F /* Tab.New.History.Metrics.swift in Sources */,
+				CE03EDD7264FE4300031B649 /* Tab.Modal.swift in Sources */,
 				CE781123264C08990097FAC2 /* Tab.New.swift in Sources */,
 				CE08AB53264EB6F7008E631F /* Tab.New.Bookmarks.swift in Sources */,
+				CE03EDD9264FEDD90031B649 /* Tab.Modal.Card.swift in Sources */,
 				CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */,
 				CE919A88264D4CFC0051EE27 /* Tabs.Item.Header.swift in Sources */,
 				CE78111D264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift in Sources */,
