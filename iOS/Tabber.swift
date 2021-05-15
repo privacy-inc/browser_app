@@ -6,12 +6,12 @@ protocol Tabber {
 }
 
 extension Tabber {
-    var history: Int? {
+    var browse: Int? {
         switch session.tab.state(id) {
         case .new:
             return nil
-        case let .history(history), let .error(history, _):
-            return history
+        case let .browse(id), let .error(id, _):
+            return id
         }
     }
 }

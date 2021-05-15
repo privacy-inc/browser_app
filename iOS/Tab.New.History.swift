@@ -7,7 +7,7 @@ extension Tab.New {
         @Binding var session: Session
         let id: UUID
         let metrics: Metrics
-        @State private var list = [[Sleuth.History]]()
+        @State private var list = [[Browse]]()
         
         var body: some View {
             HStack(alignment: .top, spacing: metrics.spacing) {
@@ -30,7 +30,7 @@ extension Tab.New {
         private func arrange() {
             list = session
                 .archive
-                .history
+                .browse
                 .prefix(6)
                 .reduce(into: (Array(repeating: [], count: metrics.columns), metrics.columns)) {
                     $0.1 = $0.1 < metrics.columns - 1 ? $0.1 + 1 : 0

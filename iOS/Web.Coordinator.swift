@@ -54,7 +54,7 @@ extension Web {
                 .sink {
                     $0.map { title in
                         wrapper
-                            .history
+                            .browse
                             .map {
                                 Cloud.shared.update($0, title: title)
                             }
@@ -66,7 +66,7 @@ extension Web {
                 .sink {
                     $0.map { url in
                         wrapper
-                            .history
+                            .browse
                             .map {
                                 Cloud.shared.update($0, url: url)
                             }
@@ -140,7 +140,7 @@ extension Web {
                     $0 == wrapper.id
                 }
                 .sink { [weak self] _ in
-                    self?.history()
+                    self?.browse()
                 }
                 .store(in: &subs)
             
@@ -188,8 +188,7 @@ extension Web {
                 }
                 .store(in: &subs)
             
-            
-            history()
+            browse()
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -231,9 +230,9 @@ extension Web {
             }
         }
         
-        private func history() {
+        private func browse() {
             _ = wrapper
-                .history
+                .browse
                 .map(wrapper.session.archive.page)
                 .flatMap(\.url)
                 .map {

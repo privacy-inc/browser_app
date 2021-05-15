@@ -9,10 +9,10 @@ struct Tab: View {
             switch session.tab.state(id) {
             case .new:
                 New(session: $session, id: id)
-            case .history:
+            case .browse:
                 Web(session: $session, id: id)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
-            case let .error(history, error):
+            case let .error:
                 Circle()
             }
             Rectangle()

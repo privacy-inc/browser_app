@@ -75,12 +75,12 @@ extension Search.Bar {
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
-            Cloud.shared.browse(field.text!, id: wrapper.history) { [weak self] in
+            Cloud.shared.browse(field.text!, id: wrapper.browse) { [weak self] in
                 guard let self = self else { return }
-                if self.wrapper.history == $0 {
+                if self.wrapper.browse == $0 {
                     self.wrapper.session.load.send(self.wrapper.id)
                 } else {
-                    self.wrapper.session.tab.history(self.wrapper.id, $0)
+                    self.wrapper.session.tab.browse(self.wrapper.id, $0)
                 }
             }
             dismiss()

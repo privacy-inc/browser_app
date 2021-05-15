@@ -40,8 +40,8 @@ extension Tabs.Item {
             switch session.tab.state(id) {
             case .new:
                 return ""
-            case let .history(history):
-                return session.archive.page(history).title
+            case let .browse(browse):
+                return session.archive.page(browse).title
             case let .error(_, error):
                 return error.description
             }
@@ -51,8 +51,8 @@ extension Tabs.Item {
             switch session.tab.state(id) {
             case .new:
                 return ""
-            case let .history(history):
-                return session.archive.page(history).domain
+            case let .browse(browse):
+                return session.archive.page(browse).domain
             case let .error(_, error):
                 return error.domain
             }
