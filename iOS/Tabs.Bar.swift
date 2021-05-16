@@ -14,7 +14,7 @@ extension Tabs {
                     .init(title: .init("Close all tabs?"),
                           buttons: [
                             .destructive(.init("Close all")) {
-                                withAnimation(.spring(blendDuration: 0.6)) {
+                                withAnimation(.spring(blendDuration: 0.4)) {
                                     session.section = .search(session.tab.closeAll())
                                     session.clear()
                                 }
@@ -27,7 +27,7 @@ extension Tabs {
                 }
                 
                 Control(image: "plus") {
-                    withAnimation(.spring(blendDuration: 0.6)) {
+                    withAnimation(.spring(blendDuration: 0.4)) {
                         session.section = .search(session.tab.new())
                     }
                 }

@@ -10,6 +10,7 @@ struct Window: View {
             Tabs(session: $session, tabs: tabs, previous: previous)
         case let .tab(id):
             Tab(session: $session, id: id)
+                .ignoresSafeArea(.keyboard)
                 .matchedGeometryEffect(id: id, in: tabs)
         case let .search(id):
             Search(session: $session, id: id)

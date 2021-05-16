@@ -55,7 +55,9 @@ extension Search.Bar {
             cancel.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
             cancel.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
             
-            becomeFirstResponder()
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                self?.becomeFirstResponder()
+            }
         }
         
         @discardableResult override func becomeFirstResponder() -> Bool {
@@ -71,7 +73,7 @@ extension Search.Bar {
         }
         
         func textFieldDidEndEditing(_: UITextField) {
-            wrapper.session.section = .tab(wrapper.id)
+            wrapper.dismiss()
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {

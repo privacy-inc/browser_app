@@ -11,7 +11,7 @@ extension Tabs {
                 Header(session: $session, id: id)
                     .frame(width: size.width * 0.7, height: 65)
                 Button {
-                    withAnimation(.spring(blendDuration: 0.6)) {
+                    withAnimation(.spring(blendDuration: 0.4)) {
                         session.section = .tab(id)
                     }
                 } label: {

@@ -9,7 +9,7 @@ extension Tabs.Item {
             VStack(alignment: .leading) {
                 HStack {
                     Button {
-                        withAnimation(.spring(blendDuration: 0.6)) {
+                        withAnimation(.spring(blendDuration: 0.4)) {
                             session.tab.close(id)
                             session.remove(id)
                         }

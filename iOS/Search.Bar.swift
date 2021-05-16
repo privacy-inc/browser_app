@@ -15,5 +15,11 @@ extension Search {
         }
         
         func updateUIView(_: Coordinator, context: Context) { }
+        
+        func dismiss() {
+            withAnimation(.easeInOut(duration: 0.3)) {
+                session.section = .tab(id)
+            }
+        }
     }
 }

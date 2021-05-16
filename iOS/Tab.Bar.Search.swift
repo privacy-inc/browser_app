@@ -13,7 +13,9 @@ extension Tab.Bar {
             }
             .frame(width: 60)
             .onTapGesture {
-                session.section = .search(id)
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    session.section = .search(id)
+                }
             }
         }
     }

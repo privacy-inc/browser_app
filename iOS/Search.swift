@@ -41,20 +41,27 @@ struct Search: View, Tabber {
     }
     
     private var items: [Item] {
-        Set(session
-            .archive
-            .browse
-            .map(\.page)
-            .filter {
-                filter.isEmpty
-                    ? true
-                    : $0.title.localizedCaseInsensitiveContains(filter)
-                        || $0.string.localizedCaseInsensitiveContains(filter)
-            }
-            .map {
-                .init(title: $0.title, url: $0.string)
-            })
-            .prefix(5)
-            .sorted()
+        recent
+    }
+    
+    private var recent: [Item] {
+        filter.isEmpty
+            ? .init(session
+                        .archive
+                        .browse
+                        .prefix(5)
+                        .map(\.page)
+                        .map(Item.init(page:)))
+            : .init(Set(session
+                            .archive
+                            .browse
+                            .map(\.page)
+                            .filter {
+                                $0.title.localizedCaseInsensitiveContains(filter)
+                                    || $0.string.localizedCaseInsensitiveContains(filter)
+                            }
+                            .map(Item.init(page:)))
+                            .sorted()
+                            .prefix(5))
     }
 }

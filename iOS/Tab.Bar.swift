@@ -21,7 +21,7 @@ extension Tab {
                     Search(session: $session, id: id)
                         .padding(.horizontal, 10)
                     Control(image: "app") {
-                        withAnimation(.spring(blendDuration: 0.6)) {
+                        withAnimation(.spring(blendDuration: 0.4)) {
                             session.section = .tabs(id)
                             snapshot()
                         }
