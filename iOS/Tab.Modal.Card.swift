@@ -1,7 +1,8 @@
 import SwiftUI
+import Archivable
 
 extension Tab.Modal {
-    struct Card: View {
+    struct Card: View, Tabber {
         @Binding var session: Session
         let id: UUID
         let dismiss: () -> Void
@@ -16,8 +17,9 @@ extension Tab.Modal {
                             
                         }
                         Control(title: "Bookmark", image: "bookmark") {
+                            browse.map(Cloud.shared.bookmark)
                             dismiss()
-                            withAnimation(.easeInOut(duration: 0.3)) {
+                            withAnimation(.easeInOut(duration: 0.4)) {
                                 session.toast = .init(title: "Bookmark added", icon: "bookmark")
                             }
                         }

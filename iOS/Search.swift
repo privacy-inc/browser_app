@@ -16,23 +16,14 @@ struct Search: View, Tabber {
                     .foregroundColor(.secondary)
                     .padding([.top, .leading])
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                ForEach(bookmarks, id: \.self, content: cell)
                 Text("Recent")
                     .font(.footnote.bold())
                     .foregroundColor(.secondary)
-                    .padding([.top, .leading])
+                    .padding(.leading)
+                    .padding(.top, 24)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                ForEach(items, id: \.self) { item in
-                    Cell(item: item) {
-                        Cloud.shared.browse(item.url, id: browse) {
-                            UIApplication.shared.resign()
-                            if browse == $0 {
-                                session.load.send(id)
-                            } else {
-                                session.tab.browse(id, $0)
-                            }
-                        }
-                    }
-                }
+                ForEach(recent, id: \.self, content: cell)
                 Spacer()
             }
             Bar(session: $session, filter: $filter, id: id)
@@ -40,8 +31,38 @@ struct Search: View, Tabber {
         }
     }
     
-    private var items: [Item] {
-        recent
+    private func cell(_ item: Item) -> Cell {
+        .init(item: item) {
+            Cloud.shared.browse(item.url, id: browse) {
+                UIApplication.shared.resign()
+                if browse == $0 {
+                    session.load.send(id)
+                } else {
+                    session.tab.browse(id, $0)
+                }
+            }
+        }
+    }
+    
+    private var bookmarks: [Item] {
+        filter.isEmpty
+            ? .init(session
+                        .archive
+                        .browse
+                        .prefix(5)
+                        .map(\.page)
+                        .map(Item.init(page:)))
+            : .init(Set(session
+                            .archive
+                            .browse
+                            .map(\.page)
+                            .filter {
+                                $0.title.localizedCaseInsensitiveContains(filter)
+                                    || $0.string.localizedCaseInsensitiveContains(filter)
+                            }
+                            .map(Item.init(page:)))
+                            .sorted()
+                            .prefix(5))
     }
     
     private var recent: [Item] {
