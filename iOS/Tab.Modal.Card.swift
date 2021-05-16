@@ -8,11 +8,27 @@ extension Tab.Modal {
         
         var body: some View {
             ZStack {
-                RoundedRectangle(cornerRadius: 20)
+                RoundedRectangle(cornerRadius: 10)
                     .fill(Color(.tertiarySystemBackground))
                 VStack {
+                    HStack {
+                        Control(title: "Info", image: "info.circle") {
+                            
+                        }
+                        Control(title: "Bookmark", image: "bookmark") {
+                            
+                        }
+                    }
+                    HStack {
+                        Control(title: "Options", image: "square.and.arrow.up.on.square") {
+                            
+                        }
+                        Control(title: "Find", image: "doc.text.magnifyingglass") {
+                            
+                        }
+                    }
                     if session[id].loading {
-                        Control(title: "Stop loading", image: "xmark") {
+                        Control(title: "Stop", image: "xmark") {
                             
                         }
                     } else {
@@ -20,21 +36,9 @@ extension Tab.Modal {
                             
                         }
                     }
-                    Control(title: "Add bookmark", image: "bookmark") {
-                        
-                    }
-                    Control(title: "Share", image: "gear") {
-                        
-                    }
-                    Control(title: "More", image: "ellipsis") {
-                        
-                    }
-                    Control(title: "Settings", image: "gear") {
-                        
-                    }
                     Spacer()
                 }
-                .padding(.top, 8)
+                .padding([.top, .leading, .trailing])
             }
         }
     }

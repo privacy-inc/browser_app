@@ -5,19 +5,19 @@ extension Tab {
         @Binding var session: Session
         @Binding var show: Bool
         let id: UUID
-        @State private var offset = CGFloat(600)
+        @State private var offset = CGFloat(520)
         
         var body: some View {
             ZStack {
                 if show {
-                    Color.black.opacity(0.6)
+                    Color.black.opacity(0.7)
                         .edgesIgnoringSafeArea(.all)
                         .onTapGesture(perform: dismiss)
                     VStack(spacing: 0) {
                         Spacer()
                         HStack {
                             Capsule()
-                                .fill(Color(.systemBackground))
+                                .fill(Color(.tertiarySystemBackground))
                                 .frame(width: 60, height: 3)
                                 .padding(.bottom, 12)
                                 .padding(.top, 40)
@@ -26,18 +26,19 @@ extension Tab {
                         .contentShape(Rectangle())
                         .onTapGesture(perform: dismiss)
                         Card(session: $session, id: id, dismiss: dismiss)
+                            .frame(height: 520)
                     }
-                    .offset(y: 300 + offset)
+                    .offset(y: 260 + offset)
                     .edgesIgnoringSafeArea(.bottom)
                     .highPriorityGesture(
                         DragGesture()
                             .onChanged { gesture in
                                 withAnimation(.spring(blendDuration: 0.25)) {
-                                    offset = max(gesture.translation.height, -300)
+                                    offset = max(gesture.translation.height, -260)
                                 }
                             }
                             .onEnded {
-                                if $0.translation.height > 120 {
+                                if $0.translation.height > 70 {
                                     dismiss()
                                 } else {
                                     withAnimation(.easeInOut(duration: 0.3)) {
@@ -61,7 +62,7 @@ extension Tab {
         
         private func dismiss() {
             withAnimation(.spring(blendDuration: 0.3)) {
-                offset = 600
+                offset = 260
             }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 withAnimation(.easeInOut(duration: 0.25)) {

@@ -8,13 +8,19 @@ extension Tab.Modal {
         
         var body: some View {
             Button(action: action) {
-                Label(title, systemImage: image)
+                ZStack {
+                    RoundedRectangle(cornerRadius: 6)
+                        .stroke(Color(.tertiarySystemFill), lineWidth: 1)
+                    HStack {
+                        Text(title)
+                        Spacer()
+                        Image(systemName: image)
+                    }
+                    .padding(.horizontal)
                     .font(.callout)
                     .foregroundColor(.primary)
-                    .frame(height: 50)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .padding(.horizontal)
-                    .contentShape(Rectangle())
+                }
+                .frame(height: 52)
             }
         }
     }
