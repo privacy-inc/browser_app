@@ -16,7 +16,10 @@ extension Tab.Modal {
                             
                         }
                         Control(title: "Bookmark", image: "bookmark") {
-                            
+                            dismiss()
+                            withAnimation(.easeInOut(duration: 0.3)) {
+                                session.toast = .init(title: "Bookmark added", icon: "bookmark")
+                            }
                         }
                     }
                     HStack {

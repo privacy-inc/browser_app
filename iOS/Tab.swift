@@ -23,6 +23,11 @@ struct Tab: View {
                 Bar(session: $session, modal: $modal, id: id, snapshot: snapshot)
             }
             Modal(session: $session, show: $modal, id: id)
+            session
+                .toast
+                .map {
+                    Toast(session: $session, message: $0)
+                }
         }
     }
     

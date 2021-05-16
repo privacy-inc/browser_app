@@ -2,7 +2,7 @@ import UIKit
 
 extension Session {
     struct State {
-        static let new = State(progress: 0, loading: false, forward: false, back: false, image: nil, web: nil)
+        static let new = Self(progress: 0, loading: false, forward: false, back: false, image: nil, web: nil)
         
         var progress: Double
         var loading: Bool

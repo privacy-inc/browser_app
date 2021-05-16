@@ -29,6 +29,11 @@ struct Tabs: View {
                         }
                     }
                 }
+                session
+                    .toast
+                    .map {
+                        Toast(session: $session, message: $0)
+                    }
             }
             Rectangle()
                 .fill(Color(.systemFill))

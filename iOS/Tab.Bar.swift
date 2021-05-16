@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Tab {
-    struct Bar: View {
+    struct Bar: View, Tabber {
         @Binding var session: Session
         @Binding var modal: Bool
         let id: UUID
@@ -26,7 +26,7 @@ extension Tab {
                             snapshot()
                         }
                     }
-                    Control(image: "line.horizontal.3") {
+                    Control(disabled: browse == nil, image: "line.horizontal.3") {
                         modal = true
                     }
                 }
