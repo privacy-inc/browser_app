@@ -17,7 +17,8 @@ extension Tab {
                     Text("Recent")
                         .font(.footnote)
                         .foregroundColor(.secondary)
-                        .padding([.leading, .top])
+                        .padding(.leading)
+                        .padding(.top, 30)
                         .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     History(session: $session, id: id, metrics: .init(size: proxy.size))
                 }

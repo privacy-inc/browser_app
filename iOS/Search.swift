@@ -12,16 +12,16 @@ struct Search: View, Tabber {
                 .edgesIgnoringSafeArea(.all)
             ScrollView {
                 Text("Bookmarks")
-                    .font(.footnote.bold())
+                    .font(.footnote)
                     .foregroundColor(.secondary)
                     .padding([.top, .leading])
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 ForEach(bookmarks, id: \.self, content: cell)
                 Text("Recent")
-                    .font(.footnote.bold())
+                    .font(.footnote)
                     .foregroundColor(.secondary)
                     .padding(.leading)
-                    .padding(.top, 24)
+                    .padding(.top, 30)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 ForEach(recent, id: \.self, content: cell)
                 Spacer()
@@ -49,7 +49,7 @@ struct Search: View, Tabber {
             ? .init(session
                         .archive
                         .browse
-                        .prefix(5)
+                        .prefix(2)
                         .map(\.page)
                         .map(Item.init(page:)))
             : .init(Set(session
@@ -62,7 +62,7 @@ struct Search: View, Tabber {
                             }
                             .map(Item.init(page:)))
                             .sorted()
-                            .prefix(5))
+                            .prefix(2))
     }
     
     private var recent: [Item] {
@@ -70,7 +70,7 @@ struct Search: View, Tabber {
             ? .init(session
                         .archive
                         .browse
-                        .prefix(5)
+                        .prefix(3)
                         .map(\.page)
                         .map(Item.init(page:)))
             : .init(Set(session
@@ -83,6 +83,6 @@ struct Search: View, Tabber {
                             }
                             .map(Item.init(page:)))
                             .sorted()
-                            .prefix(5))
+                            .prefix(3))
     }
 }
