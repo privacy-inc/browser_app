@@ -8,18 +8,39 @@ extension Tab {
         var body: some View {
             GeometryReader { proxy in
                 ScrollView {
-                    Text("Bookmarks")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding([.leading, .top])
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    HStack {
+                        Text("Bookmarks")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .padding(.leading)
+                        Spacer()
+                        Button {
+                            session.modal = .bookmarks
+                        } label: {
+                            Image(systemName: "list.bullet")
+                                .font(.title3)
+                                .frame(width: 65, height: 40)
+                                .contentShape(Rectangle())
+                        }
+                    }
+                    .padding(.top)
                     Bookmarks(session: $session, id: id)
-                    Text("Recent")
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding(.leading)
-                        .padding(.top, 30)
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    HStack {
+                        Text("Recent")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .padding(.leading)
+                        Spacer()
+                        Button {
+                            session.modal = .recent
+                        } label: {
+                            Image(systemName: "list.bullet")
+                                .font(.title3)
+                                .frame(width: 65, height: 40)
+                                .contentShape(Rectangle())
+                        }
+                    }
+                    .padding(.top, 30)
                     History(session: $session, id: id, metrics: .init(size: proxy.size))
                 }
             }

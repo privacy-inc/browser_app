@@ -7,6 +7,7 @@ struct Session {
     var tab = Sleuth.Tab()
     var section: Section
     var toast: Toast.Message?
+    var modal: Modal?
     let search = PassthroughSubject<Void, Never>()
     let load = PassthroughSubject<UUID, Never>()
     let reload = PassthroughSubject<UUID, Never>()

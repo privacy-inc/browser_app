@@ -9,12 +9,10 @@ extension Tab.New {
         
         var body: some View {
             ForEach(0 ..< list.count, id: \.self) { index in
-                if index != 0 {
-                    Rectangle()
-                        .fill(Color(.secondarySystemFill))
-                        .frame(height: 1)
-                        .padding(.horizontal)
-                }
+                Rectangle()
+                    .fill(Color(.secondarySystemFill))
+                    .frame(height: 1)
+                    .padding(.horizontal)
                 Button {
                     Cloud.shared.open(index, id: browse) {
                         if browse == $0 {
