@@ -35,6 +35,7 @@ struct Session {
     }
     
     mutating func remove(_ id: UUID) {
+        self[id].web?.clear()
         state.removeValue(forKey: id)
     }
     

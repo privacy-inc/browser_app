@@ -5,7 +5,6 @@ import Sleuth
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     var subs = Set<AnyCancellable>()
     let settings: Settings
-    let activity = PassthroughSubject<Void, Never>()
     
     required init?(coder: NSCoder) { nil }
     init(configuration: WKWebViewConfiguration, settings: Settings) {
@@ -19,7 +18,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.userContentController.addUserScript(.init(source: settings.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(.init(source: settings.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         
-        WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "secure", encodedContentRuleList: settings.rules) { rules, _ in
+        WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "rules", encodedContentRuleList: settings.rules) { rules, _ in
             configuration.userContentController.add(rules!)
         }
         

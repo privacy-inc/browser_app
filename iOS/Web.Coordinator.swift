@@ -4,8 +4,8 @@ import Combine
 
 extension Web {
     final class Coordinator: Webview {
-        private let wrapper: Web
-        
+        private var wrapper: Web?
+
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web) {
             self.wrapper = wrapper
@@ -191,12 +191,24 @@ extension Web {
             browse()
         }
         
+        func clear() {
+            wrapper = nil
+            subs = []
+            uiDelegate = nil
+            navigationDelegate = nil
+            scrollView.delegate = nil
+        }
+        
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
             UIApplication.shared.resign()
         }
         
         func webView(_: WKWebView, didFinish: WKNavigation!) {
-            wrapper.session[wrapper.id].progress = 1
+            wrapper
+                .map {
+                    $0.session[$0.id].progress = 1
+                }
+            
             Cloud.shared.activity()
         }
 
@@ -230,15 +242,46 @@ extension Web {
             }
         }
         
-        private func browse() {
-            _ = wrapper
-                .browse
-                .map(wrapper.session.archive.page)
-                .flatMap(\.url)
+        func webView(_: WKWebView, contextMenuConfigurationForElement element: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
+            completionHandler(.init(identifier: nil, previewProvider: nil, actionProvider: { elements in
+                var elements = elements.filter {
+                    guard let name = ($0 as? UIAction)?.identifier.rawValue else { return true }
+                    return !(name.hasSuffix("Open") || name.hasSuffix("List"))
+                }
+                
+                if let url = element.linkURL {
+                    elements.insert(UIAction(title: NSLocalizedString("Open in new tab", comment: ""),
+                                             image: UIImage(systemName: "plus.square.on.square")) { [weak self] _ in
+//                        self?.wrapper.open(url)
+                    }, at: 0)
+                }
+                
+                return UIMenu(title: "", children: elements)
+            }
+            ))
+        }
+        
+        func webView(_: WKWebView, contextMenuForElement element: WKContextMenuElementInfo, willCommitWithAnimator: UIContextMenuInteractionCommitAnimating) {
+            _ = element
+                .linkURL
                 .map {
-                    .init(url: $0)
+                    URLRequest(url: $0)
                 }
                 .map(load)
+        }
+        
+        private func browse() {
+            _ = wrapper
+                .map {
+                   $0
+                        .browse
+                        .map($0.session.archive.page)
+                        .flatMap(\.url)
+                        .map {
+                            .init(url: $0)
+                        }
+                        .map(load)
+                }
         }
     }
 }

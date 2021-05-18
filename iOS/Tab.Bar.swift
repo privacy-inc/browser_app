@@ -5,7 +5,7 @@ extension Tab {
         @Binding var session: Session
         @Binding var modal: Bool
         let id: UUID
-        let snapshot: () -> Void
+        let tabs: () -> Void
         
         var body: some View {
             ZStack {
@@ -20,12 +20,7 @@ extension Tab {
                     }
                     Search(session: $session, id: id)
                         .padding(.horizontal, 10)
-                    Control(image: "app") {
-                        withAnimation(.spring(blendDuration: 0.4)) {
-                            session.section = .tabs(id)
-                            snapshot()
-                        }
-                    }
+                    Control(image: "app", action: tabs)
                     Control(disabled: browse == nil, image: "line.horizontal.3") {
                         UIApplication.shared.resign()
                         withAnimation(.easeInOut(duration: 0.3)) {

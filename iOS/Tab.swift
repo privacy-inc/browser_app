@@ -12,7 +12,7 @@ struct Tab: View {
                 case .new:
                     New(session: $session, id: id)
                 case .browse:
-                    Web(session: $session, id: id)
+                    Web(session: $session, id: id, tabs: tabs)
                         .edgesIgnoringSafeArea([.top, .leading, .trailing])
                 case let .error:
                     Circle()
@@ -20,7 +20,7 @@ struct Tab: View {
                 Rectangle()
                     .fill(Color(.tertiaryLabel))
                     .frame(height: 1)
-                Bar(session: $session, modal: $modal, id: id, snapshot: snapshot)
+                Bar(session: $session, modal: $modal, id: id, tabs: tabs)
             }
             Modal(session: $session, show: $modal, id: id)
             session
@@ -28,6 +28,13 @@ struct Tab: View {
                 .map {
                     Toast(session: $session, message: $0)
                 }
+        }
+    }
+    
+    private func tabs() {
+        withAnimation(.spring(blendDuration: 0.4)) {
+            session.section = .tabs(id)
+            snapshot()
         }
     }
     

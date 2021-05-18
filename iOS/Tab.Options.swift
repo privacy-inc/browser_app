@@ -36,7 +36,16 @@ extension Tab {
                     Section(
                         header: Text("Image")) {
                         Control(title: "Add to Photos", image: "photo") {
-                            fatalError()
+                            dismiss()
+                            url
+                                .flatMap {
+                                    try? Data(contentsOf: $0)
+                                }
+                                .flatMap(UIImage.init(data:))
+                                .map {
+                                    UIImageWriteToSavedPhotosAlbum($0, nil, nil, nil)
+                                    session.toast = .init(title: "Added to Photos", icon: "photo")
+                                }
                         }
                         .opacity(photo ? 1 : 0.3)
                     }
