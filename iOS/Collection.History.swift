@@ -3,8 +3,9 @@ import Archivable
 import Sleuth
 
 extension Collection {
-    struct History: View {
+    struct History: View, Tabber {
         @Binding var session: Session
+        let id: UUID
         let browse: [Browse]
         let dismiss: () -> Void
         
@@ -12,14 +13,7 @@ extension Collection {
             ForEach(0 ..< browse.count, id: \.self) { index in
                 Button {
                     Cloud.shared.revisit(browse[index].id)
-                    
-                    switch session.section {
-                    case let .tab(id):
-                        session.tab.browse(id, browse[index].id)
-                    default:
-                        break
-                    }
-                    
+                    session.tab.browse(id, browse[index].id)
                     dismiss()
                 } label: {
                     VStack(alignment: .leading) {

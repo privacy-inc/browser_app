@@ -9,10 +9,10 @@ struct Collection: View {
         NavigationView {
             List {
                 switch modal {
-                case .bookmarks:
-                    Bookmarks(session: $session, bookmarks: session.archive.bookmarks, dismiss: dismiss)
-                case .history:
-                    History(session: $session, browse: session.archive.browse, dismiss: dismiss)
+                case let .bookmarks(id):
+                    Bookmarks(session: $session, id: id, bookmarks: session.archive.bookmarks, dismiss: dismiss)
+                case let .history(id):
+                    History(session: $session, id: id, browse: session.archive.browse, dismiss: dismiss)
                 default:
                     EmptyView()
                 }

@@ -3,25 +3,22 @@ import Archivable
 import Sleuth
 
 extension Collection {
-    struct Bookmarks: View {
+    struct Bookmarks: View, Tabber {
         @Binding var session: Session
+        let id: UUID
         let bookmarks: [Page]
         let dismiss: () -> Void
         
         var body: some View {
             ForEach(0 ..< bookmarks.count, id: \.self) { index in
                 Button {
-                    id
-                        .map { id in
-                            Cloud.shared.open(index, id: browse) {
-                                if browse == $0 {
-                                    session.load.send(id)
-                                } else {
-                                    session.tab.browse(id, $0)
-                                }
-                            }
+                    Cloud.shared.open(index, id: browse) {
+                        if browse == $0 {
+                            session.load.send(id)
+                        } else {
+                            session.tab.browse(id, $0)
                         }
-                    
+                    }
                     dismiss()
                 } label: {
                     VStack(alignment: .leading) {
@@ -39,27 +36,6 @@ extension Collection {
                     .padding(.vertical, 5)
                 }
             }
-        }
-        
-        private var id: UUID? {
-            switch session.section {
-            case let .tab(id):
-                return id
-            default:
-                return nil
-            }
-        }
-        
-        private var browse: Int? {
-            id
-                .flatMap {
-                    switch session.tab.state($0) {
-                    case let .browse(browse), let .error(browse, _):
-                        return browse
-                    default:
-                        return nil
-                    }
-                }
         }
     }
 }
