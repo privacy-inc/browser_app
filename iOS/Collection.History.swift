@@ -5,7 +5,6 @@ import Sleuth
 extension Collection {
     struct History: View {
         @Binding var session: Session
-        let id: UUID
         let browse: [Browse]
         let dismiss: () -> Void
         
@@ -13,7 +12,14 @@ extension Collection {
             ForEach(0 ..< browse.count, id: \.self) { index in
                 Button {
                     Cloud.shared.revisit(browse[index].id)
-                    session.tab.browse(id, browse[index].id)
+                    
+                    switch session.section {
+                    case let .tab(id):
+                        session.tab.browse(id, browse[index].id)
+                    default:
+                        break
+                    }
+                    
                     dismiss()
                 } label: {
                     VStack(alignment: .leading) {

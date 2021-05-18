@@ -3,13 +3,19 @@ import SwiftUI
 struct Collection: View {
     @Binding var session: Session
     let modal: Session.Modal
-    let id: UUID
     @Environment(\.presentationMode) private var visible
     
     var body: some View {
         NavigationView {
             List {
-                History(session: $session, id: id, browse: session.archive.browse, dismiss: dismiss)
+                switch modal {
+                case .bookmarks:
+                    Bookmarks(session: $session, bookmarks: session.archive.bookmarks, dismiss: dismiss)
+                case .history:
+                    History(session: $session, browse: session.archive.browse, dismiss: dismiss)
+                default:
+                    EmptyView()
+                }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle(title, displayMode: .large)

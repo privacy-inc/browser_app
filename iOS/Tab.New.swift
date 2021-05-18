@@ -15,7 +15,7 @@ extension Tab {
                             .padding(.leading)
                         Spacer()
                         Button {
-                            session.modal = .bookmarks(id)
+                            session.modal = .bookmarks
                         } label: {
                             Image(systemName: "list.bullet")
                                 .font(.title3)
@@ -32,7 +32,7 @@ extension Tab {
                             .padding(.leading)
                         Spacer()
                         Button {
-                            session.modal = .history(id)
+                            session.modal = .history
                         } label: {
                             Image(systemName: "list.bullet")
                                 .font(.title3)
