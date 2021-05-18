@@ -5,7 +5,7 @@ extension Tab {
         @Binding var session: Session
         @Binding var show: Bool
         let id: UUID
-        @State private var offset = CGFloat(520)
+        @State private var offset = CGFloat()
         
         var body: some View {
             ZStack {
@@ -26,15 +26,15 @@ extension Tab {
                         .contentShape(Rectangle())
                         .onTapGesture(perform: dismiss)
                         Card(session: $session, id: id, dismiss: dismiss)
-                            .frame(height: 520)
+                            .frame(height: 380)
                     }
-                    .offset(y: 260 + offset)
+                    .offset(y: 380 + offset)
                     .edgesIgnoringSafeArea(.bottom)
                     .highPriorityGesture(
                         DragGesture()
                             .onChanged { gesture in
                                 withAnimation(.spring(blendDuration: 0.25)) {
-                                    offset = max(gesture.translation.height, -260)
+                                    offset = max(-230 + gesture.translation.height, -380)
                                 }
                             }
                             .onEnded {
@@ -42,7 +42,7 @@ extension Tab {
                                     dismiss()
                                 } else {
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        offset = 0
+                                        offset = -230
                                     }
                                 }
                             }
@@ -52,8 +52,8 @@ extension Tab {
             .onChange(of: show) {
                 if $0 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                        withAnimation(.spring(blendDuration: 0.3)) {
-                            offset = 0
+                        withAnimation(.spring(blendDuration: 0.2)) {
+                            offset = -230
                         }
                     }
                 }
@@ -61,11 +61,11 @@ extension Tab {
         }
         
         private func dismiss() {
-            withAnimation(.spring(blendDuration: 0.3)) {
-                offset = 260
+            withAnimation(.spring(blendDuration: 0.2)) {
+                offset = 0
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
-                withAnimation(.easeInOut(duration: 0.25)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                withAnimation(.easeInOut(duration: 0.2)) {
                     show = false
                 }
             }

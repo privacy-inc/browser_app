@@ -27,7 +27,9 @@ extension Tab {
                         }
                     }
                     Control(disabled: browse == nil, image: "line.horizontal.3") {
-                        modal = true
+                        withAnimation(.easeInOut(duration: 0.3)) {
+                            modal = true
+                        }
                     }
                 }
                 .padding(.horizontal)
