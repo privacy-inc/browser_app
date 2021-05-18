@@ -9,8 +9,8 @@ import Archivable
             Window(session: $session)
                 .sheet(item: $session.modal) {
                     switch $0 {
-                    case .bookmarks, .recent:
-                        Collection(session: $session, modal: $0)
+                    case let .bookmarks(id), let .history(id):
+                        Collection(session: $session, modal: $0, id: id)
                     }
                 }
                 .onReceive(Cloud.shared.archive) {

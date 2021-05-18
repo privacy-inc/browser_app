@@ -18,7 +18,7 @@ struct Tab: View {
                     Circle()
                 }
                 Rectangle()
-                    .fill(Color(.systemFill))
+                    .fill(Color(.tertiaryLabel))
                     .frame(height: 1)
                 Bar(session: $session, modal: $modal, id: id, snapshot: snapshot)
             }

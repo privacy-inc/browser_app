@@ -2,12 +2,15 @@ import Foundation
 
 extension Session {
     enum Modal: Identifiable {
-        var id: Self {
-            self
+        var id: UUID {
+            switch self {
+            case let .bookmarks(id), let .history(id):
+                return id
+            }
         }
         
         case
-        bookmarks,
-        recent
+        bookmarks(UUID),
+        history(UUID)
     }
 }

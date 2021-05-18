@@ -32,7 +32,7 @@ extension Tab.New.History {
                 .padding()
             }
             .onAppear {
-                date = RelativeDateTimeFormatter().string(from: browse.date, to: .init())
+                date = RelativeDateTimeFormatter().string(from: browse.date)
             }
         }
     }
