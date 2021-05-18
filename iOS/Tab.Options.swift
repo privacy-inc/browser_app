@@ -10,34 +10,40 @@ extension Tab {
             NavigationView {
                 List {
                     Section(
-                        header: Text("Title")) {
-                            Text(verbatim: title)
-                                .fixedSize(horizontal: false, vertical: true)
+                        header: Text("URL")) {
+                        Control(title: "Share", image: "square.and.arrow.up") {
+                            
                         }
+                        Control(title: "Copy", image: "doc.on.doc") {
+                            
+                        }
+                    }
                     Section(
-                        header: Text("URL"),
-                        footer: Button {
-                                    dismiss()
-                                    session.toast = .init(title: "URL copied", icon: "doc.on.doc.fill")
-                                    UIPasteboard.general.string = url
-                                } label: {
-                                    HStack {
-                                        Spacer()
-                                        Image(systemName: "doc.on.doc.fill")
-                                            .font(.title3)
-                                            .foregroundColor(.primary)
-                                            .frame(width: 30, height: 50)
-                                            .padding(.leading, 50)
-                                    }
-                                }) {
-                            Text(verbatim: url)
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
-                                .fixedSize(horizontal: false, vertical: true)
+                        header: Text("Page")) {
+                        Control(title: "Share", image: "square.and.arrow.up") {
+                            
                         }
+                        Control(title: "Download", image: "square.and.arrow.down") {
+                            
+                        }
+                        Control(title: "Print", image: "printer") {
+                            
+                        }
+                        Control(title: "Export as PDF", image: "doc.richtext") {
+                            
+                        }
+                    }
+                    Section(
+                        header: Text("Image")) {
+                        Control(title: "Add to Photos", image: "photo") {
+                            fatalError()
+                        }
+                        .opacity(photo ? 1 : 0.3)
+                    }
+                    .disabled(!photo)
                 }
                 .listStyle(GroupedListStyle())
-                .navigationBarTitle("Info", displayMode: .large)
+                .navigationBarTitle("Sharing options", displayMode: .large)
                 .navigationBarItems(trailing:
                                         Button(action: dismiss) {
                                             Image(systemName: "xmark")
@@ -50,18 +56,24 @@ extension Tab {
             .navigationViewStyle(StackNavigationViewStyle())
         }
         
-        private var title: String {
-            browse
-                .map(session.archive.page)
-                .map(\.title)
-            ?? ""
-        }
-        
-        private var url: String {
+        private var string: String {
             browse
                 .map(session.archive.page)
                 .map(\.string)
             ?? ""
+        }
+        
+        private var url: URL? {
+            browse
+                .map(session.archive.page)
+                .flatMap(\.url)
+        }
+        
+        private var photo: Bool {
+            switch string.components(separatedBy: ".").last!.lowercased() {
+            case "png", "jpg", "jpeg", "bmp", "gif": return true
+            default: return false
+            }
         }
         
         private func dismiss() {

@@ -5,6 +5,7 @@ extension Search.Bar {
     final class Coordinator: UIView, UIKeyInput, UITextFieldDelegate {
         private weak var field: UITextField!
         private var editable = true
+        private var filter = false
         private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 48), inputViewStyle: .keyboard)
         private let wrapper: Search.Bar
         override var inputAccessoryView: UIView? { input }
@@ -55,6 +56,13 @@ extension Search.Bar {
             cancel.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
             cancel.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
             
+            wrapper
+                .browse
+                .map(wrapper.session.archive.page)
+                .map(\.string)
+                .map {
+                    field.text = $0
+                }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
                 self?.becomeFirstResponder()
             }
@@ -67,6 +75,13 @@ extension Search.Bar {
             return super.becomeFirstResponder()
         }
         
+        func textFieldDidBeginEditing(_: UITextField) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
+                self?.field.selectAll(nil)
+                self?.filter = true
+            }
+        }
+        
         func textFieldShouldEndEditing(_: UITextField) -> Bool {
             editable = false
             return true
@@ -77,6 +92,7 @@ extension Search.Bar {
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
+            filter = false
             Cloud.shared.browse(field.text!, id: wrapper.browse) { [weak self] in
                 guard let self = self else { return }
                 if self.wrapper.browse == $0 {
@@ -90,6 +106,7 @@ extension Search.Bar {
         }
         
         func textFieldDidChangeSelection(_: UITextField) {
+            guard filter else { return }
             wrapper.filter = field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         }
         

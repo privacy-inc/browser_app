@@ -52,6 +52,7 @@
 		CEEB872226527F9C00AF4E6A /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB872126527F9C00AF4E6A /* Collection.swift */; };
 		CEED0F14265404B70030B4A2 /* Tab.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEED0F13265404B70030B4A2 /* Tab.Info.swift */; };
 		CEED0F1626540D2B0030B4A2 /* Tab.Options.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEED0F1526540D2B0030B4A2 /* Tab.Options.swift */; };
+		CEED0F18265414F00030B4A2 /* Tab.Options.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEED0F17265414F00030B4A2 /* Tab.Options.Control.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -102,6 +103,7 @@
 		CEEB872126527F9C00AF4E6A /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		CEED0F13265404B70030B4A2 /* Tab.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Info.swift; sourceTree = "<group>"; };
 		CEED0F1526540D2B0030B4A2 /* Tab.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Options.swift; sourceTree = "<group>"; };
+		CEED0F17265414F00030B4A2 /* Tab.Options.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Options.Control.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,6 +178,7 @@
 				CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */,
 				CEED0F13265404B70030B4A2 /* Tab.Info.swift */,
 				CEED0F1526540D2B0030B4A2 /* Tab.Options.swift */,
+				CEED0F17265414F00030B4A2 /* Tab.Options.Control.swift */,
 				CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */,
 				CE03EDDA264FF5510031B649 /* Tab.Modal.Control.swift */,
 				CE03EDD6264FE4300031B649 /* Tab.Modal.swift */,
@@ -285,6 +288,7 @@
 				CE03EDDB264FF5510031B649 /* Tab.Modal.Control.swift in Sources */,
 				CEEB872026527EC700AF4E6A /* Session.Modal.swift in Sources */,
 				CE919A8D264D575A0051EE27 /* Web.swift in Sources */,
+				CEED0F18265414F00030B4A2 /* Tab.Options.Control.swift in Sources */,
 				CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */,
 				CEED0F1626540D2B0030B4A2 /* Tab.Options.swift in Sources */,
 				CE08AB4F264EB59B008E631F /* Tab.New.History.Metrics.swift in Sources */,
