@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Collection: View {
     @Binding var session: Session
+    let id: UUID
     let modal: Session.Modal
     @Environment(\.presentationMode) private var visible
     
@@ -9,9 +10,9 @@ struct Collection: View {
         NavigationView {
             List {
                 switch modal {
-                case let .bookmarks(id):
+                case .bookmarks:
                     Bookmarks(session: $session, id: id, bookmarks: session.archive.bookmarks, dismiss: dismiss)
-                case let .history(id):
+                case .history:
                     History(session: $session, id: id, browse: session.archive.browse, dismiss: dismiss)
                 default:
                     EmptyView()
@@ -37,6 +38,8 @@ struct Collection: View {
             return "Bookmarks"
         case .history:
             return "Recent"
+        default:
+            return ""
         }
     }
     

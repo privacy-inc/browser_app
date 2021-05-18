@@ -8,11 +8,17 @@ extension Session {
                 return id
             case let .history(id):
                 return id
+            case let .info(id):
+                return id
+            case let .options(id):
+                return id
             }
         }
         
         case
         bookmarks(UUID),
-        history(UUID)
+        history(UUID),
+        info(UUID),
+        options(UUID)
     }
 }

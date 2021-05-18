@@ -14,7 +14,8 @@ extension Tab.Modal {
                 VStack {
                     HStack {
                         Control(title: "Info", image: "info.circle") {
-                            
+                            dismiss()
+                            session.modal = .info(id)
                         }
                         Control(title: "Bookmark", image: "bookmark") {
                             browse.map(Cloud.shared.bookmark)
@@ -26,7 +27,8 @@ extension Tab.Modal {
                     }
                     HStack {
                         Control(title: "Options", image: "square.and.arrow.up.on.square") {
-                            
+                            dismiss()
+                            session.modal = .options(id)
                         }
                         Control(title: "Find", image: "doc.text.magnifyingglass") {
                             

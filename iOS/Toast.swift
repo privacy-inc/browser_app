@@ -9,19 +9,19 @@ struct Toast: View {
         VStack {
             if visible {
                 ZStack {
-                    Capsule()
-                        .fill(Color(.secondarySystemBackground))
-                    Capsule()
-                        .stroke(Color.primary.opacity(0.1), lineWidth: 1)
+                    RoundedRectangle(cornerRadius: 14)
+                        .fill(Color.accentColor)
+                    RoundedRectangle(cornerRadius: 14)
+                        .stroke(Color(white: 0, opacity: 0.4), lineWidth: 1)
                     HStack {
                         Circle()
-                            .fill(Color.accentColor)
-                            .frame(width: 12, height: 12)
+                            .fill(Color(white: 1, opacity: 0.5))
+                            .frame(width: 10, height: 10)
                             .padding(.leading)
                         Spacer()
                     }
                     Label(message.title, systemImage: message.icon)
-                        .foregroundColor(.primary)
+                        .foregroundColor(.white)
                         .font(.callout)
                         .padding(.vertical)
                 }

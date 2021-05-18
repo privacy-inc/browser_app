@@ -27,6 +27,7 @@ extension Tab {
                         }
                     }
                     Control(disabled: browse == nil, image: "line.horizontal.3") {
+                        UIApplication.shared.resign()
                         withAnimation(.easeInOut(duration: 0.3)) {
                             modal = true
                         }
