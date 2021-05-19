@@ -16,7 +16,6 @@ extension Tabs {
                             .destructive(.init("Close all")) {
                                 withAnimation(.spring(blendDuration: 0.4)) {
                                     session.section = .search(session.tab.closeAll())
-                                    session.clear()
                                 }
                             },
                             .cancel()])
