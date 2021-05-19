@@ -1,16 +1,22 @@
 import SwiftUI
 import Archivable
 
-struct Web: UIViewRepresentable, Tabber {
+struct Web: UIViewRepresentable {
     @Binding var session: Session
     let id: UUID
+    let browse: Int
     let tabs: () -> Void
     
     func makeCoordinator() -> Coordinator {
-        let coordinator = session.tab[web: id] as? Coordinator ?? .init(settings: session.archive.settings)
-        coordinator.wrap(self, id)
+        let coordinator = session.tab[web: id] as? Coordinator ?? .init(session: session, id: id, browse: browse)
+        coordinator.wrapper = self
         if session.tab[web: id] == nil {
             session.tab[web: id] = coordinator
+            session
+                .archive
+                .page(browse)
+                .url
+                .map(coordinator.load)
         }
         return coordinator
     }
@@ -30,15 +36,15 @@ struct Web: UIViewRepresentable, Tabber {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-                Cloud.shared.browse(url.absoluteString, id: nil) {
-                    session.tab.browse(id, $0)
+                Cloud.shared.browse(url.absoluteString, id: nil) { browse, _ in
+                    session.tab.browse(id, browse)
                 }
                 session.section = .tab(id)
             }
         }
     }
     
-    static func dismantleUIView(_ uiView: Coordinator, coordinator: Coordinator) {
-        uiView.unwrap()
+    static func dismantleUIView(_: Coordinator, coordinator: Coordinator) {
+        coordinator.wrapper = nil
     }
 }

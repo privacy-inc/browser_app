@@ -32,6 +32,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         scrollView.delegate = nil
     }
     
+    final func load(_ url: URL) {
+        load(.init(url: url))
+    }
+    
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         guard settings.http else {
             completionHandler(.performDefaultHandling, nil)

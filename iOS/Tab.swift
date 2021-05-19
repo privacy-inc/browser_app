@@ -11,8 +11,8 @@ struct Tab: View {
                 switch session.tab.state(id) {
                 case .new:
                     New(session: $session, id: id)
-                case .browse:
-                    Web(session: $session, id: id, tabs: tabs)
+                case let .browse(browse):
+                    Web(session: $session, id: id, browse: browse, tabs: tabs)
                         .edgesIgnoringSafeArea([.top, .leading, .trailing])
                 case let .error:
                     Circle()

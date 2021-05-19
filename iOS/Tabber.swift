@@ -7,6 +7,6 @@ protocol Tabber {
 
 extension Tabber {
     var browse: Int? {
-        session.tab.state(id).id
+        session.tab.state(id).browse
     }
 }

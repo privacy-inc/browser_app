@@ -16,7 +16,7 @@ extension Tab.New {
                 Button {
                     Cloud.shared.open(index, id: browse) {
                         if browse == $0 {
-                            session.load.send(id)
+                            session.load.send((id, $1))
                         } else {
                             session.tab.browse(id, $0)
                         }

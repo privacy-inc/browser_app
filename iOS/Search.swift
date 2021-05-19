@@ -36,7 +36,7 @@ struct Search: View, Tabber {
             Cloud.shared.browse(item.url, id: browse) {
                 UIApplication.shared.resign()
                 if browse == $0 {
-                    session.load.send(id)
+                    session.load.send((id, $1))
                 } else {
                     session.tab.browse(id, $0)
                 }
