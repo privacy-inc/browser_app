@@ -7,9 +7,9 @@ struct Web: UIViewRepresentable, Tabber {
     let tabs: () -> Void
     
     func makeCoordinator() -> Coordinator {
-        let coordinator = session[id].web ?? .init(wrapper: self)
-        if session[id].web == nil {
-            session[id].web = coordinator
+        let coordinator = session.tab[web: id] as? Coordinator ?? .init(wrapper: self)
+        if session.tab[web: id] == nil {
+            session.tab[web: id] = coordinator
         }
         return coordinator
     }

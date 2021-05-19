@@ -5,6 +5,10 @@ import Combine
 extension Web {
     final class Coordinator: Webview {
         private var wrapper: Web?
+        
+        deinit {
+            print("gone")
+        }
 
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web) {
@@ -28,25 +32,25 @@ extension Web {
             
             publisher(for: \.estimatedProgress, options: .new)
                 .sink {
-                    wrapper.session[wrapper.id].progress = $0
+                    wrapper.session.tab[progress: wrapper.id] = $0
                 }
                 .store(in: &subs)
 
             publisher(for: \.isLoading, options: .new)
                 .sink {
-                    wrapper.session[wrapper.id].loading = $0
+                    wrapper.session.tab[loading: wrapper.id] = $0
                 }
                 .store(in: &subs)
             
             publisher(for: \.canGoForward, options: .new)
                 .sink {
-                    wrapper.session[wrapper.id].forward = $0
+                    wrapper.session.tab[forward: wrapper.id] = $0
                 }
                 .store(in: &subs)
             
             publisher(for: \.canGoBack, options: .new)
                 .sink {
-                    wrapper.session[wrapper.id].back = $0
+                    wrapper.session.tab[back: wrapper.id] = $0
                 }
                 .store(in: &subs)
             
@@ -206,7 +210,7 @@ extension Web {
         func webView(_: WKWebView, didFinish: WKNavigation!) {
             wrapper
                 .map {
-                    $0.session[$0.id].progress = 1
+                    $0.session.tab[progress: $0.id] = 1
                 }
             
             Cloud.shared.activity()

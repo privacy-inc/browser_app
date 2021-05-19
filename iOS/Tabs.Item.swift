@@ -16,15 +16,16 @@ extension Tabs {
                     }
                 } label: {
                     ZStack {
-                        if let image = session[id].image {
-                            RoundedRectangle(cornerRadius: 12)
-                                .fill(Color(.systemBackground))
-                            Image(uiImage: image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: size.width * 0.7, height: size.height - 102)
-                                .clipShape(RoundedRectangle(cornerRadius: 12))
-                                .padding(2)
+                        if let image = session.tab[snapshot: id]
+                            .flatMap(UIImage.init(data:)) {
+                                RoundedRectangle(cornerRadius: 12)
+                                    .fill(Color(.systemBackground))
+                                Image(uiImage: image)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: size.width * 0.7, height: size.height - 102)
+                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .padding(2)
                         } else {
                             Image("blank")
                                 .frame(width: size.width * 0.7, height: size.height - 102)

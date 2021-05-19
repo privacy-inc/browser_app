@@ -12,10 +12,10 @@ extension Tab {
                 Color(.quaternarySystemFill)
                     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                 HStack(spacing: 0) {
-                    Control(disabled: !session[id].back, image: "arrow.left") {
+                    Control(disabled: !session.tab[back: id], image: "arrow.left") {
                         session.back.send(id)
                     }
-                    Control(disabled: !session[id].forward, image: "arrow.right") {
+                    Control(disabled: !session.tab[forward: id], image: "arrow.right") {
                         session.forward.send(id)
                     }
                     Search(session: $session, id: id)

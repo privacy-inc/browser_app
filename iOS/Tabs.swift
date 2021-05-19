@@ -14,10 +14,10 @@ struct Tabs: View {
                     ScrollView(.horizontal) {
                         ScrollViewReader { scroll in
                             HStack(spacing: 3) {
-                                ForEach(0 ..< session.tab.items.count, id: \.self) {
-                                    Item(session: $session, id: session.tab.items[$0].id, size: proxy.size)
-                                        .id(session.tab.items[$0].id)
-                                        .matchedGeometryEffect(id: session.tab.items[$0].id, in: tabs)
+                                ForEach(0 ..< session.tab.ids.count, id: \.self) {
+                                    Item(session: $session, id: session.tab.ids[$0], size: proxy.size)
+                                        .id(session.tab.ids[$0])
+                                        .matchedGeometryEffect(id: session.tab.ids[$0], in: tabs)
                                 }
                             }
                             .padding()

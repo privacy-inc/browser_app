@@ -34,7 +34,7 @@ extension Tab.Modal {
                             
                         }
                     }
-                    if session[id].loading {
+                    if session.tab[loading: id] {
                         Control(title: "Stop", image: "xmark") {
                             
                         }
