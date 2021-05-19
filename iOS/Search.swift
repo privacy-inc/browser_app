@@ -48,14 +48,12 @@ struct Search: View, Tabber {
         filter.isEmpty
             ? .init(session
                         .archive
-                        .browse
+                        .bookmarks
                         .prefix(2)
-                        .map(\.page)
                         .map(Item.init(page:)))
             : .init(Set(session
                             .archive
-                            .browse
-                            .map(\.page)
+                            .bookmarks
                             .filter {
                                 $0.title.localizedCaseInsensitiveContains(filter)
                                     || $0.string.localizedCaseInsensitiveContains(filter)
