@@ -7,7 +7,8 @@ struct Web: UIViewRepresentable, Tabber {
     let tabs: () -> Void
     
     func makeCoordinator() -> Coordinator {
-        let coordinator = session.tab[web: id] as? Coordinator ?? .init(wrapper: self)
+        let coordinator = session.tab[web: id] as? Coordinator ?? .init(settings: session.archive.settings)
+        coordinator.wrap(self, id)
         if session.tab[web: id] == nil {
             session.tab[web: id] = coordinator
         }
@@ -35,5 +36,9 @@ struct Web: UIViewRepresentable, Tabber {
                 session.section = .tab(id)
             }
         }
+    }
+    
+    static func dismantleUIView(_ uiView: Coordinator, coordinator: Coordinator) {
+        uiView.unwrap()
     }
 }

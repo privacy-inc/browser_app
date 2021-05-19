@@ -1,19 +1,20 @@
 import WebKit
-import Archivable
 import Combine
+import Archivable
+import Sleuth
 
 extension Web {
     final class Coordinator: Webview {
         private var wrapper: Web?
+        private var subs = Set<AnyCancellable>()
         
         deinit {
             print("gone")
         }
 
         required init?(coder: NSCoder) { nil }
-        init(wrapper: Web) {
-            self.wrapper = wrapper
-            var settings = wrapper.session.archive.settings
+        init(settings: Settings) {
+            var settings = settings
             
             if !UIApplication.dark {
                 settings.dark = false
@@ -30,53 +31,7 @@ extension Web {
             scrollView.contentInsetAdjustmentBehavior = .always
             isOpaque = !settings.dark
             
-            publisher(for: \.estimatedProgress, options: .new)
-                .sink {
-                    wrapper.session.tab[progress: wrapper.id] = $0
-                }
-                .store(in: &subs)
-
-            publisher(for: \.isLoading, options: .new)
-                .sink {
-                    wrapper.session.tab[loading: wrapper.id] = $0
-                }
-                .store(in: &subs)
-            
-            publisher(for: \.canGoForward, options: .new)
-                .sink {
-                    wrapper.session.tab[forward: wrapper.id] = $0
-                }
-                .store(in: &subs)
-            
-            publisher(for: \.canGoBack, options: .new)
-                .sink {
-                    wrapper.session.tab[back: wrapper.id] = $0
-                }
-                .store(in: &subs)
-            
-            publisher(for: \.title, options: .new)
-                .sink {
-                    $0.map { title in
-                        wrapper
-                            .browse
-                            .map {
-                                Cloud.shared.update($0, title: title)
-                            }
-                    }
-                }
-                .store(in: &subs)
-            
-            publisher(for: \.url, options: .new)
-                .sink {
-                    $0.map { url in
-                        wrapper
-                            .browse
-                            .map {
-                                Cloud.shared.update($0, url: url)
-                            }
-                    }
-                }
-                .store(in: &subs)
+           
             
             
             
@@ -136,12 +91,66 @@ extension Web {
 //                    UIApplication.shared.share(data.temporal(name))
 //                }
 //            }.store(in: &subs)
+        }
+        
+        func wrap(_ wrapper: Web, _ id: UUID) {
+            self.wrapper = wrapper
+            
+            publisher(for: \.estimatedProgress, options: .new)
+                .sink { [weak self] in
+                    self?.wrapper?.session.tab[progress: id] = $0
+                }
+                .store(in: &subs)
+
+            publisher(for: \.isLoading, options: .new)
+                .sink { [weak self] in
+                    self?.wrapper?.session.tab[loading: id] = $0
+                }
+                .store(in: &subs)
+            
+            publisher(for: \.canGoForward, options: .new)
+                .sink { [weak self] in
+                    self?.wrapper?.session.tab[forward: id] = $0
+                }
+                .store(in: &subs)
+            
+            publisher(for: \.canGoBack, options: .new)
+                .sink { [weak self] in
+                    self?.wrapper?.session.tab[back: id] = $0
+                }
+                .store(in: &subs)
+            
+            publisher(for: \.title, options: .new)
+                .sink {
+                    $0.map { [weak self] title in
+                        self?
+                            .wrapper?
+                            .browse
+                            .map {
+                                Cloud.shared.update($0, title: title)
+                            }
+                    }
+                }
+                .store(in: &subs)
+            
+            publisher(for: \.url, options: .new)
+                .sink {
+                    $0.map { [weak self] url in
+                        self?
+                            .wrapper?
+                            .browse
+                            .map {
+                                Cloud.shared.update($0, url: url)
+                            }
+                    }
+                }
+                .store(in: &subs)
             
             wrapper
                 .session
                 .load
                 .filter {
-                    $0 == wrapper.id
+                    $0 == id
                 }
                 .sink { [weak self] _ in
                     self?.browse()
@@ -152,7 +161,7 @@ extension Web {
                 .session
                 .reload
                 .filter {
-                    $0 == wrapper.id
+                    $0 == id
                 }
                 .sink { [weak self] _ in
                     self?.reload()
@@ -163,7 +172,7 @@ extension Web {
                 .session
                 .stop
                 .filter {
-                    $0 == wrapper.id
+                    $0 == id
                 }
                 .sink { [weak self] _ in
                     self?.stopLoading()
@@ -174,7 +183,7 @@ extension Web {
                 .session
                 .back
                 .filter {
-                    $0 == wrapper.id
+                    $0 == id
                 }
                 .sink { [weak self] _ in
                     self?.goBack()
@@ -185,22 +194,21 @@ extension Web {
                 .session
                 .forward
                 .filter {
-                    $0 == wrapper.id
+                    $0 == id
                 }
                 .sink { [weak self] _ in
                     self?.goForward()
                 }
                 .store(in: &subs)
             
-            browse()
+            if url == nil {
+                browse()
+            }
         }
         
-        func clear() {
+        func unwrap() {
             wrapper = nil
             subs = []
-            uiDelegate = nil
-            navigationDelegate = nil
-            scrollView.delegate = nil
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -212,7 +220,6 @@ extension Web {
                 .map {
                     $0.session.tab[progress: $0.id] = 1
                 }
-            
             Cloud.shared.activity()
         }
 
@@ -260,7 +267,7 @@ extension Web {
                     }, at: 0)
                 }
                 
-                return UIMenu(title: "", children: elements)
+                return .init(title: "", children: elements)
             }
             ))
         }
@@ -269,7 +276,7 @@ extension Web {
             _ = element
                 .linkURL
                 .map {
-                    URLRequest(url: $0)
+                    .init(url: $0)
                 }
                 .map(load)
         }

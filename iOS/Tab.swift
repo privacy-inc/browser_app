@@ -34,6 +34,9 @@ struct Tab: View {
     private func tabs() {
         withAnimation(.spring(blendDuration: 0.4)) {
             session.section = .tabs(id)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
             snapshot()
         }
     }

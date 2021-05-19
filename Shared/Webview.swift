@@ -1,9 +1,7 @@
 import WebKit
-import Combine
 import Sleuth
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
-    var subs = Set<AnyCancellable>()
     let settings: Settings
     
     required init?(coder: NSCoder) { nil }
@@ -31,6 +29,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     deinit {
         uiDelegate = nil
         navigationDelegate = nil
+        scrollView.delegate = nil
     }
     
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
