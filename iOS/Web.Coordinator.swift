@@ -268,9 +268,13 @@ extension Web {
         }
         
         func webView(_: WKWebView, contextMenuForElement element: WKContextMenuElementInfo, willCommitWithAnimator: UIContextMenuInteractionCommitAnimating) {
-            _ = element
-                .linkURL
-                .map(load)
+            if let url = element.linkURL {
+                load(url)
+            } else if let image = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
+                print("load")
+                let url = image.temporal("image.png")
+                load(url)
+            }
         }
     }
 }
