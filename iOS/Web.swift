@@ -11,11 +11,7 @@ struct Web: UIViewRepresentable {
         let coordinator = session.tab[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
         coordinator.wrapper = self
         if session.tab[web: id] == nil {
-            session
-                .archive
-                .page(browse)
-                .url
-                .map(coordinator.load)
+            coordinator.load(session.archive.page(browse).access)
             session.tab[web: id] = coordinator
         }
         return coordinator

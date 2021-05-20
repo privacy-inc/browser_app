@@ -56,7 +56,7 @@ struct Search: View, Tabber {
                             .bookmarks
                             .filter {
                                 $0.title.localizedCaseInsensitiveContains(filter)
-                                    || $0.string.localizedCaseInsensitiveContains(filter)
+                                    || $0.access.string.localizedCaseInsensitiveContains(filter)
                             }
                             .map(Item.init(page:)))
                             .sorted()
@@ -68,6 +68,14 @@ struct Search: View, Tabber {
             ? .init(session
                         .archive
                         .browse
+                        .filter {
+                            switch $0.page.access {
+                            case .remote:
+                                return true
+                            default:
+                                return false
+                            }
+                        }
                         .prefix(3)
                         .map(\.page)
                         .map(Item.init(page:)))
@@ -75,8 +83,16 @@ struct Search: View, Tabber {
                             .archive
                             .browse
                             .filter {
+                                switch $0.page.access {
+                                case .remote:
+                                    return true
+                                default:
+                                    return false
+                                }
+                            }
+                            .filter {
                                 $0.page.title.localizedCaseInsensitiveContains(filter)
-                                    || $0.page.string.localizedCaseInsensitiveContains(filter)
+                                    || $0.page.access.string.localizedCaseInsensitiveContains(filter)
                             }
                             .sorted {
                                 $0.date < $1.date

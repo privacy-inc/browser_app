@@ -32,6 +32,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         scrollView.delegate = nil
     }
     
+    final func load(_ access: Page.Access) {
+        switch access {
+        case .remote:
+            _ = access
+                .url
+                .map(load)
+        case .local:
+            if let url = access.url, let directory = access.directory {
+                loadFileURL(url, allowingReadAccessTo: directory)
+            }
+        }
+    }
+    
     final func load(_ url: URL) {
         load(.init(url: url))
     }

@@ -59,7 +59,7 @@ extension Search.Bar {
             wrapper
                 .browse
                 .map(wrapper.session.archive.page)
-                .map(\.string)
+                .map(\.access.string)
                 .map {
                     field.text = $0
                 }

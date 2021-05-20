@@ -23,11 +23,11 @@ extension Tab.New {
                     }
                 } label: {
                     VStack(alignment: .leading) {
-                        Text(list[index].title)
+                        Text(verbatim: list[index].title)
                             .font(.footnote)
                             .foregroundColor(.primary)
                             .fixedSize(horizontal: false, vertical: true)
-                        Text(list[index].domain)
+                        Text(verbatim: list[index].access.domain)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }

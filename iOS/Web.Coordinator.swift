@@ -270,10 +270,8 @@ extension Web {
         func webView(_: WKWebView, contextMenuForElement element: WKContextMenuElementInfo, willCommitWithAnimator: UIContextMenuInteractionCommitAnimating) {
             if let url = element.linkURL {
                 load(url)
-            } else if let image = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
-                print("load")
-                let url = image.temporal("image.png")
-                load(url)
+            } else if let data = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
+                load(data.temporal("image.png"))
             }
         }
     }

@@ -8,7 +8,7 @@ extension Search {
         
         init(page: Page) {
             title = page.title
-            url = page.string
+            url = page.access.string
         }
         
         static func < (lhs: Search.Item, rhs: Search.Item) -> Bool {

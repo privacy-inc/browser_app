@@ -60,7 +60,7 @@ extension Tab {
         private var url: String {
             browse
                 .map(session.archive.page)
-                .map(\.string)
+                .map(\.access.string)
             ?? ""
         }
         

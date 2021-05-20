@@ -17,16 +17,16 @@ extension Collection {
                     dismiss()
                 } label: {
                     VStack(alignment: .leading) {
-                        Text(RelativeDateTimeFormatter().string(from: browse[index].date))
+                        Text(verbatim: RelativeDateTimeFormatter().string(from: browse[index].date))
                             .font(.caption2)
                             .foregroundColor(.secondary)
                         if !browse[index].page.title.isEmpty {
-                            Text(browse[index].page.title)
+                            Text(verbatim: browse[index].page.title)
                                 .font(.footnote)
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        Text(browse[index].page.domain)
+                        Text(verbatim: browse[index].page.access.domain)
                             .font(.caption2)
                             .foregroundColor(.init(.tertiaryLabel))
                     }

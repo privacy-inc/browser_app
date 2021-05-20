@@ -23,12 +23,12 @@ extension Collection {
                 } label: {
                     VStack(alignment: .leading) {
                         if !bookmarks[index].title.isEmpty {
-                            Text(bookmarks[index].title)
+                            Text(verbatim: bookmarks[index].title)
                                 .font(.callout)
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        Text(bookmarks[index].domain)
+                        Text(verbatim: bookmarks[index].access.domain)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }

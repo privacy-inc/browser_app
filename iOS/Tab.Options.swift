@@ -68,14 +68,14 @@ extension Tab {
         private var string: String {
             browse
                 .map(session.archive.page)
-                .map(\.string)
+                .map(\.access.string)
             ?? ""
         }
         
         private var url: URL? {
             browse
                 .map(session.archive.page)
-                .flatMap(\.url)
+                .flatMap(\.access.url)
         }
         
         private var photo: Bool {

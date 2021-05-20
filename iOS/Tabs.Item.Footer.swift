@@ -39,7 +39,7 @@ extension Tabs.Item {
             case .new:
                 return " "
             case let .browse(browse):
-                return session.archive.page(browse).domain
+                return session.archive.page(browse).access.domain
             case let .error(_, error):
                 return error.domain
             }
