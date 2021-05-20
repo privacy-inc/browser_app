@@ -2,7 +2,7 @@ import SwiftUI
 
 struct Tabs: View {
     @Binding var session: Session
-    let tabs: Namespace.ID
+    let namespace: Namespace.ID
     let previous: UUID?
     
     var body: some View {
@@ -15,9 +15,8 @@ struct Tabs: View {
                         ScrollViewReader { scroll in
                             HStack(spacing: 3) {
                                 ForEach(0 ..< session.tab.ids.count, id: \.self) {
-                                    Item(session: $session, id: session.tab.ids[$0], size: proxy.size)
+                                    Item(session: $session, id: session.tab.ids[$0], namespace: namespace, size: proxy.size)
                                         .id(session.tab.ids[$0])
-                                        .matchedGeometryEffect(id: session.tab.ids[$0], in: tabs)
                                 }
                             }
                             .padding()

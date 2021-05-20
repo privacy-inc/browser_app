@@ -4,6 +4,7 @@ extension Tabs {
     struct Item: View {
         @Binding var session: Session
         let id: UUID
+        let namespace: Namespace.ID
         let size: CGSize
         
         var body: some View {
@@ -32,6 +33,7 @@ extension Tabs {
                     }
                 }
             }
+            .matchedGeometryEffect(id: id, in: namespace, properties: .position, isSource: true)
         }
     }
 }

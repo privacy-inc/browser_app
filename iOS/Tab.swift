@@ -3,50 +3,69 @@ import SwiftUI
 struct Tab: View {
     @Binding var session: Session
     let id: UUID
+    let namespace: Namespace.ID
+    @State var snapshot: UIImage?
     @State private var modal = false
     
     var body: some View {
-        ZStack {
-            VStack(spacing: 0) {
-                switch session.tab.state(id) {
-                case .new:
-                    New(session: $session, id: id)
-                case let .browse(browse):
-                    Web(session: $session, id: id, browse: browse, tabs: tabs)
-                        .edgesIgnoringSafeArea([.top, .leading, .trailing])
-                case let .error:
-                    Circle()
+        if let snapshot = snapshot {
+            Image(uiImage: snapshot)
+                .offset(y: -7)
+                .transition(.asymmetric(insertion: .opacity, removal: .scale(scale: 0.7)))
+                .matchedGeometryEffect(id: id, in: namespace, properties: .position, isSource: false)
+                .onAppear {
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        self.snapshot = nil
+                    }
                 }
-                Rectangle()
-                    .fill(Color(.tertiaryLabel))
-                    .frame(height: 1)
-                Bar(session: $session, modal: $modal, id: id, tabs: tabs)
+        } else {
+            ZStack {
+                VStack(spacing: 0) {
+                    switch session.tab.state(id) {
+                    case .new:
+                        New(session: $session, id: id)
+                    case let .browse(browse):
+                        Web(session: $session, id: id, browse: browse, tabs: tabs)
+                            .edgesIgnoringSafeArea([.top, .leading, .trailing])
+                    case let .error:
+                        Circle()
+                    }
+                    Rectangle()
+                        .fill(Color(.tertiaryLabel))
+                        .frame(height: 1)
+                    Bar(session: $session, modal: $modal, id: id, tabs: tabs)
+                }
+                Modal(session: $session, show: $modal, id: id)
+                session
+                    .toast
+                    .map {
+                        Toast(session: $session, message: $0)
+                    }
             }
-            Modal(session: $session, show: $modal, id: id)
-            session
-                .toast
-                .map {
-                    Toast(session: $session, message: $0)
-                }
         }
     }
     
     private func tabs() {
-        withAnimation(.spring(blendDuration: 0.4)) {
-            session.section = .tabs(id)
+        shot()
+        
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            withAnimation(.spring(response: 0.8, dampingFraction: 0.6, blendDuration: 0.6)) {
+                session.section = .tabs(id)
+            }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
-            snapshot()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
+            snapshot = nil
         }
     }
     
-    private func snapshot() {
-        let controller = UIHostingController(rootView: self)
-        controller.view!.bounds = .init(origin: .zero, size: UIScreen.main.bounds.size)
-        session.tab[snapshot: id] = UIGraphicsImageRenderer(size: UIScreen.main.bounds.size)
+    private func shot() {
+        guard let controller = UIApplication.shared.root else { return }
+        snapshot = UIGraphicsImageRenderer(size: controller.view.frame.size)
             .image { _ in
-                controller.view!.drawHierarchy(in: UIScreen.main.bounds, afterScreenUpdates: true)
+                controller.view!.drawHierarchy(in: controller.view.frame, afterScreenUpdates: false)
             }
+        session.tab[snapshot: id] = snapshot
     }
 }

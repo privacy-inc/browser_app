@@ -19,7 +19,7 @@ extension Tab {
                         } label: {
                             Image(systemName: "list.bullet")
                                 .font(.title3)
-                                .frame(width: 65, height: 40)
+                                .frame(width: 65, height: 30)
                                 .contentShape(Rectangle())
                         }
                     }
@@ -36,7 +36,7 @@ extension Tab {
                         } label: {
                             Image(systemName: "list.bullet")
                                 .font(.title3)
-                                .frame(width: 65, height: 40)
+                                .frame(width: 65, height: 30)
                                 .contentShape(Rectangle())
                         }
                     }
