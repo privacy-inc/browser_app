@@ -24,7 +24,7 @@ extension Collection {
                     VStack(alignment: .leading) {
                         if !bookmarks[index].title.isEmpty {
                             Text(verbatim: bookmarks[index].title)
-                                .font(.callout)
+                                .font(.footnote)
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }

@@ -31,7 +31,7 @@ extension Tab.New {
                             .font(.caption2)
                             .foregroundColor(.secondary)
                     }
-                    .padding(.vertical, 8)
+                    .padding(.vertical, 4)
                     .padding(.horizontal)
                     .contentShape(Rectangle())
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
