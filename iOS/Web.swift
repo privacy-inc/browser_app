@@ -8,15 +8,15 @@ struct Web: UIViewRepresentable {
     let tabs: () -> Void
     
     func makeCoordinator() -> Coordinator {
-        let coordinator = session.tab[web: id] as? Coordinator ?? .init(session: session, id: id, browse: browse)
+        let coordinator = session.tab[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
         coordinator.wrapper = self
         if session.tab[web: id] == nil {
-            session.tab[web: id] = coordinator
             session
                 .archive
                 .page(browse)
                 .url
                 .map(coordinator.load)
+            session.tab[web: id] = coordinator
         }
         return coordinator
     }
@@ -30,16 +30,18 @@ struct Web: UIViewRepresentable {
     func open(_ url: URL) {
         tabs()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let id = withAnimation(.spring(blendDuration: 0.5)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
+            let id = withAnimation(.spring(response: 0.6, dampingFraction: 0.6, blendDuration: 0.6)) {
                 session.tab.new()
             }
             
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                 Cloud.shared.browse(url.absoluteString, id: nil) { browse, _ in
                     session.tab.browse(id, browse)
                 }
-                session.section = .tab(id)
+                withAnimation(.easeInOut(duration: 0.3)) {
+                    session.section = .tab(id)
+                }
             }
         }
     }

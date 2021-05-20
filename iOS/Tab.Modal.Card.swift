@@ -40,7 +40,8 @@ extension Tab.Modal {
                         }
                     } else {
                         Control(title: "Refresh", image: "arrow.clockwise") {
-                            
+                            dismiss()
+                            session.reload.send(id)
                         }
                     }
                     Spacer()

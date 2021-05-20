@@ -13,7 +13,7 @@ struct Tabs: View {
                 GeometryReader { proxy in
                     ScrollView(.horizontal) {
                         ScrollViewReader { scroll in
-                            HStack(spacing: 3) {
+                            HStack(spacing: 5) {
                                 ForEach(0 ..< session.tab.ids.count, id: \.self) {
                                     Item(session: $session, id: session.tab.ids[$0], namespace: namespace, size: proxy.size)
                                         .id(session.tab.ids[$0])

@@ -11,11 +11,10 @@ extension Tabs.Item {
                     Text(verbatim: title)
                         .font(.footnote)
                         .lineLimit(1)
-                        .foregroundColor(.secondary)
                         .padding(.horizontal)
                 }
                 Text(verbatim: subtitle)
-                    .font(.caption)
+                    .font(.caption2)
                     .lineLimit(1)
                     .foregroundColor(.secondary)
                     .padding(.leading)
@@ -27,7 +26,7 @@ extension Tabs.Item {
         private var title: String {
             switch session.tab.state(id) {
             case .new:
-                return "New tab"
+                return ""
             case let .browse(browse):
                 return session.archive.page(browse).title
             case let .error(_, error):
@@ -38,7 +37,7 @@ extension Tabs.Item {
         private var subtitle: String {
             switch session.tab.state(id) {
             case .new:
-                return ""
+                return " "
             case let .browse(browse):
                 return session.archive.page(browse).domain
             case let .error(_, error):

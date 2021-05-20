@@ -16,7 +16,8 @@ extension Tabs {
                 } label: {
                     Image(systemName: "xmark")
                         .foregroundColor(.primary)
-                        .frame(width: 46, height: 45)
+                        .frame(height: 45)
+                        .frame(maxWidth: .greatestFiniteMagnitude)
                         .contentShape(Rectangle())
                 }
                 Button {
@@ -31,17 +32,17 @@ extension Tabs {
                                 Image(uiImage: image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: size.width * 0.7, height: size.height - 135)
+                                    .frame(width: size.width * 0.7, height: size.height - 145)
                                     .clipShape(RoundedRectangle(cornerRadius: 12))
                                     .padding(2)
                         } else {
                             Image("blank")
-                                .frame(width: size.width * 0.7, height: size.height - 135)
+                                .frame(width: size.width * 0.7, height: size.height - 145)
                         }
                     }
                 }
                 Footer(session: $session, id: id)
-                    .frame(width: size.width * 0.7, height: 45)
+                    .frame(width: size.width * 0.7, height: 55)
             }
             .matchedGeometryEffect(id: id, in: namespace, properties: .position, isSource: true)
         }

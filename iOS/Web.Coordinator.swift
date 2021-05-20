@@ -15,11 +15,12 @@ extension Web {
         }
 
         required init?(coder: NSCoder) { nil }
-        init(session: Session, id: UUID, browse: Int) {
-            var session = session
+        init(wrapper: Web, id: UUID, browse: Int) {
+            self.wrapper = wrapper
             self.id = id
             self.browse = browse
-            var settings = session.archive.settings
+            
+            var settings = wrapper.session.archive.settings
             
             if !UIApplication.dark {
                 settings.dark = false
@@ -36,53 +37,62 @@ extension Web {
             scrollView.contentInsetAdjustmentBehavior = .always
             isOpaque = !settings.dark
             
-//            publisher(for: \.estimatedProgress, options: .new)
-//                .sink {
-//                    session.tab[progress: id] = $0
-//                }
-//                .store(in: &subs)
-//
-//            publisher(for: \.isLoading, options: .new)
-//                .sink {
-//                    session.tab[loading: id] = $0
-//                }
-//                .store(in: &subs)
-//
-//            publisher(for: \.canGoForward, options: .new)
-//                .sink {
-//                    session.tab[forward: id] = $0
-//                }
-//                .store(in: &subs)
-//
-//            publisher(for: \.canGoBack, options: .new)
-//                .sink {
-//                    session.tab[back: id] = $0
-//                }
-//                .store(in: &subs)
+            publisher(for: \.estimatedProgress, options: .new)
+                .removeDuplicates()
+                .sink { [weak self] in
+                    guard let id = self?.id else { return }
+                    self?.wrapper?.session.tab[progress: id] = $0
+                }
+                .store(in: &subs)
+
+            publisher(for: \.isLoading, options: .new)
+                .removeDuplicates()
+                .sink { [weak self] in
+                    guard let id = self?.id else { return }
+                    self?.wrapper?.session.tab[loading: id] = $0
+                }
+                .store(in: &subs)
+
+            publisher(for: \.canGoForward, options: .new)
+                .removeDuplicates()
+                .sink { [weak self] in
+                    guard let id = self?.id else { return }
+                    self?.wrapper?.session.tab[forward: id] = $0
+                }
+                .store(in: &subs)
+
+            publisher(for: \.canGoBack, options: .new)
+                .removeDuplicates()
+                .sink { [weak self] in
+                    guard let id = self?.id else { return }
+                    self?.wrapper?.session.tab[back: id] = $0
+                }
+                .store(in: &subs)
             
-//            publisher(for: \.title, options: .new)
-//                .sink {
-//                    $0.map { title in
-//                        wrapper
-//                            .browse
-//                            .map {
-//                                Cloud.shared.update($0, title: title)
-//                            }
-//                    }
-//                }
-//                .store(in: &subs)
-//
-//            publisher(for: \.url, options: .new)
-//                .sink {
-//                    $0.map { url in
-//                        wrapper
-//                            .browse
-//                            .map {
-//                                Cloud.shared.update($0, url: url)
-//                            }
-//                    }
-//                }
-//                .store(in: &subs)
+            publisher(for: \.title, options: .new)
+                .compactMap {
+                    $0
+                }
+                .filter {
+                    !$0.isEmpty
+                }
+                .removeDuplicates()
+                .sink { [weak self] in
+                    guard let browse = self?.browse else { return }
+                    Cloud.shared.update(browse, title: $0)
+                }
+                .store(in: &subs)
+
+            publisher(for: \.url, options: .new)
+                .compactMap {
+                    $0
+                }
+                .removeDuplicates()
+                .sink { [weak self] in
+                    guard let browse = self?.browse else { return }
+                    Cloud.shared.update(browse, url: $0)
+                }
+                .store(in: &subs)
             
             
             
@@ -146,7 +156,8 @@ extension Web {
 //                }
 //            }.store(in: &subs)
             
-            session
+            wrapper
+                .session
                 .load
                 .filter {
                     $0.0 == id
@@ -156,7 +167,8 @@ extension Web {
                 }
                 .store(in: &subs)
             
-            session
+            wrapper
+                .session
                 .reload
                 .filter {
                     $0 == id
@@ -166,7 +178,8 @@ extension Web {
                 }
                 .store(in: &subs)
             
-            session
+            wrapper
+                .session
                 .stop
                 .filter {
                     $0 == id
@@ -176,7 +189,8 @@ extension Web {
                 }
                 .store(in: &subs)
             
-            session
+            wrapper
+                .session
                 .back
                 .filter {
                     $0 == id
@@ -186,7 +200,8 @@ extension Web {
                 }
                 .store(in: &subs)
             
-            session
+            wrapper
+                .session
                 .forward
                 .filter {
                     $0 == id
@@ -202,7 +217,7 @@ extension Web {
         }
         
         func webView(_: WKWebView, didFinish: WKNavigation!) {
-//            session.tab[progress: id] = 1
+            wrapper?.session.tab[progress: id] = 1
             Cloud.shared.activity()
         }
 
@@ -243,13 +258,12 @@ extension Web {
                 if let url = element.linkURL {
                     elements.insert(UIAction(title: NSLocalizedString("Open in new tab", comment: ""),
                                              image: UIImage(systemName: "plus.square.on.square")) { [weak self] _ in
-//                        self?.wrapper.open(url)
+                        self?.wrapper?.open(url)
                     }, at: 0)
                 }
                 
                 return .init(title: "", children: elements)
-            }
-            ))
+            }))
         }
         
         func webView(_: WKWebView, contextMenuForElement element: WKContextMenuElementInfo, willCommitWithAnimator: UIContextMenuInteractionCommitAnimating) {
