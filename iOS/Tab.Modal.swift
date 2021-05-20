@@ -26,15 +26,15 @@ extension Tab {
                         .contentShape(Rectangle())
                         .onTapGesture(perform: dismiss)
                         Card(session: $session, id: id, dismiss: dismiss)
-                            .frame(height: 380)
+                            .frame(height: 400)
                     }
-                    .offset(y: 380 + offset)
+                    .offset(y: 400 + offset)
                     .edgesIgnoringSafeArea(.bottom)
                     .highPriorityGesture(
                         DragGesture()
                             .onChanged { gesture in
                                 withAnimation(.spring(blendDuration: 0.25)) {
-                                    offset = max(-230 + gesture.translation.height, -380)
+                                    offset = max(-250 + gesture.translation.height, -400)
                                 }
                             }
                             .onEnded {
@@ -42,7 +42,7 @@ extension Tab {
                                     dismiss()
                                 } else {
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        offset = -230
+                                        offset = -250
                                     }
                                 }
                             }
@@ -53,7 +53,7 @@ extension Tab {
                 if $0 {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                         withAnimation(.spring(blendDuration: 0.2)) {
-                            offset = -230
+                            offset = -250
                         }
                     }
                 }

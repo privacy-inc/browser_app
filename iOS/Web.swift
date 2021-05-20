@@ -8,17 +8,16 @@ struct Web: UIViewRepresentable {
     let tabs: () -> Void
     
     func makeCoordinator() -> Coordinator {
-        let coordinator = session.tab[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
-        coordinator.wrapper = self
-        if session.tab[web: id] == nil {
-            coordinator.load(session.archive.page(browse).access)
-            session.tab[web: id] = coordinator
-        }
-        return coordinator
+        session.tab[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
     }
     
     func makeUIView(context: Context) -> Coordinator {
-        context.coordinator
+        context.coordinator.wrapper = self
+        if session.tab[web: id] == nil {
+            context.coordinator.load(session.archive.page(browse).access)
+            session.tab[web: id] = context.coordinator
+        }
+        return context.coordinator
     }
     
     func updateUIView(_: Coordinator, context: Context) { }
@@ -26,8 +25,8 @@ struct Web: UIViewRepresentable {
     func open(_ url: URL) {
         tabs()
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.6) {
-            let id = withAnimation(.spring(response: 0.6, dampingFraction: 0.6, blendDuration: 0.6)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            let id = withAnimation(.easeInOut(duration: 0.4)) {
                 session.tab.new()
             }
             
@@ -35,7 +34,7 @@ struct Web: UIViewRepresentable {
                 Cloud.shared.browse(url.absoluteString, id: nil) { browse, _ in
                     session.tab.browse(id, browse)
                 }
-                withAnimation(.easeInOut(duration: 0.3)) {
+                withAnimation(.easeInOut(duration: 0.4)) {
                     session.section = .tab(id)
                 }
             }

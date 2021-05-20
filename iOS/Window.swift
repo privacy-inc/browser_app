@@ -8,11 +8,14 @@ struct Window: View {
         switch session.section {
         case let .tabs(previous):
             Tabs(session: $session, namespace: namespace, previous: previous)
+                .transition(.identity)
         case let .tab(id):
-            Tab(session: $session, id: id, namespace: namespace, snapshot: session.tab[snapshot: id] as? UIImage)
+            Tab(session: $session, id: id, namespace: namespace)
+                .transition(.opacity)
                 .ignoresSafeArea(.keyboard)
         case let .search(id):
             Search(session: $session, id: id)
+                .transition(.opacity)
         }
     }
 }

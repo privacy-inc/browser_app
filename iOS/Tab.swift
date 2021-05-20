@@ -4,20 +4,18 @@ struct Tab: View {
     @Binding var session: Session
     let id: UUID
     let namespace: Namespace.ID
-    @State var snapshot: UIImage?
+    @State private var snapshot: UIImage?
+    @State private var scale = CGFloat(1)
     @State private var modal = false
     
     var body: some View {
         if let snapshot = snapshot {
             Image(uiImage: snapshot)
-                .offset(y: -7)
-                .transition(.asymmetric(insertion: .opacity, removal: .scale(scale: 0.7)))
-                .matchedGeometryEffect(id: id, in: namespace, properties: .position, isSource: false)
-                .onAppear {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        self.snapshot = nil
-                    }
-                }
+                .clipShape(RoundedRectangle(cornerRadius: 12))
+                .scaleEffect(scale)
+                .edgesIgnoringSafeArea(.all)
+                .transition(.opacity)
+                .matchedGeometryEffect(id: id, in: namespace, properties: .position, isSource: true)
         } else {
             ZStack {
                 VStack(spacing: 0) {
@@ -37,6 +35,7 @@ struct Tab: View {
                         .stroke(Color.accentColor, lineWidth: 2)
                         .frame(height: 2)
                         .animation(.spring(blendDuration: 0.4))
+                        .edgesIgnoringSafeArea(.horizontal)
                     Rectangle()
                         .fill(Color(.secondarySystemFill))
                         .frame(height: 1)
@@ -53,17 +52,28 @@ struct Tab: View {
     }
     
     private func tabs() {
+        switch session.tab.state(id) {
+        case .browse:
+            session.tab[progress: id] = 1
+        default:
+            break
+        }
         shot()
+
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            withAnimation(.spring(blendDuration: 0.4)) {
+                scale = 0.6
+            }
+        }
         
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            withAnimation(.spring(response: 0.8, dampingFraction: 0.6, blendDuration: 0.6)) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            withAnimation(.easeInOut(duration: 0.2)) {
                 session.section = .tabs(id)
             }
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 7) {
-            snapshot = nil
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.snapshot = nil
         }
     }
     
