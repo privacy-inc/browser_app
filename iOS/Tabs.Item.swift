@@ -14,11 +14,19 @@ extension Tabs {
                         session.tab.close(id)
                     }
                 } label: {
-                    Image(systemName: "xmark")
-                        .foregroundColor(.primary)
-                        .frame(height: 45)
-                        .frame(maxWidth: .greatestFiniteMagnitude)
-                        .contentShape(Rectangle())
+                    HStack {
+                        Rectangle()
+                            .fill(Color(.systemFill))
+                            .frame(height: 1)
+                        Image(systemName: "xmark")
+                            .foregroundColor(.primary)
+                            .frame(height: 45)
+                            .contentShape(Rectangle())
+                        Rectangle()
+                            .fill(Color(.systemFill))
+                            .frame(height: 1)
+                    }
+                    .padding(.horizontal, 30)
                 }
                 Button {
                     withAnimation(.spring(blendDuration: 0.4)) {

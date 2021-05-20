@@ -36,6 +36,7 @@ extension Web {
             scrollView.keyboardDismissMode = .none
             scrollView.contentInsetAdjustmentBehavior = .always
             isOpaque = !settings.dark
+            scrollView.backgroundColor = .secondarySystemBackground
             
             publisher(for: \.estimatedProgress, options: .new)
                 .removeDuplicates()

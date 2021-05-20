@@ -21,17 +21,24 @@ struct Tab: View {
         } else {
             ZStack {
                 VStack(spacing: 0) {
+                    Rectangle()
+                        .fill(Color(.secondarySystemFill))
+                        .frame(height: 1)
                     switch session.tab.state(id) {
                     case .new:
                         New(session: $session, id: id)
                     case let .browse(browse):
                         Web(session: $session, id: id, browse: browse, tabs: tabs)
-                            .edgesIgnoringSafeArea([.top, .leading, .trailing])
+                            .edgesIgnoringSafeArea(.horizontal)
                     case let .error:
                         Circle()
                     }
+                    Indicator(percent: session.tab[progress: id])
+                        .stroke(Color.accentColor, lineWidth: 2)
+                        .frame(height: 2)
+                        .animation(.spring(blendDuration: 0.4))
                     Rectangle()
-                        .fill(Color(.tertiaryLabel))
+                        .fill(Color(.secondarySystemFill))
                         .frame(height: 1)
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
