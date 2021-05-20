@@ -1,43 +1,33 @@
 import SwiftUI
 
 extension Tabs.Item {
-    struct Header: View {
+    struct Footer: View {
         @Binding var session: Session
         let id: UUID
         
         var body: some View {
             VStack(alignment: .leading) {
-                HStack {
-                    Button {
-                        withAnimation(.spring(blendDuration: 0.4)) {
-                            session.tab.close(id)
-                        }
-                    } label: {
-                        Image(systemName: "xmark")
-                            .foregroundColor(.primary)
-                            .frame(width: 46, height: 36)
-                            .contentShape(Rectangle())
-                    }
-                    Text(verbatim: subtitle)
-                        .font(.caption)
+                if !title.isEmpty {
+                    Text(verbatim: title)
+                        .font(.footnote)
                         .lineLimit(1)
                         .foregroundColor(.secondary)
-                        .offset(x: -10)
-                    Spacer()
+                        .padding(.horizontal)
                 }
-                Text(verbatim: title)
-                    .font(.footnote)
+                Text(verbatim: subtitle)
+                    .font(.caption)
                     .lineLimit(1)
                     .foregroundColor(.secondary)
-                    .padding(.horizontal)
+                    .padding(.leading)
                 Spacer()
             }
+            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
         }
         
         private var title: String {
             switch session.tab.state(id) {
             case .new:
-                return ""
+                return "New tab"
             case let .browse(browse):
                 return session.archive.page(browse).title
             case let .error(_, error):
