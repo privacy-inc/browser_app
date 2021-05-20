@@ -9,18 +9,22 @@ extension Search {
             Button(action: action) {
                 VStack(alignment: .leading) {
                     Rectangle()
-                        .fill(Color(.secondarySystemFill))
+                        .fill(Color.accentColor)
                         .frame(height: 1)
-                    Text(verbatim: item.title)
-                        .font(.footnote)
-                        .foregroundColor(.primary)
-                        .lineLimit(1)
-                        .padding(.top, 6)
-                    Text(verbatim: item.url)
-                        .font(.caption2)
-                        .foregroundColor(.secondary)
-                        .lineLimit(1)
-                        .padding(.bottom, 6)
+                    if !item.title.isEmpty {
+                        Text(verbatim: item.title)
+                            .font(.footnote)
+                            .foregroundColor(.primary)
+                            .lineLimit(1)
+                            .padding(.top, 6)
+                    }
+                    if !item.url.isEmpty {
+                        Text(verbatim: item.url)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                            .lineLimit(1)
+                            .padding(.bottom, 6)
+                    }
                 }
                 .padding(.horizontal)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)

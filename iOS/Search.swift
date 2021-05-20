@@ -12,14 +12,14 @@ struct Search: View, Tabber {
                 .edgesIgnoringSafeArea(.all)
             ScrollView {
                 Text("Bookmarks")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+                    .font(.footnote.bold())
+                    .foregroundColor(.accentColor)
                     .padding([.top, .leading])
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 ForEach(bookmarks, id: \.self, content: cell)
                 Text("Recent")
-                    .font(.footnote)
-                    .foregroundColor(.secondary)
+                    .font(.footnote.bold())
+                    .foregroundColor(.accentColor)
                     .padding(.leading)
                     .padding(.top, 30)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -74,13 +74,15 @@ struct Search: View, Tabber {
             : .init(Set(session
                             .archive
                             .browse
-                            .map(\.page)
                             .filter {
-                                $0.title.localizedCaseInsensitiveContains(filter)
-                                    || $0.string.localizedCaseInsensitiveContains(filter)
+                                $0.page.title.localizedCaseInsensitiveContains(filter)
+                                    || $0.page.string.localizedCaseInsensitiveContains(filter)
                             }
+                            .sorted {
+                                $0.date < $1.date
+                            }
+                            .map(\.page)
                             .map(Item.init(page:)))
-                            .sorted()
                             .prefix(3))
     }
 }
