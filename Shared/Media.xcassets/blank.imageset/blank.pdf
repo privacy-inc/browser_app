@@ -7,7 +7,7 @@
      /Range [ 0.000000 1.000000 0.000000 1.000000 0.000000 1.000000 ]
   >>
 stream
-{  1.000000 exch 0.387500 exch 0.828500 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub -0.557333 mul 1.000000 add exch dup 0.000000 sub 0.366667 mul 0.387500 add exch dup 0.000000 sub 0.457333 mul 0.828500 add exch } if dup 0.375000 gt { exch pop exch pop exch pop dup 0.375000 sub -1.780666 mul 0.791000 add exch dup 0.375000 sub 0.644000 mul 0.525000 add exch dup 0.375000 sub 0.000000 mul 1.000000 add exch } if dup 0.625000 gt { exch pop exch pop exch pop dup 0.625000 sub -0.922222 mul 0.345833 add exch dup 0.625000 sub 0.517334 mul 0.686000 add exch dup 0.625000 sub 0.000000 mul 1.000000 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 0.000000 exch 0.880000 exch 1.000000 exch } if pop }
+{  1.000000 exch 0.387500 exch 0.828500 exch dup 0.000000 gt { exch pop exch pop exch pop dup 0.000000 sub -0.716572 mul 1.000000 add exch dup 0.000000 sub 0.471429 mul 0.387500 add exch dup 0.000000 sub 0.588000 mul 0.828500 add exch } if dup 0.291667 gt { exch pop exch pop exch pop dup 0.291667 sub -0.993860 mul 0.791000 add exch dup 0.291667 sub 0.359442 mul 0.525000 add exch dup 0.291667 sub 0.000000 mul 1.000000 add exch } if dup 0.739583 gt { exch pop exch pop exch pop dup 0.739583 sub -1.328000 mul 0.345833 add exch dup 0.739583 sub 0.744960 mul 0.686000 add exch dup 0.739583 sub 0.000000 mul 1.000000 add exch } if dup 1.000000 gt { exch pop exch pop exch pop 0.000000 exch 0.880000 exch 1.000000 exch } if pop }
 endstream
 endobj
 
