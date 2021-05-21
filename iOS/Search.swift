@@ -1,7 +1,7 @@
 import SwiftUI
 import Archivable
 
-struct Search: View, Tabber {
+struct Search: View {
     @Binding var session: Session
     let id: UUID
     @State private var filter = ""
@@ -27,15 +27,15 @@ struct Search: View, Tabber {
                 Spacer()
             }
             Bar(session: $session, filter: $filter, id: id)
-                .frame(height: 1)
+                .frame(height: 0)
         }
     }
     
     private func cell(_ item: Item) -> Cell {
         .init(item: item) {
-            Cloud.shared.browse(item.url, id: browse) {
+            Cloud.shared.browse(item.url, id: session.tab.state(id).browse) {
                 UIApplication.shared.resign()
-                if browse == $0 {
+                if session.tab.state(id).browse == $0 {
                     session.load.send((id, $1))
                 } else {
                     session.tab.browse(id, $0)

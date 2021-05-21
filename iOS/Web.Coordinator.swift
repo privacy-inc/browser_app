@@ -95,18 +95,6 @@ extension Web {
                 }
                 .store(in: &subs)
             
-//
-//            view.session.find.sink { [weak self] in
-//                self?.select(nil)
-//                self?.find($0) {
-//                    guard $0.matchFound else { return }
-//                    self?.evaluateJavaScript("window.getSelection().getRangeAt(0).getBoundingClientRect().top") { offset, _ in
-//                        guard let offset = offset as? CGFloat, let current = self?.scrollView.contentOffset.y else { return }
-//                        self?.scrollView.scrollRectToVisible(.init(x: 0, y: offset + current - 200, width: 100, height: 400), animated: true)
-//                    }
-//                }
-//            }.store(in: &subs)
-//
             wrapper
                 .session
                 .load
@@ -195,7 +183,29 @@ extension Web {
                         }
                         UIApplication.shared.share(data.temporal(name))
                     }
-                }.store(in: &subs)
+                }
+                .store(in: &subs)
+            wrapper
+                .session
+                .find
+                .filter {
+                    $0.0 == id
+                }
+                .sink { [weak self] in
+                    self?.find($0.1) {
+                        guard $0.matchFound else { return }
+                        self?.evaluateJavaScript("window.getSelection().getRangeAt(0).getBoundingClientRect().top") { offset, _ in
+                            offset
+                                .flatMap {
+                                    $0 as? CGFloat
+                                }
+                                .map {
+                                    self?.found($0)
+                                }
+                        }
+                    }
+                }
+                .store(in: &subs)
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
@@ -258,6 +268,14 @@ extension Web {
             } else if let data = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
                 load(data.temporal("image.png"))
             }
+        }
+        
+        private func found(_ offset: CGFloat) {
+            scrollView.scrollRectToVisible(.init(x: 0,
+                                                 y: offset + scrollView.contentOffset.y - 200,
+                                                 width: 100,
+                                                 height: 300),
+                                           animated: true)
         }
     }
 }

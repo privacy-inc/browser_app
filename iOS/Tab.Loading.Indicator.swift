@@ -1,6 +1,6 @@
 import SwiftUI
 
-extension Tab {
+extension Tab.Loading {
     struct Indicator: Shape {
         var percent: Double
         

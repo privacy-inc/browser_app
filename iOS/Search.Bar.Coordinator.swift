@@ -57,7 +57,7 @@ extension Search.Bar {
             cancel.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
             
             wrapper
-                .browse
+                .session.tab.state(wrapper.id).browse
                 .map(wrapper.session.archive.page)
                 .map(\.access.string)
                 .map {
@@ -93,9 +93,10 @@ extension Search.Bar {
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
             filter = false
-            Cloud.shared.browse(field.text!, id: wrapper.browse) { [weak self] in
+            let browse = wrapper.session.tab.state(wrapper.id).browse
+            Cloud.shared.browse(field.text!, id: browse) { [weak self] in
                 guard let id = self?.wrapper.id else { return }
-                if self?.wrapper.browse == $0 {
+                if browse == $0 {
                     self?.wrapper.session.load.send((id, $1))
                 } else {
                     self?.wrapper.session.tab.browse(id, $0)

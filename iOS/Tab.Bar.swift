@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Tab {
-    struct Bar: View, Tabber {
+    struct Bar: View {
         @Binding var session: Session
         @Binding var modal: Bool
         let id: UUID
@@ -21,7 +21,7 @@ extension Tab {
                     Search(session: $session, id: id)
                         .padding(.horizontal, 10)
                     Control(image: "app", action: tabs)
-                    Control(disabled: browse == nil, image: "line.horizontal.3") {
+                    Control(disabled: session.tab.state(id).browse == nil, image: "line.horizontal.3") {
                         UIApplication.shared.resign()
                         withAnimation(.easeInOut(duration: 0.3)) {
                             modal = true

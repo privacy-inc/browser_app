@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 extension Tab.New {
-    struct Bookmarks: View, Tabber {
+    struct Bookmarks: View {
         @Binding var session: Session
         let id: UUID
         
@@ -14,8 +14,8 @@ extension Tab.New {
                     .frame(height: 1)
                     .padding(.horizontal)
                 Button {
-                    Cloud.shared.open(index, id: browse) {
-                        if browse == $0 {
+                    Cloud.shared.open(index, id: session.tab.state(id).browse) {
+                        if session.tab.state(id).browse == $0 {
                             session.load.send((id, $1))
                         } else {
                             session.tab.browse(id, $0)

@@ -2,7 +2,7 @@ import SwiftUI
 import Sleuth
 
 extension Tab {
-    struct Options: View, Tabber {
+    struct Options: View {
         @Binding var session: Session
         let id: UUID
         @Environment(\.presentationMode) private var visible
@@ -71,14 +71,14 @@ extension Tab {
         }
         
         private var string: String {
-            browse
+            session.tab.state(id).browse
                 .map(session.archive.page)
                 .map(\.access.string)
             ?? ""
         }
         
         private var url: URL? {
-            browse
+            session.tab.state(id).browse
                 .map(session.archive.page)
                 .flatMap(\.access.url)
         }

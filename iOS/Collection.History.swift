@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 extension Collection {
-    struct History: View, Tabber {
+    struct History: View {
         @Binding var session: Session
         let id: UUID
         let browse: [Browse]
@@ -17,9 +17,6 @@ extension Collection {
                     dismiss()
                 } label: {
                     VStack(alignment: .leading) {
-                        Text(verbatim: RelativeDateTimeFormatter().string(from: browse[index].date))
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
                         if !browse[index].page.title.isEmpty {
                             Text(verbatim: browse[index].page.title)
                                 .font(.footnote)
@@ -27,6 +24,9 @@ extension Collection {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Text(verbatim: browse[index].page.access.domain)
+                            .font(.caption2)
+                            .foregroundColor(.secondary)
+                        Text(verbatim: RelativeDateTimeFormatter().string(from: browse[index].date))
                             .font(.caption2)
                             .foregroundColor(.init(.tertiaryLabel))
                     }

@@ -1,9 +1,9 @@
 import SwiftUI
 
-extension Search {
-    struct Bar: UIViewRepresentable {
+extension Tab {
+    struct Find: UIViewRepresentable {
         @Binding var session: Session
-        @Binding var filter: String
+        @Binding var find: Bool
         let id: UUID
         
         func makeCoordinator() -> Coordinator {
@@ -15,11 +15,5 @@ extension Search {
         }
         
         func updateUIView(_: Coordinator, context: Context) { }
-        
-        func dismiss() {
-            withAnimation(.easeInOut(duration: 0.3)) {
-                session.section = .tab(id)
-            }
-        }
     }
 }

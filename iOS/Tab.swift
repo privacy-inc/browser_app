@@ -6,6 +6,7 @@ struct Tab: View {
     let namespace: Namespace.ID
     @State private var snapshot: UIImage?
     @State private var scale = CGFloat(1)
+    @State private var find = false
     @State private var modal = false
     
     var body: some View {
@@ -28,21 +29,17 @@ struct Tab: View {
                     case let .browse(browse):
                         Web(session: $session, id: id, browse: browse, tabs: tabs)
                             .edgesIgnoringSafeArea(.horizontal)
+                        if find {
+                            Find(session: $session, find: $find, id: id)
+                                .frame(height: 0)
+                        }
                     case let .error:
                         Circle()
                     }
-                    ZStack {
-                        Indicator(percent: 1)
-                            .stroke(Color(.systemFill), lineWidth: 2)
-                        Indicator(percent: session.tab[progress: id])
-                            .stroke(Color.accentColor, lineWidth: 2)
-                            .animation(.spring(blendDuration: 0.4))
-                    }
-                    .frame(height: 2)
-                    .edgesIgnoringSafeArea(.horizontal)
+                    Loading(percent: session.tab[progress: id])
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
-                Modal(session: $session, show: $modal, id: id)
+                Modal(session: $session, show: $modal, find: $find, id: id)
                 session
                     .toast
                     .map {

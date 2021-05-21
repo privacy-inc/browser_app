@@ -10,6 +10,7 @@ struct Session {
     var modal: Modal?
     let search = PassthroughSubject<Void, Never>()
     let load = PassthroughSubject<(UUID, Page.Access), Never>()
+    let find = PassthroughSubject<(UUID, String), Never>()
     let reload = PassthroughSubject<UUID, Never>()
     let stop = PassthroughSubject<UUID, Never>()
     let forward = PassthroughSubject<UUID, Never>()

@@ -1,7 +1,7 @@
 import SwiftUI
 
 extension Tab {
-    struct Info: View, Tabber {
+    struct Info: View {
         @Binding var session: Session
         let id: UUID
         @Environment(\.presentationMode) private var visible
@@ -51,14 +51,14 @@ extension Tab {
         }
         
         private var title: String {
-            browse
+            session.tab.state(id).browse
                 .map(session.archive.page)
                 .map(\.title)
             ?? ""
         }
         
         private var url: String {
-            browse
+            session.tab.state(id).browse
                 .map(session.archive.page)
                 .map(\.access.string)
             ?? ""

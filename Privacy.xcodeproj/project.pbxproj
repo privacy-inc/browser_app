@@ -14,7 +14,6 @@
 		CE03EDD7264FE4300031B649 /* Tab.Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD6264FE4300031B649 /* Tab.Modal.swift */; };
 		CE03EDD9264FEDD90031B649 /* Tab.Modal.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */; };
 		CE03EDDB264FF5510031B649 /* Tab.Modal.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDDA264FF5510031B649 /* Tab.Modal.Control.swift */; };
-		CE08AB4D264E7BB0008E631F /* Tabber.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB4C264E7BB0008E631F /* Tabber.swift */; };
 		CE08AB4F264EB59B008E631F /* Tab.New.History.Metrics.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB4E264EB59B008E631F /* Tab.New.History.Metrics.swift */; };
 		CE08AB51264EB6B8008E631F /* Tab.New.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB50264EB6B8008E631F /* Tab.New.History.swift */; };
 		CE08AB53264EB6F7008E631F /* Tab.New.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE08AB52264EB6F7008E631F /* Tab.New.Bookmarks.swift */; };
@@ -47,7 +46,10 @@
 		CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */; };
 		CE9C2002264821E0001504A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C2001264821E0001504A2 /* App.swift */; };
 		CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9C2005264821E1001504A2 /* Assets.xcassets */; };
-		CEBACCAB265693DB00A8F6F9 /* Tab.Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBACCAA265693DB00A8F6F9 /* Tab.Indicator.swift */; };
+		CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */; };
+		CEDE59BF2657C229001B26F0 /* Tab.Find.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */; };
+		CEDE59C12657C25A001B26F0 /* Tab.Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59C02657C25A001B26F0 /* Tab.Find.swift */; };
+		CEDE59C32657DEA6001B26F0 /* Tab.Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59C22657DEA6001B26F0 /* Tab.Loading.swift */; };
 		CEEB872026527EC700AF4E6A /* Session.Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB871F26527EC700AF4E6A /* Session.Modal.swift */; };
 		CEEB872226527F9C00AF4E6A /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB872126527F9C00AF4E6A /* Collection.swift */; };
 		CEED0F14265404B70030B4A2 /* Tab.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEED0F13265404B70030B4A2 /* Tab.Info.swift */; };
@@ -63,7 +65,6 @@
 		CE03EDD6264FE4300031B649 /* Tab.Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.swift; sourceTree = "<group>"; };
 		CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.Card.swift; sourceTree = "<group>"; };
 		CE03EDDA264FF5510031B649 /* Tab.Modal.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.Control.swift; sourceTree = "<group>"; };
-		CE08AB4C264E7BB0008E631F /* Tabber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabber.swift; sourceTree = "<group>"; };
 		CE08AB4E264EB59B008E631F /* Tab.New.History.Metrics.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.History.Metrics.swift; sourceTree = "<group>"; };
 		CE08AB50264EB6B8008E631F /* Tab.New.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.History.swift; sourceTree = "<group>"; };
 		CE08AB52264EB6F7008E631F /* Tab.New.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.Bookmarks.swift; sourceTree = "<group>"; };
@@ -98,7 +99,10 @@
 		CE9C2001264821E0001504A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE9C2005264821E1001504A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE9C200A264821E1001504A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		CEBACCAA265693DB00A8F6F9 /* Tab.Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Indicator.swift; sourceTree = "<group>"; };
+		CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.Indicator.swift; sourceTree = "<group>"; };
+		CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Find.Coordinator.swift; sourceTree = "<group>"; };
+		CEDE59C02657C25A001B26F0 /* Tab.Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Find.swift; sourceTree = "<group>"; };
+		CEDE59C22657DEA6001B26F0 /* Tab.Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.swift; sourceTree = "<group>"; };
 		CEEB871F26527EC700AF4E6A /* Session.Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Modal.swift; sourceTree = "<group>"; };
 		CEEB872126527F9C00AF4E6A /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
 		CEED0F13265404B70030B4A2 /* Tab.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Info.swift; sourceTree = "<group>"; };
@@ -175,8 +179,11 @@
 				CE91FA8B264AC5A0009A1F88 /* Tab.Bar.Control.swift */,
 				CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */,
 				CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */,
-				CEBACCAA265693DB00A8F6F9 /* Tab.Indicator.swift */,
+				CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */,
+				CEDE59C02657C25A001B26F0 /* Tab.Find.swift */,
 				CEED0F13265404B70030B4A2 /* Tab.Info.swift */,
+				CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */,
+				CEDE59C22657DEA6001B26F0 /* Tab.Loading.swift */,
 				CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */,
 				CE03EDDA264FF5510031B649 /* Tab.Modal.Control.swift */,
 				CE03EDD6264FE4300031B649 /* Tab.Modal.swift */,
@@ -188,7 +195,6 @@
 				CEED0F17265414F00030B4A2 /* Tab.Options.Control.swift */,
 				CEED0F1526540D2B0030B4A2 /* Tab.Options.swift */,
 				CE91FA7D264AB338009A1F88 /* Tab.swift */,
-				CE08AB4C264E7BB0008E631F /* Tabber.swift */,
 				CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */,
 				CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */,
 				CE919A87264D4CFC0051EE27 /* Tabs.Item.Footer.swift */,
@@ -287,10 +293,12 @@
 				CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */,
 				CE03EDDB264FF5510031B649 /* Tab.Modal.Control.swift in Sources */,
 				CEEB872026527EC700AF4E6A /* Session.Modal.swift in Sources */,
+				CEDE59C32657DEA6001B26F0 /* Tab.Loading.swift in Sources */,
 				CE919A8D264D575A0051EE27 /* Web.swift in Sources */,
 				CEED0F18265414F00030B4A2 /* Tab.Options.Control.swift in Sources */,
 				CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */,
 				CEED0F1626540D2B0030B4A2 /* Tab.Options.swift in Sources */,
+				CEDE59BF2657C229001B26F0 /* Tab.Find.Coordinator.swift in Sources */,
 				CE08AB4F264EB59B008E631F /* Tab.New.History.Metrics.swift in Sources */,
 				CE03EDD7264FE4300031B649 /* Tab.Modal.swift in Sources */,
 				CE781123264C08990097FAC2 /* Tab.New.swift in Sources */,
@@ -308,9 +316,8 @@
 				CE919A91264D58480051EE27 /* Webview.swift in Sources */,
 				CE2E9883265136D400844E8B /* Toast.swift in Sources */,
 				CE91FA7C264AB2D3009A1F88 /* Session.swift in Sources */,
-				CEBACCAB265693DB00A8F6F9 /* Tab.Indicator.swift in Sources */,
+				CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */,
 				CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */,
-				CE08AB4D264E7BB0008E631F /* Tabber.swift in Sources */,
 				CE08AB51264EB6B8008E631F /* Tab.New.History.swift in Sources */,
 				CE91FA8A264AC21D009A1F88 /* Tab.Bar.Search.swift in Sources */,
 				CE91FA7E264AB338009A1F88 /* Tab.swift in Sources */,
@@ -319,6 +326,7 @@
 				CE03EDCF264FBE8E0031B649 /* Tab.New.History.Cell.swift in Sources */,
 				CE781121264C00580097FAC2 /* Search.swift in Sources */,
 				CE91FA8C264AC5A0009A1F88 /* Tab.Bar.Control.swift in Sources */,
+				CEDE59C12657C25A001B26F0 /* Tab.Find.swift in Sources */,
 				CE71B7192653C495002B8748 /* Collection.History.swift in Sources */,
 				CE91FA82264AB79C009A1F88 /* Tabs.swift in Sources */,
 				CE03EDD1264FBFC20031B649 /* RelativeDateTimeFormatter.swift in Sources */,

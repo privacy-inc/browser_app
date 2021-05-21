@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 extension Collection {
-    struct Bookmarks: View, Tabber {
+    struct Bookmarks: View {
         @Binding var session: Session
         let id: UUID
         let bookmarks: [Page]
@@ -12,8 +12,8 @@ extension Collection {
         var body: some View {
             ForEach(0 ..< bookmarks.count, id: \.self) { index in
                 Button {
-                    Cloud.shared.open(index, id: browse) {
-                        if browse == $0 {
+                    Cloud.shared.open(index, id: session.tab.state(id).browse) {
+                        if session.tab.state(id).browse == $0 {
                             session.load.send((id, $1))
                         } else {
                             session.tab.browse(id, $0)

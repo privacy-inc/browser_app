@@ -4,6 +4,7 @@ extension Tab {
     struct Modal: View {
         @Binding var session: Session
         @Binding var show: Bool
+        @Binding var find: Bool
         let id: UUID
         @State private var offset = CGFloat()
         
@@ -25,7 +26,7 @@ extension Tab {
                         .frame(maxWidth: .greatestFiniteMagnitude)
                         .contentShape(Rectangle())
                         .onTapGesture(perform: dismiss)
-                        Card(session: $session, id: id, dismiss: dismiss)
+                        Card(session: $session, find: $find, id: id, dismiss: dismiss)
                             .frame(height: 400)
                     }
                     .offset(y: 400 + offset)
@@ -51,6 +52,7 @@ extension Tab {
             }
             .onChange(of: show) {
                 if $0 {
+                    find = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                         withAnimation(.spring(blendDuration: 0.2)) {
                             offset = -250
@@ -61,6 +63,7 @@ extension Tab {
         }
         
         private func dismiss() {
+            UIApplication.shared.resign()
             withAnimation(.spring(blendDuration: 0.2)) {
                 offset = 0
             }

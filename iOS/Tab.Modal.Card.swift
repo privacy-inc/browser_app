@@ -2,8 +2,9 @@ import SwiftUI
 import Archivable
 
 extension Tab.Modal {
-    struct Card: View, Tabber {
+    struct Card: View {
         @Binding var session: Session
+        @Binding var find: Bool
         let id: UUID
         let dismiss: () -> Void
         
@@ -18,7 +19,8 @@ extension Tab.Modal {
                             session.modal = .info(id)
                         }
                         Control(title: "Bookmark", image: "bookmark") {
-                            browse.map(Cloud.shared.bookmark)
+                            session.tab.state(id).browse
+                                .map(Cloud.shared.bookmark)
                             dismiss()
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 session.toast = .init(title: "Bookmark added", icon: "bookmark")
@@ -31,7 +33,8 @@ extension Tab.Modal {
                             session.modal = .options(id)
                         }
                         Control(title: "Find", image: "doc.text.magnifyingglass") {
-                            
+                            dismiss()
+                            find = true
                         }
                     }
                     if session.tab[loading: id] {
