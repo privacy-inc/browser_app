@@ -44,7 +44,7 @@ extension Search.Bar {
                                 .withConfiguration(UIImage.SymbolConfiguration(textStyle: .callout)), for: .normal)
             cancel.imageEdgeInsets.top = 4
             cancel.imageView!.tintColor = .secondaryLabel
-            cancel.addTarget(self, action: #selector(self.dismiss), for: .touchUpInside)
+            cancel.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
             input.addSubview(cancel)
             
             field.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor, constant: 10).isActive = true

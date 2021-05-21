@@ -192,17 +192,25 @@ extension Web {
                 .filter {
                     $0.0 == id
                 }
+                .map {
+                    $0.1
+                }
                 .sink { [weak self] in
-                    self?.find($0.1) {
+                    self?.find($0) {
                         guard $0.matchFound else { return }
                         self?.evaluateJavaScript("""
-document.designMode = "on";
-document.execCommand("hiliteColor", false, "rgba(170, 220, 240, 0.6)");
-setTimeout(function () {
-  document.execCommand("hiliteColor", false, "transparent");
-  document.designMode = "off";
-}, 2000)
-getSelection().getRangeAt(0).getBoundingClientRect().top;
+if (!window.getSelection().isCollapsed) {
+    var privacy_mark = document.createElement("mark");
+    privacy_mark.style.setProperty("background-color", "rgba(180, 220, 240, 0.7)", "important");
+    getSelection().getRangeAt(0).surroundContents(privacy_mark);
+    setTimeout(function () {
+        getSelection().collapse(privacy_mark, 1)
+    }, 100)
+    setTimeout(function (privacy_old) {
+        privacy_old.outerHTML = privacy_old.innerHTML;
+    }, 2000, privacy_mark)
+    getSelection().getRangeAt(0).getBoundingClientRect().top;
+}
 """) { offset, _ in
                             offset
                                 .flatMap {
@@ -281,7 +289,7 @@ getSelection().getRangeAt(0).getBoundingClientRect().top;
         
         private func found(_ offset: CGFloat) {
             scrollView.scrollRectToVisible(.init(x: 0,
-                                                 y: offset + scrollView.contentOffset.y - 160,
+                                                 y: offset + scrollView.contentOffset.y - (offset > 0 ? 160 : -180),
                                                  width: 320,
                                                  height: 320),
                                            animated: true)

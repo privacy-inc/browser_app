@@ -9,8 +9,8 @@ struct Session {
     var toast: Toast.Message?
     var modal: Modal?
     let search = PassthroughSubject<Void, Never>()
-    let load = PassthroughSubject<(UUID, Page.Access), Never>()
-    let find = PassthroughSubject<(UUID, String), Never>()
+    let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()
+    let find = PassthroughSubject<(id: UUID, query: String), Never>()
     let reload = PassthroughSubject<UUID, Never>()
     let stop = PassthroughSubject<UUID, Never>()
     let forward = PassthroughSubject<UUID, Never>()

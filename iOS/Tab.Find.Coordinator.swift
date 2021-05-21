@@ -4,7 +4,6 @@ extension Tab.Find {
     final class Coordinator: UIView, UIKeyInput, UITextFieldDelegate {
         private weak var field: UITextField!
         private weak var _next: UIButton!
-        private weak var _prev: UIButton!
         private var editable = true
         private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 48), inputViewStyle: .keyboard)
         private let wrapper: Tab.Find
@@ -57,32 +56,24 @@ extension Tab.Find {
             cancel.setImage(UIImage(systemName: "xmark")?
                                 .withConfiguration(UIImage.SymbolConfiguration(textStyle: .callout)), for: .normal)
             cancel.imageView!.tintColor = .secondaryLabel
-            cancel.addTarget(self, action: #selector(self.dismiss), for: .touchUpInside)
+            cancel.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
             
             let next = UIButton()
             next.setImage(UIImage(systemName: "chevron.down")?
                                 .withConfiguration(UIImage.SymbolConfiguration(textStyle: .callout)), for: .normal)
             next.imageView!.tintColor = .label
-            next.addTarget(self, action: #selector(self.forward), for: .touchUpInside)
+            next.addTarget(self, action: #selector(search), for: .touchUpInside)
             next.isEnabled = false
             self._next = next
             
-            let previous = UIButton()
-            previous.setImage(UIImage(systemName: "chevron.up")?
-                                .withConfiguration(UIImage.SymbolConfiguration(textStyle: .callout)), for: .normal)
-            previous.imageView!.tintColor = .label
-            previous.addTarget(self, action: #selector(self.previous), for: .touchUpInside)
-            previous.isEnabled = false
-            self._prev = previous
-            
-            [cancel, next, previous].forEach {
+            [cancel, next].forEach {
                 $0.translatesAutoresizingMaskIntoConstraints = false
                 $0.imageEdgeInsets.top = 4
                 input.addSubview($0)
             }
             
             field.leftAnchor.constraint(equalTo: cancel.rightAnchor).isActive = true
-            field.rightAnchor.constraint(equalTo: previous.leftAnchor, constant: -10).isActive = true
+            field.rightAnchor.constraint(equalTo: next.leftAnchor, constant: -10).isActive = true
             field.bottomAnchor.constraint(equalTo: input.bottomAnchor, constant: -4).isActive = true
             
             icon.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
@@ -93,9 +84,8 @@ extension Tab.Find {
             
             cancel.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
             next.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor, constant: -5).isActive = true
-            previous.rightAnchor.constraint(equalTo: next.leftAnchor, constant: -5).isActive = true
             
-            [cancel, next, previous].forEach {
+            [cancel, next].forEach {
                 $0.widthAnchor.constraint(equalToConstant: 50).isActive = true
                 $0.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
                 $0.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
@@ -123,29 +113,21 @@ extension Tab.Find {
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
-            search(true)
+            search()
             return true
         }
         
         func textFieldDidChangeSelection(_: UITextField) {
             {
                 _next.isEnabled = !$0.isEmpty
-                _prev.isEnabled = !$0.isEmpty
                 if $0.count > 3 {
-                    search(true)
+                    search()
                 }
             } (query)
         }
         
         func insertText(_: String) { }
         func deleteBackward() { }
-        
-        private func search(_ forward: Bool) {
-            {
-                guard !$0.isEmpty else { return }
-                wrapper.session.find.send((wrapper.id, $0))
-            } (query)
-        }
         
         private var query: String {
             field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
@@ -155,12 +137,11 @@ extension Tab.Find {
             field.resignFirstResponder()
         }
         
-        @objc private func forward() {
-            search(true)
-        }
-        
-        @objc private func previous() {
-            search(false)
+        @objc private func search() {
+            {
+                guard !$0.isEmpty else { return }
+                wrapper.session.find.send((id: wrapper.id, query: $0))
+            } (query)
         }
     }
 }
