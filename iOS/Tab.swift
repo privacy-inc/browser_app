@@ -20,7 +20,7 @@ struct Tab: View {
             ZStack {
                 VStack(spacing: 0) {
                     Rectangle()
-                        .fill(Color(.secondarySystemFill))
+                        .fill(Color(.tertiaryLabel))
                         .frame(height: 1)
                     switch session.tab.state(id) {
                     case .new:
@@ -31,14 +31,15 @@ struct Tab: View {
                     case let .error:
                         Circle()
                     }
-                    Indicator(percent: session.tab[progress: id])
-                        .stroke(Color.accentColor, lineWidth: 2)
-                        .frame(height: 2)
-                        .animation(.spring(blendDuration: 0.4))
-                        .edgesIgnoringSafeArea(.horizontal)
-                    Rectangle()
-                        .fill(Color(.secondarySystemFill))
-                        .frame(height: 1)
+                    ZStack {
+                        Indicator(percent: 1)
+                            .stroke(Color(.systemFill), lineWidth: 2)
+                        Indicator(percent: session.tab[progress: id])
+                            .stroke(Color.accentColor, lineWidth: 2)
+                            .animation(.spring(blendDuration: 0.4))
+                    }
+                    .frame(height: 2)
+                    .edgesIgnoringSafeArea(.horizontal)
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
                 Modal(session: $session, show: $modal, id: id)
