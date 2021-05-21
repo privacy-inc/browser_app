@@ -95,34 +95,6 @@ extension Web {
                 }
                 .store(in: &subs)
             
-            
-            
-            
-            
-            
-//            view.session.previous.sink { [weak self] in
-//                if self?.canGoBack == true {
-//                    self?.goBack()
-//                } else {
-//                    view.session.section = .history
-//                }
-//            }.store(in: &subs)
-//
-//            view.session.next.sink { [weak self] in
-//                self?.goForward()
-//            }.store(in: &subs)
-//
-//            view.session.load.sink { [weak self] in
-//                self?.load(view.id)
-//            }.store(in: &subs)
-//
-//            view.session.reload.sink { [weak self] in
-//                self?.reload()
-//            }.store(in: &subs)
-//
-//            view.session.stop.sink { [weak self] in
-//                self?.stopLoading()
-//            }.store(in: &subs)
 //
 //            view.session.find.sink { [weak self] in
 //                self?.select(nil)
@@ -135,28 +107,6 @@ extension Web {
 //                }
 //            }.store(in: &subs)
 //
-//            view.session.print.sink { [weak self] in
-//                UIPrintInteractionController.shared.printFormatter = self?.viewPrintFormatter()
-//                UIPrintInteractionController.shared.present(animated: true)
-//            }.store(in: &subs)
-//
-//            view.session.pdf.sink { [weak self] in
-//                self?.createPDF {
-//                    guard
-//                        case let .success(data) = $0,
-//                        var name = view.session.entry?.url.components(separatedBy: "/").last
-//                    else { return }
-//                    if name.isEmpty {
-//                        name = "Page.pdf"
-//                    } else if !name.hasSuffix(".pdf") {
-//                        name = {
-//                            $0.count > 1 ? $0.dropLast().joined(separator: ".") : $0.first!
-//                        } (name.components(separatedBy: ".")) + ".pdf"
-//                    }
-//                    UIApplication.shared.share(data.temporal(name))
-//                }
-//            }.store(in: &subs)
-            
             wrapper
                 .session
                 .load
@@ -211,6 +161,41 @@ extension Web {
                     self?.goForward()
                 }
                 .store(in: &subs)
+            
+            wrapper
+                .session
+                .print
+                .filter {
+                    $0 == id
+                }
+                .sink { [weak self] _ in
+                    UIPrintInteractionController.shared.printFormatter = self?.viewPrintFormatter()
+                    UIPrintInteractionController.shared.present(animated: true)
+                }
+                .store(in: &subs)
+
+            wrapper
+                .session
+                .pdf
+                .filter {
+                    $0 == id
+                }
+                .sink { [weak self] _ in
+                    self?.createPDF {
+                        guard
+                            case let .success(data) = $0,
+                            var name = self?.url?.lastPathComponent.replacingOccurrences(of: "/", with: "")
+                        else { return }
+                        if name.isEmpty {
+                            name = "Page.pdf"
+                        } else if !name.hasSuffix(".pdf") {
+                            name = {
+                                $0.count > 1 ? $0.dropLast().joined(separator: ".") : $0.first!
+                            } (name.components(separatedBy: ".")) + ".pdf"
+                        }
+                        UIApplication.shared.share(data.temporal(name))
+                    }
+                }.store(in: &subs)
         }
         
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {

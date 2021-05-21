@@ -1,4 +1,5 @@
 import SwiftUI
+import Sleuth
 
 extension Tab {
     struct Options: View, Tabber {
@@ -12,25 +13,29 @@ extension Tab {
                     Section(
                         header: Text("URL")) {
                         Control(title: "Share", image: "square.and.arrow.up") {
-                            
+                            UIApplication.shared.share(string)
                         }
                         Control(title: "Copy", image: "doc.on.doc") {
-                            
+                            dismiss()
+                            session.toast = .init(title: "URL copied", icon: "doc.on.doc.fill")
+                            UIPasteboard.general.string = string
                         }
                     }
                     Section(
                         header: Text("Page")) {
                         Control(title: "Share", image: "square.and.arrow.up") {
-                            
+                            url
+                                .map(UIApplication.shared.share)
                         }
                         Control(title: "Download", image: "square.and.arrow.down") {
-                            
+                            archive
+                                .map(UIApplication.shared.share)
                         }
                         Control(title: "Print", image: "printer") {
-                            
+                            session.print.send(id)
                         }
                         Control(title: "Export as PDF", image: "doc.richtext") {
-                            
+                            session.pdf.send(id)
                         }
                     }
                     Section(
@@ -76,6 +81,18 @@ extension Tab {
             browse
                 .map(session.archive.page)
                 .flatMap(\.access.url)
+        }
+        
+        private var archive: URL? {
+            url
+                .flatMap { url in
+                    (try? Data(contentsOf: url))
+                        .map {
+                            $0.temporal({
+                                $0.isEmpty ? "Page.webarchive" : $0.contains(".") && $0.last != "." ? $0 : $0 + ".webarchive"
+                            } (url.lastPathComponent.replacingOccurrences(of: "/", with: "")))
+                        }
+                }
         }
         
         private var photo: Bool {

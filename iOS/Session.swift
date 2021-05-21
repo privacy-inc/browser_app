@@ -14,6 +14,8 @@ struct Session {
     let stop = PassthroughSubject<UUID, Never>()
     let forward = PassthroughSubject<UUID, Never>()
     let back = PassthroughSubject<UUID, Never>()
+    let print = PassthroughSubject<UUID, Never>()
+    let pdf = PassthroughSubject<UUID, Never>()
     
     init() {
         section = .tab(tab
