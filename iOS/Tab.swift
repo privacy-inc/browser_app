@@ -50,6 +50,7 @@ struct Tab: View {
     }
     
     private func tabs() {
+        UIApplication.shared.resign()
         switch session.tab.state(id) {
         case .browse:
             session.tab[progress: id] = 1

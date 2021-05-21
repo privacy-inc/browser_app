@@ -12,7 +12,6 @@ struct Window: View {
         case let .tab(id):
             Tab(session: $session, id: id, namespace: namespace)
                 .transition(.opacity)
-                .ignoresSafeArea(.keyboard)
         case let .search(id):
             Search(session: $session, id: id)
                 .transition(.opacity)

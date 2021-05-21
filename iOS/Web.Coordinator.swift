@@ -9,7 +9,7 @@ extension Web {
         private var subs = Set<AnyCancellable>()
         private let id: UUID
         private let browse: Int
-        
+
         deinit {
             print("gone")
         }
@@ -185,6 +185,7 @@ extension Web {
                     }
                 }
                 .store(in: &subs)
+            
             wrapper
                 .session
                 .find
@@ -194,7 +195,15 @@ extension Web {
                 .sink { [weak self] in
                     self?.find($0.1) {
                         guard $0.matchFound else { return }
-                        self?.evaluateJavaScript("window.getSelection().getRangeAt(0).getBoundingClientRect().top") { offset, _ in
+                        self?.evaluateJavaScript("""
+document.designMode = "on";
+document.execCommand("hiliteColor", false, "rgba(170, 220, 240, 0.6)");
+setTimeout(function () {
+  document.execCommand("hiliteColor", false, "transparent");
+  document.designMode = "off";
+}, 2000)
+getSelection().getRangeAt(0).getBoundingClientRect().top;
+""") { offset, _ in
                             offset
                                 .flatMap {
                                     $0 as? CGFloat
@@ -272,9 +281,9 @@ extension Web {
         
         private func found(_ offset: CGFloat) {
             scrollView.scrollRectToVisible(.init(x: 0,
-                                                 y: offset + scrollView.contentOffset.y - 200,
-                                                 width: 100,
-                                                 height: 300),
+                                                 y: offset + scrollView.contentOffset.y - 160,
+                                                 width: 320,
+                                                 height: 320),
                                            animated: true)
         }
     }
