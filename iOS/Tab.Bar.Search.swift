@@ -6,16 +6,19 @@ extension Tab.Bar {
         let id: UUID
         
         var body: some View {
-            ZStack {
-                RoundedRectangle(cornerRadius: 6)
-                    .fill(Color(.tertiarySystemFill))
-                Image(systemName: "magnifyingglass")
-            }
-            .frame(width: 60)
-            .onTapGesture {
+            Button {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     session.section = .search(id)
                 }
+            } label: {
+                ZStack {
+                    RoundedRectangle(cornerRadius: 6)
+                        .fill(Color(.tertiarySystemFill))
+                    Image(systemName: "magnifyingglass")
+                        .foregroundColor(.primary)
+                }
+                .frame(width: 60)
+                .contentShape(Rectangle())
             }
         }
     }
