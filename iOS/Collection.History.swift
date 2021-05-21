@@ -24,11 +24,11 @@ extension Collection {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Text(verbatim: browse[index].page.access.domain)
-                            .font(.caption2)
+                            .font(.caption2.bold())
                             .foregroundColor(.secondary)
                         Text(verbatim: RelativeDateTimeFormatter().string(from: browse[index].date))
                             .font(.caption2)
-                            .foregroundColor(.init(.tertiaryLabel))
+                            .foregroundColor(.secondary)
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding(.vertical, 3)

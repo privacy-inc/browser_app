@@ -29,7 +29,7 @@ extension Collection {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Text(verbatim: bookmarks[index].access.domain)
-                            .font(.caption2)
+                            .font(.caption2.bold())
                             .foregroundColor(.secondary)
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)

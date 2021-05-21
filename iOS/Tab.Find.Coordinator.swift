@@ -59,8 +59,7 @@ extension Tab.Find {
             cancel.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
             
             let next = UIButton()
-            next.setImage(UIImage(systemName: "chevron.down")?
-                                .withConfiguration(UIImage.SymbolConfiguration(textStyle: .callout)), for: .normal)
+            next.setImage(UIImage(systemName: "arrow.right"), for: .normal)
             next.imageView!.tintColor = .label
             next.addTarget(self, action: #selector(search), for: .touchUpInside)
             next.isEnabled = false
@@ -83,7 +82,7 @@ extension Tab.Find {
             container.heightAnchor.constraint(equalTo: container.widthAnchor).isActive = true
             
             cancel.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
-            next.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor, constant: -5).isActive = true
+            next.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
             
             [cancel, next].forEach {
                 $0.widthAnchor.constraint(equalToConstant: 50).isActive = true
