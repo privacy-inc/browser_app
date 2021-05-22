@@ -1,4 +1,5 @@
 import SwiftUI
+import Sleuth
 
 extension Tab {
     struct Info: View {
@@ -10,12 +11,15 @@ extension Tab {
             NavigationView {
                 List {
                     Section(
-                        header: Text("Title")) {
-                            Text(verbatim: title)
-                                .fixedSize(horizontal: false, vertical: true)
+                        header: Image(systemName: secure ? "lock.fill" : "exclamationmark.triangle.fill")
+                                    .font(.title3)) {
+                            Text(secure ? "Secure Connection" : "Site Not Secure")
+                                .font(.footnote)
+                            Text(secure ? "Using an encrypted connection to \(domain)" : "Connection to \(domain) is NOT encrypted")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
                         }
                     Section(
-                        header: Text("URL"),
                         footer: Button {
                                     dismiss()
                                     session.toast = .init(title: "URL copied", icon: "doc.on.doc.fill")
@@ -24,12 +28,14 @@ extension Tab {
                                     HStack {
                                         Spacer()
                                         Image(systemName: "doc.on.doc.fill")
-                                            .font(.title3)
                                             .foregroundColor(.primary)
-                                            .frame(width: 30, height: 50)
+                                            .frame(width: 30, height: 30)
                                             .padding(.leading, 50)
+                                            .padding(.bottom, 10)
                                     }
                                 }) {
+                            Text(verbatim: title)
+                                .fixedSize(horizontal: false, vertical: true)
                             Text(verbatim: url)
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
@@ -51,17 +57,34 @@ extension Tab {
         }
         
         private var title: String {
-            session.tab.state(id).browse
-                .map(session.archive.page)
+            page
                 .map(\.title)
             ?? ""
         }
         
         private var url: String {
-            session.tab.state(id).browse
-                .map(session.archive.page)
+            page
                 .map(\.access.string)
             ?? ""
+        }
+        
+        private var domain: String {
+            page
+                .map(\.access.domain)
+            ?? ""
+        }
+        
+        private var secure: Bool {
+            page
+                .map {
+                    !$0.access.string.hasPrefix(URL.Scheme.http.rawValue + "://")
+                }
+            ?? true
+        }
+        
+        private var page: Page? {
+            session.tab.state(id).browse
+                .map(session.archive.page)
         }
         
         private func dismiss() {
