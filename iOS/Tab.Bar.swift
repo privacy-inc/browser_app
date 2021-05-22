@@ -20,13 +20,13 @@ extension Tab {
                     }
                     Search(session: $session, id: id)
                         .padding(.horizontal, 10)
-                    Control(image: "app", action: tabs)
                     Control(disabled: session.tab.state(id).browse == nil, image: "line.horizontal.3") {
                         UIApplication.shared.resign()
                         withAnimation(.easeInOut(duration: 0.3)) {
                             modal = true
                         }
                     }
+                    Control(image: "app", action: tabs)
                 }
                 .padding(.horizontal)
                 .frame(height: 34)
