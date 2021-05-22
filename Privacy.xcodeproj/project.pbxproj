@@ -22,6 +22,7 @@
 		CE616C442659233700E02ABF /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE616C432659233700E02ABF /* App.Delegate.swift */; };
 		CE616C462659316900E02ABF /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE616C452659316900E02ABF /* Settings.swift */; };
 		CE616C4826594BC600E02ABF /* Settings.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE616C4726594BC600E02ABF /* Settings.Location.swift */; };
+		CE616C4A26595AC200E02ABF /* Settings.Default.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE616C4926595AC200E02ABF /* Settings.Default.swift */; };
 		CE71B7192653C495002B8748 /* Collection.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE71B7182653C495002B8748 /* Collection.History.swift */; };
 		CE71B71B2653CE78002B8748 /* Collection.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE71B71A2653CE78002B8748 /* Collection.Bookmarks.swift */; };
 		CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */; };
@@ -76,6 +77,7 @@
 		CE616C432659233700E02ABF /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
 		CE616C452659316900E02ABF /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		CE616C4726594BC600E02ABF /* Settings.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Location.swift; sourceTree = "<group>"; };
+		CE616C4926595AC200E02ABF /* Settings.Default.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Default.swift; sourceTree = "<group>"; };
 		CE71B7182653C495002B8748 /* Collection.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.History.swift; sourceTree = "<group>"; };
 		CE71B71A2653CE78002B8748 /* Collection.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.Bookmarks.swift; sourceTree = "<group>"; };
 		CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Bar.swift; sourceTree = "<group>"; };
@@ -183,6 +185,7 @@
 				CEEB871F26527EC700AF4E6A /* Session.Modal.swift */,
 				CE91FA7F264AB70B009A1F88 /* Session.Section.swift */,
 				CE91FA7B264AB2D3009A1F88 /* Session.swift */,
+				CE616C4926595AC200E02ABF /* Settings.Default.swift */,
 				CE616C4726594BC600E02ABF /* Settings.Location.swift */,
 				CE616C452659316900E02ABF /* Settings.swift */,
 				CE91FA8B264AC5A0009A1F88 /* Tab.Bar.Control.swift */,
@@ -332,6 +335,7 @@
 				CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */,
 				CE08AB51264EB6B8008E631F /* Tab.New.History.swift in Sources */,
 				CE91FA8A264AC21D009A1F88 /* Tab.Bar.Search.swift in Sources */,
+				CE616C4A26595AC200E02ABF /* Settings.Default.swift in Sources */,
 				CE91FA7E264AB338009A1F88 /* Tab.swift in Sources */,
 				CE03EDD5264FD3450031B649 /* Search.Cell.swift in Sources */,
 				CE919A8F264D577B0051EE27 /* Web.Coordinator.swift in Sources */,

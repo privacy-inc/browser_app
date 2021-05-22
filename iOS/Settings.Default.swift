@@ -2,34 +2,30 @@ import SwiftUI
 import CoreLocation
 
 extension Settings {
-    struct Location: View {
+    struct Default: View {
         @Binding var session: Session
         
         var body: some View {
             ScrollView {
-                Image(systemName: location ? "location" : "location.slash")
-                    .font(.largeTitle)
-                    .foregroundColor(location ? .blue : .pink)
-                    .padding(.top, 20)
-                Text("Websites may request this app access to your location to provide maps, navigation or other services.")
+                Text("You can make Privacy your default browser.")
                     .foregroundColor(.secondary)
                     .font(.callout)
                     .padding([.horizontal, .top])
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                Text("This app will never access your location at all, but might prompt you to grant access if a website is asking for it.")
+                Text("All websites will open automatically on this app.")
                     .foregroundColor(.secondary)
                     .font(.callout)
                     .padding([.horizontal, .top])
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                Text("You can enable and disable this app from allowing websites to access your location directly on Settings:")
+                Text("You can enable this directly on Settings:")
                     .foregroundColor(.secondary)
                     .font(.callout)
                     .padding([.horizontal, .top])
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                Text("Settings > Privacy > Location")
+                Text("Settings > Privacy > Default Browser App")
                     .font(.callout)
                     .padding(.horizontal)
                     .padding(.top, 2)
@@ -50,10 +46,6 @@ extension Settings {
                                                 .padding(.vertical, 6)
                                         }
                                     })
-        }
-        
-        private var location: Bool {
-            CLLocationManager().authorizationStatus == .authorizedWhenInUse
         }
     }
 }

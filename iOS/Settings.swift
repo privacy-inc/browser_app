@@ -54,13 +54,8 @@ struct Settings: View {
                 Section {
                     NavigationLink("Location", destination: Location(session: $session))
                 }
-                Section(header: Text("Default browser")) {
-                    NavigationLink(destination: Circle()) {
-                        HStack {
-                            Text("")
-                            Spacer()
-                        }
-                    }
+                Section {
+                    NavigationLink("Default browser", destination: Default(session: $session))
                 }
                 Section(header: Text("Contact")) {
                     NavigationLink(destination: Circle()) {
