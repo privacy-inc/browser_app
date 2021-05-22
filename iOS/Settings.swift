@@ -52,7 +52,7 @@ struct Settings: View {
                         .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
                 Section {
-                    NavigationLink("Location", destination: Circle())
+                    NavigationLink("Location", destination: Location(session: $session))
                 }
                 Section(header: Text("Default browser")) {
                     NavigationLink(destination: Circle()) {
@@ -122,7 +122,6 @@ struct Settings: View {
             popups = !session.archive.settings.popups
             ads = !session.archive.settings.ads
             screen = !session.archive.settings.screen
-            print(session.archive.settings)
         }
     }
 }

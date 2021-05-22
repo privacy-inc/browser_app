@@ -15,6 +15,10 @@ extension UIApplication {
         sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
     }
     
+    func settings() {
+        open(URL(string: Self.openSettingsURLString)!)
+    }
+    
     func share(_ any: Any) {
         let root = self.root
         let controller = UIActivityViewController(activityItems: [any], applicationActivities: nil)
