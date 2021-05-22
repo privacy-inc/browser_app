@@ -2,10 +2,10 @@ import WebKit
 import Sleuth
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
-    let settings: Settings
+    let settings: Sleuth.Settings
     
     required init?(coder: NSCoder) { nil }
-    init(configuration: WKWebViewConfiguration, settings: Settings) {
+    init(configuration: WKWebViewConfiguration, settings: Sleuth.Settings) {
         self.settings = settings
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true

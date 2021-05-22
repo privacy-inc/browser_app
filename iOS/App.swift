@@ -17,6 +17,8 @@ import Archivable
                         Tab.Info(session: $session, id: id)
                     case let .options(id):
                         Tab.Options(session: $session, id: id)
+                    case .settings:
+                        Settings(session: $session)
                     }
                 }
                 .onReceive(Cloud.shared.archive) {

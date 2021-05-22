@@ -36,7 +36,7 @@ extension Tabs {
                 }
                 
                 Control(image: "slider.horizontal.3") {
-                    
+                    session.modal = .settings
                 }
             }
             .padding(.horizontal)
