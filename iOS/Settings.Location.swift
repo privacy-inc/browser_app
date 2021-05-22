@@ -44,7 +44,7 @@ extension Settings {
                                             RoundedRectangle(cornerRadius: 4)
                                                 .foregroundColor(.accentColor)
                                             Text("Change")
-                                                .foregroundColor(.primary)
+                                                .foregroundColor(.white)
                                                 .font(.footnote)
                                                 .padding(.horizontal)
                                                 .padding(.vertical, 6)

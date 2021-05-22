@@ -42,7 +42,7 @@ struct Settings: View {
                         .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
                 Section(header: Text("Security")) {
-                    Toggle("Force secure connections (HTTPS)", isOn: $http)
+                    Toggle("Force secure connections", isOn: $http)
                         .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
                 Section(header: Text("Privacy")) {
