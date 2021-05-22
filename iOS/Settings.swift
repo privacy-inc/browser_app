@@ -57,14 +57,6 @@ struct Settings: View {
                 Section {
                     NavigationLink("Default browser", destination: Default(session: $session))
                 }
-                Section(header: Text("Contact")) {
-                    NavigationLink(destination: Circle()) {
-                        HStack {
-                            Text("")
-                            Spacer()
-                        }
-                    }
-                }
             }
             .listStyle(GroupedListStyle())
             .navigationBarTitle("Settings", displayMode: .large)

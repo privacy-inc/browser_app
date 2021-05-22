@@ -32,7 +32,7 @@ extension Tabs {
                 }
                 
                 Control(image: "shield.lefthalf.fill") {
-                    
+                    session.modal = .trackers
                 }
                 
                 Control(image: "slider.horizontal.3") {

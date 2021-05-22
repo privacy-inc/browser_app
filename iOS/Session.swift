@@ -8,6 +8,7 @@ struct Session {
     var section: Section
     var toast: Toast.Message?
     var modal: Modal?
+    let decimal = NumberFormatter()
     let search = PassthroughSubject<Void, Never>()
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()
     let find = PassthroughSubject<(id: UUID, query: String), Never>()
@@ -22,5 +23,6 @@ struct Session {
         section = .tab(tab
                         .ids
                         .first!)
+        decimal.numberStyle = .decimal
     }
 }

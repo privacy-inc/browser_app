@@ -19,6 +19,8 @@ import Archivable
                         Tab.Options(session: $session, id: id)
                     case .settings:
                         Settings(session: $session)
+                    case .trackers:
+                        Trackers(session: $session)
                     }
                 }
                 .onReceive(Cloud.shared.archive) {

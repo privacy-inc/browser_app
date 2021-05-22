@@ -35,6 +35,7 @@ extension Tab {
                                     }
                                 }) {
                             Text(verbatim: title)
+                                .font(.footnote)
                                 .fixedSize(horizontal: false, vertical: true)
                             Text(verbatim: url)
                                 .font(.footnote)

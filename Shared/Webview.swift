@@ -17,7 +17,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.userContentController.addUserScript(.init(source: settings.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         
         WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "rules", encodedContentRuleList: settings.rules) { rules, _ in
-            configuration.userContentController.add(rules!)
+            rules.map(configuration.userContentController.add)
         }
         
         super.init(frame: .zero, configuration: configuration)
