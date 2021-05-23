@@ -11,8 +11,9 @@ struct Trackers: View {
                             HStack {
                                 VStack {
                                     Text(NSNumber(value: blocked.count), formatter: session.decimal)
-                                        .font(.title.monospacedDigit())
+                                        .font(.title2.monospacedDigit())
                                     Text("Trackers")
+                                        .font(.caption)
                                 }
                                 Spacer()
                                 Image(systemName: "shield.lefthalf.fill")
@@ -20,11 +21,12 @@ struct Trackers: View {
                                 Spacer()
                                 VStack {
                                     Text(NSNumber(value: blocked.map(\.1.count).reduce(0, +)), formatter: session.decimal)
-                                        .font(.title.monospacedDigit())
+                                        .font(.title2.monospacedDigit())
                                     Text("Incidences")
+                                        .font(.caption)
                                 }
                             }
-                            .padding()) {
+                            .padding(.vertical, 30)) {
                     ForEach(0 ..< blocked.count, id: \.self) {
                         Item(session: $session, name: blocked[$0].key, blocks: blocked[$0].value)
                     }
