@@ -6,7 +6,7 @@
         "repositoryURL": "https://github.com/archivable/package.git",
         "state": {
           "branch": "main",
-          "revision": "c3ac89a10d185f4fd0a5a5915be123aab265880d",
+          "revision": "a023d5c1405a15609e0c7031b36e5a49e1453621",
           "version": null
         }
       },
@@ -15,7 +15,7 @@
         "repositoryURL": "https://github.com/privacy-inc/sleuth.git",
         "state": {
           "branch": "main",
-          "revision": "43d763420d8b51be5e92a35632f27d838f59f152",
+          "revision": "c0c5a723c424c7890247d6a1b64f1d6b342c404e",
           "version": null
         }
       }
