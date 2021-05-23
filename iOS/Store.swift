@@ -22,19 +22,18 @@ struct Store: View {
                         .frame(height: 50)
                         .contentShape(Rectangle())
                 }
+                .padding(.leading)
                 Spacer()
                 Button {
                     visible.wrappedValue.dismiss()
                 } label: {
                     Image(systemName: "xmark")
+                        .font(.title3)
                         .foregroundColor(.secondary)
-                        .frame(width: 30, height: 50)
-                        .padding(.leading, 40)
+                        .frame(width: 60, height: 50)
                         .contentShape(Rectangle())
                 }
-                .contentShape(Rectangle())
             }
-            .padding(.horizontal)
             Rectangle()
                 .fill(Color(.systemFill))
                 .frame(height: 1)
