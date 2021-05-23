@@ -36,7 +36,7 @@ struct Search: View {
             Cloud.shared.browse(item.url, id: session.tab.state(id).browse) {
                 UIApplication.shared.resign()
                 if session.tab.state(id).browse == $0 {
-                    session.load.send((id, $1))
+                    session.load.send((id: id, access: $1))
                 } else {
                     session.tab.browse(id, $0)
                 }

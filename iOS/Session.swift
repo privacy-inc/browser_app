@@ -8,6 +8,7 @@ struct Session {
     var section: Section
     var toast: Toast.Message?
     var modal: Modal?
+    let purchases = Purchases()
     let decimal = NumberFormatter()
     let search = PassthroughSubject<Void, Never>()
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()

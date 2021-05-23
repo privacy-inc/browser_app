@@ -13,6 +13,8 @@ extension Session {
         options(UUID),
         settings,
         trackers,
-        activity
+        activity,
+        froob,
+        store
     }
 }

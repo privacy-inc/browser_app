@@ -97,7 +97,7 @@ extension Search.Bar {
             Cloud.shared.browse(field.text!, id: browse) { [weak self] in
                 guard let id = self?.wrapper.id else { return }
                 if browse == $0 {
-                    self?.wrapper.session.load.send((id, $1))
+                    self?.wrapper.session.load.send((id: id, access: $1))
                 } else {
                     self?.wrapper.session.tab.browse(id, $0)
                 }

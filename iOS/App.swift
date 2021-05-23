@@ -23,10 +23,20 @@ import Archivable
                         Trackers(session: $session)
                     case .activity:
                         Activity(session: $session)
+                    case .store:
+                        EmptyView()
+                    case .froob:
+                        EmptyView()
                     }
                 }
                 .onReceive(Cloud.shared.archive) {
                     session.archive = $0
+                }
+                .onReceive(session.purchases.open) {
+                    session.modal = .store
+                }
+                .onReceive(delegate.froob) {
+                    session.modal = .froob
                 }
         }
         .onChange(of: phase) {
