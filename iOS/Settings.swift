@@ -59,6 +59,15 @@ struct Settings: View {
                 Section {
                     NavigationLink("Clear data", destination: Data())
                 }
+                Section {
+                    Button {
+                        session.modal = .store
+                    } label: {
+                        Text("Privacy Plus")
+                            .font(.callout.bold())
+                            .frame(maxWidth: .greatestFiniteMagnitude)
+                    }
+                }
             }
             .listStyle(GroupedListStyle())
         }

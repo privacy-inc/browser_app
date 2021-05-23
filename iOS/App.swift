@@ -24,9 +24,9 @@ import Archivable
                     case .activity:
                         Activity(session: $session)
                     case .store:
-                        EmptyView()
+                        Store(session: $session)
                     case .froob:
-                        EmptyView()
+                        Froob(session: $session)
                     }
                 }
                 .onReceive(Cloud.shared.archive) {

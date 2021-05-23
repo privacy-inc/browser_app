@@ -1,0 +1,33 @@
+{
+  "identifier" : "6E8D3E55",
+  "nonRenewingSubscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "4.99",
+      "familyShareable" : false,
+      "internalID" : "E3015AB8",
+      "localizations" : [
+        {
+          "description" : "",
+          "displayName" : "",
+          "locale" : "en_US"
+        }
+      ],
+      "productID" : "incognit.plus",
+      "referenceName" : "Privacy Plus",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+
+  },
+  "subscriptionGroups" : [
+
+  ],
+  "version" : {
+    "major" : 1,
+    "minor" : 1
+  }
+}

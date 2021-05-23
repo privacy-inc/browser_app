@@ -3,7 +3,7 @@ import Combine
 import Sleuth
 
 final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, SKPaymentTransactionObserver {
-    let products = CurrentValueSubject<[(SKProduct, String)], Never>([])
+    let products = CurrentValueSubject<[(product: SKProduct, price: String)], Never>([])
     let loading = CurrentValueSubject<Bool, Never>(true)
     let error = CurrentValueSubject<String?, Never>(nil)
     let open = PassthroughSubject<Void, Never>()
@@ -77,7 +77,7 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
                 .sorted { $0.price.doubleValue < $1.price.doubleValue }
                 .map {
                     formatter.locale = $0.priceLocale
-                    return ($0, formatter.string(from: $0.price)!)
+                    return (product: $0, price: formatter.string(from: $0.price)!)
                 }
             self.loading.value = false
             self.error.value = nil

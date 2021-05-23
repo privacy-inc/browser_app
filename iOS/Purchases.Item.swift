@@ -3,7 +3,7 @@ import Foundation
 extension Purchases {
     enum Item: String, CaseIterable, Codable {
         case
-        plus = "walkhero.plus"
+        plus = "incognit.plus"
         
         var image: String {
             switch self {
@@ -13,16 +13,14 @@ extension Purchases {
         
         var title: String {
             switch self {
-            case .plus: return NSLocalizedString("WalkHero+", comment: "")
+            case .plus: return NSLocalizedString("Privacy Plus", comment: "")
             }
         }
         
         var subtitle: String {
             switch self {
             case .plus: return NSLocalizedString("""
-Support the development of this app.
-
-Your contribution allows a very small indie team to update and maintain WalkHero.
+Support Privacy
 """, comment: "")
             }
         }
