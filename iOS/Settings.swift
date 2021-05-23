@@ -13,10 +13,9 @@ struct Settings: View {
     @State private var popups = true
     @State private var ads = true
     @State private var screen = true
-    @Environment(\.presentationMode) private var visible
     
     var body: some View {
-        NavigationView {
+        Popup(title: "Settings") {
             List {
                 Section(header: Text("Search Engine")) {
                     Picker("Search Engine", selection: $engine) {
@@ -58,20 +57,7 @@ struct Settings: View {
                     NavigationLink("Default browser", destination: Default(session: $session))
                 }
             }
-            .listStyle(GroupedListStyle())
-            .navigationBarTitle("Settings", displayMode: .large)
-            .navigationBarItems(trailing:
-                                    Button {
-                                        visible.wrappedValue.dismiss()
-                                    } label: {
-                                        Image(systemName: "xmark")
-                                            .foregroundColor(.secondary)
-                                            .frame(width: 30, height: 50)
-                                            .padding(.leading, 40)
-                                            .contentShape(Rectangle())
-                                    })
         }
-        .navigationViewStyle(StackNavigationViewStyle())
         .onChange(of: engine) {
             Cloud.shared.engine($0)
         }

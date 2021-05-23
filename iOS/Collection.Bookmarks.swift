@@ -7,7 +7,7 @@ extension Collection {
         @Binding var session: Session
         let id: UUID
         let bookmarks: [Page]
-        let dismiss: () -> Void
+        @Environment(\.presentationMode) private var visible
         
         var body: some View {
             ForEach(0 ..< bookmarks.count, id: \.self) { index in
@@ -19,7 +19,7 @@ extension Collection {
                             session.tab.browse(id, $0)
                         }
                     }
-                    dismiss()
+                    visible.wrappedValue.dismiss()
                 } label: {
                     VStack(alignment: .leading) {
                         if !bookmarks[index].title.isEmpty {

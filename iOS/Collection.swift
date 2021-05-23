@@ -4,32 +4,20 @@ struct Collection: View {
     @Binding var session: Session
     let id: UUID
     let modal: Session.Modal
-    @Environment(\.presentationMode) private var visible
     
     var body: some View {
-        NavigationView {
+        Popup(title: title) {
             List {
                 switch modal {
                 case .bookmarks:
-                    Bookmarks(session: $session, id: id, bookmarks: session.archive.bookmarks, dismiss: dismiss)
+                    Bookmarks(session: $session, id: id, bookmarks: session.archive.bookmarks)
                 case .history:
-                    History(session: $session, id: id, browse: session.archive.browse, dismiss: dismiss)
+                    History(session: $session, id: id, browse: session.archive.browse)
                 default:
                     EmptyView()
                 }
             }
-            .listStyle(GroupedListStyle())
-            .navigationBarTitle(title, displayMode: .large)
-            .navigationBarItems(trailing:
-                                    Button(action: dismiss) {
-                                        Image(systemName: "xmark")
-                                            .foregroundColor(.secondary)
-                                            .frame(width: 30, height: 50)
-                                            .padding(.leading, 40)
-                                            .contentShape(Rectangle())
-                                    })
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
     
     private var title: String {
@@ -41,9 +29,5 @@ struct Collection: View {
         default:
             return ""
         }
-    }
-    
-    private func dismiss() {
-        visible.wrappedValue.dismiss()
     }
 }

@@ -7,14 +7,14 @@ extension Collection {
         @Binding var session: Session
         let id: UUID
         let browse: [Browse]
-        let dismiss: () -> Void
+        @Environment(\.presentationMode) private var visible
         
         var body: some View {
             ForEach(0 ..< browse.count, id: \.self) { index in
                 Button {
                     Cloud.shared.revisit(browse[index].id)
                     session.tab.browse(id, browse[index].id)
-                    dismiss()
+                    visible.wrappedValue.dismiss()
                 } label: {
                     VStack(alignment: .leading) {
                         if !browse[index].page.title.isEmpty {
