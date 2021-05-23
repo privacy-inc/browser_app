@@ -56,7 +56,11 @@ struct Settings: View {
                 Section {
                     NavigationLink("Default browser", destination: Default(session: $session))
                 }
+                Section {
+                    NavigationLink("Clear data", destination: Data())
+                }
             }
+            .listStyle(GroupedListStyle())
         }
         .onChange(of: engine) {
             Cloud.shared.engine($0)

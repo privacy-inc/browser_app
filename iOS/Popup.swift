@@ -13,7 +13,6 @@ struct Popup<Content>: View where Content : View {
     var body: some View {
         NavigationView {
             content
-                .listStyle(GroupedListStyle())
                 .navigationBarTitle(title, displayMode: .large)
                 .navigationBarItems(trailing:
                                         Button {

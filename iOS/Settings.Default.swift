@@ -1,5 +1,4 @@
 import SwiftUI
-import CoreLocation
 
 extension Settings {
     struct Default: View {
@@ -7,6 +6,10 @@ extension Settings {
         
         var body: some View {
             ScrollView {
+                Image(systemName: "magnifyingglass")
+                    .font(.largeTitle)
+                    .foregroundColor(.accentColor)
+                    .padding(.top, 20)
                 Text("You can make Privacy your default browser.")
                     .foregroundColor(.secondary)
                     .font(.callout)
@@ -16,22 +19,21 @@ extension Settings {
                 Text("All websites will open automatically on this app.")
                     .foregroundColor(.secondary)
                     .font(.callout)
-                    .padding([.horizontal, .top])
+                    .padding(.horizontal)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 Text("You can enable this directly on Settings:")
                     .foregroundColor(.secondary)
                     .font(.callout)
-                    .padding([.horizontal, .top])
+                    .padding(.horizontal)
                     .fixedSize(horizontal: false, vertical: true)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 Text("Settings > Privacy > Default Browser App")
                     .font(.callout)
                     .padding(.horizontal)
-                    .padding(.top, 2)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             }
-            .navigationBarTitle("Location")
+            .navigationBarTitle("Default browser")
             .navigationBarItems(trailing:
                                     Button {
                                         UIApplication.shared.settings()

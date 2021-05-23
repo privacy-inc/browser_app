@@ -17,6 +17,7 @@ struct Collection: View {
                     EmptyView()
                 }
             }
+            .listStyle(GroupedListStyle())
         }
     }
     
