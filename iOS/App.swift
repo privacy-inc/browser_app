@@ -21,6 +21,8 @@ import Archivable
                         Settings(session: $session)
                     case .trackers:
                         Trackers(session: $session)
+                    case .activity:
+                        Activity(session: $session)
                     }
                 }
                 .onReceive(Cloud.shared.archive) {

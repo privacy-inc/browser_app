@@ -12,6 +12,7 @@ extension Session {
         info(UUID),
         options(UUID),
         settings,
-        trackers
+        trackers,
+        activity
     }
 }

@@ -22,7 +22,7 @@ extension Tabs {
                 }
                 
                 Control(image: "chart.bar.xaxis") {
-                    
+                    session.modal = .activity
                 }
                 
                 Control(image: "plus") {

@@ -5,7 +5,6 @@ extension Tab.New.History {
     struct Cell: View {
         let browse: Browse
         let action: () -> Void
-        @State private var date = ""
         
         var body: some View {
             ZStack {
@@ -13,7 +12,7 @@ extension Tab.New.History {
                     .fill(Color(.tertiarySystemFill))
                 Button(action: action) {
                     VStack(alignment: .leading) {
-                        Text(verbatim: date)
+                        Text(verbatim: RelativeDateTimeFormatter().string(from: browse.date))
                             .font(.caption2)
                             .foregroundColor(.init(.secondary))
                         if !browse.page.title.isEmpty {
@@ -30,9 +29,6 @@ extension Tab.New.History {
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
                 .padding()
-            }
-            .onAppear {
-                date = RelativeDateTimeFormatter().string(from: browse.date)
             }
         }
     }
