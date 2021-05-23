@@ -14,7 +14,7 @@ struct Activity: View {
                         .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                     VStack {
                         Rectangle()
-                            .fill(Color(.tertiaryLabel))
+                            .fill(Color(.secondarySystemFill))
                             .frame(height: 1)
                             .edgesIgnoringSafeArea(.horizontal)
                         HStack {
@@ -29,6 +29,7 @@ struct Activity: View {
                         }
                         .font(.footnote)
                         .foregroundColor(.secondary)
+                        .padding(.top, 4)
                         .padding(.horizontal)
                         Spacer()
                     }
