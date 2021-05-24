@@ -89,7 +89,7 @@ extension Tab {
                     (try? Data(contentsOf: url))
                         .map {
                             $0.temporal({
-                                $0.isEmpty ? "Page.webarchive" : $0.contains(".") && $0.last != "." ? $0 : $0 + ".webarchive"
+                                $0.isEmpty ? "Page.html" : $0.contains(".") && $0.last != "." ? $0 : $0 + ".html"
                             } (url.lastPathComponent.replacingOccurrences(of: "/", with: "")))
                         }
                 }
