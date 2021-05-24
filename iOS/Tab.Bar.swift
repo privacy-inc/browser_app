@@ -28,8 +28,8 @@ extension Tab {
                     }
                     Control(image: "app", action: tabs)
                 }
-                .padding(.horizontal)
                 .frame(height: 34)
+                .padding(.horizontal)
                 .padding(.vertical, 10)
             }
             .fixedSize(horizontal: false, vertical: true)

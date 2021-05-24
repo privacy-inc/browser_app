@@ -31,7 +31,7 @@ struct Web: UIViewRepresentable {
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                Cloud.shared.browse(url.absoluteString, id: nil) { browse, _ in
+                Cloud.shared.navigate(url) { browse, _ in
                     session.tab.browse(id, browse)
                 }
                 withAnimation(.easeInOut(duration: 0.4)) {

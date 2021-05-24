@@ -12,7 +12,7 @@ extension Collection {
         var body: some View {
             ForEach(0 ..< browse.count, id: \.self) { index in
                 Button {
-                    Cloud.shared.revisit(browse[index].id)
+                    Cloud.shared.revisit(browse[index].id) { _ in }
                     session.tab.browse(id, browse[index].id)
                     visible.wrappedValue.dismiss()
                 } label: {
