@@ -22,7 +22,7 @@ extension Trackers {
                 }
                 Spacer()
                 Text(NSNumber(value: blocks.count), formatter: session.decimal)
-                    .font(.title3.monospacedDigit())
+                    .font(.callout.monospacedDigit())
                     .foregroundColor(.secondary)
             }
             .padding(.vertical, 5)

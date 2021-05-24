@@ -27,7 +27,7 @@ struct Trackers: View {
                                 }
                             }
                             .textCase(.none)
-                            .padding(.vertical, 30)) {
+                            .padding(.vertical, 50)) {
                     ForEach(0 ..< blocked.count, id: \.self) {
                         Item(session: $session, name: blocked[$0].key, blocks: blocked[$0].value)
                     }
