@@ -207,6 +207,13 @@ extension Web {
                 .store(in: &subs)
         }
         
+        override func error(_ error: WebError) {
+            wrapper?
+                .session
+                .tab
+                .error(id, error)
+        }
+        
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
             UIApplication.shared.resign()
         }
@@ -267,13 +274,6 @@ extension Web {
             } else if let data = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
                 load(data.temporal("image.png"))
             }
-        }
-        
-        override func error(_ error: WebError) {
-            wrapper?
-                .session
-                .tab
-                .error(id, error)
         }
         
         private func found(_ offset: CGFloat) {

@@ -34,7 +34,7 @@ struct Search: View {
                     ForEach(recent, id: \.self, content: cell)
                 }
             }
-            .animation(.spring(blendDuration: 0.3))
+            .animation(.spring(blendDuration: 0.2))
             Bar(session: $session, filter: $filter, id: id)
                 .frame(height: 0)
         }

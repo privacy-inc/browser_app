@@ -37,6 +37,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         scrollView.delegate = nil
     }
     
+    func error(_ error: WebError) {
+        
+    }
+    
     final func load(_ access: Page.Access) {
         switch access {
         case .remote:
@@ -70,9 +74,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         } ((withError as? URLError)
             .flatMap(\.failingURL)
             ?? url ?? URL(string: "about:blank")!, withError.localizedDescription)
-    }
-    
-    func error(_ error: WebError) {
-        
+        Cloud.shared.activity()
     }
 }
