@@ -98,7 +98,7 @@ import Archivable
         case .store:
             Store(session: $session)
         case .froob:
-            Froob(session: $session)
+            Info.Froob(session: $session)
         }
     }
 }

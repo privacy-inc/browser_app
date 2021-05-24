@@ -43,11 +43,11 @@ struct Store: View {
                                         }
                                     }
                                 }) {
-                        NavigationLink(destination: Why()) {
+                        NavigationLink(destination: Info.Why()) {
                             Label("Why In-App Purchases", systemImage: "questionmark")
                                 .font(.footnote)
                         }
-                        NavigationLink(destination: Alternatives()) {
+                        NavigationLink(destination: Info.Alternatives()) {
                             Label("Alternatives", systemImage: "arrow.rectanglepath")
                                 .font(.footnote)
                         }

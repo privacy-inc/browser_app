@@ -33,7 +33,7 @@ struct Tab: View {
                             Find(session: $session, find: $find, id: id)
                                 .frame(height: 0)
                         }
-                    case let .error:
+                    case let .error(id, error):
                         Circle()
                     }
                     Loading(percent: session.tab[progress: id])
