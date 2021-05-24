@@ -26,6 +26,7 @@ struct Trackers: View {
                                         .font(.caption)
                                 }
                             }
+                            .textCase(.none)
                             .padding(.vertical, 30)) {
                     ForEach(0 ..< blocked.count, id: \.self) {
                         Item(session: $session, name: blocked[$0].key, blocks: blocked[$0].value)

@@ -6,7 +6,7 @@ struct Collection: View {
     let modal: Session.Modal
     
     var body: some View {
-        Popup(title: title) {
+        Popup(title: title, leading: { }) {
             List {
                 switch modal {
                 case .bookmarks:

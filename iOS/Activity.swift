@@ -4,7 +4,7 @@ struct Activity: View {
     @Binding var session: Session
     
     var body: some View {
-        Popup(title: "Activity") {
+        Popup(title: "Activity", leading: { }) {
             VStack {
                 Chart(values: session.archive.plotter)
                     .frame(height: 180)

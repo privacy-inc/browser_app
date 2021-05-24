@@ -15,7 +15,7 @@ struct Settings: View {
     @State private var screen = true
     
     var body: some View {
-        Popup(title: "Settings") {
+        Popup(title: "Settings", leading: { }) {
             List {
                 Section(header: Text("Search Engine")) {
                     Picker("Search Engine", selection: $engine) {

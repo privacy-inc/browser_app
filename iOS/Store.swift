@@ -12,55 +12,48 @@ struct Store: View {
     @Environment(\.presentationMode) private var visible
     
     var body: some View {
-        VStack(spacing: 0) {
-            HStack {
-                Button {
-                    session.purchases.restore()
-                } label: {
-                    Text("Restore purchases")
-                        .font(.footnote.bold())
-                        .frame(height: 50)
-                        .contentShape(Rectangle())
-                }
-                .padding(.leading)
-                Spacer()
-                Button {
-                    visible.wrappedValue.dismiss()
-                } label: {
-                    Image(systemName: "xmark")
-                        .font(.title3)
-                        .foregroundColor(.secondary)
-                        .frame(width: 60, height: 50)
-                        .contentShape(Rectangle())
-                }
+        Popup(title: "", leading: {
+            Button {
+                session.purchases.restore()
+            } label: {
+                Text("Restore purchases")
+                    .font(.footnote.bold())
+                    .frame(height: 50)
+                    .contentShape(Rectangle())
             }
-            Rectangle()
-                .fill(Color(.systemFill))
-                .frame(height: 1)
-                .edgesIgnoringSafeArea(.horizontal)
-            ScrollView {
-                if let error = error {
-                    Text(verbatim: error)
-                        .foregroundColor(.secondary)
-                        .padding()
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                } else if loading {
-                    Text("Loading")
-                        .bold()
-                        .foregroundColor(.secondary)
-                        .padding()
-                        .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                } else {
-                    ForEach(products, id: \.product.productIdentifier) { product in
-                        Item(purchase: Purchases.Item(rawValue: product.0.productIdentifier)!, price: product.1) {
-                            withAnimation(.easeInOut(duration: 0.5)) {
-                                session.purchases.purchase(product.0)
-                            }
+        }) {
+            if let error = error {
+                Text(verbatim: error)
+                            .foregroundColor(.secondary)
+                            .padding()
+                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
+            } else if loading {
+                Text("Loading")
+                            .bold()
+                            .foregroundColor(.secondary)
+                            .padding()
+                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
+            } else {
+                List {
+                    Section(header:
+                                ForEach(products, id: \.product.productIdentifier) { product in
+                                    Item(purchase: Purchases.Item(rawValue: product.0.productIdentifier)!, price: product.1) {
+                                        withAnimation(.easeInOut(duration: 0.5)) {
+                                            session.purchases.purchase(product.0)
+                                        }
+                                    }
+                                }) {
+                        NavigationLink(destination: Why()) {
+                            Label("Why In-App Purchases", systemImage: "questionmark")
+                                .font(.footnote)
+                        }
+                        NavigationLink(destination: Alternatives()) {
+                            Label("Alternatives", systemImage: "arrow.rectanglepath")
+                                .font(.footnote)
                         }
                     }
                 }
-                Spacer()
-                    .frame(height: 30)
+                .listStyle(GroupedListStyle())
             }
         }
         .onReceive(session.purchases.loading) {

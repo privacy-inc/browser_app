@@ -1,10 +1,15 @@
 import SwiftUI
 
-struct Message: View {
+struct Message<Content>: View where Content : View {
     let title: String
     let message: String
-    let action: () -> Void
-    @Environment(\.presentationMode) private var visible
+    let button: Content
+    
+    @inlinable public init(title: String, message: String, @ViewBuilder button: () -> Content) {
+        self.title = title
+        self.message = message
+        self.button = button()
+    }
     
     var body: some View {
         VStack {
@@ -19,21 +24,7 @@ struct Message: View {
                 .padding(.horizontal)
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
             Spacer()
-            Button {
-                visible.wrappedValue.dismiss()
-                action()
-            } label: {
-                ZStack {
-                    Capsule()
-                        .fill(Color.blue)
-                    Text("Accept")
-                        .font(Font.footnote.bold())
-                        .foregroundColor(.white)
-                }
-                .frame(width: 140, height: 36)
-            }
-            .contentShape(Rectangle())
-            .padding(.bottom)
+            button
         }
         .padding()
     }
