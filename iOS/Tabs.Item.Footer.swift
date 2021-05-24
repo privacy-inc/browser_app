@@ -24,25 +24,23 @@ extension Tabs.Item {
         }
         
         private var title: String {
-            switch session.tab.state(id) {
-            case .new:
-                return ""
-            case let .browse(browse):
-                return session.archive.page(browse).title
-            case let .error(_, error):
-                return error.description
-            }
+            session
+                .tab
+                .state(id)
+                .browse
+                .map(session.archive.page)
+                .map(\.title)
+            ?? ""
         }
         
         private var subtitle: String {
-            switch session.tab.state(id) {
-            case .new:
-                return " "
-            case let .browse(browse):
-                return session.archive.page(browse).access.domain
-            case let .error(_, error):
-                return error.domain
-            }
+            session
+                .tab
+                .state(id)
+                .browse
+                .map(session.archive.page)
+                .map(\.access.domain)
+            ?? ""
         }
     }
 }

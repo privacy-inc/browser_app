@@ -9,6 +9,7 @@ extension Tab.Bar {
             Button {
                 withAnimation(.easeInOut(duration: 0.3)) {
                     session.section = .search(id)
+                    session.search.send()
                 }
             } label: {
                 ZStack {

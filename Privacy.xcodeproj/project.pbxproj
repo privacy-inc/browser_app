@@ -75,6 +75,8 @@
 		CEF09FFA265BD30400E83BAE /* Info.Why.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09FF9265BD30400E83BAE /* Info.Why.swift */; };
 		CEF09FFC265BD31700E83BAE /* Info.Alternatives.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09FFB265BD31700E83BAE /* Info.Alternatives.swift */; };
 		CEF09FFE265BFCD800E83BAE /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09FFD265BFCD800E83BAE /* Info.swift */; };
+		CEF0A000265BFD4E00E83BAE /* Tab.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09FFF265BFD4E00E83BAE /* Tab.Error.swift */; };
+		CEF0A002265C0FF600E83BAE /* Tab.Error.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0A001265C0FF600E83BAE /* Tab.Error.Control.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -149,6 +151,8 @@
 		CEF09FF9265BD30400E83BAE /* Info.Why.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Why.swift; sourceTree = "<group>"; };
 		CEF09FFB265BD31700E83BAE /* Info.Alternatives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Alternatives.swift; sourceTree = "<group>"; };
 		CEF09FFD265BFCD800E83BAE /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
+		CEF09FFF265BFD4E00E83BAE /* Tab.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Error.swift; sourceTree = "<group>"; };
+		CEF0A001265C0FF600E83BAE /* Tab.Error.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Error.Control.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -239,6 +243,8 @@
 				CE91FA8B264AC5A0009A1F88 /* Tab.Bar.Control.swift */,
 				CE91FA89264AC21D009A1F88 /* Tab.Bar.Search.swift */,
 				CE91FA87264ABEDD009A1F88 /* Tab.Bar.swift */,
+				CEF0A001265C0FF600E83BAE /* Tab.Error.Control.swift */,
+				CEF09FFF265BFD4E00E83BAE /* Tab.Error.swift */,
 				CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */,
 				CEDE59C02657C25A001B26F0 /* Tab.Find.swift */,
 				CEED0F13265404B70030B4A2 /* Tab.Info.swift */,
@@ -355,6 +361,7 @@
 				CE2E98852651374700844E8B /* Toast.Message.swift in Sources */,
 				CE751C1E265A88C500F8589D /* Activity.Chart.swift in Sources */,
 				CE03EDD3264FCF1A0031B649 /* Search.Item.swift in Sources */,
+				CEF0A000265BFD4E00E83BAE /* Tab.Error.swift in Sources */,
 				CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */,
 				CE616C442659233700E02ABF /* App.Delegate.swift in Sources */,
 				CE03EDDB264FF5510031B649 /* Tab.Modal.Control.swift in Sources */,
@@ -393,6 +400,7 @@
 				CE2E9883265136D400844E8B /* Toast.swift in Sources */,
 				CE751C22265A9A5200F8589D /* Settings.Data.Cell.swift in Sources */,
 				CE91FA7C264AB2D3009A1F88 /* Session.swift in Sources */,
+				CEF0A002265C0FF600E83BAE /* Tab.Error.Control.swift in Sources */,
 				CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */,
 				CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */,
 				CE56789D265AB8B40087B8F8 /* Info.Froob.swift in Sources */,

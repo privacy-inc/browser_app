@@ -1,11 +1,16 @@
 import WebKit
+import Archivable
 import Sleuth
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
+    let id: UUID
+    let browse: Int
     let settings: Sleuth.Settings
     
     required init?(coder: NSCoder) { nil }
-    init(configuration: WKWebViewConfiguration, settings: Sleuth.Settings) {
+    init(configuration: WKWebViewConfiguration, id: UUID, browse: Int, settings: Sleuth.Settings) {
+        self.id = id
+        self.browse = browse
         self.settings = settings
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
@@ -57,7 +62,17 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         completionHandler(.useCredential, didReceive.protectionSpace.serverTrust.map(URLCredential.init(trust:)))
     }
     
-    final func webView(_ webView: WKWebView, didFailProvisionalNavigation navigation: WKNavigation!, withError error: Error) {
+    final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
+        {
+            Cloud.shared.update(browse, url: $0)
+            Cloud.shared.update(browse, title: $1)
+            error(.init(url: $0.absoluteString, description: $1))
+        } ((withError as? URLError)
+            .flatMap(\.failingURL)
+            ?? url ?? URL(string: "about:blank")!, withError.localizedDescription)
+    }
+    
+    func error(_ error: WebError) {
         
     }
 }

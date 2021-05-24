@@ -1,4 +1,5 @@
 import UIKit
+import Combine
 import Archivable
 
 extension Search.Bar {
@@ -6,6 +7,7 @@ extension Search.Bar {
         private weak var field: UITextField!
         private var editable = true
         private var filter = false
+        private var subs = Set<AnyCancellable>()
         private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 48), inputViewStyle: .keyboard)
         private let wrapper: Search.Bar
         override var inputAccessoryView: UIView? { input }
@@ -57,6 +59,15 @@ extension Search.Bar {
             cancel.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
             
             wrapper
+                .session
+                .search
+                .sink { [weak self] in
+                    self?.editable = true
+                    self?.becomeFirstResponder()
+                }
+                .store(in: &subs)
+            
+            wrapper
                 .session.tab.state(wrapper.id).browse
                 .map(wrapper.session.archive.page)
                 .map(\.access.string)
@@ -97,6 +108,9 @@ extension Search.Bar {
             Cloud.shared.browse(field.text!, id: browse) { [weak self] in
                 guard let id = self?.wrapper.id else { return }
                 if browse == $0 {
+                    if case .error = self?.wrapper.session.tab.state(id) {
+                        self?.wrapper.session.tab.browse(id, $0)
+                    }
                     self?.wrapper.session.load.send((id: id, access: $1))
                 } else {
                     self?.wrapper.session.tab.browse(id, $0)

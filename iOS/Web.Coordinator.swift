@@ -7,8 +7,6 @@ extension Web {
     final class Coordinator: Webview {
         var wrapper: Web?
         private var subs = Set<AnyCancellable>()
-        private let id: UUID
-        private let browse: Int
 
         deinit {
             print("gone")
@@ -17,9 +15,6 @@ extension Web {
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web, id: UUID, browse: Int) {
             self.wrapper = wrapper
-            self.id = id
-            self.browse = browse
-            
             var settings = wrapper.session.archive.settings
             
             if !UIApplication.dark {
@@ -32,7 +27,7 @@ extension Web {
             configuration.allowsInlineMediaPlayback = true
             configuration.ignoresViewportScaleLimits = true
             
-            super.init(configuration: configuration, settings: settings)
+            super.init(configuration: configuration, id: id, browse: browse, settings: settings)
             scrollView.keyboardDismissMode = .none
             scrollView.contentInsetAdjustmentBehavior = .always
             isOpaque = !settings.dark
@@ -272,6 +267,13 @@ extension Web {
             } else if let data = (willCommitWithAnimator.previewViewController?.view.subviews.first as? UIImageView)?.image?.pngData() {
                 load(data.temporal("image.png"))
             }
+        }
+        
+        override func error(_ error: WebError) {
+            wrapper?
+                .session
+                .tab
+                .error(id, error)
         }
         
         private func found(_ offset: CGFloat) {
