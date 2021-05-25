@@ -167,15 +167,42 @@ extension Web {
                     self?.createPDF {
                         guard
                             case let .success(data) = $0,
-                            var name = self?.url?.lastPathComponent.replacingOccurrences(of: "/", with: "")
+                            let name = self?.url?.file("pdf")
                         else { return }
-                        if name.isEmpty {
-                            name = "Page.pdf"
-                        } else if !name.hasSuffix(".pdf") {
-                            name = {
-                                $0.count > 1 ? $0.dropLast().joined(separator: ".") : $0.first!
-                            } (name.components(separatedBy: ".")) + ".pdf"
-                        }
+                        UIApplication.shared.share(data.temporal(name))
+                    }
+                }
+                .store(in: &subs)
+            
+            wrapper
+                .session
+                .webarchive
+                .filter {
+                    $0 == id
+                }
+                .sink { [weak self] _ in
+                    self?.createWebArchiveData {
+                        guard
+                            case let .success(data) = $0,
+                            let name = self?.url?.file("webarchive")
+                        else { return }
+                        UIApplication.shared.share(data.temporal(name))
+                    }
+                }
+                .store(in: &subs)
+            
+            wrapper
+                .session
+                .snapshot
+                .filter {
+                    $0 == id
+                }
+                .sink { [weak self] _ in
+                    self?.takeSnapshot(with: nil) { image, _ in
+                        guard
+                            let data = image?.pngData(),
+                            let name = self?.url?.file("png")
+                        else { return }
                         UIApplication.shared.share(data.temporal(name))
                     }
                 }

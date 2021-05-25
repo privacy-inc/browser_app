@@ -34,8 +34,17 @@ extension Tab {
                         Control(title: "Print", image: "printer") {
                             session.print.send(id)
                         }
-                        Control(title: "Export as PDF", image: "doc.richtext") {
+                        Control(title: "Snapshot", image: "text.below.photo.fill") {
+                            session.snapshot.send(id)
+                        }
+                    }
+                    Section(
+                        header: Text("Export")) {
+                        Control(title: "PDF", image: "doc.richtext") {
                             session.pdf.send(id)
+                        }
+                        Control(title: "Web archive", image: "doc.zipper") {
+                            session.webarchive.send(id)
                         }
                     }
                     Section(

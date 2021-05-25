@@ -19,6 +19,8 @@ struct Session {
     let back = PassthroughSubject<UUID, Never>()
     let print = PassthroughSubject<UUID, Never>()
     let pdf = PassthroughSubject<UUID, Never>()
+    let webarchive = PassthroughSubject<UUID, Never>()
+    let snapshot = PassthroughSubject<UUID, Never>()
     
     init() {
         section = .tab(tab
