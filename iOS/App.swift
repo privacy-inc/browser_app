@@ -92,7 +92,7 @@ import Archivable
         case .settings:
             Settings(session: $session)
         case .trackers:
-            Trackers(session: $session)
+            Trackers(session: $session, trackers: session.archive.trackers)
         case .activity:
             Activity(session: $session)
         case .store:

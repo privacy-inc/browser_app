@@ -8,24 +8,22 @@ extension Trackers {
         
         var body: some View {
             HStack {
-                VStack(alignment: .leading, spacing: 0) {
+                VStack(alignment: .leading) {
                     Text(verbatim: name)
-                        .font(.callout)
+                        .font(.caption2)
                     count
                         .last
                         .map {
                             Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
-                                .font(.footnote)
+                                .font(.caption2)
                                 .foregroundColor(.secondary)
-                                .padding(.top, 3)
                         }
                 }
                 Spacer()
                 Text(NSNumber(value: count.count), formatter: session.decimal)
-                    .font(.callout.monospacedDigit())
+                    .font(.caption2.monospacedDigit())
                     .foregroundColor(.secondary)
             }
-            .padding(.vertical, 5)
         }
     }
 }

@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Trackers: View {
     @Binding var session: Session
+    let trackers: [(name: String, count: [Date])]
     @Environment(\.presentationMode) private var visible
     
     var body: some View {
@@ -9,27 +10,29 @@ struct Trackers: View {
             List {
                 Section(header:
                             HStack {
+                                Image(systemName: "shield.lefthalf.fill")
+                                    .font(.largeTitle)
+                                    .foregroundColor(.accentColor)
                                 VStack {
-                                    Text(NSNumber(value: blocked.count), formatter: session.decimal)
+                                    Text(NSNumber(value: trackers.count), formatter: session.decimal)
                                         .font(.title2.monospacedDigit())
+                                        .foregroundColor(.pink)
                                     Text("Trackers")
                                         .font(.caption)
                                 }
-                                Spacer()
-                                Image(systemName: "shield.lefthalf.fill")
-                                    .font(.largeTitle)
-                                Spacer()
                                 VStack {
-                                    Text(NSNumber(value: blocked.map(\.1.count).reduce(0, +)), formatter: session.decimal)
+                                    Text(NSNumber(value: trackers.map(\.1.count).reduce(0, +)), formatter: session.decimal)
                                         .font(.title2.monospacedDigit())
+                                        .foregroundColor(.pink)
                                     Text("Incidences")
                                         .font(.caption)
                                 }
+                                Spacer()
                             }
                             .textCase(.none)
-                            .padding(.vertical, 50)) {
-                    ForEach(0 ..< blocked.count, id: \.self) {
-                        Item(session: $session, name: blocked[$0].key, blocks: blocked[$0].value)
+                            .padding(.vertical, 20)) {
+                    ForEach(0 ..< trackers.count, id: \.self) {
+                        Item(session: $session, name: trackers[$0].name, count: trackers[$0].count)
                     }
                 }
             }
@@ -47,16 +50,5 @@ struct Trackers: View {
                                     })
         }
         .navigationViewStyle(StackNavigationViewStyle())
-    }
-    
-    private var blocked: [(key: String, value: [Date])] {
-        session
-            .archive
-            .blocked
-            .sorted {
-                $0.1.count == $1.1.count
-                    ? $0.0.localizedCaseInsensitiveCompare($1.0) == .orderedAscending
-                    : $0.1.count > $1.1.count
-            }
     }
 }
