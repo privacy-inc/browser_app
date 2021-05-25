@@ -9,14 +9,8 @@ struct Activity: View {
                 .font(.footnote)
                 .padding([.leading, .top])
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-            ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(red: 0, green: 0.2, blue: 0.3, opacity: 1))
-                Chart(values: session.archive.plotter, background: .init(red: 0, green: 0.2, blue: 0.3, opacity: 1))
-                    .padding()
-                    .padding()
-            }
-            .padding()
+            Chart(values: session.archive.plotter)
+                .padding()
             HStack {
                 session
                     .archive

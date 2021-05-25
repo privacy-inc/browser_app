@@ -5,35 +5,24 @@ struct Activity: View {
     
     var body: some View {
         Popup(title: "Activity", leading: { }) {
-            VStack {
-                Chart(values: session.archive.plotter, background: .init(.secondarySystemBackground))
-                    .frame(height: 180)
+            VStack(spacing: 0) {
+                Chart(values: session.archive.plotter)
+                    .frame(height: 220)
                     .padding()
-                ZStack {
-                    Color(.secondarySystemBackground)
-                        .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
-                    VStack {
-                        Rectangle()
-                            .fill(Color(.secondarySystemFill))
-                            .frame(height: 1)
-                            .edgesIgnoringSafeArea(.horizontal)
-                        HStack {
-                            session
-                                .archive
-                                .since
-                                .map {
-                                    Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
-                                }
-                            Spacer()
-                            Text("Now")
+                HStack {
+                    session
+                        .archive
+                        .since
+                        .map {
+                            Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
                         }
-                        .font(.footnote)
-                        .foregroundColor(.secondary)
-                        .padding(.top, 4)
-                        .padding(.horizontal)
-                        Spacer()
-                    }
+                    Spacer()
+                    Text("Now")
                 }
+                .font(.footnote)
+                .foregroundColor(.secondary)
+                .padding(.horizontal)
+                Spacer()
             }
         }
     }

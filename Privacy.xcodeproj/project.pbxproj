@@ -72,6 +72,7 @@
 		CEA65F4F265D12E500A35436 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F4E265D12E500A35436 /* Activity.swift */; };
 		CEA65F50265D131000A35436 /* Activity.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C1D265A88C500F8589D /* Activity.Chart.swift */; };
 		CEA65F51265D131400A35436 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */; };
+		CEA65F52265D192100A35436 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
 		CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */; };
 		CECA7FDD265D06C900B3B600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECA7FDC265D06C900B3B600 /* Assets.xcassets */; };
 		CECA7FE4265D06C900B3B600 /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CECA7FE3265D06C900B3B600 /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -512,6 +513,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEA65F52265D192100A35436 /* Media.xcassets in Resources */,
 				CECA7FEF265D06C900B3B600 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -3,20 +3,25 @@ import SwiftUI
 extension Activity {
     struct Chart: View {
         let values: [Double]
-        let background: Color
         
         var body: some View {
             ZStack {
-                Road(values: values)
-                    .stroke(Color.accentColor, style: .init(lineWidth: 1, lineCap: .round, lineJoin: .round))
-                ForEach(0 ..< values.count, id: \.self) {
-                    Dot(y: values[$0], index: $0, radius: $0 == values.count - 1 ? 7 : 3)
-                        .fill(Color.accentColor)
-                    if $0 == values.count - 1 {
-                        Dot(y: values.last!, index: values.count - 1, radius: 7)
-                            .stroke(background, lineWidth: 1)
+                RoundedRectangle(cornerRadius: 12)
+                    .fill(Color("chart"))
+                ZStack {
+                    Road(values: values)
+                        .stroke(Color.accentColor, style: .init(lineWidth: 1, lineCap: .round, lineJoin: .round))
+                    ForEach(0 ..< values.count, id: \.self) {
+                        Dot(y: values[$0], index: $0, radius: $0 == values.count - 1 ? 7 : 3)
+                            .fill(Color.accentColor)
+                        if $0 == values.count - 1 {
+                            Dot(y: values.last!, index: values.count - 1, radius: 7)
+                                .stroke(Color("chart"), lineWidth: 1)
+                        }
                     }
                 }
+                .padding()
+                .padding()
             }
         }
     }
