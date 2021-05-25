@@ -6,7 +6,7 @@ struct Activity: View {
     var body: some View {
         Popup(title: "Activity", leading: { }) {
             VStack {
-                Chart(values: session.archive.plotter)
+                Chart(values: session.archive.plotter, background: .init(.secondarySystemBackground))
                     .frame(height: 180)
                     .padding()
                 ZStack {

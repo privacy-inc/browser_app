@@ -3,6 +3,7 @@ import SwiftUI
 extension Activity {
     struct Chart: View {
         let values: [Double]
+        let background: Color
         
         var body: some View {
             ZStack {
@@ -13,7 +14,7 @@ extension Activity {
                         .fill(Color.accentColor)
                     if $0 == values.count - 1 {
                         Dot(y: values.last!, index: values.count - 1, radius: 7)
-                            .stroke(Color(.secondarySystemBackground), lineWidth: 1)
+                            .stroke(background, lineWidth: 1)
                     }
                 }
             }
