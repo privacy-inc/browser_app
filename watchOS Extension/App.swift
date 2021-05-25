@@ -10,10 +10,8 @@ import Archivable
         WindowGroup {
             Window(session: $session)
                 .onReceive(Cloud.shared.archive) {
-                    print("archive got")
                     session.archive = $0
                 }
-                .onAppear(perform: Cloud.shared.pull.send)
         }
         .onChange(of: phase) {
             if $0 == .active {

@@ -15,14 +15,14 @@ struct Trackers: View {
                                     .foregroundColor(.accentColor)
                                 VStack {
                                     Text(NSNumber(value: trackers.count), formatter: session.decimal)
-                                        .font(.title2.monospacedDigit())
+                                        .font(.title.monospacedDigit())
                                         .foregroundColor(.pink)
                                     Text("Trackers")
                                         .font(.caption)
                                 }
                                 VStack {
                                     Text(NSNumber(value: trackers.map(\.1.count).reduce(0, +)), formatter: session.decimal)
-                                        .font(.title2.monospacedDigit())
+                                        .font(.title.monospacedDigit())
                                         .foregroundColor(.pink)
                                     Text("Incidences")
                                         .font(.caption)
