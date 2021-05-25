@@ -19,6 +19,7 @@ struct Trackers: View {
                             Text("Trackers")
                                 .font(.callout)
                                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                                .padding(.bottom)
                             Text(NSNumber(value: trackers.map(\.1.count).reduce(0, +)), formatter: session.decimal)
                                 .font(.title.monospacedDigit())
                                 .foregroundColor(.pink)
