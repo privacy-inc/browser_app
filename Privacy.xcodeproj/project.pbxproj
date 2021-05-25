@@ -75,6 +75,8 @@
 		CEA65F52265D192100A35436 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
 		CEA65F54265D1A6100A35436 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F53265D1A6100A35436 /* Trackers.swift */; };
 		CEA65F56265D1A9000A35436 /* Trackers.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F55265D1A9000A35436 /* Trackers.Item.swift */; };
+		CEA65F58265D203900A35436 /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F57265D203900A35436 /* Forget.swift */; };
+		CEA65F5A265D205C00A35436 /* Forget.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F59265D205C00A35436 /* Forget.Cell.swift */; };
 		CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */; };
 		CECA7FDD265D06C900B3B600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECA7FDC265D06C900B3B600 /* Assets.xcassets */; };
 		CECA7FE4265D06C900B3B600 /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CECA7FE3265D06C900B3B600 /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -206,6 +208,8 @@
 		CEA65F4E265D12E500A35436 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		CEA65F53265D1A6100A35436 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CEA65F55265D1A9000A35436 /* Trackers.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Item.swift; sourceTree = "<group>"; };
+		CEA65F57265D203900A35436 /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
+		CEA65F59265D205C00A35436 /* Forget.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Cell.swift; sourceTree = "<group>"; };
 		CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.Indicator.swift; sourceTree = "<group>"; };
 		CECA7FDA265D06C800B3B600 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECA7FDC265D06C900B3B600 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -383,6 +387,8 @@
 				CEA65F4E265D12E500A35436 /* Activity.swift */,
 				CEA65F47265D0B0800A35436 /* App.Delegate.swift */,
 				CEA65F41265D0A7400A35436 /* App.swift */,
+				CEA65F59265D205C00A35436 /* Forget.Cell.swift */,
+				CEA65F57265D203900A35436 /* Forget.swift */,
 				CEA65F45265D0AC700A35436 /* Session.swift */,
 				CEA65F55265D1A9000A35436 /* Trackers.Item.swift */,
 				CEA65F53265D1A6100A35436 /* Trackers.swift */,
@@ -605,6 +611,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEA65F54265D1A6100A35436 /* Trackers.swift in Sources */,
+				CEA65F58265D203900A35436 /* Forget.swift in Sources */,
+				CEA65F5A265D205C00A35436 /* Forget.Cell.swift in Sources */,
 				CEA65F4F265D12E500A35436 /* Activity.swift in Sources */,
 				CEA65F48265D0B0800A35436 /* App.Delegate.swift in Sources */,
 				CEA65F46265D0AC700A35436 /* Session.swift in Sources */,

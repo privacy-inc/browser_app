@@ -21,7 +21,7 @@ extension Settings {
                         Cloud.shared.forgetActivity()
                         dismiss()
                     }
-                    Cell(title: "Forget trackers blocked") {
+                    Cell(title: "Forget trackers") {
                         Cloud.shared.forgetBlocked()
                         dismiss()
                     }
