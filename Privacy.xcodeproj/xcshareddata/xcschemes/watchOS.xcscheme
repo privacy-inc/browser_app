@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "CECA7FD9265D06C800B3B600"
-               BuildableName = "watchOS.app"
+               BuildableName = "Privacy.app"
                BlueprintName = "watchOS"
                ReferencedContainer = "container:Privacy.xcodeproj">
             </BuildableReference>
@@ -59,7 +59,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CECA7FD9265D06C800B3B600"
-            BuildableName = "watchOS.app"
+            BuildableName = "Privacy.app"
             BlueprintName = "watchOS"
             ReferencedContainer = "container:Privacy.xcodeproj">
          </BuildableReference>
@@ -76,7 +76,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "CECA7FD9265D06C800B3B600"
-            BuildableName = "watchOS.app"
+            BuildableName = "Privacy.app"
             BlueprintName = "watchOS"
             ReferencedContainer = "container:Privacy.xcodeproj">
          </BuildableReference>
