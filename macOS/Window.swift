@@ -144,6 +144,7 @@ final class Window: NSWindow {
                 $0.removeFromSuperview()
             }
         
+        view.wantsLayer = true
         view.layer!.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         view.layer!.cornerRadius = 9
         view.translatesAutoresizingMaskIntoConstraints = false
