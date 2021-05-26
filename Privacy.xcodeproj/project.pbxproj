@@ -30,6 +30,12 @@
 		CE616C4C2659614700E02ABF /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE616C4B2659614700E02ABF /* Trackers.swift */; };
 		CE616C4E265965E600E02ABF /* Trackers.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE616C4D265965E600E02ABF /* Trackers.Item.swift */; };
 		CE676A63265E52B10042EDC2 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A62265E52B10042EDC2 /* Window.swift */; };
+		CE676A65265E5FCD0042EDC2 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A64265E5FCD0042EDC2 /* Session.swift */; };
+		CE676A66265E60C60042EDC2 /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C23265AB2CC00F8589D /* Purchases.swift */; };
+		CE676A67265E60C80042EDC2 /* Purchases.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C25265AB2EC00F8589D /* Purchases.Item.swift */; };
+		CE676A69265E63AB0042EDC2 /* App.Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A68265E63AB0042EDC2 /* App.Window.swift */; };
+		CE676A6B265E64EE0042EDC2 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A6A265E64EE0042EDC2 /* Menu.swift */; };
+		CE676A6D265E65A30042EDC2 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */; };
 		CE71B7192653C495002B8748 /* Collection.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE71B7182653C495002B8748 /* Collection.History.swift */; };
 		CE71B71B2653CE78002B8748 /* Collection.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE71B71A2653CE78002B8748 /* Collection.Bookmarks.swift */; };
 		CE751C1A265A809C00F8589D /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C19265A809C00F8589D /* Activity.swift */; };
@@ -169,6 +175,10 @@
 		CE616C4B2659614700E02ABF /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CE616C4D265965E600E02ABF /* Trackers.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Item.swift; sourceTree = "<group>"; };
 		CE676A62265E52B10042EDC2 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
+		CE676A64265E5FCD0042EDC2 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
+		CE676A68265E63AB0042EDC2 /* App.Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Window.swift; sourceTree = "<group>"; };
+		CE676A6A265E64EE0042EDC2 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
+		CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		CE71B7182653C495002B8748 /* Collection.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.History.swift; sourceTree = "<group>"; };
 		CE71B71A2653CE78002B8748 /* Collection.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.Bookmarks.swift; sourceTree = "<group>"; };
 		CE751C19265A809C00F8589D /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -292,6 +302,8 @@
 			isa = PBXGroup;
 			children = (
 				CE751C1D265A88C500F8589D /* Activity.Chart.swift */,
+				CE751C25265AB2EC00F8589D /* Purchases.Item.swift */,
+				CE751C23265AB2CC00F8589D /* Purchases.swift */,
 				CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */,
 				CE919A90264D58480051EE27 /* Webview.swift */,
 				CE919A8A264D53A70051EE27 /* Media.xcassets */,
@@ -338,8 +350,6 @@
 				CEF09FFD265BFCD800E83BAE /* Info.swift */,
 				CEF09FF9265BD30400E83BAE /* Info.Why.swift */,
 				CE751C1B265A814A00F8589D /* Popup.swift */,
-				CE751C25265AB2EC00F8589D /* Purchases.Item.swift */,
-				CE751C23265AB2CC00F8589D /* Purchases.swift */,
 				CE78111C264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift */,
 				CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */,
 				CE03EDD4264FD3450031B649 /* Search.Cell.swift */,
@@ -428,6 +438,10 @@
 				CEF58635265E468D00D9A6F1 /* macOS.entitlements */,
 				CEF58634265E468D00D9A6F1 /* Info.plist */,
 				CEF5862B265E468C00D9A6F1 /* App.swift */,
+				CE676A6A265E64EE0042EDC2 /* Menu.swift */,
+				CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */,
+				CE676A68265E63AB0042EDC2 /* App.Window.swift */,
+				CE676A64265E5FCD0042EDC2 /* Session.swift */,
 				CE676A62265E52B10042EDC2 /* Window.swift */,
 				CEF5862F265E468D00D9A6F1 /* Assets.xcassets */,
 			);
@@ -696,8 +710,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE676A6D265E65A30042EDC2 /* NSMenuItem.swift in Sources */,
+				CE676A69265E63AB0042EDC2 /* App.Window.swift in Sources */,
+				CE676A66265E60C60042EDC2 /* Purchases.swift in Sources */,
+				CE676A6B265E64EE0042EDC2 /* Menu.swift in Sources */,
+				CE676A67265E60C80042EDC2 /* Purchases.Item.swift in Sources */,
 				CEF5862C265E468C00D9A6F1 /* App.swift in Sources */,
 				CE676A63265E52B10042EDC2 /* Window.swift in Sources */,
+				CE676A65265E5FCD0042EDC2 /* Session.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

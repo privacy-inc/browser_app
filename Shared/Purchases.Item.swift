@@ -1,7 +1,7 @@
 import Foundation
 
 extension Purchases {
-    enum Item: String, CaseIterable, Codable {
+    enum Item: String, CaseIterable {
         case
         plus = "incognit.plus"
         
