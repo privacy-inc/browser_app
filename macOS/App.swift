@@ -26,7 +26,7 @@ let session = Session()
 //        Session.percentage.numberStyle = .percent
 //        
         mainMenu = Menu()
-        window()
+        window(session.tab.value.ids.first!)
     }
     
     func applicationDidFinishLaunching(_: Notification) {

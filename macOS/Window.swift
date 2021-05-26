@@ -2,12 +2,19 @@ import AppKit
 import Combine
 
 final class Window: NSWindow {
-//    private weak var sidebar: Sidebar!
+    private weak var progress: Progress!
     private var subs = Set<AnyCancellable>()
+    private let id: UUID
     
-    init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: NSScreen.main!.frame.width * 0.6, height: NSScreen.main!.frame.height),
-                   styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView], backing: .buffered, defer: false)
+    init(id: UUID) {
+        self.id = id
+        super.init(contentRect: .init(x: 0,
+                                      y: 0,
+                                      width: NSScreen.main!.frame.width * 0.5,
+                                      height: NSScreen.main!.frame.height),
+                   styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView],
+                   backing: .buffered,
+                   defer: false)
         minSize = .init(width: 400, height: 200)
         toolbar = .init()
         titlebarAppearsTransparent = true
@@ -16,6 +23,33 @@ final class Window: NSWindow {
 //        setFrameAutosaveName("Window")
         tabbingMode = .preferred
         tab.title = NSLocalizedString("Privacy", comment: "")
+        
+        let progress = Progress(id: id)
+        contentView!.addSubview(progress)
+        self.progress = progress
+        
+        progress.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        progress.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
+        progress.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
+        
+        session
+            .tab
+            .map {
+                $0.state(id)
+            }
+            .removeDuplicates()
+            .sink { [weak self] in
+                switch $0 {
+                case .new:
+                    self?.show(New(id: id))
+                case .browse:
+                    break
+                case .error:
+                    break
+                }
+            }
+            .store(in: &subs)
+        
 
 //        let accesory = NSTitlebarAccessoryViewController()
 //        accesory.view = .init()
@@ -99,6 +133,26 @@ final class Window: NSWindow {
 //            $0.state = $0 == item ? .selected : .on
 //        }
 //    }
+    
+    private func show(_ view: NSView) {
+        contentView!
+            .subviews
+            .filter {
+                $0 != progress
+            }
+            .forEach {
+                $0.removeFromSuperview()
+            }
+        
+        view.layer!.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+        view.layer!.cornerRadius = 9
+        view.translatesAutoresizingMaskIntoConstraints = false
+        contentView!.addSubview(view)
+        view.topAnchor.constraint(equalTo: progress.bottomAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
+        view.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
+        view.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
+    }
     
     private func dim(_ opacity: CGFloat) {
 //        (contentView!.subviews + [titlebarAccessoryViewControllers.first!.view]).forEach {

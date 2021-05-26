@@ -4,9 +4,9 @@ import Sleuth
 
 struct Session {
     var archive = Archive.new
-    var tab = Sleuth.Tab()
     let purchases = Purchases()
     let decimal = NumberFormatter()
+    let tab = CurrentValueSubject<Tab, Never>(.init())
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()
     let find = PassthroughSubject<(id: UUID, query: String), Never>()
     let search = PassthroughSubject<UUID, Never>()

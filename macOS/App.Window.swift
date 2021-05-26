@@ -1,8 +1,8 @@
 import Foundation
 
 extension App {
-    func window() {
-        
+    func window(_ id: UUID) {
+        Window(id: id).makeKeyAndOrderFront(nil)
     }
     
     func open(tab url: URL) {
