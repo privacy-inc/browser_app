@@ -22,9 +22,6 @@ let session = Session()
     }
     
     func applicationWillFinishLaunching(_: Notification) {
-//        Session.decimal.numberStyle = .decimal
-//        Session.percentage.numberStyle = .percent
-//        
         mainMenu = Menu()
         window(session.tab.value.ids.first!)
     }
@@ -51,11 +48,11 @@ let session = Session()
     }
     
     func applicationDidBecomeActive(_: Notification) {
-//        Repository.memory.pull.send()
+        Cloud.shared.pull.send()
     }
     
     func application(_: NSApplication, didReceiveRemoteNotification: [String : Any]) {
-//        Repository.memory.pull.send()
+        Cloud.shared.pull.send()
     }
     
     @objc func preferences() {
