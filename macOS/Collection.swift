@@ -1,11 +1,11 @@
 import AppKit
 import Combine
 
-class Collection: NSScrollView {
-    let items = PassthroughSubject<Set<Item>, Never>()
-    let size = PassthroughSubject<CGSize, Never>()
+class Collection<Cell>: NSScrollView where Cell : CollectionCell {
+    var subs = Set<AnyCancellable>()
+    let items = PassthroughSubject<Set<CollectionItem>, Never>()
+    let height = PassthroughSubject<CGFloat, Never>()
     let selected = PassthroughSubject<Int, Never>()
-    private var subs = Set<AnyCancellable>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
@@ -32,15 +32,15 @@ class Collection: NSScrollView {
         let clip = PassthroughSubject<CGRect, Never>()
             
         clip
-            .combineLatest(size) {
-                .init(width: max($0.width, $1.width), height: max($0.height, $1.height))
+            .combineLatest(height) {
+                .init(width: $0.width, height: max($0.height, $1))
             }
             .removeDuplicates()
             .sink {
                 content.frame.size = $0
             }
             .store(in: &subs)
-        
+
         items
             .combineLatest(clip) { items, clip in
             items
@@ -83,8 +83,12 @@ class Collection: NSScrollView {
             }
             .store(in: &subs)
         
-        NotificationCenter.default.publisher(for: NSView.boundsDidChangeNotification, object: contentView)
-            .merge(with: NotificationCenter.default.publisher(for: NSView.frameDidChangeNotification, object: contentView))
+        NotificationCenter
+            .default
+            .publisher(for: NSView.boundsDidChangeNotification, object: contentView)
+            .merge(with: NotificationCenter
+                    .default
+                    .publisher(for: NSView.frameDidChangeNotification, object: contentView))
             .compactMap {
                 ($0.object as? NSClipView)?.documentVisibleRect
             }
@@ -111,7 +115,7 @@ class Collection: NSScrollView {
                     }
             }
             .compactMap {
-                $0?.id
+                $0?.info.id
             }
             .subscribe(selected)
             .store(in: &subs)
