@@ -5,6 +5,10 @@ class CollectionCell: CALayer {
         0
     }
     
+    var insets2: CGFloat {
+        insets + insets
+    }
+    
     var none: CGColor {
         .clear
     }
@@ -19,6 +23,8 @@ class CollectionCell: CALayer {
     required override init() {
         super.init()
         let text = CollectionCellText()
+        text.contentsScale = 2
+        text.isWrapped = true
         addSublayer(text)
         self.text = text
     }
@@ -29,7 +35,11 @@ class CollectionCell: CALayer {
             
             if let item = item {
                 frame = item.rect
-                text.frame = item.rect.insetBy(dx: insets, dy: insets)
+                text.frame = .init(
+                    x: insets,
+                    y: insets,
+                    width: item.rect.width - insets2,
+                    height: item.rect.height - insets2)
                 text.string = item.info.string
             } else {
                 text.string = nil
@@ -49,6 +59,6 @@ class CollectionCell: CALayer {
     }
     
     final override class func defaultAction(forKey: String) -> CAAction? {
-        nil
+        NSNull()
     }
 }

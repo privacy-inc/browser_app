@@ -4,26 +4,21 @@ import Archivable
 
 extension New {
     final class History: Collection<New.History.Cell> {
-        private static let width = CGFloat(230)
-        private static let padding = CGFloat(6)
-        private static let horizontal = CGFloat(20)
-        private static let top = CGFloat(20)
-        private static let bottom = CGFloat(40)
-        private static let margin = CGFloat(20)
+        private static let width = CGFloat(120)
+        private static let padding = CGFloat(4)
+        private static let insets = CGFloat(6)
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
             super.init()
             translatesAutoresizingMaskIntoConstraints = false
-            documentView!.layer!.backgroundColor = NSColor.unemphasizedSelectedTextBackgroundColor.cgColor
-            documentView!.layer!.cornerRadius = 12
             
             let columns = PassthroughSubject<(count: Int, width: CGFloat), Never>()
             let info = PassthroughSubject<[CollectionItemInfo], Never>()
             
             NotificationCenter
                 .default
-                .publisher(for: NSView.boundsDidChangeNotification, object: contentView)
+                .publisher(for: NSView.frameDidChangeNotification, object: contentView)
                 .compactMap {
                     ($0.object as? NSClipView)?.bounds.width
                 }
@@ -43,7 +38,7 @@ extension New {
                 .map(\.browse)
                 .removeDuplicates()
                 .map {
-                    $0.map { browse in
+                    $0.prefix(5).map { browse in
                         .init(
                             id: browse.id,
                             string: .make {
@@ -85,13 +80,13 @@ extension New {
                                     x: CGFloat(),
                                     y: (0 ..< columns.count)
                                         .reduce(into: [Int: CGFloat]()) {
-                                            $0[$1] = Self.top
+                                            $0[$1] = Self.insets
                                         })) {
-                            if $0.column < columns.count {
+                            if $0.column < columns.count - 1 {
                                 $0.column += 1
                             } else {
                                 $0.column = 0
-                                $0.x = Self.horizontal
+                                $0.x = Self.insets
                             }
                             let height = ceil($1.string.height(for: columns.width - Cell.insets2) + Cell.insets2)
                             $0.items.insert(.init(
@@ -110,7 +105,7 @@ extension New {
                                         .map(\.1)
                                         .max()
                                         .map {
-                                            $0 + Self.bottom
+                                            $0 + Self.insets
                                         } ?? 0)
                 }
                 .store(in: &subs)

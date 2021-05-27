@@ -19,10 +19,7 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
         content.wantsLayer = true
         documentView = content
         hasVerticalScroller = true
-        hasHorizontalScroller = true
         verticalScroller!.controlSize = .mini
-        horizontalScroller!.controlSize = .mini
-        postsFrameChangedNotifications = true
         contentView.postsBoundsChangedNotifications = true
         contentView.postsFrameChangedNotifications = true
         drawsBackground = false
