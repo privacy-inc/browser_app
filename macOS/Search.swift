@@ -92,7 +92,7 @@ final class Search: NSView {
                 return $1
             }
         
-        field.leftAnchor.constraint(equalTo: find.rightAnchor, constant: 20).isActive = true
+        field.leftAnchor.constraint(equalTo: find.rightAnchor, constant: 12).isActive = true
         field.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
