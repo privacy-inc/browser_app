@@ -24,7 +24,7 @@ extension New {
                 }
                 .removeDuplicates()
                 .map {
-                    let total = $0 - (Self.horizontal * 2) - Self.padding
+                    let total = $0 - (Self.insets * 2) - Self.padding
                     let horizontal = Self.width + Self.padding
                     let count = Int(floor(total / horizontal))
                     return (count: count, width: Self.width + (total.truncatingRemainder(dividingBy: horizontal) / .init(count)))

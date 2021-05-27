@@ -5,10 +5,6 @@ class CollectionCell: CALayer {
         0
     }
     
-    var insets2: CGFloat {
-        insets + insets
-    }
-    
     var none: CGColor {
         .clear
     }
@@ -17,14 +13,16 @@ class CollectionCell: CALayer {
         .clear
     }
     
+    private var insets2: CGFloat {
+        insets + insets
+    }
+    
     private weak var text: CollectionCellText!
     required init?(coder: NSCoder) { nil }
     override init(layer: Any) { super.init(layer: layer) }
     required override init() {
         super.init()
         let text = CollectionCellText()
-        text.contentsScale = 2
-        text.isWrapped = true
         addSublayer(text)
         self.text = text
     }
