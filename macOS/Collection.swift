@@ -90,7 +90,6 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
             .compactMap {
                 ($0.object as? NSClipView)?.documentVisibleRect
             }
-            .debounce(for: .milliseconds(5), scheduler: DispatchQueue.main)
             .subscribe(clip)
             .store(in: &subs)
         
