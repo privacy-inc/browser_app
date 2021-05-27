@@ -35,23 +35,23 @@ final class New: NSView {
         backgroundHistory.addSubview(history)
         
         content.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
-        content.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.7).isActive = true
+        content.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
         content.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         content.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         
         titleBookmarks.topAnchor.constraint(equalTo: content.topAnchor).isActive = true
         titleBookmarks.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         
-        titleRecent.topAnchor.constraint(equalTo: content.centerYAnchor).isActive = true
+        titleRecent.bottomAnchor.constraint(equalTo: content.centerYAnchor).isActive = true
         titleRecent.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         
         bookmarks.topAnchor.constraint(equalTo: titleBookmarks.bottomAnchor, constant: 10).isActive = true
-        bookmarks.bottomAnchor.constraint(equalTo: content.centerYAnchor, constant: -30).isActive = true
+        bookmarks.bottomAnchor.constraint(equalTo: titleRecent.topAnchor, constant: -30).isActive = true
         bookmarks.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         bookmarks.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         
         backgroundHistory.topAnchor.constraint(equalTo: titleRecent.bottomAnchor, constant: 10).isActive = true
-        backgroundHistory.bottomAnchor.constraint(equalTo: content.bottomAnchor, constant: -30).isActive = true
+        backgroundHistory.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         backgroundHistory.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         

@@ -24,20 +24,22 @@ final class Window: NSWindow {
         tabbingMode = .preferred
         tab.title = NSLocalizedString("Privacy", comment: "")
         
+        let _search = Search(id: id)
         let search = NSTitlebarAccessoryViewController()
-        search.view = Search(id: id)
+        search.view = _search
         search.layoutAttribute = .top
         addTitlebarAccessoryViewController(search)
-        
+
         let results = NSTitlebarAccessoryViewController()
         results.view = Search.Results(id: id)
-//        results.view.frame.size.height = 0
         results.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(results)
         
         let progress = Progress(id: id)
         contentView!.addSubview(progress)
         self.progress = progress
+        
+        initialFirstResponder = _search.field
         
         progress.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
         progress.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true

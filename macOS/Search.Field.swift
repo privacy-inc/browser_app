@@ -8,11 +8,11 @@ extension Search {
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
-//            Self.cellClass = Cell.self
+            Self.cellClass = Cell.self
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
             translatesAutoresizingMaskIntoConstraints = false
-            font = .systemFont(ofSize: 13, weight: .regular)
+            font = .preferredFont(forTextStyle: .body)
             controlSize = .large
             delegate = self
             lineBreakMode = .byTruncatingMiddle
@@ -20,6 +20,7 @@ extension Search {
             action = #selector(search)
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
+
             
 //            Cloud
 //                .shared

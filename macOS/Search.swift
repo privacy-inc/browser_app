@@ -2,6 +2,7 @@ import AppKit
 import Combine
 
 final class Search: NSView {
+    private(set) weak var field: Field!
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
@@ -64,7 +65,18 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        [back, forward, refresh, info, bookmark, share, find]
+        let background = NSView()
+        background.translatesAutoresizingMaskIntoConstraints = false
+        background.wantsLayer = true
+        background.layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+        background.layer!.cornerRadius = 4
+        addSubview(background)
+        
+        let field = Field(id: id)
+        addSubview(field)
+        self.field = field
+        
+        [back, forward, refresh, info, bookmark, share, find, field]
             .forEach {
                 addSubview($0)
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -79,5 +91,24 @@ final class Search: NSView {
                 }
                 return $1
             }
+        
+        field.leftAnchor.constraint(equalTo: find.rightAnchor, constant: 20).isActive = true
+        field.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        
+        background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
+        background.bottomAnchor.constraint(equalTo: field.bottomAnchor).isActive = true
+        background.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
+        background.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+    }
+    
+    override func mouseUp(with: NSEvent) {
+        guard
+            with.clickCount >= 2,
+            hitTest(with.locationInWindow) != field
+        else {
+            super.mouseUp(with: with)
+            return
+        }
+        window?.performZoom(nil)
     }
 }
