@@ -21,7 +21,7 @@ extension New.History {
         override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
-            cornerRadius = 6
+            cornerRadius = 4
         }
     }
 }

@@ -5,8 +5,7 @@ import Archivable
 extension New {
     final class History: Collection<New.History.Cell> {
         private static let width = CGFloat(180)
-        private static let padding = CGFloat(4)
-        private static let insets = CGFloat(6)
+        private static let padding = CGFloat(3)
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
@@ -24,7 +23,7 @@ extension New {
                 }
                 .removeDuplicates()
                 .map {
-                    let available = $0 - (Self.insets * 2) + Self.padding
+                    let available = $0 - Self.padding
                     let aprox = Self.width + Self.padding
                     let count = Int(floor(available / aprox))
                     return (count: count, width: Self.width + (available.truncatingRemainder(dividingBy: aprox) / .init(count)))
@@ -79,13 +78,13 @@ extension New {
                                     x: CGFloat(),
                                     y: (0 ..< columns.count)
                                         .reduce(into: [Int: CGFloat]()) {
-                                            $0[$1] = Self.insets
+                                            $0[$1] = Self.padding
                                         })) {
                             if $0.column < columns.count - 1 {
                                 $0.column += 1
                             } else {
                                 $0.column = 0
-                                $0.x = Self.insets
+                                $0.x = Self.padding
                             }
                             let height = ceil($1.string.height(for: columns.width - Cell.insets2) + Cell.insets2)
                             $0.items.insert(.init(
@@ -104,7 +103,7 @@ extension New {
                                         .map(\.1)
                                         .max()
                                         .map {
-                                            $0 + Self.insets
+                                            $0 + Self.padding
                                         } ?? 0)
                 }
                 .store(in: &subs)

@@ -15,7 +15,7 @@ final class Window: NSWindow {
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView],
                    backing: .buffered,
                    defer: false)
-        minSize = .init(width: 400, height: 200)
+        minSize = .init(width: 500, height: 200)
         toolbar = .init()
         titlebarAppearsTransparent = true
         collectionBehavior = .fullScreenNone
@@ -24,10 +24,16 @@ final class Window: NSWindow {
         tabbingMode = .preferred
         tab.title = NSLocalizedString("Privacy", comment: "")
         
-        let accesory = NSTitlebarAccessoryViewController()
-        accesory.view = Search(id: id)
-        accesory.layoutAttribute = .top
-        addTitlebarAccessoryViewController(accesory)
+        let search = NSTitlebarAccessoryViewController()
+        search.view = Search(id: id)
+        search.layoutAttribute = .top
+        addTitlebarAccessoryViewController(search)
+        
+        let results = NSTitlebarAccessoryViewController()
+        results.view = Search.Results(id: id)
+//        results.view.frame.size.height = 0
+        results.layoutAttribute = .bottom
+        addTitlebarAccessoryViewController(results)
         
         let progress = Progress(id: id)
         contentView!.addSubview(progress)

@@ -25,7 +25,7 @@ final class New: NSView {
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
         backgroundHistory.wantsLayer = true
         backgroundHistory.layer!.backgroundColor = NSColor.unemphasizedSelectedTextBackgroundColor.cgColor
-        backgroundHistory.layer!.cornerRadius = 12
+        backgroundHistory.layer!.cornerRadius = 6
         content.addSubview(backgroundHistory)
         
         let bookmarks = Bookmarks(id: id)
@@ -55,9 +55,9 @@ final class New: NSView {
         backgroundHistory.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         backgroundHistory.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         
-        history.topAnchor.constraint(equalTo: backgroundHistory.topAnchor, constant: 3).isActive = true
-        history.bottomAnchor.constraint(equalTo: backgroundHistory.bottomAnchor, constant: -3).isActive = true
-        history.leftAnchor.constraint(equalTo: backgroundHistory.leftAnchor, constant: 3).isActive = true
-        history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor, constant: -3).isActive = true
+        history.topAnchor.constraint(equalTo: backgroundHistory.topAnchor, constant: 1).isActive = true
+        history.bottomAnchor.constraint(equalTo: backgroundHistory.bottomAnchor, constant: -1).isActive = true
+        history.leftAnchor.constraint(equalTo: backgroundHistory.leftAnchor, constant: 1).isActive = true
+        history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor, constant: -1).isActive = true
     }
 }
