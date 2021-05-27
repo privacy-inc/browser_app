@@ -24,6 +24,11 @@ final class Window: NSWindow {
         tabbingMode = .preferred
         tab.title = NSLocalizedString("Privacy", comment: "")
         
+        let accesory = NSTitlebarAccessoryViewController()
+        accesory.view = Search(id: id)
+        accesory.layoutAttribute = .top
+        addTitlebarAccessoryViewController(accesory)
+        
         let progress = Progress(id: id)
         contentView!.addSubview(progress)
         self.progress = progress
