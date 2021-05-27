@@ -27,7 +27,6 @@ extension NSMutableAttributedString {
     func add(_ string: String, font: NSFont, color: NSColor) {
         append(.init(string: string, attributes: [
                         .font: font,
-                        .foregroundColor: color,
-                        .kern: 1]))
+                        .foregroundColor: color]))
     }
 }
