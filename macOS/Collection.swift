@@ -1,14 +1,14 @@
 import AppKit
 import Combine
 
-final class Collection: NSScrollView {
+class Collection: NSScrollView {
     let items = PassthroughSubject<Set<Item>, Never>()
     let size = PassthroughSubject<CGSize, Never>()
     let selected = PassthroughSubject<Int, Never>()
     private var subs = Set<AnyCancellable>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
-    private let clear = PassthroughSubject<Date, Never>()
+    private let clear = PassthroughSubject<Void, Never>()
     
     required init?(coder: NSCoder) { nil }
     init() {
@@ -89,142 +89,56 @@ final class Collection: NSScrollView {
                 ($0.object as? NSClipView)?.documentVisibleRect
             }
             .debounce(for: .milliseconds(5), scheduler: DispatchQueue.main)
-            .sink(receiveValue: clip.send)
+            .subscribe(clip)
             .store(in: &subs)
         
-        
-        
-        
-        
-        
-        
-        
         highlight
-            .combineLatest(selected, editing)
-            .filter {
-                $1 == nil && !$2
-            }.sink { point, _, _ in
+            .sink { point in
                 cells.forEach {
-                    $0.state = $0.frame.contains(point) ? .highlighted : .none
+                    $0.state = $0.frame.contains(point)
+                        ? .highlighted
+                        : .none
                 }
-            }.store(in: &subs)
-        
-        drag
-            .combineLatest(selected, dragging)
-            .removeDuplicates {
-                $0.0.0 == $1.0.0
             }
-            .filter {
-                $1 != nil && $2 == nil
+            .store(in: &subs)
+        
+        select
+            .map { point in
+                cells
+                    .compactMap(\.item)
+                    .first {
+                        $0.rect.contains(point)
+                    }
             }
-            .sink { _, selected, _ in
-                dragging.send(selected)
-            }.store(in: &subs)
-        
-        drag
-            .combineLatest(dragging)
-            .filter {
-                $1 != nil
-            }.sink {
-                $1!.frame = $1!.frame.offsetBy(dx: $0.1.width, dy: $0.1.height)
-            }.store(in: &subs)
-        
-        select.sink { point in
-            selected.send(
-                cells.cards.first {
-                    $0.item!.rect.contains(point)
-                }
-            )
-        }.store(in: &subs)
-        
-        double.sink { point in
-            selected.send(nil)
-            dragging.send(nil)
-            if let cell = cells.cards.first(where: {
-                $0.item!.rect.contains(point)
-            }) {
-                Session.edit.send(.edit(cell.item!.path))
-            } else {
-                Session.edit.send(nil)
+            .compactMap {
+                $0?.id
             }
-        }.store(in: &subs)
-        
-        edit.sink { [weak self] point in
-            cells.cards.first {
-                $0.item!.rect.contains(point)
-            }.map {
-                self?.editing.send(true)
-                
-                let edit = Cell.Edit(path: $0.item!.path)
-                edit.delegate = self
-                edit.show(relativeTo: $0.bounds, of: $0, preferredEdge: .minY)
-                $0.state = .highlighted
-            }
-        }.store(in: &subs)
+            .subscribe(selected)
+            .store(in: &subs)
         
         clear
-            .combineLatest(editing)
-            .filter {
-                !$1
+            .sink {
+                cells
+                    .filter{
+                        $0.state != .none
+                    }
+                    .forEach {
+                        $0.state = .none
+                    }
             }
-            .removeDuplicates {
-                $0.0 == $1.0
-            }
-            .sink { _, _ in
-                cells.filter{
-                    $0.state != .none
-                }.forEach {
-                    $0.state = .none
-                }
-            }.store(in: &subs)
-        
-        drop.delay(for: .milliseconds(100), scheduler: DispatchQueue.main).sink { _ in
-            selected.send(nil)
-            dragging.send(nil)
-        }.store(in: &subs)
-        
-        selected.send(nil)
-        dragging.send(nil)
-        editing.send(false)
+            .store(in: &subs)
     }
     
-    override func mouseExited(with: NSEvent) {
-        clear.send(.init())
+    final override func mouseExited(with: NSEvent) {
+        clear.send()
     }
     
-    override func mouseMoved(with: NSEvent) {
+    final override func mouseMoved(with: NSEvent) {
         highlight.send(point(with: with))
     }
     
-    override func mouseDown(with: NSEvent) {
-        switch with.clickCount {
-        case 1:
-            select.send(point(with: with))
-        case 2:
-            double.send(point(with: with))
-        default:
-            break
-        }
-    }
-    
-    override func rightMouseDown(with: NSEvent) {
-        edit.send(point(with: with))
-    }
-    
-    override func mouseDragged(with: NSEvent) {
-        drag.send((.init(), .init(width: with.deltaX, height: with.deltaY)))
-    }
-    
-    override func mouseUp(with: NSEvent) {
-        drop.send(.init())
-    }
-    
-    func popoverDidShow(_: Notification) {
-        editing.send(true)
-    }
-    
-    func popoverWillClose(_: Notification) {
-        editing.send(false)
+    final override func mouseDown(with: NSEvent) {
+        select.send(point(with: with))
     }
  
     private func point(with: NSEvent) -> CGPoint {
