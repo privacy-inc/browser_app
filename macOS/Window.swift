@@ -20,7 +20,7 @@ final class Window: NSWindow {
         titlebarAppearsTransparent = true
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
-//        setFrameAutosaveName("Window")
+        setFrameAutosaveName("Window")
         tabbingMode = .preferred
         tab.title = NSLocalizedString("Privacy", comment: "")
         

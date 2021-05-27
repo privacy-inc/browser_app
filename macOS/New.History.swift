@@ -4,7 +4,7 @@ import Archivable
 
 extension New {
     final class History: Collection<New.History.Cell> {
-        private static let width = CGFloat(120)
+        private static let width = CGFloat(180)
         private static let padding = CGFloat(4)
         private static let insets = CGFloat(6)
         
@@ -20,14 +20,14 @@ extension New {
                 .default
                 .publisher(for: NSView.frameDidChangeNotification, object: contentView)
                 .compactMap {
-                    ($0.object as? NSClipView)?.bounds.width
+                    ($0.object as? NSView)?.bounds.width
                 }
                 .removeDuplicates()
                 .map {
-                    let total = $0 - (Self.insets * 2) - Self.padding
-                    let horizontal = Self.width + Self.padding
-                    let count = Int(floor(total / horizontal))
-                    return (count: count, width: Self.width + (total.truncatingRemainder(dividingBy: horizontal) / .init(count)))
+                    let available = $0 - (Self.insets * 2) + Self.padding
+                    let aprox = Self.width + Self.padding
+                    let count = Int(floor(available / aprox))
+                    return (count: count, width: Self.width + (available.truncatingRemainder(dividingBy: aprox) / .init(count)))
                 }
                 .subscribe(columns)
                 .store(in: &subs)
@@ -38,29 +38,28 @@ extension New {
                 .map(\.browse)
                 .removeDuplicates()
                 .map {
-                    $0.prefix(5).map { browse in
-                        .init(
-                            id: browse.id,
-                            string: .make {
-                                $0.add(RelativeDateTimeFormatter().string(from: browse.date),
-                                       font: .preferredFont(forTextStyle: .callout),
-                                       color: .secondaryLabelColor)
-                                if !browse.page.title.isEmpty {
-                                    $0.linebreak()
-                                    $0.add(browse.page.title,
-                                           font: .preferredFont(forTextStyle: .body),
-                                           color: .labelColor)
-                                }
-                                if !browse.page.access.domain.isEmpty {
-                                    if !browse.page.title.isEmpty {
-                                        $0.linebreak()
-                                    }
-                                    $0.add(browse.page.access.domain,
+                    $0
+                        .map { browse in
+                            .init(
+                                id: browse.id,
+                                string: .make {
+                                    $0.add(RelativeDateTimeFormatter().string(from: browse.date),
                                            font: .preferredFont(forTextStyle: .callout),
                                            color: .secondaryLabelColor)
-                                }
-                            })
-                    }
+                                    if !browse.page.title.isEmpty {
+                                        $0.linebreak()
+                                        $0.add(browse.page.title,
+                                               font: .preferredFont(forTextStyle: .body),
+                                               color: .labelColor)
+                                    }
+                                    if !browse.page.access.domain.isEmpty {
+                                        $0.linebreak()
+                                        $0.add(browse.page.access.domain,
+                                               font: .preferredFont(forTextStyle: .footnote),
+                                               color: .secondaryLabelColor)
+                                    }
+                                })
+                        }
                 }
                 .subscribe(info)
                 .store(in: &subs)
@@ -70,7 +69,7 @@ extension New {
                 .combineLatest(columns
                                 .removeDuplicates {
                                     $0.count == $1.count
-                                        || $0.width == $1.width
+                                        && $0.width == $1.width
                                 })
                 .sink { [weak self] (info: [CollectionItemInfo], columns: (count: Int, width: CGFloat)) in
                     let result = info

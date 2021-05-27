@@ -13,11 +13,15 @@ extension New.History {
             NSColor.controlBackgroundColor.cgColor
         }
         
+        override var highlighted: CGColor {
+            NSColor.windowBackgroundColor.cgColor
+        }
+        
         required init?(coder: NSCoder) { nil }
         override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
-            cornerRadius = 8
+            cornerRadius = 6
         }
     }
 }

@@ -52,9 +52,10 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
                         $0.item != nil
                     }
                     .filter { cell in
-                        !items.contains {
-                            $0 == cell.item
-                        }
+                        !items
+                            .contains {
+                                $0 == cell.item
+                            }
                     }
                     .forEach {
                         $0.removeFromSuperlayer()
