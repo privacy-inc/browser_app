@@ -18,7 +18,7 @@ let tabber = Sleuth.Tab()
                     session.archive = $0
                 }
                 .onReceive(tabber.items) {
-                    session.tabs = $0
+                    session.tab = $0
                 }
                 .onReceive(session.purchases.open) {
                     session.modal = .store

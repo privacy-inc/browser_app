@@ -18,7 +18,7 @@ extension Tab.Modal {
                             session.modal = .info(id)
                         }
                         Control(title: "Bookmark", image: "bookmark") {
-                            session.tabs.state(id).browse
+                            session.tab.state(id).browse
                                 .map(cloud.bookmark)
                             dismiss()
                             withAnimation(.easeInOut(duration: 0.4)) {
@@ -36,7 +36,7 @@ extension Tab.Modal {
                             find = true
                         }
                     }
-                    if session.tabs[loading: id] {
+                    if session.tab[loading: id] {
                         Control(title: "Stop", image: "xmark") {
                             
                         }

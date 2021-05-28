@@ -25,7 +25,7 @@ extension Tabs.Item {
         
         private var title: String {
             session
-                .tabs
+                .tab
                 .state(id)
                 .browse
                 .map(session.archive.page)
@@ -35,7 +35,7 @@ extension Tabs.Item {
         
         private var subtitle: String {
             session
-                .tabs
+                .tab
                 .state(id)
                 .browse
                 .map(session.archive.page)

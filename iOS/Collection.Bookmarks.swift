@@ -11,7 +11,7 @@ extension Collection {
         var body: some View {
             ForEach(0 ..< bookmarks.count, id: \.self) { index in
                 Button {
-                    let browse = session.tabs.state(id).browse
+                    let browse = session.tab.state(id).browse
                     cloud
                         .open(index, id: browse) {
                             if browse == $0 {

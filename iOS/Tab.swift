@@ -23,7 +23,7 @@ struct Tab: View {
                     Rectangle()
                         .fill(Color(.tertiaryLabel))
                         .frame(height: 1)
-                    switch session.tabs.state(id) {
+                    switch session.tab.state(id) {
                     case .new:
                         New(session: $session, id: id)
                     case let .browse(browse):
@@ -36,7 +36,7 @@ struct Tab: View {
                     case let .error(browse, error):
                         Error(session: $session, id: id, browse: browse, error: error)
                     }
-                    Loading(percent: session.tabs[progress: id])
+                    Loading(percent: session.tab[progress: id])
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
                 Modal(session: $session, show: $modal, find: $find, id: id)
@@ -70,7 +70,7 @@ struct Tab: View {
     
     private func tabs() {
         UIApplication.shared.resign()
-        switch session.tabs.state(id) {
+        switch session.tab.state(id) {
         case .browse:
             tabber.update(id, progress: 1)
         default:

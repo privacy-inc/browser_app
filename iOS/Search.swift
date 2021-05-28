@@ -41,7 +41,7 @@ struct Search: View {
     
     private func cell(_ item: Item) -> Cell {
         .init(item: item) {
-            let browse = session.tabs.state(id).browse
+            let browse = session.tab.state(id).browse
             cloud
                 .browse(item.url, id: browse) {
                     UIApplication.shared.resign()

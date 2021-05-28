@@ -36,7 +36,7 @@ extension Tab {
                             }
                     }
                     Control(title: "Cancel", image: "xmark") {
-                        guard let web = session.tabs[web: id] as? WKWebView else { return }
+                        guard let web = session.tab[web: id] as? WKWebView else { return }
                         if web.url == nil {
                             tabber.clear(id)
                         } else {

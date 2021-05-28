@@ -13,7 +13,7 @@ extension Tab.New {
                     .frame(height: 1)
                     .padding(.horizontal)
                 Button {
-                    let browse = session.tabs.state(id).browse
+                    let browse = session.tab.state(id).browse
                     cloud
                         .open(index, id: browse) {
                             if browse == $0 {
