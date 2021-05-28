@@ -3,10 +3,10 @@ import Combine
 import Sleuth
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
-    var subs = Set<AnyCancellable>()
-    let id: UUID
-    let browse: Int
-    let settings: Sleuth.Settings
+    final var subs = Set<AnyCancellable>()
+    final let id: UUID
+    final let browse: Int
+    final let settings: Sleuth.Settings
     
     required init?(coder: NSCoder) { nil }
     init(configuration: WKWebViewConfiguration, id: UUID, browse: Int, settings: Sleuth.Settings) {
