@@ -1,5 +1,7 @@
 import AppKit
 import Combine
+import Archivable
+import Sleuth
 
 final class Search: NSView {
     private(set) weak var field: Field!
@@ -76,11 +78,31 @@ final class Search: NSView {
         addSubview(field)
         self.field = field
         
+        let google = NSMenuItem(title: "Google", action: #selector(change), keyEquivalent: "")
+        google.tag = .init(Engine.google.rawValue)
+        google.target = self
+        
+        let ecosia = NSMenuItem(title: "Ecosia", action: #selector(change), keyEquivalent: "")
+        ecosia.tag = .init(Engine.ecosia.rawValue)
+        ecosia.target = self
+        
+        let options = NSMenu()
+        options.items = [google, ecosia]
+        options.showsStateColumn = true
+        
         let engine = Control.Icon(icon: "magnifyingglass")
         engine
             .click
-            .sink {
-                
+            .map {
+                Int(Cloud.shared.archive.value.settings.engine.rawValue)
+            }
+            .sink { [weak self] current in
+                [google, ecosia]
+                    .forEach {
+                        $0.state = $0.tag == current ? .on : .off
+                    }
+                options.minimumWidth = field.frame.size.width
+                options.popUp(positioning: options.item(at: 0), at: .init(x: field.frame.origin.x, y: 0), in: self)
             }
             .store(in: &subs)
         
@@ -135,5 +157,9 @@ final class Search: NSView {
             return
         }
         window?.performZoom(nil)
+    }
+    
+    @objc private func change(_ engine: NSMenuItem) {
+        Cloud.shared.engine(.init(rawValue: .init(engine.tag))!)
     }
 }
