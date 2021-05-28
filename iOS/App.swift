@@ -3,7 +3,7 @@ import Archivable
 import Sleuth
 
 let cloud = Cloud.new
-let tab = Sleuth.Tab()
+let tabber = Sleuth.Tab()
 @main struct App: SwiftUI.App {
     @State private var session = Session()
     @Environment(\.scenePhase) private var phase
@@ -17,7 +17,7 @@ let tab = Sleuth.Tab()
                 .onReceive(cloud.archive) {
                     session.archive = $0
                 }
-                .onReceive(tab.items) {
+                .onReceive(tabber.items) {
                     session.tabs = $0
                 }
                 .onReceive(session.purchases.open) {
@@ -49,14 +49,14 @@ let tab = Sleuth.Tab()
                             .map {
                                 switch session.section {
                                 case let .tab(id):
-                                    tab.browse(id, $0)
+                                    tabber.browse(id, $0)
                                     cloud
                                         .revisit($0) {
                                             session.load.send((id: id, access: $0))
                                         }
                                 default:
-                                    let id = tab.new()
-                                    tab.browse(id, $0)
+                                    let id = tabber.new()
+                                    tabber.browse(id, $0)
                                     session.section = .tab(id)
                                 }
                             }
@@ -65,7 +65,7 @@ let tab = Sleuth.Tab()
                         case let .tab(id):
                             session.section = .search(id)
                         case .tabs:
-                            session.section = .search(tab.new())
+                            session.section = .search(tabber.new())
                         default:
                             break
                         }
@@ -76,11 +76,11 @@ let tab = Sleuth.Tab()
                         .navigate(url) { browse, access in
                             switch session.section {
                             case let .tab(id):
-                                tab.browse(id, browse)
+                                tabber.browse(id, browse)
                                 session.load.send((id: id, access: access))
                             default:
-                                let id = tab.new()
-                                tab.browse(id, browse)
+                                let id = tabber.new()
+                                tabber.browse(id, browse)
                                 session.section = .tab(id)
                             }
                         }

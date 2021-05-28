@@ -51,13 +51,13 @@ struct Tab: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     let id = withAnimation(.easeInOut(duration: 0.4)) {
-                        tab.new()
+                        tabber.new()
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         cloud
                             .navigate(url) { browse, _ in
-                                tab.browse(id, browse)
+                                tabber.browse(id, browse)
                             }
                         withAnimation(.easeInOut(duration: 0.4)) {
                             session.section = .tab(id)
@@ -72,7 +72,7 @@ struct Tab: View {
         UIApplication.shared.resign()
         switch session.tabs.state(id) {
         case .browse:
-            tab.update(id, progress: 1)
+            tabber.update(id, progress: 1)
         default:
             break
         }
@@ -101,6 +101,6 @@ struct Tab: View {
             .image { _ in
                 controller.view!.drawHierarchy(in: controller.view.frame, afterScreenUpdates: false)
             }
-        tab.update(id, snapshot: snapshot)
+        tabber.update(id, snapshot: snapshot)
     }
 }

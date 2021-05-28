@@ -30,28 +30,28 @@ extension Web {
             publisher(for: \.estimatedProgress, options: .new)
                 .removeDuplicates()
                 .sink {
-                    tab.update(id, progress: $0)
+                    tabber.update(id, progress: $0)
                 }
                 .store(in: &subs)
 
             publisher(for: \.isLoading, options: .new)
                 .removeDuplicates()
                 .sink {
-                    tab.update(id, loading: $0)
+                    tabber.update(id, loading: $0)
                 }
                 .store(in: &subs)
 
             publisher(for: \.canGoForward, options: .new)
                 .removeDuplicates()
                 .sink {
-                    tab.update(id, forward: $0)
+                    tabber.update(id, forward: $0)
                 }
                 .store(in: &subs)
 
             publisher(for: \.canGoBack, options: .new)
                 .removeDuplicates()
                 .sink {
-                    tab.update(id, back: $0)
+                    tabber.update(id, back: $0)
                 }
                 .store(in: &subs)
             

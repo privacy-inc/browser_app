@@ -4,7 +4,7 @@ import Sleuth
 
 struct Session {
     var archive = Archive.new
-    var tabs = tab.items.value
+    var tabs = tabber.items.value
     var section: Section
     var toast: Toast.Message?
     var modal: Modal?

@@ -11,7 +11,7 @@ extension Tabs {
             VStack {
                 Button {
                     withAnimation(.spring(blendDuration: 0.4)) {
-                        tab.close(id)
+                        tabber.close(id)
                     }
                 } label: {
                     HStack {

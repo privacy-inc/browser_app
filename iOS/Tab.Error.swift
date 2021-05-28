@@ -31,18 +31,18 @@ extension Tab {
                     Control(title: "Try again", image: "gobackward") {
                         cloud
                             .browse(error.url, id: browse) {
-                                tab.browse(id, $0)
+                                tabber.browse(id, $0)
                                 session.load.send((id: id, access: $1))
                             }
                     }
                     Control(title: "Cancel", image: "xmark") {
                         guard let web = session.tabs[web: id] as? WKWebView else { return }
                         if web.url == nil {
-                            tab.clear(id)
+                            tabber.clear(id)
                         } else {
                             cloud.update(browse, url: web.url ?? URL(string: "about:blank")!)
                             cloud.update(browse, title: web.title ?? "")
-                            tab.dismiss(id)
+                            tabber.dismiss(id)
                         }
                     }
                     Spacer()

@@ -15,7 +15,7 @@ extension Tabs {
                           buttons: [
                             .destructive(.init("Close all")) {
                                 withAnimation(.spring(blendDuration: 0.4)) {
-                                    session.section = .search(tab.closeAll())
+                                    session.section = .search(tabber.closeAll())
                                 }
                             },
                             .cancel()])
@@ -28,7 +28,7 @@ extension Tabs {
                 Control(image: "plus") {
                     session.modal = nil
                     withAnimation(.spring(blendDuration: 0.4)) {
-                        session.section = .search(tab.new())
+                        session.section = .search(tabber.new())
                     }
                     session.search.send()
                 }

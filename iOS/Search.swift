@@ -46,7 +46,7 @@ struct Search: View {
                 .browse(item.url, id: browse) {
                     UIApplication.shared.resign()
                     session.section = .tab(id)
-                    tab.browse(id, $0)
+                    tabber.browse(id, $0)
                     if browse == $0 {
                         session.load.send((id: id, access: $1))
                     }

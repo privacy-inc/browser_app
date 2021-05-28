@@ -59,11 +59,11 @@ extension Search.Bar {
                     guard let id = self?.id else { return }
                     if state.browse == $0 {
                         if case .error = state {
-                            tab.browse(id, $0)
+                            tabber.browse(id, $0)
                         }
                         self?.wrapper.session.load.send((id: id, access: $1))
                     } else {
-                        tab.browse(id, $0)
+                        tabber.browse(id, $0)
                     }
                 }
             dismiss()

@@ -19,7 +19,7 @@ extension Tab.New {
                             if browse == $0 {
                                 session.load.send((id: id, access: $1))
                             } else {
-                                tab.browse(id, $0)
+                                tabber.browse(id, $0)
                             }
                         }
                 } label: {
