@@ -93,7 +93,7 @@ final class Search: NSView {
         engine
             .click
             .map {
-                Int(session.archive.settings.engine.rawValue)
+                Int(cloud.archive.value.settings.engine.rawValue)
             }
             .sink { [weak self] current in
                 [google, ecosia]
@@ -159,6 +159,6 @@ final class Search: NSView {
     }
     
     @objc private func change(_ engine: NSMenuItem) {
-        Cloud.shared.engine(.init(rawValue: .init(engine.tag))!)
+        cloud.engine(.init(rawValue: .init(engine.tag))!)
     }
 }

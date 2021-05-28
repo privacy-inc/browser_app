@@ -7,7 +7,7 @@ final class Web: Webview {
     
     required init?(coder: NSCoder) { nil }
     init(id: UUID, browse: Int) {
-        var settings = session.archive.settings
+        var settings = cloud.archive.value.settings
         
         if !App.dark {
             settings.dark = false
@@ -24,145 +24,73 @@ final class Web: Webview {
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
         handler.web = self
         
-        publisher(for: \.estimatedProgress, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.value[progress: id] = $0
-            }
-            .store(in: &subs)
-
-        publisher(for: \.isLoading, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.value[loading: id] = $0
-            }
-            .store(in: &subs)
-
-        publisher(for: \.canGoForward, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.value[forward: id] = $0
-            }
-            .store(in: &subs)
-
-        publisher(for: \.canGoBack, options: .new)
-            .removeDuplicates()
-            .sink {
-                session.tab.value[back: id] = $0
-            }
-            .store(in: &subs)
-        
-        publisher(for: \.title, options: .new)
-            .compactMap {
-                $0
-            }
-            .filter {
-                !$0.isEmpty
-            }
-            .removeDuplicates()
-            .sink {
-                Cloud.shared.update(browse, title: $0)
-            }
-            .store(in: &subs)
-
-        publisher(for: \.url, options: .new)
-            .compactMap {
-                $0
-            }
-            .removeDuplicates()
-            .sink {
-                Cloud.shared.update(browse, url: $0)
-            }
-            .store(in: &subs)
         
         
         
         
-        
-        browser.previous.sink { [weak self] in
-            if self?.canGoBack == true {
-                self?.goBack()
-            } else {
-                browser.close.send()
-            }
-        }.store(in: &subs)
-        
-        browser.next.sink { [weak self] in
-            self?.goForward()
-        }.store(in: &subs)
-        
-        browser.load.sink { [weak self] in
-            if let entry = browser.entry.value {
-                self?.load(entry)
-            }
-        }.store(in: &subs)
-        
-        browser.reload.sink { [weak self] in
-            if let entry = browser.entry.value {
-                if self?.url == nil {
-                    self?.load(entry)
-                } else {
-                    self?.reload()
-                }
-            }
-        }.store(in: &subs)
-        
-        browser.stop.sink { [weak self] in
-            self?.stopLoading()
-        }.store(in: &subs)
+//        browser.previous.sink { [weak self] in
+//            if self?.canGoBack == true {
+//                self?.goBack()
+//            } else {
+//                browser.close.send()
+//            }
+//        }.store(in: &subs)
+//
+//        browser.next.sink { [weak self] in
+//            self?.goForward()
+//        }.store(in: &subs)
+//
+//        browser.load.sink { [weak self] in
+//            if let entry = browser.entry.value {
+//                self?.load(entry)
+//            }
+//        }.store(in: &subs)
+//
+//        browser.reload.sink { [weak self] in
+//            if let entry = browser.entry.value {
+//                if self?.url == nil {
+//                    self?.load(entry)
+//                } else {
+//                    self?.reload()
+//                }
+//            }
+//        }.store(in: &subs)
+//
+//        browser.stop.sink { [weak self] in
+//            self?.stopLoading()
+//        }.store(in: &subs)
+    }
+    
+    override func external(_ url: URL) {
+        NSWorkspace.shared.open(url)
     }
     
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-        if action.targetFrame == nil && action.navigationType == .other {
-            action.request.url.map { new in
-                switch destination {
-                case .window:
-                    (NSApp as? App)?.window(new)
-                case .tab:
-                    (window as? Window)?.newTab(new)
-                case .download:
-                    URLSession.shared.dataTaskPublisher(for: new)
-                        .map(\.data)
-                        .receive(on: DispatchQueue.main)
-                        .replaceError(with: .init())
-                        .sink { [weak self] in
-                            (self?.window as? Window)?.save(new.lastPathComponent, data: $0)
-                        }.store(in: &subs)
-                    break
-                }
-                destination = .window
-            }
-        } else if action.navigationType == .linkActivated {
-            action.request.url.map {
-                (window as? Window)?.newTab($0)
-            }
-        }
+//        if action.targetFrame == nil && action.navigationType == .other {
+//            action.request.url.map { new in
+//                switch destination {
+//                case .window:
+//                    (NSApp as? App)?.window(new)
+//                case .tab:
+//                    (window as? Window)?.newTab(new)
+//                case .download:
+//                    URLSession.shared.dataTaskPublisher(for: new)
+//                        .map(\.data)
+//                        .receive(on: DispatchQueue.main)
+//                        .replaceError(with: .init())
+//                        .sink { [weak self] in
+//                            (self?.window as? Window)?.save(new.lastPathComponent, data: $0)
+//                        }.store(in: &subs)
+//                    break
+//                }
+//                destination = .window
+//            }
+//        } else if action.navigationType == .linkActivated {
+//            action.request.url.map {
+//                (window as? Window)?.newTab($0)
+//            }
+//        }
         return nil
-    }
-    
-    func webView(_: WKWebView, didFinish: WKNavigation!) {
-        Cloud.shared.activity()
-    }
-    
-    func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-        switch router(decidePolicyFor.request.url!) {
-        case .allow:
-            print("allow \(decidePolicyFor.request.url!)")
-            preferences.allowsContentJavaScript = javascript
-            decisionHandler(.allow, preferences)
-        case .external:
-            print("external \(decidePolicyFor.request.url!)")
-            decisionHandler(.cancel, preferences)
-            NSWorkspace.shared.open(decidePolicyFor.request.url!)
-        case .ignore:
-//            decisionHandler(.cancel, preferences)
-            print("ignore-allow \(decidePolicyFor.request.url!)")
-            preferences.allowsContentJavaScript = javascript
-            decisionHandler(.allow, preferences)
-        case let .block(block):
-            print("block \(block)")
-            decisionHandler(.cancel, preferences)
-        }
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
@@ -193,12 +121,12 @@ final class Web: Webview {
     }
     
     @objc private func tabbed(_ item: NSMenuItem) {
-        destination = .tab
-        item.synth()
+//        destination = .tab
+//        item.synth()
     }
     
     @objc private func download(_ item: NSMenuItem) {
-        destination = .download
-        item.synth()
+//        destination = .download
+//        item.synth()
     }
 }

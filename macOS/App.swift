@@ -1,8 +1,12 @@
 import AppKit
 import StoreKit
 import Combine
+import Archivable
+import Sleuth
 
 let session = Session()
+let cloud = Cloud.new
+let tabber = Tab()
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
     static let dark = NSApp.windows.first?.effectiveAppearance == .init(named: .darkAqua)
     private var subs = Set<AnyCancellable>()
@@ -22,7 +26,7 @@ let session = Session()
     
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
-        window(session.tab.value.ids.first!)
+        window(tabber.items.value.ids.first!)
     }
     
     func applicationDidFinishLaunching(_: Notification) {
@@ -47,11 +51,11 @@ let session = Session()
     }
     
     func applicationDidBecomeActive(_: Notification) {
-        Cloud.shared.pull.send()
+        cloud.pull.send()
     }
     
     func application(_: NSApplication, didReceiveRemoteNotification: [String : Any]) {
-        Cloud.shared.pull.send()
+        cloud.pull.send()
     }
     
     @objc func preferences() {

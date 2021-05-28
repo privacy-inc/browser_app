@@ -25,8 +25,7 @@ extension New {
                 .subscribe(width)
                 .store(in: &subs)
             
-            Cloud
-                .shared
+            cloud
                 .archive
                 .map(\.bookmarks)
                 .removeDuplicates()

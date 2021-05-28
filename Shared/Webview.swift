@@ -35,7 +35,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     deinit {
         uiDelegate = nil
         navigationDelegate = nil
-        scrollView.delegate = nil
+    }
+    
+    func external(_ url: URL) {
+        
     }
     
     final func load(_ access: Page.Access) {
@@ -67,10 +70,32 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         {
             cloud.update(browse, url: $0)
             cloud.update(browse, title: $1)
-            tab.error(id, .init(url: $0.absoluteString, description: $1))
+            tabber.error(id, .init(url: $0.absoluteString, description: $1))
         } ((withError as? URLError)
             .flatMap(\.failingURL)
             ?? url ?? URL(string: "about:blank")!, withError.localizedDescription)
         cloud.activity()
+    }
+    
+    final func webView(_: WKWebView, didFinish: WKNavigation!) {
+        tabber.update(id, progress: 1)
+        cloud.activity()
+    }
+    
+    final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
+        switch cloud.policy(decidePolicyFor.request.url!) {
+        case .allow:
+            print("allow \(decidePolicyFor.request.url!)")
+            preferences.allowsContentJavaScript = settings.javascript
+            decisionHandler(.allow, preferences)
+        case .external:
+            print("external \(decidePolicyFor.request.url!)")
+            decisionHandler(.cancel, preferences)
+            external(decidePolicyFor.request.url!)
+        case .ignore:
+            decisionHandler(.cancel, preferences)
+        case .block:
+            decisionHandler(.cancel, preferences)
+        }
     }
 }

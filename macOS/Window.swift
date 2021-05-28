@@ -45,8 +45,8 @@ final class Window: NSWindow {
         progress.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
         progress.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
         
-        session
-            .tab
+        tabber
+            .items
             .map {
                 $0.state(id)
             }

@@ -30,8 +30,7 @@ extension New {
                 .subscribe(columns)
                 .store(in: &subs)
             
-            Cloud
-                .shared
+            cloud
                 .archive
                 .map(\.browse)
                 .removeDuplicates()

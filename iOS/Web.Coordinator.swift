@@ -6,10 +6,6 @@ extension Web {
     final class Coordinator: Webview {
         weak var newTab: PassthroughSubject<URL, Never>!
         
-        deinit {
-            print("gone")
-        }
-
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web, id: UUID, browse: Int) {
             newTab = wrapper.session.newTab
@@ -226,13 +222,17 @@ extension Web {
                 .store(in: &subs)
         }
         
-        func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
-            UIApplication.shared.resign()
+        deinit {
+            print("gone")
+            scrollView.delegate = nil
         }
         
-        func webView(_: WKWebView, didFinish: WKNavigation!) {
-            tab.update(id, progress: 1)
-            cloud.activity()
+        override func external(_ url: URL) {
+            UIApplication.shared.open(url)
+        }
+        
+        func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+            UIApplication.shared.resign()
         }
 
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -243,23 +243,6 @@ extension Web {
                     .map(load)
             }
             return nil
-        }
-        
-        func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-            switch cloud.policy(decidePolicyFor.request.url!) {
-            case .allow:
-                print("allow \(decidePolicyFor.request.url!)")
-                preferences.allowsContentJavaScript = settings.javascript
-                decisionHandler(.allow, preferences)
-            case .external:
-                print("external \(decidePolicyFor.request.url!)")
-                decisionHandler(.cancel, preferences)
-                UIApplication.shared.open(decidePolicyFor.request.url!)
-            case .ignore:
-                decisionHandler(.cancel, preferences)
-            case .block:
-                decisionHandler(.cancel, preferences)
-            }
         }
         
         func webView(_: WKWebView, contextMenuConfigurationForElement: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {

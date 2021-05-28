@@ -67,18 +67,19 @@ extension Search {
         @objc private func search() {
             window?.makeFirstResponder(window?.contentView)
             
-            let browse = session.tab.value.state(id).browse
-            Cloud.shared.browse(stringValue, id: browse) { [weak self] in
-                guard let id = self?.id else { return }
-                if browse == $0 {
-//                    if case .error = self?.wrapper.session.tab.state(id) {
-//                        self?.wrapper.session.tab.browse(id, $0)
-//                    }
-                    session.load.send((id: id, access: $1))
-                } else {
-                    session.tab.value.browse(id, $0)
+            let browse = tabber.items.value.state(id).browse
+            cloud
+                .browse(stringValue, id: browse) { [weak self] in
+                    guard let id = self?.id else { return }
+                    if browse == $0 {
+    //                    if case .error = self?.wrapper.session.tab.state(id) {
+    //                        self?.wrapper.session.tab.browse(id, $0)
+    //                    }
+                        session.load.send((id: id, access: $1))
+                    } else {
+                        tabber.browse(id, $0)
+                    }
                 }
-            }
             
             
             
