@@ -17,6 +17,9 @@ let tab = Sleuth.Tab()
                 .onReceive(cloud.archive) {
                     session.archive = $0
                 }
+                .onReceive(tab.items) {
+                    session.tabs = $0
+                }
                 .onReceive(session.purchases.open) {
                     session.modal = .store
                 }
