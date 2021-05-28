@@ -76,7 +76,23 @@ final class Search: NSView {
         addSubview(field)
         self.field = field
         
-        [back, forward, refresh, info, bookmark, share, find, field]
+        let engine = Control.Icon(icon: "magnifyingglass")
+        engine
+            .click
+            .sink {
+                
+            }
+            .store(in: &subs)
+        
+        let clear = Control.Icon(icon: "xmark.circle.fill")
+        clear
+            .click
+            .sink {
+                
+            }
+            .store(in: &subs)
+        
+        [back, forward, refresh, info, bookmark, share, find, field, engine, clear]
             .forEach {
                 addSubview($0)
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -92,8 +108,17 @@ final class Search: NSView {
                 return $1
             }
         
+        [engine, clear]
+            .forEach {
+                $0.widthAnchor.constraint(equalToConstant: 30).isActive = true
+                $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
+            }
+        
         field.leftAnchor.constraint(equalTo: find.rightAnchor, constant: 12).isActive = true
         field.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        
+        engine.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
+        clear.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         
         background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
         background.bottomAnchor.constraint(equalTo: field.bottomAnchor).isActive = true

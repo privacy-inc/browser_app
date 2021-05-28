@@ -16,12 +16,19 @@ extension Search.Field {
         
         override func drawInterior(withFrame: NSRect, in: NSView) { }
         
-        override func drawFocusRingMask(withFrame: NSRect, in: NSView) {
-            NSBezierPath(roundedRect: withFrame.insetBy(dx: 1, dy: 2), xRadius: 2, yRadius: 2).fill()
+        override func drawingRect(forBounds: NSRect) -> NSRect {
+            var rect = forBounds
+            rect.origin.x += 20
+            rect.size.width -= 40
+            return super.drawingRect(forBounds: rect)
         }
         
         override func fieldEditor(for: NSView) -> NSTextView? {
             editor
+        }
+        
+        override func drawFocusRingMask(withFrame: NSRect, in: NSView) {
+            NSBezierPath(roundedRect: withFrame.insetBy(dx: 1, dy: 2), xRadius: 2, yRadius: 2).fill()
         }
     }
 }

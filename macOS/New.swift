@@ -60,4 +60,9 @@ final class New: NSView {
         history.leftAnchor.constraint(equalTo: backgroundHistory.leftAnchor, constant: 1).isActive = true
         history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor, constant: -1).isActive = true
     }
+    
+    override func mouseDown(with: NSEvent) {
+        super.mouseDown(with: with)
+        window?.makeFirstResponder(self)
+    }
 }
