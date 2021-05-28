@@ -21,6 +21,7 @@ struct Session {
     let pdf = PassthroughSubject<UUID, Never>()
     let webarchive = PassthroughSubject<UUID, Never>()
     let snapshot = PassthroughSubject<UUID, Never>()
+    let newTab = PassthroughSubject<URL, Never>()
     
     init() {
         section = .tab(tabs

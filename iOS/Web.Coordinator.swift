@@ -4,7 +4,7 @@ import Sleuth
 
 extension Web {
     final class Coordinator: Webview {
-        var wrapper: Web?
+        weak var newTab: PassthroughSubject<URL, Never>!
         
         deinit {
             print("gone")
@@ -12,7 +12,7 @@ extension Web {
 
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web, id: UUID, browse: Int) {
-            self.wrapper = wrapper
+            newTab = wrapper.session.newTab
             var settings = wrapper.session.archive.settings
             
             if !UIApplication.dark {
@@ -262,20 +262,23 @@ extension Web {
             }
         }
         
-        func webView(_: WKWebView, contextMenuConfigurationForElement element: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
+        func webView(_: WKWebView, contextMenuConfigurationForElement: WKContextMenuElementInfo, completionHandler: @escaping (UIContextMenuConfiguration?) -> Void) {
             completionHandler(.init(identifier: nil, previewProvider: nil, actionProvider: { elements in
-                var elements = elements.filter {
-                    guard let name = ($0 as? UIAction)?.identifier.rawValue else { return true }
-                    return !(name.hasSuffix("Open") || name.hasSuffix("List"))
-                }
+                var elements = elements
+                    .filter {
+                        guard let name = ($0 as? UIAction)?.identifier.rawValue else { return true }
+                        return !(name.hasSuffix("Open") || name.hasSuffix("List"))
+                    }
                 
-                if let url = element.linkURL {
-                    elements.insert(UIAction(title: NSLocalizedString("Open in new tab", comment: ""),
-                                             image: UIImage(systemName: "plus.square.on.square")) { [weak self] _ in
-                        self?.wrapper?.open(url)
-                    }, at: 0)
-                }
-                
+                if let url = contextMenuConfigurationForElement
+                    .linkURL {
+                        elements
+                            .insert(UIAction(title: NSLocalizedString("Open in new tab", comment: ""),
+                                             image: UIImage(systemName: "plus.square.on.square"))
+                            { [weak self] _ in
+                                self?.newTab.send(url)
+                            }, at: 0)
+                    }
                 return .init(title: "", children: elements)
             }))
         }

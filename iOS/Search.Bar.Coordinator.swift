@@ -7,8 +7,9 @@ extension Search.Bar {
         private var editable = true
         private var filter = false
         private var subs = Set<AnyCancellable>()
-        private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 48), inputViewStyle: .keyboard)
         private let wrapper: Search.Bar
+        private let id: UUID
+        private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 48), inputViewStyle: .keyboard)
         override var inputAccessoryView: UIView? { input }
         override var canBecomeFirstResponder: Bool { editable }
         
@@ -20,8 +21,9 @@ extension Search.Bar {
         }
         
         required init?(coder: NSCoder) { nil }
-        init(wrapper: Search.Bar) {
+        init(wrapper: Search.Bar, id: UUID) {
             self.wrapper = wrapper
+            self.id = id
             super.init(frame: .zero)
             
             let field = UITextField()
@@ -58,6 +60,14 @@ extension Search.Bar {
             cancel.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
             
             wrapper
+                .session.tabs.state(wrapper.id).browse
+                .map(wrapper.session.archive.page)
+                .map(\.access.string)
+                .map {
+                    field.text = $0
+                }
+            
+            wrapper
                 .session
                 .search
                 .sink { [weak self] in
@@ -66,13 +76,6 @@ extension Search.Bar {
                 }
                 .store(in: &subs)
             
-            wrapper
-                .session.tabs.state(wrapper.id).browse
-                .map(wrapper.session.archive.page)
-                .map(\.access.string)
-                .map {
-                    field.text = $0
-                }
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
                 self?.becomeFirstResponder()
             }
@@ -103,10 +106,10 @@ extension Search.Bar {
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
             filter = false
-            let state = wrapper.session.tabs.state(wrapper.id)
+            let state = wrapper.session.tabs.state(id)
             cloud
                 .browse(field.text!, id: state.browse) { [weak self] in
-                    guard let id = self?.wrapper.id else { return }
+                    guard let id = self?.id else { return }
                     if state.browse == $0 {
                         if case .error = state {
                             tab.browse(id, $0)

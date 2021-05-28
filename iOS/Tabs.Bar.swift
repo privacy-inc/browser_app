@@ -30,6 +30,7 @@ extension Tabs {
                     withAnimation(.spring(blendDuration: 0.4)) {
                         session.section = .search(tab.new())
                     }
+                    session.search.send()
                 }
                 
                 Control(image: "shield.lefthalf.fill") {

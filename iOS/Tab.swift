@@ -27,7 +27,7 @@ struct Tab: View {
                     case .new:
                         New(session: $session, id: id)
                     case let .browse(browse):
-                        Web(session: $session, id: id, browse: browse, tabs: tabs)
+                        Web(session: $session, id: id, browse: browse)
                             .edgesIgnoringSafeArea(.horizontal)
                         if find {
                             Find(session: $session, find: $find, id: id)
@@ -45,6 +45,25 @@ struct Tab: View {
                     .map {
                         Toast(session: $session, message: $0)
                     }
+            }
+            .onReceive(session.newTab) { url in
+                tabs()
+                
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    let id = withAnimation(.easeInOut(duration: 0.4)) {
+                        tab.new()
+                    }
+                    
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        cloud
+                            .navigate(url) { browse, _ in
+                                tab.browse(id, browse)
+                            }
+                        withAnimation(.easeInOut(duration: 0.4)) {
+                            session.section = .tab(id)
+                        }
+                    }
+                }
             }
         }
     }

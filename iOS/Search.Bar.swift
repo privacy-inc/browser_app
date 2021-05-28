@@ -7,7 +7,7 @@ extension Search {
         let id: UUID
         
         func makeCoordinator() -> Coordinator {
-            .init(wrapper: self)
+            .init(wrapper: self, id: id)
         }
         
         func makeUIView(context: Context) -> Coordinator {
