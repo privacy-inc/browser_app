@@ -80,14 +80,14 @@ extension Tab {
         }
         
         private var string: String {
-            session.tab.state(id).browse
+            session.tabs.state(id).browse
                 .map(session.archive.page)
                 .map(\.access.string)
             ?? ""
         }
         
         private var url: URL? {
-            session.tab.state(id).browse
+            session.tabs.state(id).browse
                 .map(session.archive.page)
                 .flatMap(\.access.url)
         }

@@ -1,7 +1,6 @@
 import AppKit
 import StoreKit
 import Combine
-import Archivable
 
 let session = Session()
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {

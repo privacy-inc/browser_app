@@ -1,6 +1,5 @@
 import SwiftUI
 import WebKit
-import Archivable
 
 extension Settings {
     struct Data: View {
@@ -14,15 +13,15 @@ extension Settings {
                         dismiss()
                     }
                     Cell(title: "Forget history") {
-                        Cloud.shared.forgetBrowse()
+                        cloud.forgetBrowse()
                         dismiss()
                     }
                     Cell(title: "Forget activity") {
-                        Cloud.shared.forgetActivity()
+                        cloud.forgetActivity()
                         dismiss()
                     }
                     Cell(title: "Forget trackers") {
-                        Cloud.shared.forgetBlocked()
+                        cloud.forgetBlocked()
                         dismiss()
                     }
                 }
@@ -30,7 +29,7 @@ extension Settings {
                 
                 Section {
                     Cell(title: "Forget everything") {
-                        Cloud.shared.forget()
+                        cloud.forget()
                         clear()
                         dismiss()
                     }

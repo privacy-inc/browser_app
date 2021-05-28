@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 
 struct Search: View {
     @Binding var session: Session
@@ -42,14 +41,16 @@ struct Search: View {
     
     private func cell(_ item: Item) -> Cell {
         .init(item: item) {
-            Cloud.shared.browse(item.url, id: session.tab.state(id).browse) {
-                UIApplication.shared.resign()
-                session.section = .tab(id)
-                session.tab.browse(id, $0)
-                if session.tab.state(id).browse == $0 {
-                    session.load.send((id: id, access: $1))
+            let browse = session.tabs.state(id).browse
+            cloud
+                .browse(item.url, id: browse) {
+                    UIApplication.shared.resign()
+                    session.section = .tab(id)
+                    tab.browse(id, $0)
+                    if browse == $0 {
+                        session.load.send((id: id, access: $1))
+                    }
                 }
-            }
         }
     }
     

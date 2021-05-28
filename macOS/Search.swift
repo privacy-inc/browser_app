@@ -1,6 +1,5 @@
 import AppKit
 import Combine
-import Archivable
 import Sleuth
 
 final class Search: NSView {

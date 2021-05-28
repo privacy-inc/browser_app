@@ -3,6 +3,7 @@ import SwiftUI
 struct Tabs: View {
     @Binding var session: Session
     let namespace: Namespace.ID
+    let ids: [UUID]
     let previous: UUID?
     
     var body: some View {
@@ -14,9 +15,9 @@ struct Tabs: View {
                     ScrollView(.horizontal) {
                         ScrollViewReader { scroll in
                             HStack(spacing: 5) {
-                                ForEach(0 ..< session.tab.ids.count, id: \.self) {
-                                    Item(session: $session, id: session.tab.ids[$0], namespace: namespace, size: proxy.size)
-                                        .id(session.tab.ids[$0])
+                                ForEach(0 ..< ids.count, id: \.self) {
+                                    Item(session: $session, id: ids[$0], namespace: namespace, size: proxy.size)
+                                        .id(ids[$0])
                                 }
                             }
                             .padding()

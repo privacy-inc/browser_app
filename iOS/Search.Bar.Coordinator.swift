@@ -1,6 +1,5 @@
 import UIKit
 import Combine
-import Archivable
 
 extension Search.Bar {
     final class Coordinator: UIView, UIKeyInput, UITextFieldDelegate {
@@ -68,7 +67,7 @@ extension Search.Bar {
                 .store(in: &subs)
             
             wrapper
-                .session.tab.state(wrapper.id).browse
+                .session.tabs.state(wrapper.id).browse
                 .map(wrapper.session.archive.page)
                 .map(\.access.string)
                 .map {
@@ -104,18 +103,19 @@ extension Search.Bar {
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
             filter = false
-            let browse = wrapper.session.tab.state(wrapper.id).browse
-            Cloud.shared.browse(field.text!, id: browse) { [weak self] in
-                guard let id = self?.wrapper.id else { return }
-                if browse == $0 {
-                    if case .error = self?.wrapper.session.tab.state(id) {
-                        self?.wrapper.session.tab.browse(id, $0)
+            let state = wrapper.session.tabs.state(wrapper.id)
+            cloud
+                .browse(field.text!, id: state.browse) { [weak self] in
+                    guard let id = self?.wrapper.id else { return }
+                    if state.browse == $0 {
+                        if case .error = state {
+                            tab.browse(id, $0)
+                        }
+                        self?.wrapper.session.load.send((id: id, access: $1))
+                    } else {
+                        tab.browse(id, $0)
                     }
-                    self?.wrapper.session.load.send((id: id, access: $1))
-                } else {
-                    self?.wrapper.session.tab.browse(id, $0)
                 }
-            }
             dismiss()
             return true
         }

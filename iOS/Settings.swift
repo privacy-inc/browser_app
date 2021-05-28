@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 import Sleuth
 
 struct Settings: View {
@@ -19,10 +18,10 @@ struct Settings: View {
             List {
                 Section(header: Text("Search Engine")) {
                     Picker("Search Engine", selection: $engine) {
-                        Text("Google")
+                        Text(verbatim: "Google")
                             .foregroundColor(.white)
                             .tag(Engine.google)
-                        Text("Ecosia")
+                        Text(verbatim: "Ecosia")
                             .foregroundColor(.white)
                             .tag(Engine.ecosia)
                     }
@@ -72,31 +71,31 @@ struct Settings: View {
             .listStyle(GroupedListStyle())
         }
         .onChange(of: engine) {
-            Cloud.shared.engine($0)
+            cloud.engine($0)
         }
         .onChange(of: dark) {
-            Cloud.shared.dark($0)
+            cloud.dark($0)
         }
         .onChange(of: javascript) {
-            Cloud.shared.javascript($0)
+            cloud.javascript($0)
         }
         .onChange(of: http) {
-            Cloud.shared.http(!$0)
+            cloud.http(!$0)
         }
         .onChange(of: trackers) {
-            Cloud.shared.trackers(!$0)
+            cloud.trackers(!$0)
         }
         .onChange(of: cookies) {
-            Cloud.shared.cookies(!$0)
+            cloud.cookies(!$0)
         }
         .onChange(of: popups) {
-            Cloud.shared.popups(!$0)
+            cloud.popups(!$0)
         }
         .onChange(of: ads) {
-            Cloud.shared.ads(!$0)
+            cloud.ads(!$0)
         }
         .onChange(of: screen) {
-            Cloud.shared.screen(!$0)
+            cloud.screen(!$0)
         }
         .onAppear {
             engine = session.archive.settings.engine

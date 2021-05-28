@@ -4,7 +4,7 @@ import Sleuth
 
 struct Session {
     var archive = Archive.new
-    var tab = Sleuth.Tab()
+    var tabs = tab.items.value
     var section: Section
     var toast: Toast.Message?
     var modal: Modal?
@@ -23,7 +23,7 @@ struct Session {
     let snapshot = PassthroughSubject<UUID, Never>()
     
     init() {
-        section = .tab(tab
+        section = .tab(tabs
                         .ids
                         .first!)
         decimal.numberStyle = .decimal

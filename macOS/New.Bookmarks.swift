@@ -1,6 +1,5 @@
 import AppKit
 import Combine
-import Archivable
 import Sleuth
 
 extension New {

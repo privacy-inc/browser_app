@@ -1,6 +1,9 @@
 import SwiftUI
 import Archivable
+import Sleuth
 
+let cloud = Cloud.new
+let tab = Sleuth.Tab()
 @main struct App: SwiftUI.App {
     @State private var session = Session()
     @Environment(\.scenePhase) private var phase
@@ -11,7 +14,7 @@ import Archivable
             Window(session: $session)
                 .onOpenURL(perform: open)
                 .sheet(item: $session.modal, content: modal)
-                .onReceive(Cloud.shared.archive) {
+                .onReceive(cloud.archive) {
                     session.archive = $0
                 }
                 .onReceive(session.purchases.open) {
@@ -23,14 +26,13 @@ import Archivable
         }
         .onChange(of: phase) {
             if $0 == .active {
-                Cloud.shared.pull.send()
+                cloud.pull.send()
             }
         }
     }
     
     private func open(_ url: URL) {
-        Cloud
-            .shared
+        cloud
             .notifier
             .notify(queue: .main) {
                 session.modal = nil
@@ -44,13 +46,14 @@ import Archivable
                             .map {
                                 switch session.section {
                                 case let .tab(id):
-                                    session.tab.browse(id, $0)
-                                    Cloud.shared.revisit($0) {
-                                        session.load.send((id: id, access: $0))
-                                    }
+                                    tab.browse(id, $0)
+                                    cloud
+                                        .revisit($0) {
+                                            session.load.send((id: id, access: $0))
+                                        }
                                 default:
-                                    let id = session.tab.new()
-                                    session.tab.browse(id, $0)
+                                    let id = tab.new()
+                                    tab.browse(id, $0)
                                     session.section = .tab(id)
                                 }
                             }
@@ -59,24 +62,25 @@ import Archivable
                         case let .tab(id):
                             session.section = .search(id)
                         case .tabs:
-                            session.section = .search(session.tab.new())
+                            session.section = .search(tab.new())
                         default:
                             break
                         }
                     }
                 default:
                     UIApplication.shared.resign()
-                    Cloud.shared.navigate(url) { browse, access in
-                        switch session.section {
-                        case let .tab(id):
-                            session.tab.browse(id, browse)
-                            session.load.send((id: id, access: access))
-                        default:
-                            let id = session.tab.new()
-                            session.tab.browse(id, browse)
-                            session.section = .tab(id)
+                    cloud
+                        .navigate(url) { browse, access in
+                            switch session.section {
+                            case let .tab(id):
+                                tab.browse(id, browse)
+                                session.load.send((id: id, access: access))
+                            default:
+                                let id = tab.new()
+                                tab.browse(id, browse)
+                                session.section = .tab(id)
+                            }
                         }
-                    }
             }
         }
     }

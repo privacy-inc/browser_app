@@ -1,6 +1,7 @@
 import SwiftUI
 import Archivable
 
+let cloud = Cloud.new
 @main struct App: SwiftUI.App {
     @State private var session = Session()
     @Environment(\.scenePhase) private var phase
@@ -9,13 +10,13 @@ import Archivable
     var body: some Scene {
         WindowGroup {
             Window(session: $session)
-                .onReceive(Cloud.shared.archive) {
+                .onReceive(cloud.archive) {
                     session.archive = $0
                 }
         }
         .onChange(of: phase) {
             if $0 == .active {
-                Cloud.shared.pull.send()
+                cloud.pull.send()
             }
         }
     }

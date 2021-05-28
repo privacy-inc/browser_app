@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 import Sleuth
 
 extension Tab.New {
@@ -14,8 +13,8 @@ extension Tab.New {
                     VStack(spacing: metrics.spacing) {
                         ForEach(0 ..< list[column].count, id: \.self) { index in
                             Cell(browse: list[column][index]) {
-                                Cloud.shared.revisit(list[column][index].id) { _ in }
-                                session.tab.browse(id, list[column][index].id)
+                                cloud.revisit(list[column][index].id) { _ in }
+                                tab.browse(id, list[column][index].id)
                             }
                             .frame(width: metrics.width)
                             .fixedSize()

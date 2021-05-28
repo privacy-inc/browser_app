@@ -1,6 +1,5 @@
 import WebKit
 import Combine
-import Archivable
 import Sleuth
 
 extension Web {
@@ -34,30 +33,29 @@ extension Web {
             
             publisher(for: \.estimatedProgress, options: .new)
                 .removeDuplicates()
-                .sink { [weak self] in
-                    guard let id = self?.id else { return }
-                    self?.wrapper?.session.tab[progress: id] = $0
+                .sink {
+                    tab.update(id, progress: $0)
                 }
                 .store(in: &subs)
 
             publisher(for: \.isLoading, options: .new)
                 .removeDuplicates()
-                .sink { [weak self] in
-                    self?.wrapper?.session.tab[loading: id] = $0
+                .sink {
+                    tab.update(id, loading: $0)
                 }
                 .store(in: &subs)
 
             publisher(for: \.canGoForward, options: .new)
                 .removeDuplicates()
-                .sink { [weak self] in
-                    self?.wrapper?.session.tab[forward: id] = $0
+                .sink {
+                    tab.update(id, forward: $0)
                 }
                 .store(in: &subs)
 
             publisher(for: \.canGoBack, options: .new)
                 .removeDuplicates()
-                .sink { [weak self] in
-                    self?.wrapper?.session.tab[back: id] = $0
+                .sink {
+                    tab.update(id, back: $0)
                 }
                 .store(in: &subs)
             
@@ -69,9 +67,8 @@ extension Web {
                     !$0.isEmpty
                 }
                 .removeDuplicates()
-                .sink { [weak self] in
-                    guard let browse = self?.browse else { return }
-                    Cloud.shared.update(browse, title: $0)
+                .sink {
+                    cloud.update(browse, title: $0)
                 }
                 .store(in: &subs)
 
@@ -81,7 +78,7 @@ extension Web {
                 }
                 .removeDuplicates()
                 .sink {
-                    Cloud.shared.update(browse, url: $0)
+                    cloud.update(browse, url: $0)
                 }
                 .store(in: &subs)
             
@@ -229,20 +226,13 @@ extension Web {
                 .store(in: &subs)
         }
         
-        override func error(_ error: WebError) {
-            wrapper?
-                .session
-                .tab
-                .error(id, error)
-        }
-        
         func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
             UIApplication.shared.resign()
         }
         
         func webView(_: WKWebView, didFinish: WKNavigation!) {
-            wrapper?.session.tab[progress: id] = 1
-            Cloud.shared.activity()
+            tab.update(id, progress: 1)
+            cloud.activity()
         }
 
         func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
@@ -256,7 +246,7 @@ extension Web {
         }
         
         func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
-            switch Cloud.shared.policy(decidePolicyFor.request.url!) {
+            switch cloud.policy(decidePolicyFor.request.url!) {
             case .allow:
                 print("allow \(decidePolicyFor.request.url!)")
                 preferences.allowsContentJavaScript = settings.javascript

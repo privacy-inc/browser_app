@@ -1,6 +1,5 @@
 import WebKit
 import Combine
-import Archivable
 import Sleuth
 
 final class Web: Webview {

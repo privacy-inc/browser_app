@@ -23,7 +23,7 @@ struct Tab: View {
                     Rectangle()
                         .fill(Color(.tertiaryLabel))
                         .frame(height: 1)
-                    switch session.tab.state(id) {
+                    switch session.tabs.state(id) {
                     case .new:
                         New(session: $session, id: id)
                     case let .browse(browse):
@@ -36,7 +36,7 @@ struct Tab: View {
                     case let .error(browse, error):
                         Error(session: $session, id: id, browse: browse, error: error)
                     }
-                    Loading(percent: session.tab[progress: id])
+                    Loading(percent: session.tabs[progress: id])
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
                 Modal(session: $session, show: $modal, find: $find, id: id)
@@ -51,9 +51,9 @@ struct Tab: View {
     
     private func tabs() {
         UIApplication.shared.resign()
-        switch session.tab.state(id) {
+        switch session.tabs.state(id) {
         case .browse:
-            session.tab[progress: id] = 1
+            tab.update(id, progress: 1)
         default:
             break
         }
@@ -82,6 +82,6 @@ struct Tab: View {
             .image { _ in
                 controller.view!.drawHierarchy(in: controller.view.frame, afterScreenUpdates: false)
             }
-        session.tab[snapshot: id] = snapshot
+        tab.update(id, snapshot: snapshot)
     }
 }

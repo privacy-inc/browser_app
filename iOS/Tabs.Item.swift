@@ -11,7 +11,7 @@ extension Tabs {
             VStack {
                 Button {
                     withAnimation(.spring(blendDuration: 0.4)) {
-                        session.tab.close(id)
+                        tab.close(id)
                     }
                 } label: {
                     HStack {
@@ -34,7 +34,7 @@ extension Tabs {
                     }
                 } label: {
                     ZStack {
-                        if let image = session.tab[snapshot: id] as? UIImage {
+                        if let image = session.tabs[snapshot: id] as? UIImage {
                                 RoundedRectangle(cornerRadius: 12)
                                     .fill(Color(.systemBackground))
                                 Image(uiImage: image)

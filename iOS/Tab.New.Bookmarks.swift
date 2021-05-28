@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 import Sleuth
 
 extension Tab.New {
@@ -14,13 +13,15 @@ extension Tab.New {
                     .frame(height: 1)
                     .padding(.horizontal)
                 Button {
-                    Cloud.shared.open(index, id: session.tab.state(id).browse) {
-                        if session.tab.state(id).browse == $0 {
-                            session.load.send((id: id, access: $1))
-                        } else {
-                            session.tab.browse(id, $0)
+                    let browse = session.tabs.state(id).browse
+                    cloud
+                        .open(index, id: browse) {
+                            if browse == $0 {
+                                session.load.send((id: id, access: $1))
+                            } else {
+                                tab.browse(id, $0)
+                            }
                         }
-                    }
                 } label: {
                     VStack(alignment: .leading) {
                         Text(verbatim: list[index].title)

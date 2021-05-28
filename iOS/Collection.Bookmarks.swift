@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 import Sleuth
 
 extension Collection {
@@ -12,13 +11,15 @@ extension Collection {
         var body: some View {
             ForEach(0 ..< bookmarks.count, id: \.self) { index in
                 Button {
-                    Cloud.shared.open(index, id: session.tab.state(id).browse) {
-                        if session.tab.state(id).browse == $0 {
-                            session.load.send((id: id, access: $1))
-                        } else {
-                            session.tab.browse(id, $0)
+                    let browse = session.tabs.state(id).browse
+                    cloud
+                        .open(index, id: browse) {
+                            if browse == $0 {
+                                session.load.send((id: id, access: $1))
+                            } else {
+                                tab.browse(id, $0)
+                            }
                         }
-                    }
                     visible.wrappedValue.dismiss()
                 } label: {
                     VStack(alignment: .leading) {

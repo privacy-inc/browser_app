@@ -1,6 +1,5 @@
 import AppKit
 import Combine
-import Archivable
 
 extension Search {
     final class Field: NSTextField, NSTextFieldDelegate {

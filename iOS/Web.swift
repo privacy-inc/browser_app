@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 
 struct Web: UIViewRepresentable {
     @Binding var session: Session
@@ -8,14 +7,14 @@ struct Web: UIViewRepresentable {
     let tabs: () -> Void
     
     func makeCoordinator() -> Coordinator {
-        session.tab[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
+        session.tabs[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
     }
     
     func makeUIView(context: Context) -> Coordinator {
         context.coordinator.wrapper = self
-        if session.tab[web: id] == nil {
+        if session.tabs[web: id] == nil {
             context.coordinator.load(session.archive.page(browse).access)
-            session.tab[web: id] = context.coordinator
+            tab.update(id, web: context.coordinator)
         }
         return context.coordinator
     }
@@ -27,13 +26,14 @@ struct Web: UIViewRepresentable {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             let id = withAnimation(.easeInOut(duration: 0.4)) {
-                session.tab.new()
+                tab.new()
             }
             
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                Cloud.shared.navigate(url) { browse, _ in
-                    session.tab.browse(id, browse)
-                }
+                cloud
+                    .navigate(url) { browse, _ in
+                        tab.browse(id, browse)
+                    }
                 withAnimation(.easeInOut(duration: 0.4)) {
                     session.section = .tab(id)
                 }

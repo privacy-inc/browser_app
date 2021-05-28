@@ -1,6 +1,5 @@
 import SwiftUI
 import WebKit
-import Archivable
 import Sleuth
 
 extension Tab {
@@ -8,7 +7,7 @@ extension Tab {
         @Binding var session: Session
         let id: UUID
         let browse: Int
-        let error: WebError
+        let error: Sleuth.Tab.Error
         
         var body: some View {
             ZStack {
@@ -20,29 +19,30 @@ extension Tab {
                         .padding()
                         .padding(.top)
                         .frame(maxWidth: 300, alignment: .leading)
-                    Text(error.domain)
+                    Text(verbatim: error.domain)
                         .padding(.horizontal)
                         .frame(maxWidth: 300, alignment: .leading)
-                    Text(error.description)
+                    Text(verbatim: error.description)
                         .font(.callout)
                         .foregroundColor(.secondary)
                         .fixedSize(horizontal: false, vertical: true)
                         .padding([.horizontal, .bottom])
                         .frame(maxWidth: 300, alignment: .leading)
                     Control(title: "Try again", image: "gobackward") {
-                        Cloud.shared.browse(error.url, id: browse) {
-                            session.tab.browse(id, $0)
-                            session.load.send((id: id, access: $1))
-                        }
+                        cloud
+                            .browse(error.url, id: browse) {
+                                tab.browse(id, $0)
+                                session.load.send((id: id, access: $1))
+                            }
                     }
                     Control(title: "Cancel", image: "xmark") {
-                        guard let web = session.tab[web: id] as? WKWebView else { return }
+                        guard let web = session.tabs[web: id] as? WKWebView else { return }
                         if web.url == nil {
-                            session.tab.clear(id)
+                            tab.clear(id)
                         } else {
-                            Cloud.shared.update(browse, url: web.url ?? URL(string: "about:blank")!)
-                            Cloud.shared.update(browse, title: web.title ?? "")
-                            session.tab.dismiss(id)
+                            cloud.update(browse, url: web.url ?? URL(string: "about:blank")!)
+                            cloud.update(browse, title: web.title ?? "")
+                            tab.dismiss(id)
                         }
                     }
                     Spacer()

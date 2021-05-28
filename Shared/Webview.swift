@@ -1,6 +1,5 @@
 import WebKit
 import Combine
-import Archivable
 import Sleuth
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
@@ -39,10 +38,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         scrollView.delegate = nil
     }
     
-    func error(_ error: WebError) {
-        
-    }
-    
     final func load(_ access: Page.Access) {
         switch access {
         case .remote:
@@ -70,12 +65,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
         {
-            Cloud.shared.update(browse, url: $0)
-            Cloud.shared.update(browse, title: $1)
-            error(.init(url: $0.absoluteString, description: $1))
+            cloud.update(browse, url: $0)
+            cloud.update(browse, title: $1)
+            tab.error(id, .init(url: $0.absoluteString, description: $1))
         } ((withError as? URLError)
             .flatMap(\.failingURL)
             ?? url ?? URL(string: "about:blank")!, withError.localizedDescription)
-        Cloud.shared.activity()
+        cloud.activity()
     }
 }

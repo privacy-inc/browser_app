@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 
 struct Forget: View {
     @State private var done = false
@@ -16,22 +15,22 @@ struct Forget: View {
             }
             Section {
                 Cell(title: "Forget history") {
-                    Cloud.shared.forgetBrowse()
+                    cloud.forgetBrowse()
                     confirm()
                 }
                 Cell(title: "Forget activity") {
-                    Cloud.shared.forgetActivity()
+                    cloud.forgetActivity()
                     confirm()
                 }
                 Cell(title: "Forget trackers") {
-                    Cloud.shared.forgetBlocked()
+                    cloud.forgetBlocked()
                     confirm()
                 }
             }
             .foregroundColor(.primary)
             Section {
                 Cell(title: "Forget everything") {
-                    Cloud.shared.forget()
+                    cloud.forget()
                     confirm()
                 }
                 .foregroundColor(.pink)

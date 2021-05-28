@@ -1,6 +1,5 @@
 import AppKit
 import Combine
-import Archivable
 
 extension New {
     final class History: Collection<New.History.Cell> {

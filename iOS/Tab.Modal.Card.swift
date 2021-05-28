@@ -1,5 +1,4 @@
 import SwiftUI
-import Archivable
 
 extension Tab.Modal {
     struct Card: View {
@@ -19,8 +18,8 @@ extension Tab.Modal {
                             session.modal = .info(id)
                         }
                         Control(title: "Bookmark", image: "bookmark") {
-                            session.tab.state(id).browse
-                                .map(Cloud.shared.bookmark)
+                            session.tabs.state(id).browse
+                                .map(cloud.bookmark)
                             dismiss()
                             withAnimation(.easeInOut(duration: 0.4)) {
                                 session.toast = .init(title: "Bookmark added", icon: "bookmark")
@@ -37,7 +36,7 @@ extension Tab.Modal {
                             find = true
                         }
                     }
-                    if session.tab[loading: id] {
+                    if session.tabs[loading: id] {
                         Control(title: "Stop", image: "xmark") {
                             
                         }

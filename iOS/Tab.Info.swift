@@ -84,7 +84,7 @@ extension Tab {
         }
         
         private var page: Page? {
-            session.tab.state(id).browse
+            session.tabs.state(id).browse
                 .map(session.archive.page)
         }
         

@@ -2,7 +2,6 @@ import UIKit
 import StoreKit
 import Combine
 import WidgetKit
-import Archivable
 import Sleuth
 
 extension App {
@@ -13,8 +12,7 @@ extension App {
         func application(_ application: UIApplication, willFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
             application.registerForRemoteNotifications()
 
-            Cloud
-                .shared
+            cloud
                 .archive
                 .removeDuplicates()
                 .debounce(for: .seconds(3), scheduler: DispatchQueue.global(qos: .utility))
@@ -42,9 +40,10 @@ extension App {
         }
         
         func application(_: UIApplication, didReceiveRemoteNotification: [AnyHashable : Any], fetchCompletionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-            Cloud.shared.receipt {
-                fetchCompletionHandler($0 ? .newData : .noData)
-            }
+            cloud
+                .receipt {
+                    fetchCompletionHandler($0 ? .newData : .noData)
+                }
         }
     }
 }
