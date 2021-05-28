@@ -94,7 +94,7 @@ final class Search: NSView {
         engine
             .click
             .map {
-                Int(Cloud.shared.archive.value.settings.engine.rawValue)
+                Int(session.archive.settings.engine.rawValue)
             }
             .sink { [weak self] current in
                 [google, ecosia]

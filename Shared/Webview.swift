@@ -1,8 +1,10 @@
 import WebKit
+import Combine
 import Archivable
 import Sleuth
 
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
+    var subs = Set<AnyCancellable>()
     let id: UUID
     let browse: Int
     let settings: Sleuth.Settings

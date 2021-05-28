@@ -6,8 +6,7 @@ import Sleuth
 extension Web {
     final class Coordinator: Webview {
         var wrapper: Web?
-        private var subs = Set<AnyCancellable>()
-
+        
         deinit {
             print("gone")
         }
@@ -44,7 +43,6 @@ extension Web {
             publisher(for: \.isLoading, options: .new)
                 .removeDuplicates()
                 .sink { [weak self] in
-                    guard let id = self?.id else { return }
                     self?.wrapper?.session.tab[loading: id] = $0
                 }
                 .store(in: &subs)
@@ -52,7 +50,6 @@ extension Web {
             publisher(for: \.canGoForward, options: .new)
                 .removeDuplicates()
                 .sink { [weak self] in
-                    guard let id = self?.id else { return }
                     self?.wrapper?.session.tab[forward: id] = $0
                 }
                 .store(in: &subs)
@@ -60,7 +57,6 @@ extension Web {
             publisher(for: \.canGoBack, options: .new)
                 .removeDuplicates()
                 .sink { [weak self] in
-                    guard let id = self?.id else { return }
                     self?.wrapper?.session.tab[back: id] = $0
                 }
                 .store(in: &subs)
@@ -84,8 +80,7 @@ extension Web {
                     $0
                 }
                 .removeDuplicates()
-                .sink { [weak self] in
-                    guard let browse = self?.browse else { return }
+                .sink {
                     Cloud.shared.update(browse, url: $0)
                 }
                 .store(in: &subs)
