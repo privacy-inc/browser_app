@@ -30,6 +30,59 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
+        
+        publisher(for: \.estimatedProgress, options: .new)
+            .removeDuplicates()
+            .sink {
+                tabber.update(id, progress: $0)
+            }
+            .store(in: &subs)
+
+        publisher(for: \.isLoading, options: .new)
+            .removeDuplicates()
+            .sink {
+                tabber.update(id, loading: $0)
+            }
+            .store(in: &subs)
+
+        publisher(for: \.canGoForward, options: .new)
+            .removeDuplicates()
+            .sink {
+                tabber.update(id, forward: $0)
+            }
+            .store(in: &subs)
+
+        publisher(for: \.canGoBack, options: .new)
+            .removeDuplicates()
+            .sink {
+                tabber.update(id, back: $0)
+            }
+            .store(in: &subs)
+        
+        publisher(for: \.title, options: .new)
+            .compactMap {
+                $0
+            }
+            .filter {
+                !$0.isEmpty
+            }
+            .removeDuplicates()
+            .sink {
+                cloud.update(browse, title: $0)
+            }
+            .store(in: &subs)
+
+        publisher(for: \.url, options: .new)
+            .compactMap {
+                $0
+            }
+            .removeDuplicates()
+            .sink {
+                cloud.update(browse, url: $0)
+            }
+            .store(in: &subs)
+        
+        load(cloud.archive.value.page(browse).access)
     }
     
     deinit {

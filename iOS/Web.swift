@@ -11,7 +11,6 @@ struct Web: UIViewRepresentable {
     
     func makeUIView(context: Context) -> Coordinator {
         if session.tab[web: id] == nil {
-            context.coordinator.load(session.archive.page(browse).access)
             tabber.update(id, web: context.coordinator)
         }
         return context.coordinator

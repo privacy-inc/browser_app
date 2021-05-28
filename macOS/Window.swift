@@ -55,8 +55,8 @@ final class Window: NSWindow {
                 switch $0 {
                 case .new:
                     self?.show(New(id: id))
-                case .browse:
-                    self?.show(NSView())
+                case let .browse(browse):
+                    self?.show(Web(id: id, browse: browse))
                 case .error:
                     break
                 }
@@ -89,6 +89,7 @@ final class Window: NSWindow {
         view.layer!.cornerRadius = 9
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView!.addSubview(view)
+        
         view.topAnchor.constraint(equalTo: progress.bottomAnchor).isActive = true
         view.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
         view.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true

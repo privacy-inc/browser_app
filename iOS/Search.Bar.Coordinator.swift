@@ -49,6 +49,7 @@ extension Search.Bar {
         
         func textFieldDidEndEditing(_: UITextField) {
             wrapper.dismiss()
+            field.text = ""
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
