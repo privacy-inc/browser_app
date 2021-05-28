@@ -1,42 +1,16 @@
 import UIKit
 
 extension Tab.Find {
-    final class Coordinator: UIView, UIKeyInput, UITextFieldDelegate {
-        private weak var field: UITextField!
+    final class Coordinator: Keyboard {
         private weak var _next: UIButton!
-        private var editable = true
-        private let input = UIInputView(frame: .init(x: 0, y: 0, width: 0, height: 48), inputViewStyle: .keyboard)
         private let wrapper: Tab.Find
-        override var inputAccessoryView: UIView? { input }
-        override var canBecomeFirstResponder: Bool { editable }
-        
-        var hasText: Bool {
-            get {
-                field.text?.isEmpty == false
-            }
-            set { }
-        }
         
         required init?(coder: NSCoder) { nil }
-        init(wrapper: Tab.Find) {
+        init(wrapper: Tab.Find, id: UUID) {
             self.wrapper = wrapper
-            super.init(frame: .zero)
-            
-            let field = UITextField()
-            field.translatesAutoresizingMaskIntoConstraints = false
-            field.clearButtonMode = .always
-            field.autocorrectionType = .no
-            field.autocapitalizationType = .none
-            field.spellCheckingType = .yes
-            field.backgroundColor = UIApplication.dark ? .init(white: 1, alpha: 0.2) : .init(white: 1, alpha: 0.6)
-            field.tintColor = .label
-            field.allowsEditingTextAttributes = false
-            field.delegate = self
-            field.borderStyle = .roundedRect
+            super.init(id: id)
             field.returnKeyType = .search
             field.leftViewMode = .always
-            input.addSubview(field)
-            self.field = field
             
             let container = UIView()
             container.translatesAutoresizingMaskIntoConstraints = false
@@ -51,29 +25,18 @@ extension Tab.Find {
             
             field.leftView = container
             
-            let cancel = UIButton()
-            
-            cancel.setImage(UIImage(systemName: "xmark")?
-                                .withConfiguration(UIImage.SymbolConfiguration(textStyle: .callout)), for: .normal)
-            cancel.imageView!.tintColor = .secondaryLabel
-            cancel.addTarget(self, action: #selector(dismiss), for: .touchUpInside)
-            
             let next = UIButton()
+            next.translatesAutoresizingMaskIntoConstraints = false
             next.setImage(UIImage(systemName: "arrow.right"), for: .normal)
             next.imageView!.tintColor = .label
             next.addTarget(self, action: #selector(search), for: .touchUpInside)
             next.isEnabled = false
+            next.imageEdgeInsets.top = 4
+            input.addSubview(next)
             self._next = next
-            
-            [cancel, next].forEach {
-                $0.translatesAutoresizingMaskIntoConstraints = false
-                $0.imageEdgeInsets.top = 4
-                input.addSubview($0)
-            }
             
             field.leftAnchor.constraint(equalTo: cancel.rightAnchor).isActive = true
             field.rightAnchor.constraint(equalTo: next.leftAnchor, constant: -10).isActive = true
-            field.bottomAnchor.constraint(equalTo: input.bottomAnchor, constant: -4).isActive = true
             
             icon.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
             icon.rightAnchor.constraint(equalTo: container.rightAnchor, constant: 2).isActive = true
@@ -83,28 +46,9 @@ extension Tab.Find {
             
             cancel.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
             next.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
-            
-            [cancel, next].forEach {
-                $0.widthAnchor.constraint(equalToConstant: 50).isActive = true
-                $0.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
-                $0.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
-            }
-
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-                self?.becomeFirstResponder()
-            }
-        }
-        
-        @discardableResult override func becomeFirstResponder() -> Bool {
-            DispatchQueue.main.async { [weak self] in
-                self?.field.becomeFirstResponder()
-            }
-            return super.becomeFirstResponder()
-        }
-        
-        func textFieldShouldEndEditing(_: UITextField) -> Bool {
-            editable = false
-            return true
+            next.widthAnchor.constraint(equalToConstant: 50).isActive = true
+            next.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
+            next.bottomAnchor.constraint(equalTo: input.bottomAnchor).isActive = true
         }
         
         func textFieldDidEndEditing(_: UITextField) {
@@ -125,15 +69,8 @@ extension Tab.Find {
             } (query)
         }
         
-        func insertText(_: String) { }
-        func deleteBackward() { }
-        
         private var query: String {
             field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
-        }
-        
-        @objc private func dismiss() {
-            field.resignFirstResponder()
         }
         
         @objc private func search() {

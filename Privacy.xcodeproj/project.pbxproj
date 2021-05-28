@@ -60,6 +60,7 @@
 		CE751C22265A9A5200F8589D /* Settings.Data.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C21265A9A5200F8589D /* Settings.Data.Cell.swift */; };
 		CE751C24265AB2CC00F8589D /* Purchases.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C23265AB2CC00F8589D /* Purchases.swift */; };
 		CE751C26265AB2EC00F8589D /* Purchases.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C25265AB2EC00F8589D /* Purchases.Item.swift */; };
+		CE756F96266140E900D2FB6D /* Keyboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE756F95266140E900D2FB6D /* Keyboard.swift */; };
 		CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */; };
 		CE78111D264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111C264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift */; };
 		CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111E264BFCBE0097FAC2 /* UIApplication.swift */; };
@@ -231,6 +232,7 @@
 		CE751C21265A9A5200F8589D /* Settings.Data.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Data.Cell.swift; sourceTree = "<group>"; };
 		CE751C23265AB2CC00F8589D /* Purchases.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.swift; sourceTree = "<group>"; };
 		CE751C25265AB2EC00F8589D /* Purchases.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Purchases.Item.swift; sourceTree = "<group>"; };
+		CE756F95266140E900D2FB6D /* Keyboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Keyboard.swift; sourceTree = "<group>"; };
 		CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Bar.swift; sourceTree = "<group>"; };
 		CE78111C264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Bar.Coordinator.swift; sourceTree = "<group>"; };
 		CE78111E264BFCBE0097FAC2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
@@ -405,6 +407,7 @@
 				CE56789A265AB8080087B8F8 /* Info.Message.swift */,
 				CEF09FFD265BFCD800E83BAE /* Info.swift */,
 				CEF09FF9265BD30400E83BAE /* Info.Why.swift */,
+				CE756F95266140E900D2FB6D /* Keyboard.swift */,
 				CE751C1B265A814A00F8589D /* Popup.swift */,
 				CE78111C264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift */,
 				CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */,
@@ -759,6 +762,7 @@
 				CE616C4A26595AC200E02ABF /* Settings.Default.swift in Sources */,
 				CE91FA7E264AB338009A1F88 /* Tab.swift in Sources */,
 				CE03EDD5264FD3450031B649 /* Search.Cell.swift in Sources */,
+				CE756F96266140E900D2FB6D /* Keyboard.swift in Sources */,
 				CE919A8F264D577B0051EE27 /* Web.Coordinator.swift in Sources */,
 				CE03EDCF264FBE8E0031B649 /* Tab.New.History.Cell.swift in Sources */,
 				CE781121264C00580097FAC2 /* Search.swift in Sources */,
