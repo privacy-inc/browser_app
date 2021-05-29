@@ -10,8 +10,8 @@ extension Tab {
                 ScrollView {
                     HStack {
                         Text("Bookmarks")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
+                            .font(.footnote.bold())
+                            .foregroundColor(.accentColor)
                             .padding(.leading)
                         Spacer()
                         Button {
@@ -27,8 +27,8 @@ extension Tab {
                     Bookmarks(session: $session, id: id)
                     HStack {
                         Text("Recent")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
+                            .font(.footnote.bold())
+                            .foregroundColor(.accentColor)
                             .padding(.leading)
                         Spacer()
                         Button {

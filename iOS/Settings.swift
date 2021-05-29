@@ -52,7 +52,10 @@ struct Settings: View {
                 }
                 Section {
                     Button {
-                        session.modal = .store
+                        session.modal = nil
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            session.modal = .store
+                        }
                     } label: {
                         Text("Privacy Plus")
                             .font(.callout.bold())

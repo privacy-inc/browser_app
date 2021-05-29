@@ -28,6 +28,7 @@ extension Store {
                         .padding(.vertical)
                 } else {
                     Text(verbatim: price)
+                        .foregroundColor(.primary)
                         .bold()
                         .padding(.top, 40)
                     Button(action: action) {
@@ -35,6 +36,7 @@ extension Store {
                             Capsule()
                                 .fill(Color.blue)
                             Text("Purchase")
+                                .bold()
                                 .foregroundColor(.white)
                                 .padding(.vertical, 10)
                         }

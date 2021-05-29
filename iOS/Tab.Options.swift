@@ -8,7 +8,7 @@ extension Tab {
         @Environment(\.presentationMode) private var visible
         
         var body: some View {
-            NavigationView {
+            Popup(title: "Sharing options", leading: { }) {
                 List {
                     Section(
                         header: Text("URL")) {
@@ -66,17 +66,7 @@ extension Tab {
                     .disabled(!photo)
                 }
                 .listStyle(GroupedListStyle())
-                .navigationBarTitle("Sharing options", displayMode: .large)
-                .navigationBarItems(trailing:
-                                        Button(action: dismiss) {
-                                            Image(systemName: "xmark")
-                                                .foregroundColor(.secondary)
-                                                .frame(width: 30, height: 50)
-                                                .padding(.leading, 40)
-                                                .contentShape(Rectangle())
-                                        })
             }
-            .navigationViewStyle(StackNavigationViewStyle())
         }
         
         private var string: String {

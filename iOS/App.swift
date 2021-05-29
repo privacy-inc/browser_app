@@ -21,10 +21,10 @@ let tabber = Sleuth.Tab()
                     session.tab = $0
                 }
                 .onReceive(session.purchases.open) {
-                    session.modal = .store
+                    change(.store)
                 }
                 .onReceive(delegate.froob) {
-                    session.modal = .froob
+                    change(.froob)
                 }
         }
         .onChange(of: phase) {
@@ -88,6 +88,18 @@ let tabber = Sleuth.Tab()
         }
     }
     
+    private func change(_ modal: Session.Modal) {
+        guard modal != session.modal else { return }
+        if session.modal == nil {
+            session.modal = modal
+        } else {
+            session.modal = nil
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                session.modal = modal
+            }
+        }
+    }
+    
     @ViewBuilder private func modal(_ modal: Session.Modal) -> some View {
         switch modal {
         case let .bookmarks(id), let .history(id):
@@ -102,10 +114,10 @@ let tabber = Sleuth.Tab()
             Trackers(session: $session, trackers: session.archive.trackers)
         case .activity:
             Activity(session: $session)
-        case .store:
-            Store(session: $session)
         case .froob:
             Info.Froob(session: $session)
+        case .store:
+            Store(session: $session)
         }
     }
 }

@@ -3,7 +3,6 @@ import SwiftUI
 extension Info {
     struct Froob: View {
         @Binding var session: Session
-        @Environment(\.presentationMode) private var visible
         
         var body: some View {
             Message(
@@ -14,8 +13,10 @@ extension Info {
     Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time only purchase and you can use it both on iOS and macOS.
     """) {
                 Button {
-                    visible.wrappedValue.dismiss()
-                    session.modal = .store
+                    session.modal = nil
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                        session.modal = .store
+                    }
                 } label: {
                     ZStack {
                         Capsule()

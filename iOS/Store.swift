@@ -9,7 +9,6 @@ struct Store: View {
     @State private var loading = true
     @State private var why = false
     @State private var alternatives = false
-    @Environment(\.presentationMode) private var visible
     
     var body: some View {
         Popup(title: "", leading: {

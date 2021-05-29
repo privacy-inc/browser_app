@@ -3,10 +3,9 @@ import SwiftUI
 struct Trackers: View {
     @Binding var session: Session
     let trackers: [(name: String, count: [Date])]
-    @Environment(\.presentationMode) private var visible
     
     var body: some View {
-        NavigationView {
+        Popup(title: "Trackers blocked", leading: { }) {
             List {
                 Section(header:
                             HStack {
@@ -37,18 +36,6 @@ struct Trackers: View {
                 }
             }
             .listStyle(GroupedListStyle())
-            .navigationBarTitle("Trackers blocked", displayMode: .large)
-            .navigationBarItems(trailing:
-                                    Button {
-                                        visible.wrappedValue.dismiss()
-                                    } label: {
-                                        Image(systemName: "xmark")
-                                            .foregroundColor(.secondary)
-                                            .frame(width: 30, height: 50)
-                                            .padding(.leading, 40)
-                                            .contentShape(Rectangle())
-                                    })
         }
-        .navigationViewStyle(StackNavigationViewStyle())
     }
 }

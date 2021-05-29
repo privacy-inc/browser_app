@@ -7,7 +7,9 @@ struct Search: View {
     
     var body: some View {
         ZStack {
-            Color(.secondarySystemBackground)
+            Color(.systemBackground)
+                .edgesIgnoringSafeArea(.all)
+            Color.accentColor.opacity(0.3)
                 .edgesIgnoringSafeArea(.all)
             ScrollView {
                 if bookmarks.isEmpty && recent.isEmpty {
