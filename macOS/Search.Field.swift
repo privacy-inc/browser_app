@@ -67,7 +67,7 @@ extension Search {
         @objc private func search() {
             window?.makeFirstResponder(window?.contentView)
             
-            let browse = tabber.items.value.state(id).browse
+            let browse = tabber.items.value[state: id].browse
             cloud
                 .browse(stringValue, id: browse) { [weak self] in
                     guard let id = self?.id else { return }

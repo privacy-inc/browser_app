@@ -59,7 +59,7 @@ extension Search.Bar {
                 .browse(field.text!, id: state.browse) { [weak self] in
                     guard let id = self?.id else { return }
                     if state.browse == $0 {
-                        if case .error = state {
+                        if state.isError {
                             tabber.browse(id, $0)
                         }
                         self?.wrapper.session.load.send((id: id, access: $1))

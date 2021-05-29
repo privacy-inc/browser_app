@@ -14,7 +14,7 @@ final class Search: NSView {
         back
             .click
             .sink {
-                
+                session.back.send(id)
             }
             .store(in: &subs)
         
@@ -22,7 +22,7 @@ final class Search: NSView {
         forward
             .click
             .sink {
-                
+                session.forward.send(id)
             }
             .store(in: &subs)
         
@@ -109,7 +109,7 @@ final class Search: NSView {
         reload
             .click
             .sink {
-                
+                session.reload.send(id)
             }
             .store(in: &subs)
         
@@ -117,19 +117,51 @@ final class Search: NSView {
         stop
             .click
             .sink {
-                
+                session.stop.send(id)
             }
             .store(in: &subs)
         
         tabber
             .items
             .map {
-                $0.state(id)
+                $0[state: id].isBrowse
+            }
+            .sink { isBrowse in
+                [info, bookmark, share, find]
+                    .forEach {
+                        $0.state = isBrowse ? .on : .off
+                    }
+            }
+            .store(in: &subs)
+        
+        tabber
+            .items
+            .map {
+                $0[state: id].isBrowse && $0[back: id]
             }
             .sink {
-                switch $0 {
-                case .browse
-                }
+                back.state = $0 ? .on : .off
+            }
+            .store(in: &subs)
+        
+        tabber
+            .items
+            .map {
+                $0[state: id].isBrowse && $0[forward: id]
+            }
+            .sink {
+                forward.state = $0 ? .on : .off
+            }
+            .store(in: &subs)
+        
+        tabber
+            .items
+            .map {
+                (isBrowse: $0[state: id].isBrowse, loading: $0[loading: id])
+            }
+            .sink {
+                reload.state = $0.isBrowse && $0.loading ? .on : .hidden
+                stop.state = $0.isBrowse && !$0.loading ? .on : .hidden
             }
             .store(in: &subs)
         

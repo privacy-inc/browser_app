@@ -48,7 +48,7 @@ final class Window: NSWindow {
         tabber
             .items
             .map {
-                $0.state(id)
+                $0[state: id]
             }
             .removeDuplicates()
             .sink { [weak self] in

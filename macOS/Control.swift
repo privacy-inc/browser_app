@@ -18,7 +18,11 @@ class Control: NSView {
         translatesAutoresizingMaskIntoConstraints = false
         setAccessibilityElement(true)
         setAccessibilityRole(.button)
-        addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
+        addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
+    }
+    
+    override func resetCursorRects() {
+        addCursorRect(bounds, cursor: .arrow)
     }
     
     override func mouseEntered(with: NSEvent) {
@@ -53,5 +57,6 @@ class Control: NSView {
     
     func update() {
         isHidden = state == .hidden
+        alphaValue = state == .off ? 0.25 : 1
     }
 }
