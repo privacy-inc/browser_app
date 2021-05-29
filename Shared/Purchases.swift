@@ -14,6 +14,10 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
         SKPaymentQueue.default().add(self)
     }
     
+    deinit {
+        SKPaymentQueue.default().remove(self)
+    }
+    
     func load() {
         request?.cancel()
 

@@ -3,7 +3,6 @@ import Combine
 import Sleuth
 
 struct Session {
-    let purchases = Purchases()
     let decimal = NumberFormatter()
     let tab = CurrentValueSubject<Tab, Never>(.init())
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()

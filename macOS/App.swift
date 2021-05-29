@@ -7,6 +7,7 @@ import Sleuth
 let session = Session()
 let cloud = Cloud.new
 let tabber = Tab()
+let purchases = Purchases()
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
     static let dark = NSApp.windows.first?.effectiveAppearance == .init(named: .darkAqua)
     private var subs = Set<AnyCancellable>()

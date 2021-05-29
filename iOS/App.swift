@@ -4,6 +4,7 @@ import Sleuth
 
 let cloud = Cloud.new
 let tabber = Sleuth.Tab()
+let purchases = Purchases()
 @main struct App: SwiftUI.App {
     @State private var session = Session()
     @Environment(\.scenePhase) private var phase
@@ -20,7 +21,7 @@ let tabber = Sleuth.Tab()
                 .onReceive(tabber.items) {
                     session.tab = $0
                 }
-                .onReceive(session.purchases.open) {
+                .onReceive(purchases.open) {
                     change(.store)
                 }
                 .onReceive(delegate.froob) {
@@ -117,7 +118,7 @@ let tabber = Sleuth.Tab()
         case .froob:
             Info.Froob(session: $session)
         case .store:
-            Store(session: $session)
+            Store()
         }
     }
 }

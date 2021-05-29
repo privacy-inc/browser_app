@@ -3,7 +3,6 @@ import StoreKit
 import Sleuth
 
 struct Store: View {
-    @Binding var session: Session
     @State private var products = [(product: SKProduct, price: String)]()
     @State private var error: String?
     @State private var loading = true
@@ -13,7 +12,7 @@ struct Store: View {
     var body: some View {
         Popup(title: "", leading: {
             Button {
-                session.purchases.restore()
+                purchases.restore()
             } label: {
                 Text("Restore purchases")
                     .font(.footnote.bold())
@@ -38,7 +37,7 @@ struct Store: View {
                                 ForEach(products, id: \.product.productIdentifier) { product in
                                     Item(purchase: Purchases.Item(rawValue: product.0.productIdentifier)!, price: product.1) {
                                         withAnimation(.easeInOut(duration: 0.5)) {
-                                            session.purchases.purchase(product.0)
+                                            purchases.purchase(product.0)
                                         }
                                     }
                                 }) {
@@ -55,18 +54,18 @@ struct Store: View {
                 .listStyle(GroupedListStyle())
             }
         }
-        .onReceive(session.purchases.loading) {
+        .onReceive(purchases.loading) {
             loading = $0
         }
-        .onReceive(session.purchases.error) {
+        .onReceive(purchases.error) {
             error = $0
         }
-        .onReceive(session.purchases.products) {
+        .onReceive(purchases.products) {
             error = nil
             products = $0
         }
         .onAppear {
-            session.purchases.load()
+            purchases.load()
         }
     }
 }
