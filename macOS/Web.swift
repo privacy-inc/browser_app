@@ -24,41 +24,138 @@ final class Web: Webview {
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
         handler.web = self
         
+        session
+            .load
+            .filter {
+                $0.id == id
+            }
+            .sink { [weak self] in
+                self?.load($0.access)
+            }
+            .store(in: &subs)
         
+        session
+            .reload
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.reload()
+            }
+            .store(in: &subs)
         
+        session
+            .stop
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.stopLoading()
+            }
+            .store(in: &subs)
         
+        session
+            .back
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.goBack()
+            }
+            .store(in: &subs)
         
-//        browser.previous.sink { [weak self] in
-//            if self?.canGoBack == true {
-//                self?.goBack()
-//            } else {
-//                browser.close.send()
-//            }
-//        }.store(in: &subs)
-//
-//        browser.next.sink { [weak self] in
-//            self?.goForward()
-//        }.store(in: &subs)
-//
-//        browser.load.sink { [weak self] in
-//            if let entry = browser.entry.value {
-//                self?.load(entry)
-//            }
-//        }.store(in: &subs)
-//
-//        browser.reload.sink { [weak self] in
-//            if let entry = browser.entry.value {
-//                if self?.url == nil {
-//                    self?.load(entry)
-//                } else {
-//                    self?.reload()
-//                }
-//            }
-//        }.store(in: &subs)
-//
-//        browser.stop.sink { [weak self] in
-//            self?.stopLoading()
-//        }.store(in: &subs)
+        session
+            .forward
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.goForward()
+            }
+            .store(in: &subs)
+        
+        session
+            .print
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+//                UIPrintInteractionController.shared.printFormatter = self?.viewPrintFormatter()
+//                UIPrintInteractionController.shared.present(animated: true)
+            }
+            .store(in: &subs)
+
+        session
+            .pdf
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.createPDF {
+                    guard
+                        case let .success(data) = $0,
+                        let name = self?.url?.file("pdf")
+                    else { return }
+//                    UIApplication.shared.share(data.temporal(name))
+                }
+            }
+            .store(in: &subs)
+        
+        session
+            .webarchive
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.createWebArchiveData {
+                    guard
+                        case let .success(data) = $0,
+                        let name = self?.url?.file("webarchive")
+                    else { return }
+//                    UIApplication.shared.share(data.temporal(name))
+                }
+            }
+            .store(in: &subs)
+        
+        session
+            .snapshot
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.takeSnapshot(with: nil) { image, _ in
+//                    guard
+//                        let data = image?.pngData(),
+//                        let name = self?.url?.file("png")
+//                    else { return }
+//                    UIApplication.shared.share(data.temporal(name))
+                }
+            }
+            .store(in: &subs)
+        
+        session
+            .find
+            .filter {
+                $0.0 == id
+            }
+            .map {
+                $0.1
+            }
+            .sink { [weak self] in
+                self?.find($0) {
+                    guard $0.matchFound else { return }
+                    self?.evaluateJavaScript(Script.highlight) { offset, _ in
+                        offset
+                            .flatMap {
+                                $0 as? CGFloat
+                            }
+                            .map {
+                                self?.found($0)
+                            }
+                    }
+                }
+            }
+            .store(in: &subs)
     }
     
     override func external(_ url: URL) {
@@ -118,6 +215,14 @@ final class Web: Webview {
                 $0.representedObject = item
             }
         }
+    }
+    
+    private func found(_ offset: CGFloat) {
+//        scrollView.scrollRectToVisible(.init(x: 0,
+//                                             y: offset + scrollView.contentOffset.y - (offset > 0 ? 160 : -180),
+//                                             width: 320,
+//                                             height: 320),
+//                                       animated: true)
     }
     
     @objc private func tabbed(_ item: NSMenuItem) {

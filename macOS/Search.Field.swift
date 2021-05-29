@@ -52,6 +52,7 @@ extension Search {
         
         override func textDidChange(_: Notification) {
 //            browser.search.send(stringValue)
+            session.filter.send((id: id, query: stringValue))
         }
         
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
@@ -66,6 +67,7 @@ extension Search {
         
         @objc private func search() {
             window?.makeFirstResponder(window?.contentView)
+            session.filter.send((id: id, query: ""))
             
             let browse = tabber.items.value[state: id].browse
             cloud

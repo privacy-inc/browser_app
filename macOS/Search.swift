@@ -101,7 +101,7 @@ final class Search: NSView {
                         $0.state = $0.tag == current ? .on : .off
                     }
                 options.minimumWidth = field.frame.size.width
-                options.popUp(positioning: options.item(at: 0), at: .init(x: field.frame.origin.x, y: 0), in: self)
+                options.popUp(positioning: nil, at: .init(x: field.frame.origin.x, y: 0), in: self)
             }
             .store(in: &subs)
         
@@ -120,6 +120,8 @@ final class Search: NSView {
                 session.stop.send(id)
             }
             .store(in: &subs)
+        
+        let autocomplete = NSPanel(contentRect: .init(x: 0, y: 0, width: 100, height: 100), styleMask: [.borderless, .nonactivatingPanel], backing: .buffered, defer: true)
         
         tabber
             .items
@@ -160,8 +162,42 @@ final class Search: NSView {
                 (isBrowse: $0[state: id].isBrowse, loading: $0[loading: id])
             }
             .sink {
-                reload.state = $0.isBrowse && $0.loading ? .on : .hidden
-                stop.state = $0.isBrowse && !$0.loading ? .on : .hidden
+                reload.state = $0.isBrowse && !$0.loading ? .on : .hidden
+                stop.state = $0.isBrowse && $0.loading ? .on : .hidden
+            }
+            .store(in: &subs)
+        
+        session
+            .filter
+            .filter {
+                $0.id == id
+            }
+            .map {
+                $0.query.isEmpty
+            }
+            .removeDuplicates()
+            .sink { [weak self] in
+                if $0 {
+                    autocomplete.close()
+                } else {
+//                    autocomplete.popUp(positioning: nil, at: .init(x: field.frame.origin.x, y: 0), in: self)
+//                    Plus().show(relativeTo: .init(x: -300, y: 300, width: 0, height: 0), of: self!, preferredEdge: .minY)
+                    let point = self?.window?.convertPoint(toScreen: .init(x: field.frame.minX, y: field.frame.maxY))
+                    autocomplete.contentView!.frame = .init(origin: point!, size: .init(width: 200, height: 100))
+                    autocomplete.orderFront(nil)
+                }
+            }
+            .store(in: &subs)
+        
+        session
+            .filter
+            .filter {
+                $0.id == id
+            }
+            .sink { _ in
+//                autocomplete.items = [.init(title: "hello world", action: nil, keyEquivalent: "")]
+                
+//                autocomplete.popUp(positioning: nil, at: .init(x: field.frame.origin.x, y: 0), in: panel.contentView)
             }
             .store(in: &subs)
         
@@ -213,5 +249,17 @@ final class Search: NSView {
     
     @objc private func change(_ engine: NSMenuItem) {
         cloud.engine(.init(rawValue: .init(engine.tag))!)
+    }
+}
+
+final class Plus: NSPopover {
+    required init?(coder: NSCoder) { nil }
+    override init() {
+        super.init()
+        behavior = .transient
+        contentSize = .init(width: 240, height: 180)
+        contentViewController = .init()
+        contentViewController!.view = .init(frame: .init(origin: .zero, size: contentSize))
+        
     }
 }
