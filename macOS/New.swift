@@ -24,8 +24,10 @@ final class New: NSView {
         let backgroundHistory = NSView()
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
         backgroundHistory.wantsLayer = true
-        backgroundHistory.layer!.backgroundColor = NSColor.unemphasizedSelectedTextBackgroundColor.cgColor
+        backgroundHistory.layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
         backgroundHistory.layer!.cornerRadius = 6
+        backgroundHistory.layer!.borderWidth = 1
+        backgroundHistory.layer!.borderColor = NSColor.controlAccentColor.cgColor
         content.addSubview(backgroundHistory)
         
         let bookmarks = Bookmarks(id: id)

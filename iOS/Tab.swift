@@ -23,7 +23,7 @@ struct Tab: View {
                     Rectangle()
                         .fill(Color(.tertiaryLabel))
                         .frame(height: 1)
-                    switch session.tab.state(id) {
+                    switch session.tab[state: id] {
                     case .new:
                         New(session: $session, id: id)
                     case let .browse(browse):
@@ -70,11 +70,8 @@ struct Tab: View {
     
     private func tabs() {
         UIApplication.shared.resign()
-        switch session.tab.state(id) {
-        case .browse:
+        if session.tab[state: id].isBrowse {
             tabber.update(id, progress: 1)
-        default:
-            break
         }
         shot()
 

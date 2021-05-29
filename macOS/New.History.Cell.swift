@@ -10,11 +10,11 @@ extension New.History {
         }
         
         override var none: CGColor {
-            NSColor.windowBackgroundColor.cgColor
+            NSColor.controlBackgroundColor.cgColor
         }
         
         override var highlighted: CGColor {
-            NSColor.controlBackgroundColor.cgColor
+            NSColor.windowBackgroundColor.cgColor
         }
         
         required init?(coder: NSCoder) { nil }

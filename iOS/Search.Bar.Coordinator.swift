@@ -19,7 +19,7 @@ extension Search.Bar {
             cancel.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor).isActive = true
             
             wrapper
-                .session.tab.state(wrapper.id).browse
+                .session.tab[state: wrapper.id].browse
                 .map(wrapper.session.archive.page)
                 .map(\.access.string)
                 .map {
@@ -54,7 +54,7 @@ extension Search.Bar {
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
             filter = false
-            let state = wrapper.session.tab.state(id)
+            let state = wrapper.session.tab[state: id]
             cloud
                 .browse(field.text!, id: state.browse) { [weak self] in
                     guard let id = self?.id else { return }

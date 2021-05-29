@@ -18,7 +18,7 @@ extension Tab.Modal {
                             session.modal = .info(id)
                         }
                         Control(title: "Bookmark", image: "bookmark") {
-                            session.tab.state(id).browse
+                            session.tab[state: id].browse
                                 .map(cloud.bookmark)
                             dismiss()
                             withAnimation(.easeInOut(duration: 0.4)) {
@@ -41,7 +41,7 @@ extension Tab.Modal {
                             
                         }
                     } else {
-                        Control(title: "Refresh", image: "arrow.clockwise") {
+                        Control(title: "Reload", image: "arrow.clockwise") {
                             dismiss()
                             session.reload.send(id)
                         }

@@ -29,25 +29,17 @@ struct Settings: View {
                 }
                 Section(header: Text("Features")) {
                     Toggle("Force dark mode", isOn: $dark)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                     Toggle("JavaScript", isOn: $javascript)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                     Toggle("Block pop-ups", isOn: $popups)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                     Toggle("Remove ads", isOn: $ads)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                     Toggle("Remove screen blockers", isOn: $screen)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
                 Section(header: Text("Security")) {
                     Toggle("Force secure connections", isOn: $http)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
                 Section(header: Text("Privacy")) {
                     Toggle("Anti tracker protection", isOn: $trackers)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                     Toggle("Anti cookies protection", isOn: $cookies)
-                        .toggleStyle(SwitchToggleStyle(tint: .accentColor))
                 }
                 Section {
                     NavigationLink("Location", destination: Location(session: $session))
@@ -68,6 +60,7 @@ struct Settings: View {
                     }
                 }
             }
+            .toggleStyle(SwitchToggleStyle(tint: .accentColor))
             .listStyle(GroupedListStyle())
         }
         .onChange(of: engine) {

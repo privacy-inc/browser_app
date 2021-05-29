@@ -26,14 +26,6 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        let refresh = Control.Squircle(icon: "arrow.clockwise")
-        refresh
-            .click
-            .sink {
-                
-            }
-            .store(in: &subs)
-        
         let info = Control.Squircle(icon: "info.circle")
         info
             .click
@@ -60,6 +52,14 @@ final class Search: NSView {
         
         let find = Control.Squircle(icon: "doc.text.magnifyingglass")
         find
+            .click
+            .sink {
+                
+            }
+            .store(in: &subs)
+        
+        let new = Control.Squircle(icon: "plus")
+        new
             .click
             .sink {
                 
@@ -105,41 +105,62 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        let clear = Control.Icon(icon: "xmark.circle.fill")
-        clear
+        let reload = Control.Icon(icon: "arrow.clockwise")
+        reload
             .click
             .sink {
                 
             }
             .store(in: &subs)
         
-        [back, forward, refresh, info, bookmark, share, find, field, engine, clear]
+        let stop = Control.Icon(icon: "xmark")
+        stop
+            .click
+            .sink {
+                
+            }
+            .store(in: &subs)
+        
+        tabber
+            .items
+            .map {
+                $0.state(id)
+            }
+            .sink {
+                switch $0 {
+                case .browse
+                }
+            }
+            .store(in: &subs)
+        
+        [back, forward, info, bookmark, share, find, new, field, engine, reload, stop]
             .forEach {
                 addSubview($0)
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
         
-        _ = [back, forward, refresh, info, bookmark, share, find]
+        _ = [back, forward, info, bookmark, share, find, new]
             .reduce(self as NSView) {
                 if $0 == self {
-                    $1.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 20).isActive = true
+                    $1.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
                 } else {
                     $1.leftAnchor.constraint(equalTo: $0.rightAnchor, constant: 10).isActive = true
                 }
                 return $1
             }
         
-        [engine, clear]
+        [engine, reload, stop]
             .forEach {
                 $0.widthAnchor.constraint(equalToConstant: 30).isActive = true
                 $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
             }
         
-        field.leftAnchor.constraint(equalTo: find.rightAnchor, constant: 12).isActive = true
+        field.leftAnchor.constraint(equalTo: new.rightAnchor, constant: 12).isActive = true
         field.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         engine.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
-        clear.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+        reload.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+        stop.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         
         background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
         background.bottomAnchor.constraint(equalTo: field.bottomAnchor).isActive = true

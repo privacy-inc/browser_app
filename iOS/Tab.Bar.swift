@@ -12,15 +12,15 @@ extension Tab {
                 Color(.quaternarySystemFill)
                     .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                 HStack(spacing: 0) {
-                    Control(disabled: error || !session.tab[back: id], image: "arrow.left") {
+                    Control(disabled: !session.tab[state: id].isBrowse || !session.tab[back: id], image: "arrow.left") {
                         session.back.send(id)
                     }
-                    Control(disabled: error || !session.tab[forward: id], image: "arrow.right") {
+                    Control(disabled: !session.tab[state: id].isBrowse || !session.tab[forward: id], image: "arrow.right") {
                         session.forward.send(id)
                     }
                     Search(session: $session, id: id)
                         .padding(.horizontal, 10)
-                    Control(disabled: error || session.tab.state(id).browse == nil, image: "line.horizontal.3") {
+                    Control(disabled: !session.tab[state: id].isBrowse, image: "line.horizontal.3") {
                         UIApplication.shared.resign()
                         withAnimation(.easeInOut(duration: 0.3)) {
                             modal = true
@@ -33,15 +33,6 @@ extension Tab {
                 .padding(.vertical, 10)
             }
             .fixedSize(horizontal: false, vertical: true)
-        }
-        
-        private var error: Bool {
-            switch session.tab.state(id) {
-            case .error:
-                return true
-            default:
-                return false
-            }
         }
     }
 }

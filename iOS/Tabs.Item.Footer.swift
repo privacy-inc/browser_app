@@ -25,8 +25,7 @@ extension Tabs.Item {
         
         private var title: String {
             session
-                .tab
-                .state(id)
+                .tab[state: id]
                 .browse
                 .map(session.archive.page)
                 .map(\.title)
@@ -35,8 +34,7 @@ extension Tabs.Item {
         
         private var subtitle: String {
             session
-                .tab
-                .state(id)
+                .tab[state: id]
                 .browse
                 .map(session.archive.page)
                 .map(\.access.domain)

@@ -41,7 +41,7 @@ struct Search: View {
     
     private func cell(_ item: Item) -> Cell {
         .init(item: item) {
-            let browse = session.tab.state(id).browse
+            let browse = session.tab[state: id].browse
             cloud
                 .browse(item.url, id: browse) {
                     UIApplication.shared.resign()
@@ -78,28 +78,14 @@ struct Search: View {
             ? .init(session
                         .archive
                         .browse
-                        .filter {
-                            switch $0.page.access {
-                            case .remote:
-                                return true
-                            default:
-                                return false
-                            }
-                        }
+                        .filter(\.page.access.isRemote)
                         .prefix(3)
                         .map(\.page)
                         .map(Item.init(page:)))
             : .init(Set(session
                             .archive
                             .browse
-                            .filter {
-                                switch $0.page.access {
-                                case .remote:
-                                    return true
-                                default:
-                                    return false
-                                }
-                            }
+                            .filter(\.page.access.isRemote)
                             .filter {
                                 $0.page.title.localizedCaseInsensitiveContains(filter)
                                     || $0.page.access.string.localizedCaseInsensitiveContains(filter)
