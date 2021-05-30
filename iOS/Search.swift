@@ -1,9 +1,12 @@
 import SwiftUI
+import Sleuth
 
 struct Search: View {
     @Binding var session: Session
     let id: UUID
     @State private var filter = ""
+    @State private var bookmarks = [Filtered]()
+    @State private var recent = [Filtered]()
     
     var body: some View {
         ZStack {
@@ -39,9 +42,24 @@ struct Search: View {
             Bar(session: $session, filter: $filter, id: id)
                 .frame(height: 0)
         }
+        .onAppear(perform: update)
+        .onChange(of: filter) { _ in
+            update()
+        }
     }
     
-    private func cell(_ item: Item) -> Cell {
+    private func update() {
+        bookmarks = session
+            .archive
+            .bookmarks
+            .filter(filter)
+        recent = session
+            .archive
+            .browse
+            .filter(filter)
+    }
+    
+    private func cell(_ item: Filtered) -> Cell {
         .init(item: item) {
             let browse = session.tab[state: id].browse
             cloud
@@ -54,49 +72,5 @@ struct Search: View {
                     }
                 }
         }
-    }
-    
-    private var bookmarks: [Item] {
-        filter.isEmpty
-            ? .init(session
-                        .archive
-                        .bookmarks
-                        .prefix(2)
-                        .map(Item.init(page:)))
-            : .init(Set(session
-                            .archive
-                            .bookmarks
-                            .filter {
-                                $0.title.localizedCaseInsensitiveContains(filter)
-                                    || $0.access.string.localizedCaseInsensitiveContains(filter)
-                            }
-                            .map(Item.init(page:)))
-                            .sorted()
-                            .prefix(2))
-    }
-    
-    private var recent: [Item] {
-        filter.isEmpty
-            ? .init(session
-                        .archive
-                        .browse
-                        .filter(\.page.access.isRemote)
-                        .prefix(3)
-                        .map(\.page)
-                        .map(Item.init(page:)))
-            : .init(Set(session
-                            .archive
-                            .browse
-                            .filter(\.page.access.isRemote)
-                            .filter {
-                                $0.page.title.localizedCaseInsensitiveContains(filter)
-                                    || $0.page.access.string.localizedCaseInsensitiveContains(filter)
-                            }
-                            .sorted {
-                                $0.date < $1.date
-                            }
-                            .map(\.page)
-                            .map(Item.init(page:)))
-                            .prefix(3))
     }
 }

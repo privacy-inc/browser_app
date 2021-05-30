@@ -27,7 +27,7 @@ class CollectionCell: CALayer {
         self.text = text
     }
     
-    var item: CollectionItem? {
+    final var item: CollectionItem? {
         didSet {
             state = .none
             
@@ -45,7 +45,7 @@ class CollectionCell: CALayer {
         }
     }
     
-    var state = CollectionCellState.none {
+    final var state = CollectionCellState.none {
         didSet {
             switch state {
             case .none:

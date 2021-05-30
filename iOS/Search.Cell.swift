@@ -1,8 +1,9 @@
 import SwiftUI
+import Sleuth
 
 extension Search {
     struct Cell: View {
-        let item: Item
+        let item: Filtered
         let action: () -> Void
         
         var body: some View {

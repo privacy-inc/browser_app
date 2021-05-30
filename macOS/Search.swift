@@ -66,10 +66,9 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        let background = NSView()
+        let background = NSVisualEffectView()
         background.translatesAutoresizingMaskIntoConstraints = false
         background.wantsLayer = true
-        background.layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
         background.layer!.cornerRadius = 4
         addSubview(background)
         

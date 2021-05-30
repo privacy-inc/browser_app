@@ -2,10 +2,10 @@ import AppKit
 import Combine
 
 class Collection<Cell>: NSScrollView where Cell : CollectionCell {
-    var subs = Set<AnyCancellable>()
-    let items = PassthroughSubject<Set<CollectionItem>, Never>()
-    let height = PassthroughSubject<CGFloat, Never>()
-    let selected = PassthroughSubject<Int, Never>()
+    final var subs = Set<AnyCancellable>()
+    final let items = PassthroughSubject<Set<CollectionItem>, Never>()
+    final let height = PassthroughSubject<CGFloat, Never>()
+    final let selected = PassthroughSubject<Int, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()

@@ -48,6 +48,9 @@ extension Search {
                 window!.addChildWindow(autocomplete, ordered: .above)
                 autocomplete.start()
             }
+            autocomplete
+                .filter
+                .send(stringValue.trimmingCharacters(in: .whitespacesAndNewlines))
         }
         
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {

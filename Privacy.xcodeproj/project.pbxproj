@@ -9,7 +9,6 @@
 /* Begin PBXBuildFile section */
 		CE03EDCF264FBE8E0031B649 /* Tab.New.History.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDCE264FBE8E0031B649 /* Tab.New.History.Cell.swift */; };
 		CE03EDD1264FBFC20031B649 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */; };
-		CE03EDD3264FCF1A0031B649 /* Search.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD2264FCF1A0031B649 /* Search.Item.swift */; };
 		CE03EDD5264FD3450031B649 /* Search.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD4264FD3450031B649 /* Search.Cell.swift */; };
 		CE03EDD7264FE4300031B649 /* Tab.Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD6264FE4300031B649 /* Tab.Modal.swift */; };
 		CE03EDD9264FEDD90031B649 /* Tab.Modal.Card.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */; };
@@ -110,6 +109,7 @@
 		CEA65F5A265D205C00A35436 /* Forget.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F59265D205C00A35436 /* Forget.Cell.swift */; };
 		CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */; };
 		CEC9859626637821001DA288 /* Search.Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9859526637821001DA288 /* Search.Autocomplete.swift */; };
+		CEC9859826639780001DA288 /* Search.Autocomplete.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9859726639780001DA288 /* Search.Autocomplete.Item.swift */; };
 		CECA7FDD265D06C900B3B600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECA7FDC265D06C900B3B600 /* Assets.xcassets */; };
 		CECA7FE4265D06C900B3B600 /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CECA7FE3265D06C900B3B600 /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CECA7FEF265D06C900B3B600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECA7FEE265D06C900B3B600 /* Assets.xcassets */; };
@@ -183,7 +183,6 @@
 /* Begin PBXFileReference section */
 		CE03EDCE264FBE8E0031B649 /* Tab.New.History.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.History.Cell.swift; sourceTree = "<group>"; };
 		CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RelativeDateTimeFormatter.swift; sourceTree = "<group>"; };
-		CE03EDD2264FCF1A0031B649 /* Search.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Item.swift; sourceTree = "<group>"; };
 		CE03EDD4264FD3450031B649 /* Search.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Cell.swift; sourceTree = "<group>"; };
 		CE03EDD6264FE4300031B649 /* Tab.Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.swift; sourceTree = "<group>"; };
 		CE03EDD8264FEDD90031B649 /* Tab.Modal.Card.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Modal.Card.swift; sourceTree = "<group>"; };
@@ -280,6 +279,7 @@
 		CEA65F59265D205C00A35436 /* Forget.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Cell.swift; sourceTree = "<group>"; };
 		CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.Indicator.swift; sourceTree = "<group>"; };
 		CEC9859526637821001DA288 /* Search.Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Autocomplete.swift; sourceTree = "<group>"; };
+		CEC9859726639780001DA288 /* Search.Autocomplete.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Autocomplete.Item.swift; sourceTree = "<group>"; };
 		CECA7FDA265D06C800B3B600 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CECA7FDC265D06C900B3B600 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CECA7FDE265D06C900B3B600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -412,7 +412,6 @@
 				CE78111C264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift */,
 				CE78111A264BF9AC0097FAC2 /* Search.Bar.swift */,
 				CE03EDD4264FD3450031B649 /* Search.Cell.swift */,
-				CE03EDD2264FCF1A0031B649 /* Search.Item.swift */,
 				CE781120264C00580097FAC2 /* Search.swift */,
 				CEEB871F26527EC700AF4E6A /* Session.Modal.swift */,
 				CE91FA7F264AB70B009A1F88 /* Session.Section.swift */,
@@ -519,6 +518,7 @@
 				CE70B43C265FA92C00A357BC /* NSAttributedString.swift */,
 				CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */,
 				CE12B21C265E767A000EA487 /* Progress.swift */,
+				CEC9859726639780001DA288 /* Search.Autocomplete.Item.swift */,
 				CEC9859526637821001DA288 /* Search.Autocomplete.swift */,
 				CE0D6C01265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift */,
 				CE0D6BFF265FF14A000B3FF1 /* Search.Field.Cell.swift */,
@@ -711,7 +711,6 @@
 				CE71B71B2653CE78002B8748 /* Collection.Bookmarks.swift in Sources */,
 				CE2E98852651374700844E8B /* Toast.Message.swift in Sources */,
 				CE751C1E265A88C500F8589D /* Activity.Chart.swift in Sources */,
-				CE03EDD3264FCF1A0031B649 /* Search.Item.swift in Sources */,
 				CEF0A000265BFD4E00E83BAE /* Tab.Error.swift in Sources */,
 				CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */,
 				CE616C442659233700E02ABF /* App.Delegate.swift in Sources */,
@@ -831,6 +830,7 @@
 				CE12B21D265E767A000EA487 /* Progress.swift in Sources */,
 				CE676A63265E52B10042EDC2 /* Window.swift in Sources */,
 				CE12B21B265E6C2F000EA487 /* New.swift in Sources */,
+				CEC9859826639780001DA288 /* Search.Autocomplete.Item.swift in Sources */,
 				CE0D6C02265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift in Sources */,
 				CECE1F95265E90A100ACBB0B /* Text.swift in Sources */,
 				CE676A65265E5FCD0042EDC2 /* Session.swift in Sources */,

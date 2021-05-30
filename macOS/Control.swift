@@ -2,15 +2,15 @@ import AppKit
 import Combine
 
 class Control: NSView {
-    var state = Control.State.on {
+    final var state = Control.State.on {
         didSet {
             update()
         }
     }
     
-    let click = PassthroughSubject<Void, Never>()
+    final let click = PassthroughSubject<Void, Never>()
     
-    override var mouseDownCanMoveWindow: Bool { false }
+    final override var mouseDownCanMoveWindow: Bool { false }
     
     required init?(coder: NSCoder) { nil }
     init() {
@@ -21,21 +21,21 @@ class Control: NSView {
         addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
     }
     
-    override func resetCursorRects() {
+    final override func resetCursorRects() {
         addCursorRect(bounds, cursor: .arrow)
     }
     
-    override func mouseEntered(with: NSEvent) {
+    final override func mouseEntered(with: NSEvent) {
         guard state == .on else { return }
         state = .highlighted
     }
     
-    override func mouseExited(with: NSEvent) {
+    final override func mouseExited(with: NSEvent) {
         guard state == .highlighted else { return }
         state = .on
     }
     
-    override func mouseDown(with: NSEvent) {
+    final override func mouseDown(with: NSEvent) {
         guard state == .on || state == .highlighted else {
             super.mouseDown(with: with)
             return
@@ -44,7 +44,7 @@ class Control: NSView {
         state = .pressed
     }
     
-    override func mouseUp(with: NSEvent) {
+    final override func mouseUp(with: NSEvent) {
         guard state == .highlighted || state == .on || state == .pressed else { return }
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
             state = .on
