@@ -4,6 +4,8 @@ import Combine
 extension Search {
     final class Field: NSTextField, NSTextFieldDelegate {
         override var canBecomeKeyView: Bool { true }
+        
+        private let autocomplete: Autocomplete
         private var subs = Set<AnyCancellable>()
         private let id: UUID
         
@@ -11,6 +13,7 @@ extension Search {
         init(id: UUID) {
             Self.cellClass = Cell.self
             self.id = id
+            autocomplete = .init(id: id)
             super.init(frame: .zero)
             bezelStyle = .roundedBezel
             translatesAutoresizingMaskIntoConstraints = false
@@ -22,25 +25,6 @@ extension Search {
             action = #selector(search)
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
-
-            
-//            Cloud
-//                .shared
-//                .archive
-//                .map(\.entries)
-//                .compactMap { [weak self] in
-//                    $0.first { $0.id == self?.browser.entry.value }
-//                }
-//                .map(\.url)
-//                .removeDuplicates()
-//                .sink { [weak self] in
-//                    self?.stringValue = $0
-//                }
-//                .store(in: &subs)
-//            
-//            browser.close.sink { [weak self] in
-//                self?.stringValue = ""
-//            }.store(in: &subs)
         }
         
         override func becomeFirstResponder() -> Bool {
@@ -50,15 +34,26 @@ extension Search {
             return super.becomeFirstResponder()
         }
         
+        override func resignFirstResponder() -> Bool {
+            autocomplete.end()
+            return super.resignFirstResponder()
+        }
+        
         override func textDidChange(_: Notification) {
-//            browser.search.send(stringValue)
-            session.filter.send((id: id, query: stringValue))
+            if !autocomplete.isVisible {
+                autocomplete.setContentSize(.init(width: bounds.width, height: 20))
+                autocomplete.setFrameTopLeftPoint({
+                    .init(x: $0.x, y: $0.y - 2)
+                } (window!.convertPoint(toScreen: superview!.convert(frame.origin, to: nil))))
+                window!.addChildWindow(autocomplete, ordered: .above)
+                autocomplete.start()
+            }
         }
         
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation):
-//                browser.search.send("")
+                autocomplete.end()
                 window!.makeFirstResponder(superview!)
             default: return false
             }
@@ -66,8 +61,8 @@ extension Search {
         }
         
         @objc private func search() {
-            window?.makeFirstResponder(window?.contentView)
-            session.filter.send((id: id, query: ""))
+            autocomplete.end()
+            window!.makeFirstResponder(window!.contentView)
             
             let browse = tabber.items.value[state: id].browse
             cloud
@@ -82,29 +77,6 @@ extension Search {
                         tabber.browse(id, $0)
                     }
                 }
-            
-            
-            
-            
-//            if let id = browser.entry.value {
-//                Cloud.shared.browse(id, stringValue) { [weak self] in
-//                    switch $0 {
-//                    case .navigate:
-//                        self?.window?.makeFirstResponder(self?.window?.contentView)
-//                    default: break
-//                    }
-//                    self?.browser.load.send()
-//                }
-//            } else {
-//                Cloud.shared.browse(stringValue) { [weak self] in
-//                    switch $0 {
-//                    case .navigate:
-//                        self?.window?.makeFirstResponder(self?.window?.contentView)
-//                    default: break
-//                    }
-//                    self?.browser.entry.value = $1
-//                }
-//            }
         }
     }
 }

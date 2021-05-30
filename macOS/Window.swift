@@ -23,7 +23,7 @@ final class Window: NSWindow {
         setFrameAutosaveName("Window")
         tabbingMode = .preferred
         tab.title = NSLocalizedString("Privacy", comment: "")
-        
+
         let search = Search(id: id)
         let bar = NSTitlebarAccessoryViewController()
         bar.view = search
@@ -57,6 +57,14 @@ final class Window: NSWindow {
                 }
             }
             .store(in: &subs)
+    }
+    
+    override func resignKey() {
+        super.resignKey()
+        childWindows?.forEach {
+                removeChildWindow($0)
+                $0.orderOut(nil)
+            }
     }
     
     override func becomeMain() {
