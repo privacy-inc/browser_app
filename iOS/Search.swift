@@ -59,11 +59,11 @@ struct Search: View {
             .filter(filter)
     }
     
-    private func cell(_ item: Filtered) -> Cell {
-        .init(item: item) {
+    private func cell(_ filtered: Filtered) -> Cell {
+        .init(filtered: filtered) {
             let browse = session.tab[state: id].browse
             cloud
-                .browse(item.url, id: browse) {
+                .browse(filtered.url, id: browse) {
                     UIApplication.shared.resign()
                     session.section = .tab(id)
                     tabber.browse(id, $0)

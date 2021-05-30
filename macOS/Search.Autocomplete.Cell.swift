@@ -1,11 +1,12 @@
 import AppKit
+import Sleuth
 
 extension Search.Autocomplete {
-    final class Item: NSView {
-        let url: String
+    final class Cell: NSView {
+        let filtered: Filtered
         
         required init?(coder: NSCoder) { nil }
-        init(title: String, url: String) {
+        init(filtered: Filtered) {
             self.url = url
             super.init(frame: .zero)
             

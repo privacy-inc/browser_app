@@ -3,7 +3,7 @@ import Sleuth
 
 extension Search {
     struct Cell: View {
-        let item: Filtered
+        let filtered: Filtered
         let action: () -> Void
         
         var body: some View {
@@ -12,15 +12,15 @@ extension Search {
                     Rectangle()
                         .fill(Color.accentColor)
                         .frame(height: 1)
-                    if !item.title.isEmpty {
-                        Text(verbatim: item.title)
+                    if !filtered.title.isEmpty {
+                        Text(verbatim: filtered.title)
                             .font(.footnote)
                             .foregroundColor(.primary)
                             .lineLimit(1)
                             .padding(.top, 6)
                     }
-                    if !item.url.isEmpty {
-                        Text(verbatim: item.url)
+                    if !filtered.url.isEmpty {
+                        Text(verbatim: filtered.url)
                             .font(.caption2)
                             .foregroundColor(.secondary)
                             .lineLimit(1)
