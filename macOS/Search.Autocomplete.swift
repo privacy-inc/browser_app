@@ -5,6 +5,7 @@ import Sleuth
 extension Search {
     final class Autocomplete: NSPanel, NSWindowDelegate {
         let filter = PassthroughSubject<String, Never>()
+        let adjust = PassthroughSubject<(position: CGPoint, width: CGFloat), Never>()
         private weak var content: NSVisualEffectView!
         private var monitor: Any?
         private var subs = Set<AnyCancellable>()
@@ -36,6 +37,25 @@ extension Search {
             else { return }
             
             let cells = PassthroughSubject<[Cell], Never>()
+            let height = PassthroughSubject<CGFloat, Never>()
+            
+            let titleBookmarks = Text()
+            titleBookmarks.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .bold)
+            titleBookmarks.textColor = .tertiaryLabelColor
+            titleBookmarks.stringValue = NSLocalizedString("Bookmarks", comment: "")
+            
+            let titleRecent = Text()
+            titleRecent.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .bold)
+            titleRecent.textColor = .tertiaryLabelColor
+            titleRecent.stringValue = NSLocalizedString("Recent", comment: "")
+            
+            adjust
+                .combineLatest(height)
+                .sink { [weak self] in
+                    self?.setContentSize(.init(width: $0.0.width, height: $0.1))
+                    self?.setFrameTopLeftPoint($0.0.position)
+                }
+                .store(in: &subs)
             
             monitor = NSEvent.addLocalMonitorForEvents(matching: [.leftMouseDown, .rightMouseDown, .otherMouseDown]) { [weak self] event in
                 guard
@@ -68,19 +88,57 @@ extension Search {
                     let bookmarks = archive
                         .bookmarks
                         .filter(filter)
+                    let recent = archive
+                        .browse
+                        .filter(filter)
                     
                     if !bookmarks.isEmpty {
-                        let title = Text()
-                        title.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .footnote).pointSize, weight: .bold)
-                        title.textColor = .secondaryLabelColor
-                        title.stringValue = NSLocalizedString("Bookmarks", comment: "")
+                        self.content.addSubview(titleBookmarks)
+                        
+                        titleBookmarks.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
+                        titleBookmarks.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                        top = titleBookmarks.bottomAnchor
+                        
+                        bookmarks
+                            .map(Cell.init(filtered:))
+                            .forEach {
+                                self.content.addSubview($0)
+                                $0.topAnchor.constraint(equalTo: top, constant: 2).isActive = true
+                                $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 10).isActive = true
+                                $0.rightAnchor.constraint(lessThanOrEqualTo: self.content.rightAnchor, constant: -10).isActive = true
+                                top = $0.bottomAnchor
+                                
+                                list.append($0)
+                            }
+                    }
+                    
+                    if !recent.isEmpty {
+                        self.content.addSubview(titleRecent)
+
+                        titleRecent.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
+                        titleRecent.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                        top = titleRecent.bottomAnchor
+                        
+                        recent
+                            .map(Cell.init(filtered:))
+                            .forEach {
+                                self.content.addSubview($0)
+                                $0.topAnchor.constraint(equalTo: top, constant: 2).isActive = true
+                                $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 10).isActive = true
+                                $0.rightAnchor.constraint(lessThanOrEqualTo: self.content.rightAnchor, constant: -10).isActive = true
+                                top = $0.bottomAnchor
+
+                                list.append($0)
+                            }
                     }
                     
                     if list.isEmpty {
                         self.end()
                     } else {
-                        
+                        self.content.bottomAnchor.constraint(equalTo: top, constant: 10).isActive = true
+                        self.content.layoutSubtreeIfNeeded()
                         cells.send(list)
+                        height.send(self.content.frame.height)
                     }
                 }
                 .store(in: &subs)

@@ -27,13 +27,6 @@ extension Search {
             isAutomaticTextCompletionEnabled = false
         }
         
-        override func becomeFirstResponder() -> Bool {
-            if !stringValue.isEmpty {
-                currentEditor()?.selectedRange = .init(location: 0, length: stringValue.count)
-            }
-            return super.becomeFirstResponder()
-        }
-        
         override func resignFirstResponder() -> Bool {
             autocomplete.end()
             return super.resignFirstResponder()
@@ -41,12 +34,12 @@ extension Search {
         
         override func textDidChange(_: Notification) {
             if !autocomplete.isVisible {
-                autocomplete.setContentSize(.init(width: bounds.width, height: 20))
-                autocomplete.setFrameTopLeftPoint({
-                    .init(x: $0.x, y: $0.y - 2)
-                } (window!.convertPoint(toScreen: superview!.convert(frame.origin, to: nil))))
                 window!.addChildWindow(autocomplete, ordered: .above)
                 autocomplete.start()
+                
+                ;{
+                    autocomplete.adjust.send((position: .init(x: $0.x, y: $0.y - 2), width: bounds.width))
+                } (window!.convertPoint(toScreen: superview!.convert(frame.origin, to: nil)))
             }
             autocomplete
                 .filter
