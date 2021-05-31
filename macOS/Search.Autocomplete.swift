@@ -6,6 +6,9 @@ extension Search {
     final class Autocomplete: NSPanel, NSWindowDelegate {
         let filter = PassthroughSubject<String, Never>()
         let adjust = PassthroughSubject<(position: CGPoint, width: CGFloat), Never>()
+        let up = PassthroughSubject<Date, Never>()
+        let down = PassthroughSubject<Date, Never>()
+        let complete = PassthroughSubject<String, Never>()
         private weak var content: NSVisualEffectView!
         private var monitor: Any?
         private var subs = Set<AnyCancellable>()
@@ -180,8 +183,9 @@ extension Search {
                                 && $0.frame.maxY >= item.0.y
                         }
                 }
-                .sink {
+                .sink { [weak self] in
                     $0.highlighted = true
+                    self?.complete.send($0.filtered.url)
                 }
                 .store(in: &subs)
             
@@ -227,6 +231,40 @@ extension Search {
                             }
                         }
                     self?.end()
+                }
+                .store(in: &subs)
+            
+            up
+                .combineLatest(cells)
+                .removeDuplicates {
+                    $0.0 >= $1.0
+                }
+                .map {
+                    $0.1
+                }
+                .sink { [weak self] in
+                    $0
+                        .up
+                        .map {
+                            self?.complete.send($0)
+                        }
+                }
+                .store(in: &subs)
+            
+            down
+                .combineLatest(cells)
+                .removeDuplicates {
+                    $0.0 >= $1.0
+                }
+                .map {
+                    $0.1
+                }
+                .sink { [weak self] in
+                    $0
+                        .down
+                        .map {
+                            self?.complete.send($0)
+                        }
                 }
                 .store(in: &subs)
         }

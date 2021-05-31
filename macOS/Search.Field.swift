@@ -25,6 +25,13 @@ extension Search {
             action = #selector(search)
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
+            
+            autocomplete
+                .complete
+                .sink { [weak self] in
+                    self?.stringValue = $0
+                }
+                .store(in: &subs)
         }
         
         override func resignFirstResponder() -> Bool {
@@ -48,10 +55,15 @@ extension Search {
         
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
-            case #selector(cancelOperation):
+            case #selector(cancelOperation), #selector(complete):
                 autocomplete.end()
                 window!.makeFirstResponder(superview!)
-            default: return false
+            case #selector(moveUp):
+                autocomplete.up.send(.init())
+            case #selector(moveDown):
+                autocomplete.down.send(.init())
+            default:
+                return false
             }
             return true
         }
