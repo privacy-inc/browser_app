@@ -9,6 +9,8 @@ extension Search {
         private weak var content: NSVisualEffectView!
         private var monitor: Any?
         private var subs = Set<AnyCancellable>()
+        private let hover = PassthroughSubject<(y: CGFloat, date: Date), Never>()
+        private let clear = PassthroughSubject<Date, Never>()
         
         init(id: UUID) {
             super.init(contentRect: .zero, styleMask: [.borderless], backing: .buffered, defer: true)
@@ -22,6 +24,7 @@ extension Search {
             content.translatesAutoresizingMaskIntoConstraints = false
             content.wantsLayer = true
             content.layer!.cornerRadius = 4
+            content.addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInActiveApp, .inVisibleRect], owner: self))
             contentView!.addSubview(content)
             self.content = content
             
@@ -105,7 +108,7 @@ extension Search {
                                 self.content.addSubview($0)
                                 $0.topAnchor.constraint(equalTo: top, constant: 2).isActive = true
                                 $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 10).isActive = true
-                                $0.rightAnchor.constraint(lessThanOrEqualTo: self.content.rightAnchor, constant: -10).isActive = true
+                                $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -10).isActive = true
                                 top = $0.bottomAnchor
                                 
                                 list.append($0)
@@ -125,7 +128,7 @@ extension Search {
                                 self.content.addSubview($0)
                                 $0.topAnchor.constraint(equalTo: top, constant: 2).isActive = true
                                 $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 10).isActive = true
-                                $0.rightAnchor.constraint(lessThanOrEqualTo: self.content.rightAnchor, constant: -10).isActive = true
+                                $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -10).isActive = true
                                 top = $0.bottomAnchor
 
                                 list.append($0)
@@ -142,6 +145,59 @@ extension Search {
                     }
                 }
                 .store(in: &subs)
+            
+            hover
+                .combineLatest(cells)
+                .removeDuplicates {
+                    $0.0.date >= $1.0.date
+                }
+                .compactMap { item in
+                    item
+                        .1
+                        .first {
+                            $0.frame.minY <= item.0.y
+                                && $0.frame.maxY >= item.0.y
+                        }
+                }
+                .sink {
+                    $0.highlighted = true
+                }
+                .store(in: &subs)
+            
+            hover
+                .combineLatest(cells)
+                .removeDuplicates {
+                    $0.0.date >= $1.0.date
+                }
+                .compactMap { item in
+                    item
+                        .1
+                        .first {
+                            $0.frame.minY <= item.0.y
+                                && $0.frame.maxY >= item.0.y
+                        }
+                }
+                .sink {
+                    $0.highlighted = true
+                }
+                .store(in: &subs)
+            
+            clear
+                .combineLatest(cells)
+                .removeDuplicates {
+                    $0.0 >= $1.0
+                }
+                .map {
+                    $0.1
+                }
+                .sink {
+                    $0
+                        .forEach {
+                            guard $0.highlighted else { return }
+                            $0.highlighted = false
+                        }
+                }
+                .store(in: &subs)
         }
         
         func end() {
@@ -151,6 +207,11 @@ extension Search {
             subs = []
             parent?.removeChildWindow(self)
             orderOut(nil)
+        }
+        
+        override func mouseMoved(with: NSEvent) {
+            clear.send(.init())
+            hover.send((y: content.convert(with.locationInWindow, from: nil).y, date: .init()))
         }
     }
 }
