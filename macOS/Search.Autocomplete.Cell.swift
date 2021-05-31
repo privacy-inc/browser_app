@@ -6,7 +6,7 @@ extension Search.Autocomplete {
         var highlighted = false {
             didSet {
                 layer!.backgroundColor = highlighted ? NSColor.systemBlue.cgColor : .clear
-                render(highlighted)
+                render(highlight: highlighted)
             }
         }
         
@@ -26,7 +26,7 @@ extension Search.Autocomplete {
             addSubview(text)
             self.text = text
             
-            render(false)
+            render(highlight: false)
             
             bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 5).isActive = true
             
@@ -35,7 +35,7 @@ extension Search.Autocomplete {
             text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -5).isActive = true
         }
         
-        private func render(_ highlight: Bool) {
+        private func render(highlight: Bool) {
             text.attributedStringValue = .make {
                 if !filtered.title.isEmpty {
                     $0.add(filtered.title,

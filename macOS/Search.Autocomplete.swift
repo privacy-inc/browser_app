@@ -10,9 +10,12 @@ extension Search {
         private var monitor: Any?
         private var subs = Set<AnyCancellable>()
         private let hover = PassthroughSubject<(y: CGFloat, date: Date), Never>()
+        private let select = PassthroughSubject<(y: CGFloat, date: Date), Never>()
         private let clear = PassthroughSubject<Date, Never>()
+        private let id: UUID
         
         init(id: UUID) {
+            self.id = id
             super.init(contentRect: .zero, styleMask: [.borderless], backing: .buffered, defer: true)
             isMovable = false
             isOpaque = false
@@ -198,6 +201,34 @@ extension Search {
                         }
                 }
                 .store(in: &subs)
+            
+            select
+                .combineLatest(cells)
+                .removeDuplicates {
+                    $0.0.date >= $1.0.date
+                }
+                .compactMap { item in
+                    item
+                        .1
+                        .first {
+                            $0.frame.minY <= item.0.y
+                                && $0.frame.maxY >= item.0.y
+                        }
+                }
+                .sink { [weak self] in
+                    guard let id = self?.id else { return }
+                    self?.parent?.makeFirstResponder(self?.parent?.contentView)
+                    let browse = tabber.items.value[state: id].browse
+                    cloud
+                        .browse($0.filtered.url, id: browse) {
+                            tabber.browse(id, $0)
+                            if browse == $0 {
+                                session.load.send((id: id, access: $1))
+                            }
+                        }
+                    self?.end()
+                }
+                .store(in: &subs)
         }
         
         func end() {
@@ -211,7 +242,19 @@ extension Search {
         
         override func mouseMoved(with: NSEvent) {
             clear.send(.init())
-            hover.send((y: content.convert(with.locationInWindow, from: nil).y, date: .init()))
+            hover.send((y: y(with: with), date: .init()))
+        }
+        
+        override func mouseExited(with: NSEvent) {
+            clear.send(.init())
+        }
+        
+        override func mouseDown(with: NSEvent) {
+            select.send((y: y(with: with), date: .init()))
+        }
+     
+        private func y(with: NSEvent) -> CGFloat {
+            content.convert(with.locationInWindow, from: nil).y
         }
     }
 }
