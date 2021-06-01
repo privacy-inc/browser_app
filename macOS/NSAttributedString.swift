@@ -29,4 +29,13 @@ extension NSMutableAttributedString {
                         .font: font,
                         .foregroundColor: color]))
     }
+    
+    func add(_ string: String, font: NSFont, color: NSColor, lineBreak: NSLineBreakMode) {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = lineBreak
+        append(.init(string: string, attributes: [
+                        .font: font,
+                        .foregroundColor: color,
+                        .paragraphStyle: paragraph]))
+    }
 }

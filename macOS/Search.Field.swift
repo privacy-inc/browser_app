@@ -92,6 +92,10 @@ extension Search {
                 .send(stringValue.trimmingCharacters(in: .whitespacesAndNewlines))
         }
         
+        override func mouseDown(with: NSEvent) {
+            selectText(nil)
+        }
+        
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation), #selector(complete):

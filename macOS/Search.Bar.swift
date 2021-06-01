@@ -52,6 +52,7 @@ extension Search {
                 }
                 .removeDuplicates()
                 .sink { progress in
+                    shape.strokeStart = 0
                     shape.strokeEnd = .init(progress)
                     guard progress == 1 else { return }
                     shape.add({
@@ -65,11 +66,12 @@ extension Search {
         
         func animationDidStop(_: CAAnimation, finished: Bool) {
             if finished {
-                shape?.strokeEnd = 0
+                shape?.strokeStart = 1
                 shape?.add({
-                    $0.duration = 0.4
+                    $0.duration = 1
+                    $0.timingFunction = .init(name: .easeInEaseOut)
                     return $0
-                } (CABasicAnimation(keyPath: "strokeEnd")), forKey: "strokeEnd")
+                } (CABasicAnimation(keyPath: "strokeStart")), forKey: "strokeStart")
             }
         }
     }

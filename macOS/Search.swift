@@ -42,7 +42,7 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        let share = Control.Squircle(icon: "square.and.arrow.up.on.square")
+        let share = Control.Squircle(icon: "square.and.arrow.up")
         share
             .click
             .sink {
@@ -191,7 +191,7 @@ final class Search: NSView {
     override func mouseUp(with: NSEvent) {
         guard
             with.clickCount >= 2,
-            hitTest(with.locationInWindow) != field
+            !field.frame.contains(convert(with.locationInWindow, from: nil))
         else {
             super.mouseUp(with: with)
             return

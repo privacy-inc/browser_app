@@ -2,8 +2,8 @@ import AppKit
 import Combine
 
 final class Window: NSWindow {
+    let id: UUID
     private var subs = Set<AnyCancellable>()
-    private let id: UUID
     
     init(id: UUID) {
         self.id = id

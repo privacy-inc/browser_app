@@ -2,13 +2,18 @@ import AppKit
 
 extension NSApplication {
     func tab() {
-        guard let window = keyWindow as? Window ?? windows.compactMap({ $0 as? Window }).first else {
-            window(tabber.new())
+        let id = tabber.new()
+        guard let current = self[id] else {
+            guard let window = keyWindow as? Window ?? windows.compactMap({ $0 as? Window }).first else {
+                window(tabber.new())
+                return
+            }
+            let new = Window(id: tabber.new())
+            window.addTabbedWindow(new, ordered: .above)
+            window.tabGroup!.selectedWindow = new
             return
         }
-        let new = Window(id: tabber.new())
-        window.addTabbedWindow(new, ordered: .above)
-        window.tabGroup!.selectedWindow = new
+        current.makeKeyAndOrderFront(nil)
     }
     
     func window(_ id: UUID) {
@@ -37,5 +42,15 @@ extension NSApplication {
 //        Cloud.shared.navigate(url) {
 //            key.browser.entry.value = $0
 //        }
+    }
+    
+    private subscript(_ id: UUID) -> Window? {
+        windows
+            .compactMap {
+                $0 as? Window
+            }
+            .first {
+                $0.id == id
+            }
     }
 }

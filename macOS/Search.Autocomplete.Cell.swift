@@ -48,7 +48,8 @@ extension Search.Autocomplete {
                     }
                     $0.add(filtered.url,
                            font: .preferredFont(forTextStyle: .footnote),
-                           color: highlight ? .white : .secondaryLabelColor)
+                           color: highlight ? .white : .secondaryLabelColor,
+                           lineBreak: .byCharWrapping)
                 }
             }
         }
