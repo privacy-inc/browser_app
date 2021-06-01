@@ -1,6 +1,16 @@
-import Foundation
+import AppKit
 
-extension App {
+extension NSApplication {
+    func tab() {
+        guard let window = keyWindow as? Window ?? windows.compactMap({ $0 as? Window }).first else {
+            window(tabber.new())
+            return
+        }
+        let new = Window(id: tabber.new())
+        window.addTabbedWindow(new, ordered: .above)
+        window.tabGroup!.selectedWindow = new
+    }
+    
     func window(_ id: UUID) {
         Window(id: id).makeKeyAndOrderFront(nil)
     }

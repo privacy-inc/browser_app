@@ -21,8 +21,9 @@ final class Window: NSWindow {
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
-        tabbingMode = .preferred
         tab.title = NSLocalizedString("Privacy", comment: "")
+        tabbingMode = .preferred
+        toggleTabBar(nil)
 
         let search = Search(id: id)
         let bar = NSTitlebarAccessoryViewController()
@@ -69,12 +70,16 @@ final class Window: NSWindow {
     
     override func becomeMain() {
         super.becomeMain()
-        dim(1)
+        dim(opacity: 1)
     }
     
     override func resignMain() {
         super.resignMain()
-        dim(0.3)
+        dim(opacity: 0.6)
+    }
+    
+    override func newWindowForTab(_: Any?) {
+        NSApp.tab()
     }
     
     private func show(_ view: NSView) {
@@ -99,9 +104,7 @@ final class Window: NSWindow {
         view.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
     }
     
-    private func dim(_ opacity: CGFloat) {
-        (contentView!.subviews + [titlebarAccessoryViewControllers.first!.view]).forEach {
-            $0.alphaValue = opacity
-        }
+    private func dim(opacity: CGFloat) {
+        titlebarAccessoryViewControllers.first!.view.alphaValue = opacity
     }
 }
