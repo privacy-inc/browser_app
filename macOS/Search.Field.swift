@@ -24,6 +24,43 @@ extension Search {
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
             
+            cloud
+                .archive
+                .combineLatest(tabber
+                                .items
+                                .map {
+                                    $0[state: id]
+                                        .browse
+                                }
+                                .compactMap {
+                                    $0
+                                }
+                                .removeDuplicates())
+                .map {
+                    $0.0
+                        .page($0.1)
+                        .access
+                        .string
+                }
+                .filter {
+                    !$0.isEmpty
+                }
+                .removeDuplicates()
+                .sink { [weak self] in
+                    self?.stringValue = $0
+                }
+                .store(in: &subs)
+            
+            tabber
+                .items
+                .value[state: id]
+                .browse
+                .map(cloud.archive.value.page)
+                .map(\.access.string)
+                .map {
+                    stringValue = $0
+                }
+            
             autocomplete
                 .complete
                 .sink { [weak self] in
