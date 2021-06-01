@@ -3,6 +3,7 @@ import Combine
 
 final class Window: NSWindow {
     let id: UUID
+    private weak var search: Search!
     private var subs = Set<AnyCancellable>()
     
     init(id: UUID) {
@@ -29,6 +30,7 @@ final class Window: NSWindow {
         bar.layoutAttribute = .top
         addTitlebarAccessoryViewController(bar)
         initialFirstResponder = search.field
+        self.search = search
         
         tabber
             .items
@@ -94,7 +96,37 @@ final class Window: NSWindow {
     }
     
     override func newWindowForTab(_: Any?) {
-        NSApp.tab()
+        NSApp.newTab()
+    }
+    
+    @objc func location() {
+        search.field.selectText(nil)
+    }
+    
+    @objc func shut() {
+        if let tabs = tabbedWindows {
+            tabs.forEach {
+                $0.close()
+            }
+        } else {
+            close()
+        }
+    }
+    
+    @objc func copyLink() {
+        tabber
+            .items
+            .value[state: id]
+            .browse
+            .map(cloud
+                    .archive
+                    .value
+                    .page)
+            .map(\.access.string)
+            .map {
+                NSPasteboard.general.clearContents()
+                NSPasteboard.general.setString($0, forType: .string)
+            }
     }
     
     private func show(_ view: NSView) {

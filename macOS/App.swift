@@ -28,7 +28,7 @@ let purchases = Purchases()
     
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
-        window(tabber.items.value.ids.first!)
+        window(id: tabber.items.value.ids.first!)
     }
     
     func applicationDidFinishLaunching(_: Notification) {
@@ -60,25 +60,13 @@ let purchases = Purchases()
         cloud.pull.send()
     }
     
-    @objc func preferences() {
-//        (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
+    func applicationShouldHandleReopen(_: NSApplication, hasVisibleWindows: Bool) -> Bool {
+        if !hasVisibleWindows {
+            newWindow()
+        }
+        return true
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
         event
             .paramDescriptor(forKeyword: keyDirectObject)

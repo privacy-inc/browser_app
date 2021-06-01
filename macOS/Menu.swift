@@ -24,12 +24,12 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     private var file: NSMenuItem {
         .parent("File", [
-//                    .child("New Window", #selector(App.newWindow), "n"),
-//                    .child("New Tab", #selector(App.newTab), "t"),
-//                    .child("Open Location", #selector(Window.location), "l"),
+                    .child("New Window", #selector(App.newWindow), "n"),
+                    .child("New Tab", #selector(App.newTab), "t"),
+                    .child("Open Location", #selector(Window.location), "l"),
                     .separator(),
-//                    .child("Close Window", #selector(App.closeWindow), "W"),
-//                    .child("Close Tab", #selector(Window.close), "w"),
+                    .child("Close Window", #selector(Window.shut), "W"),
+                    .child("Close Tab", #selector(Window.close), "w"),
                     .separator(),
                     .parent("Share") {
                         $0.submenu!.delegate = self
@@ -62,19 +62,19 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     func menuNeedsUpdate(_ menu: NSMenu) {
-//        switch menu.title {
-//        case "Share":
-//            menu.items = NSSharingService.sharingServices(forItems: [url]).map { service in
-//                .child(service.menuItemTitle, #selector(triggerShare)) {
-//                    $0.target = self
-//                    $0.image = service.image
-//                    $0.representedObject = service
-//                }
-//            } + [
-//                .separator(),
-//                .child("Copy Link", #selector(triggerCopyLink), "C") {
-//                    $0.target = self
-//                }]
+        switch menu.title {
+        case "Share":
+            menu.items = NSSharingService
+                .sharingServices(forItems: [url])
+                .map { service in
+                    .child(service.menuItemTitle, #selector(triggerShare)) {
+                        $0.target = self
+                        $0.image = service.image
+                        $0.representedObject = service
+                    }
+                } + [
+                    .separator(),
+                    .child("Copy Link", #selector(Window.copyLink), "C")]
 //        case "Window":
 //            menu.items = [
 //                .child("Minimize", #selector(NSWindow.miniaturize), "m"),
@@ -119,16 +119,27 @@ final class Menu: NSMenu, NSMenuDelegate {
 //                    $0.target = self
 //                    $0.isEnabled = web != nil && web!.pageZoom > 0.05
 //                }]
-//        default: break
-//        }
+        default: break
+        }
     }
     
     private var url: URL {
-//        (NSApp.keyWindow as? Window)
-//            .flatMap(\.browser.entry.value)
-//            .flatMap(Cloud.shared.entry)
-//            .flatMap(\.access) ?? URL(string: "https://privacy-inc.github.io/about")!
-        URL(string: "about:blank")!
+        (NSApp.keyWindow as? Window)
+            .map(\.id)
+            .flatMap {
+                tabber
+                    .items
+                    .value[state: $0]
+                    .browse
+            }
+            .map {
+                cloud
+                    .archive
+                    .value
+                    .page($0)
+            }
+            .flatMap(\.access.url)
+            ?? URL(string: "https://privacy-inc.github.io/about")!
     }
     
     private var help: NSMenuItem {
@@ -161,10 +172,5 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func triggerZoomOut() {
 //        (NSApp.keyWindow as? Window)?.web?.pageZoom /= 1.1
-    }
-    
-    @objc private func triggerCopyLink() {
-//        NSPasteboard.general.clearContents()
-//        NSPasteboard.general.setString(url.absoluteString, forType: .string)
     }
 }
