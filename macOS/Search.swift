@@ -58,11 +58,8 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        let background = NSVisualEffectView()
-        background.translatesAutoresizingMaskIntoConstraints = false
-        background.wantsLayer = true
-        background.layer!.cornerRadius = 4
-        addSubview(background)
+        let bar = Bar(id: id)
+        addSubview(bar)
         
         let field = Field(id: id)
         addSubview(field)
@@ -185,10 +182,10 @@ final class Search: NSView {
         reload.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         stop.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
         
-        background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
-        background.bottomAnchor.constraint(equalTo: field.bottomAnchor).isActive = true
-        background.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
-        background.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+        bar.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
+        bar.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: 1).isActive = true
+        bar.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
+        bar.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
     }
     
     override func mouseUp(with: NSEvent) {

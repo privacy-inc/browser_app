@@ -3,8 +3,6 @@ import Combine
 
 extension Search {
     final class Field: NSTextField, NSTextFieldDelegate {
-        override var canBecomeKeyView: Bool { true }
-        
         private let autocomplete: Autocomplete
         private var subs = Set<AnyCancellable>()
         private let id: UUID
@@ -34,6 +32,10 @@ extension Search {
                 .store(in: &subs)
         }
         
+        override var canBecomeKeyView: Bool {
+            true
+        }
+        
         override func resignFirstResponder() -> Bool {
             autocomplete.end()
             return super.resignFirstResponder()
@@ -45,7 +47,7 @@ extension Search {
                 autocomplete.start()
                 
                 ;{
-                    autocomplete.adjust.send((position: .init(x: $0.x, y: $0.y - 2), width: bounds.width))
+                    autocomplete.adjust.send((position: .init(x: $0.x, y: $0.y - 3), width: bounds.width))
                 } (window!.convertPoint(toScreen: superview!.convert(frame.origin, to: nil)))
             }
             autocomplete
@@ -56,8 +58,20 @@ extension Search {
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
             case #selector(cancelOperation), #selector(complete):
-                autocomplete.end()
-                window!.makeFirstResponder(superview!)
+                if autocomplete.isVisible {
+                    autocomplete.end()
+                } else {
+                    window!.makeFirstResponder(superview!)
+                    tabber
+                        .items
+                        .value[state: id]
+                        .browse
+                        .map(cloud.archive.value.page)
+                        .map(\.access.string)
+                        .map {
+                            stringValue = $0
+                        }
+                }
             case #selector(moveUp):
                 autocomplete.up.send(.init())
             case #selector(moveDown):
