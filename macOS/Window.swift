@@ -77,6 +77,11 @@ final class Window: NSWindow {
             .store(in: &subs)
     }
     
+    override func close() {
+        tabber.close(id)
+        super.close()
+    }
+    
     override func resignKey() {
         super.resignKey()
         childWindows?.forEach {

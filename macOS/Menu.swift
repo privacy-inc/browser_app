@@ -61,6 +61,14 @@ final class Menu: NSMenu, NSMenuDelegate {
         }
     }
     
+    private var help: NSMenuItem {
+        .parent("Help", [
+                    .separator(),
+                    .child("Privacy website", #selector(triggerWebsite)) {
+                        $0.target = self
+                    }])
+    }
+    
     func menuNeedsUpdate(_ menu: NSMenu) {
         switch menu.title {
         case "Share":
@@ -76,51 +84,68 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .separator(),
                     .child("Copy Link", #selector(triggerCopyLink), "C") {
                         $0.target = self
+                        $0.image = .init(systemSymbolName: "doc.on.doc.fill", accessibilityDescription: nil)
                     }]
-//        case "Window":
-//            menu.items = [
-//                .child("Minimize", #selector(NSWindow.miniaturize), "m"),
-//                .child("Zoom", #selector(NSWindow.zoom), "p"),
-//                .separator(),
-//                .child("Bring All to Front", #selector(NSApplication.arrangeInFront)),
-//                .separator()] + (0 ..< NSApp.windows.count).compactMap {
-//                    if let window = NSApp.windows[$0] as? Window {
-//                        guard window.tabGroup == nil || window == window.tabGroup?.selectedWindow else { return nil }
-//                        return ($0, window.tab.title)
-//                    }
-//                    guard !NSApp.windows[$0].title.isEmpty else { return nil }
-//                    return ($0, NSApp.windows[$0].title)
-//                }.map { (index: Int, title: String) in
-//                    .child(title, #selector(focus)) {
-//                        $0.target = self
-//                        $0.tag = index
-//                        $0.state = NSApp.keyWindow == NSApp.windows[index] ? .on : .off
-//                    }
-//                }
-//        case "Page":
-//            let web = (NSApp.keyWindow as? Window)?.web
-//            menu.items = [
-//                .child("Stop", #selector(stop), ".") {
-//                    $0.target = self
-//                    $0.isEnabled = web != nil
-//                },
-//                .child("Reload", #selector(reload), "r") {
-//                    $0.target = self
-//                    $0.isEnabled = web != nil
-//                },
-//                .separator(),
-//                .child("Actual Size", #selector(actualSize), "0") {
-//                    $0.target = self
-//                    $0.isEnabled = web != nil && web!.pageZoom != 1
-//                },
-//                .child("Zoom In", #selector(zoomIn), "+") {
-//                    $0.target = self
-//                    $0.isEnabled = web != nil && web!.pageZoom < 15
-//                },
-//                .child("Zoom Out", #selector(zoomOut), "-") {
-//                    $0.target = self
-//                    $0.isEnabled = web != nil && web!.pageZoom > 0.05
-//                }]
+        case "Window":
+            menu.items = [
+                .child("Minimize", #selector(NSWindow.miniaturize), "m"),
+                .child("Zoom", #selector(NSWindow.zoom), "p"),
+                .separator(),
+                .child("Bring All to Front", #selector(NSApplication.arrangeInFront)),
+                .separator()]
+                + (0 ..< NSApp.windows.count)
+                .compactMap {
+                    if let window = NSApp.windows[$0] as? Window {
+                        guard window.tabGroup == nil || window == window.tabGroup?.selectedWindow else { return nil }
+                        return (index: $0, title: window.tab.title)
+                    }
+                    guard !NSApp.windows[$0].title.isEmpty else { return nil }
+                    return (index: $0, title: NSApp.windows[$0].title)
+                }
+                .map { (index: Int, title: String) in
+                    .child(title, #selector(triggerFocus)) {
+                        $0.target = self
+                        $0.tag = index
+                        $0.state = NSApp.keyWindow == NSApp.windows[index] ? .on : .off
+                    }
+                }
+        case "Page":
+            let id = (NSApp.keyWindow as? Window)?.id
+            let browse = id
+                .map {
+                    tabber
+                        .items
+                        .value[state: $0].isBrowse
+                }
+                ?? false
+            
+            menu.items = [
+                .child("Stop", #selector(triggerStop), ".") {
+                    $0.isEnabled = browse
+                    $0.target = self
+                    $0.representedObject = id
+                },
+                .child("Reload", #selector(triggerReload), "r") {
+                    $0.isEnabled = browse
+                    $0.target = self
+                    $0.representedObject = id
+                },
+                .separator(),
+                .child("Actual Size", #selector(triggerActualSize), "0") {
+                    $0.isEnabled = browse
+                    $0.target = self
+                    $0.representedObject = id
+                },
+                .child("Zoom In", #selector(triggerZoomIn), "+") {
+                    $0.isEnabled = browse
+                    $0.target = self
+                    $0.representedObject = id
+                },
+                .child("Zoom Out", #selector(triggerZoomOut), "-") {
+                    $0.isEnabled = browse
+                    $0.target = self
+                    $0.representedObject = id
+                }]
         default: break
         }
     }
@@ -144,12 +169,9 @@ final class Menu: NSMenu, NSMenuDelegate {
             ?? URL(string: "https://privacy-inc.github.io/about")!
     }
     
-    private var help: NSMenuItem {
-        .parent("Help")
-    }
-    
     @objc private func triggerShare(_ item: NSMenuItem) {
-//        (item.representedObject as? NSSharingService)?.perform(withItems: [url])
+        (item.representedObject as? NSSharingService)?
+            .perform(withItems: [url])
     }
     
     @objc private func triggerCopyLink() {
@@ -158,27 +180,56 @@ final class Menu: NSMenu, NSMenuDelegate {
         Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
     }
     
+    @objc private func triggerWebsite() {
+        NSApp.open(url: URL(string: "https://privacy-inc.github.io/about")!)
+    }
+    
     @objc private func triggerFocus(_ item: NSMenuItem) {
-//        NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
+        NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
     }
     
-    @objc private func triggerStop() {
-//        (NSApp.keyWindow as? Window)?.web?.stopLoading()
+    @objc private func triggerStop(_ item: NSMenuItem) {
+        item
+            .representedObject
+            .flatMap {
+                $0 as? UUID
+            }
+            .map(session.stop.send)
     }
     
-    @objc private func triggerReload() {
-//        (NSApp.keyWindow as? Window)?.web?.reload()
+    @objc private func triggerReload(_ item: NSMenuItem) {
+        item
+            .representedObject
+            .flatMap {
+                $0 as? UUID
+            }
+            .map(session.reload.send)
     }
     
-    @objc private func triggerActualSize() {
-//        (NSApp.keyWindow as? Window)?.web?.pageZoom = 1
+    @objc private func triggerActualSize(_ item: NSMenuItem) {
+        item
+            .representedObject
+            .flatMap {
+                $0 as? UUID
+            }
+            .map(session.actualSize.send)
     }
     
-    @objc private func triggerZoomIn() {
-//        (NSApp.keyWindow as? Window)?.web?.pageZoom *= 1.1
+    @objc private func triggerZoomIn(_ item: NSMenuItem) {
+        item
+            .representedObject
+            .flatMap {
+                $0 as? UUID
+            }
+            .map(session.zoomIn.send)
     }
     
-    @objc private func triggerZoomOut() {
-//        (NSApp.keyWindow as? Window)?.web?.pageZoom /= 1.1
+    @objc private func triggerZoomOut(_ item: NSMenuItem) {
+        item
+            .representedObject
+            .flatMap {
+                $0 as? UUID
+            }
+            .map(session.zoomOut.send)
     }
 }

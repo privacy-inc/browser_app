@@ -72,6 +72,6 @@ let purchases = Purchases()
             .paramDescriptor(forKeyword: keyDirectObject)
             .flatMap(\.stringValue?.removingPercentEncoding)
             .flatMap(URL.init(string:))
-            .map(open(tab:))
+            .map(open(url:))
     }
 }

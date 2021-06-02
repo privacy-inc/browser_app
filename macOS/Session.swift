@@ -16,6 +16,9 @@ struct Session {
     let pdf = PassthroughSubject<UUID, Never>()
     let webarchive = PassthroughSubject<UUID, Never>()
     let snapshot = PassthroughSubject<UUID, Never>()
+    let actualSize = PassthroughSubject<UUID, Never>()
+    let zoomIn = PassthroughSubject<UUID, Never>()
+    let zoomOut = PassthroughSubject<UUID, Never>()
     
     init() {
         decimal.numberStyle = .decimal

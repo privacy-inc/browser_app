@@ -156,6 +156,36 @@ final class Web: Webview {
                 }
             }
             .store(in: &subs)
+        
+        session
+            .actualSize
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.pageZoom = 1
+            }
+            .store(in: &subs)
+        
+        session
+            .zoomIn
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.pageZoom *= 1.1
+            }
+            .store(in: &subs)
+        
+        session
+            .zoomOut
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.pageZoom /= 1.1
+            }
+            .store(in: &subs)
     }
     
     override func external(_ url: URL) {

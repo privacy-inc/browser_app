@@ -17,40 +17,21 @@ extension NSApplication {
     }
     
     @objc func newWindow() {
-        let id = tabber.new()
-        guard let current = self[id] else {
-            window(id: id)
-            return
-        }
-        current.makeKeyAndOrderFront(nil)
+        self[tabber.new()]?.close()
+        window(id: tabber.new())
     }
     
     func window(id: UUID) {
         Window(id: id).makeKeyAndOrderFront(nil)
     }
     
-    func open(tab url: URL) {
-//        guard let key = keyWindow as? Window,
-//              key.browser.entry.value == nil
-//        else {
-//            if let empty = windows
-//                .compactMap({ $0 as? Window })
-//                .first(where: { $0.browser.entry.value == nil }) {
-//
-//                Cloud.shared.navigate(url) {
-//                    empty.browser.entry.value = $0
-//                }
-//            } else if let window = windows.compactMap({ $0 as? Window }).first {
-//                window.newTab(url)
-//            } else {
-//                window(url)
-//            }
-//            return
-//        }
-//
-//        Cloud.shared.navigate(url) {
-//            key.browser.entry.value = $0
-//        }
+    func open(url: URL) {
+        let id = tabber.new()
+        newTab()
+        cloud
+            .navigate(url) { browse, _ in
+                tabber.browse(id, browse)
+            }
     }
     
     @objc func preferences() {
