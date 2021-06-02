@@ -3,7 +3,7 @@ import Combine
 import Sleuth
 
 extension Search {
-    final class Autocomplete: NSPanel, NSWindowDelegate {
+    final class Autocomplete: NSPanel {
         let filter = PassthroughSubject<String, Never>()
         let adjust = PassthroughSubject<(position: CGPoint, width: CGFloat), Never>()
         let up = PassthroughSubject<Date, Never>()
@@ -24,13 +24,14 @@ extension Search {
             isOpaque = false
             backgroundColor = .clear
             hasShadow = true
-            delegate = self
             
             let content = NSVisualEffectView()
             content.translatesAutoresizingMaskIntoConstraints = false
+            content.state = .active
             content.wantsLayer = true
             content.layer!.cornerRadius = 4
             content.addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInActiveApp, .inVisibleRect], owner: self))
+            content.postsFrameChangedNotifications = true
             contentView!.addSubview(content)
             self.content = content
             
@@ -46,7 +47,6 @@ extension Search {
             else { return }
             
             let cells = PassthroughSubject<[Cell], Never>()
-            let height = PassthroughSubject<CGFloat, Never>()
             
             let titleBookmarks = Text()
             titleBookmarks.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .bold)
@@ -59,7 +59,13 @@ extension Search {
             titleRecent.stringValue = NSLocalizedString("Recent", comment: "")
             
             adjust
-                .combineLatest(height)
+                .combineLatest(NotificationCenter
+                                .default
+                                .publisher(for: NSView.frameDidChangeNotification, object: content)
+                                .compactMap {
+                                    ($0.object as? NSView)?.frame.height
+                                }
+                                .receive(on: DispatchQueue.main))
                 .sink { [weak self] in
                     self?.setContentSize(.init(width: $0.0.width, height: $0.1))
                     self?.setFrameTopLeftPoint($0.0.position)
@@ -145,9 +151,7 @@ extension Search {
                         self.end()
                     } else {
                         self.content.bottomAnchor.constraint(equalTo: top, constant: 10).isActive = true
-                        self.content.layoutSubtreeIfNeeded()
                         cells.send(list)
-                        height.send(self.content.frame.height)
                     }
                 }
                 .store(in: &subs)
@@ -183,9 +187,8 @@ extension Search {
                                 && $0.frame.maxY >= item.0.y
                         }
                 }
-                .sink { [weak self] in
+                .sink {
                     $0.highlighted = true
-                    self?.complete.send($0.filtered.url)
                 }
                 .store(in: &subs)
             

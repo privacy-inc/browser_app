@@ -74,7 +74,9 @@ final class Menu: NSMenu, NSMenuDelegate {
                     }
                 } + [
                     .separator(),
-                    .child("Copy Link", #selector(Window.copyLink), "C")]
+                    .child("Copy Link", #selector(triggerCopyLink), "C") {
+                        $0.target = self
+                    }]
 //        case "Window":
 //            menu.items = [
 //                .child("Minimize", #selector(NSWindow.miniaturize), "m"),
@@ -148,6 +150,12 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     @objc private func triggerShare(_ item: NSMenuItem) {
 //        (item.representedObject as? NSSharingService)?.perform(withItems: [url])
+    }
+    
+    @objc private func triggerCopyLink() {
+        NSPasteboard.general.clearContents()
+        NSPasteboard.general.setString(url.absoluteString, forType: .string)
+        Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
     }
     
     @objc private func triggerFocus(_ item: NSMenuItem) {

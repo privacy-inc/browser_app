@@ -113,22 +113,6 @@ final class Window: NSWindow {
         }
     }
     
-    @objc func copyLink() {
-        tabber
-            .items
-            .value[state: id]
-            .browse
-            .map(cloud
-                    .archive
-                    .value
-                    .page)
-            .map(\.access.string)
-            .map {
-                NSPasteboard.general.clearContents()
-                NSPasteboard.general.setString($0, forType: .string)
-            }
-    }
-    
     private func show(_ view: NSView) {
         contentView!
             .subviews

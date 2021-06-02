@@ -12,7 +12,7 @@ extension Search.Field.Cell {
             allowsUndo = true
             isFieldEditor = true
             isRichText = false
-            isContinuousSpellCheckingEnabled = true
+            isContinuousSpellCheckingEnabled = false
             isAutomaticTextCompletionEnabled = false
             insertionPointColor = .labelColor
             typingAttributes[.kern] = 1

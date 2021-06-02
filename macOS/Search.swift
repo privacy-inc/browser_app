@@ -190,12 +190,9 @@ final class Search: NSView {
     
     override func mouseUp(with: NSEvent) {
         guard
-            with.clickCount >= 2,
+            with.clickCount == 2,
             !field.frame.contains(convert(with.locationInWindow, from: nil))
-        else {
-            super.mouseUp(with: with)
-            return
-        }
+        else { return }
         window?.performZoom(nil)
     }
     
