@@ -84,7 +84,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .separator(),
                     .child("Copy Link", #selector(triggerCopyLink), "C") {
                         $0.target = self
-                        $0.image = .init(systemSymbolName: "doc.on.doc.fill", accessibilityDescription: nil)
+                        $0.image = .init(systemSymbolName: "doc.on.doc", accessibilityDescription: nil)
                     }]
         case "Window":
             menu.items = [
@@ -177,7 +177,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     @objc private func triggerCopyLink() {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(url.absoluteString, forType: .string)
-        Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
+        Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc"))
     }
     
     @objc private func triggerWebsite() {

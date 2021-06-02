@@ -66,11 +66,7 @@ extension Tab {
         }
         
         private var secure: Bool {
-            page
-                .map {
-                    !$0.access.string.hasPrefix(URL.Scheme.http.rawValue + "://")
-                }
-                ?? true
+            page.secure ?? false
         }
         
         private var page: Page? {

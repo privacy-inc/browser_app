@@ -139,6 +139,8 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
     }
     
     final override func mouseDown(with: NSEvent) {
+        guard with.clickCount == 1 else { return }
+        window?.makeFirstResponder(self)
         select.send(point(with: with))
     }
  

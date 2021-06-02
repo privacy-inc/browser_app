@@ -28,6 +28,7 @@
 		CE12B21B265E6C2F000EA487 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12B21A265E6C2F000EA487 /* New.swift */; };
 		CE2E9883265136D400844E8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E9882265136D400844E8B /* Toast.swift */; };
 		CE2E98852651374700844E8B /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
+		CE55EDE72667BB9400386C5B /* Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55EDE62667BB9400386C5B /* Info.swift */; };
 		CE56789B265AB8080087B8F8 /* Info.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56789A265AB8080087B8F8 /* Info.Message.swift */; };
 		CE56789D265AB8B40087B8F8 /* Info.Froob.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56789C265AB8B40087B8F8 /* Info.Froob.swift */; };
 		CE56789F265AB9D40087B8F8 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE56789E265AB9D40087B8F8 /* Store.swift */; };
@@ -205,6 +206,7 @@
 		CE12B21A265E6C2F000EA487 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
 		CE2E9882265136D400844E8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CE2E98842651374700844E8B /* Toast.Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.Message.swift; sourceTree = "<group>"; };
+		CE55EDE62667BB9400386C5B /* Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.swift; sourceTree = "<group>"; };
 		CE56789A265AB8080087B8F8 /* Info.Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Message.swift; sourceTree = "<group>"; };
 		CE56789C265AB8B40087B8F8 /* Info.Froob.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Froob.swift; sourceTree = "<group>"; };
 		CE56789E265AB9D40087B8F8 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
@@ -514,6 +516,7 @@
 				CE0D6BF7265FDF51000B3FF1 /* Control.State.swift */,
 				CE0D6BF5265FDF29000B3FF1 /* Control.swift */,
 				CE847B12265E9EB900A045B3 /* Flip.swift */,
+				CE55EDE62667BB9400386C5B /* Info.swift */,
 				CE676A6A265E64EE0042EDC2 /* Menu.swift */,
 				CECE1F9A265E967700ACBB0B /* New.Bookmarks.Cell.swift */,
 				CECE1F96265E91C000ACBB0B /* New.Bookmarks.swift */,
@@ -830,6 +833,7 @@
 				CEF5862C265E468C00D9A6F1 /* App.swift in Sources */,
 				CECE1F99265E94F000ACBB0B /* New.History.swift in Sources */,
 				CE0D6BFA265FDF6B000B3FF1 /* Control.Squircle.swift in Sources */,
+				CE55EDE72667BB9400386C5B /* Info.swift in Sources */,
 				CE0D6BF8265FDF51000B3FF1 /* Control.State.swift in Sources */,
 				CE80555B26678B100096D1A5 /* Toast.Message.swift in Sources */,
 				CE847B19265EA0C000A045B3 /* CollectionCellState.swift in Sources */,

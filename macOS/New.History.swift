@@ -105,6 +105,13 @@ extension New {
                                         } ?? 0)
                 }
                 .store(in: &subs)
+            
+            selected
+                .sink {
+                    cloud.revisit($0) { _ in }
+                    tabber.browse(id, $0)
+                }
+                .store(in: &subs)
         }
     }
 }

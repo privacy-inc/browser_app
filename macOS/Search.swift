@@ -30,7 +30,8 @@ final class Search: NSView {
         info
             .click
             .sink {
-                
+                Info(id: id)
+                    .show(relativeTo: info.bounds, of: info, preferredEdge: .minY)
             }
             .store(in: &subs)
         
