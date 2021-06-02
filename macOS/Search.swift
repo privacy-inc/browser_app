@@ -39,7 +39,12 @@ final class Search: NSView {
         bookmark
             .click
             .sink {
-                
+                tabber
+                    .items
+                    .value[state: id]
+                    .browse
+                    .map(cloud.bookmark)
+                Toast.show(message: .init(title: "Bookmark added", icon: "bookmark"))
             }
             .store(in: &subs)
         

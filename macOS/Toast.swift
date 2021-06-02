@@ -7,7 +7,7 @@ final class Toast: NSPanel {
         toast.setFrameTopLeftPoint(.init(x: (NSScreen.main?.frame.width ?? 600) - toast.frame.width - 10,
                                          y: (NSScreen.main?.frame.height ?? 400) - 35))
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 7) { [weak toast] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + 8) { [weak toast] in
             toast?.close()
         }
     }
@@ -18,6 +18,7 @@ final class Toast: NSPanel {
         backgroundColor = .clear
         isOpaque = false
         hasShadow = true
+        animationBehavior = .alertPanel
         
         let content = NSVisualEffectView()
         content.translatesAutoresizingMaskIntoConstraints = false
