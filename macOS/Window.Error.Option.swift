@@ -39,15 +39,15 @@ extension Window.Error {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .labelColor
-                text.textColor = .labelColor
+                image.contentTintColor = .controlAccentColor
+                text.textColor = .controlAccentColor
                 layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
             case .highlighted:
                 layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
             default:
                 layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-                image.contentTintColor = .secondaryLabelColor
-                text.textColor = .secondaryLabelColor
+                image.contentTintColor = .labelColor
+                text.textColor = .labelColor
             }
         }
     }

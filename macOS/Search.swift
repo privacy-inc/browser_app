@@ -165,7 +165,7 @@ final class Search: NSView {
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
         
-        _ = [back, forward, info, bookmark, share]
+        _ = [back, forward, info, share, bookmark]
             .reduce(self as NSView) {
                 if $0 == self {
                     $1.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
@@ -181,7 +181,7 @@ final class Search: NSView {
                 $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
             }
         
-        field.leftAnchor.constraint(equalTo: share.rightAnchor, constant: 12).isActive = true
+        field.leftAnchor.constraint(equalTo: bookmark.rightAnchor, constant: 12).isActive = true
         field.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         engine.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true

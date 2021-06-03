@@ -39,15 +39,15 @@ extension Share {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .labelColor
-                text.textColor = .labelColor
+                image.contentTintColor = .controlAccentColor
+                text.textColor = .controlAccentColor
                 layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
             case .highlighted:
                 layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
             default:
                 layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
-                image.contentTintColor = .secondaryLabelColor
-                text.textColor = .secondaryLabelColor
+                image.contentTintColor = .labelColor
+                text.textColor = .labelColor
             }
         }
     }

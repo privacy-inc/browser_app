@@ -42,8 +42,9 @@ extension Window {
                 .click
                 .sink {
                     cloud
-                        .browse(error.url, id: browse) { _, _ in
+                        .browse(error.url, id: browse) {
                             tabber.browse(id, browse)
+                            session.load.send((id: id, access: $1))
                         }
                 }
                 .store(in: &subs)
