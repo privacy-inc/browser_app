@@ -28,7 +28,7 @@ extension Tab {
                                 .map(UIApplication.shared.share)
                         }
                         Control(title: "Download", image: "square.and.arrow.down") {
-                            archive
+                            download
                                 .map(UIApplication.shared.share)
                         }
                         Control(title: "Print", image: "printer") {
@@ -86,16 +86,8 @@ extension Tab {
                 .flatMap(\.access.url)
         }
         
-        private var archive: URL? {
-            url
-                .flatMap { url in
-                    (try? Data(contentsOf: url))
-                        .map {
-                            $0.temporal({
-                                $0.isEmpty ? "Page.html" : $0.contains(".") && $0.last != "." ? $0 : $0 + ".html"
-                            } (url.lastPathComponent.replacingOccurrences(of: "/", with: "")))
-                        }
-                }
+        private var download: URL? {
+            url?.download
         }
         
         private var photo: Bool {

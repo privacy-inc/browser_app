@@ -80,8 +80,20 @@ final class Web: Webview {
                 $0 == id
             }
             .sink { [weak self] _ in
-//                UIPrintInteractionController.shared.printFormatter = self?.viewPrintFormatter()
-//                UIPrintInteractionController.shared.present(animated: true)
+                guard let self = self else { return }
+                let info = NSPrintInfo.shared
+                info.horizontalPagination = .automatic
+                info.verticalPagination = .automatic
+                info.isVerticallyCentered = false
+                info.isHorizontallyCentered = false
+                info.leftMargin = 10
+                info.rightMargin = 10
+                info.topMargin = 10
+                info.bottomMargin = 10
+                let operation = self.printOperation(with: info)
+                operation.showsPrintPanel = false
+                operation.showsProgressPanel = false
+                operation.runModal(for: self.window!, delegate: nil, didRun: nil, contextInfo: nil)
             }
             .store(in: &subs)
 

@@ -25,7 +25,20 @@ final class Share: NSPopover {
         urlShare
             .click
             .sink {
-                
+                tabber
+                    .items
+                    .value[state: id]
+                    .browse
+                    .map(cloud
+                            .archive
+                            .value
+                            .page)
+                    .map(\.access.string)
+                    .map { [weak self] in
+                        NSSharingServicePicker(items: [$0])
+                            .show(relativeTo: urlShare.bounds, of: urlShare, preferredEdge: .minY)
+                        self?.close()
+                    }
             }
             .store(in: &subs)
         
@@ -33,7 +46,20 @@ final class Share: NSPopover {
         pageShare
             .click
             .sink {
-                
+                tabber
+                    .items
+                    .value[state: id]
+                    .browse
+                    .map(cloud
+                            .archive
+                            .value
+                            .page)
+                    .flatMap(\.access.url)
+                    .map { [weak self] in
+                        NSSharingServicePicker(items: [$0])
+                            .show(relativeTo: pageShare.bounds, of: pageShare, preferredEdge: .minY)
+                        self?.close()
+                    }
             }
             .store(in: &subs)
         
@@ -41,15 +67,36 @@ final class Share: NSPopover {
         pageDownload
             .click
             .sink {
-                
+                tabber
+                    .items
+                    .value[state: id]
+                    .browse
+                    .map(cloud
+                            .archive
+                            .value
+                            .page)
+                    .flatMap(\.access.url?.download)
+                    .map { [weak self] downloaded in
+                        self?.close()
+                        
+                        let save = NSSavePanel()
+                        save.nameFieldStringValue = downloaded.lastPathComponent
+                        save.begin {
+                            if $0 == .OK, let url = save.url {
+                                try? Data(contentsOf: downloaded).write(to: url, options: .atomic)
+                                NSWorkspace.shared.activateFileViewerSelecting([url])
+                            }
+                        }
+                    }
             }
             .store(in: &subs)
         
         let pagePrint = Option(title: "Print", image: "printer")
         pagePrint
             .click
-            .sink {
-                
+            .sink { [weak self] in
+                self?.close()
+                session.print.send(id)
             }
             .store(in: &subs)
         

@@ -159,12 +159,10 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .value[state: $0]
                     .browse
             }
-            .map {
-                cloud
+            .map(cloud
                     .archive
                     .value
-                    .page($0)
-            }
+                    .page)
             .flatMap(\.access.url)
             ?? URL(string: "https://privacy-inc.github.io/about")!
     }
