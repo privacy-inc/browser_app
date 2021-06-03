@@ -56,14 +56,6 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        let find = Control.Squircle(icon: "doc.text.magnifyingglass")
-        find
-            .click
-            .sink {
-                
-            }
-            .store(in: &subs)
-        
         let bar = Bar(id: id)
         addSubview(bar)
         
@@ -122,7 +114,7 @@ final class Search: NSView {
             }
             .removeDuplicates()
             .sink { isBrowse in
-                [info, bookmark, share, find]
+                [info, bookmark, share]
                     .forEach {
                         $0.state = isBrowse ? .on : .off
                     }
@@ -166,13 +158,13 @@ final class Search: NSView {
             }
             .store(in: &subs)
         
-        [back, forward, info, bookmark, share, find, field, engine, reload, stop]
+        [back, forward, info, bookmark, share, field, engine, reload, stop]
             .forEach {
                 addSubview($0)
                 $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             }
         
-        _ = [back, forward, info, bookmark, share, find]
+        _ = [back, forward, info, bookmark, share]
             .reduce(self as NSView) {
                 if $0 == self {
                     $1.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 8).isActive = true
@@ -188,7 +180,7 @@ final class Search: NSView {
                 $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
             }
         
-        field.leftAnchor.constraint(equalTo: find.rightAnchor, constant: 12).isActive = true
+        field.leftAnchor.constraint(equalTo: share.rightAnchor, constant: 12).isActive = true
         field.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
         
         engine.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true

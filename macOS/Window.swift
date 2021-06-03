@@ -15,7 +15,7 @@ final class Window: NSWindow {
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView],
                    backing: .buffered,
                    defer: false)
-        minSize = .init(width: 500, height: 200)
+        minSize = .init(width: 400, height: 200)
         toolbar = .init()
         collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
