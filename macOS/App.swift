@@ -56,15 +56,25 @@ let purchases = Purchases()
         cloud.pull.send()
     }
     
+    func applicationWillResignActive(_: Notification) {
+        sendAction(#selector(NSPopover.cancelOperation), to: nil, from: nil)
+    }
+    
     func application(_: NSApplication, didReceiveRemoteNotification: [String : Any]) {
         cloud.pull.send()
     }
     
     func applicationShouldHandleReopen(_: NSApplication, hasVisibleWindows: Bool) -> Bool {
-        if !hasVisibleWindows {
+        if hasVisibleWindows {
+            windows
+                .filter(\.isMiniaturized)
+                .forEach {
+                    $0.deminiaturize(nil)
+                }
+        } else {
             newWindow()
         }
-        return true
+        return false
     }
 
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {

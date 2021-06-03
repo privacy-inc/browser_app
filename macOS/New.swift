@@ -1,6 +1,9 @@
 import AppKit
+import Combine
 
 final class New: NSView {
+    private var subs = Set<AnyCancellable>()
+    
     required init?(coder: NSCoder) { nil }
     init(id: UUID) {
         super.init(frame: .zero)
@@ -15,11 +18,11 @@ final class New: NSView {
         titleBookmarks.textColor = .secondaryLabelColor
         content.addSubview(titleBookmarks)
         
-        let titleRecent = Text()
-        titleRecent.stringValue = NSLocalizedString("Recent", comment: "")
-        titleRecent.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .bold)
-        titleRecent.textColor = .secondaryLabelColor
-        content.addSubview(titleRecent)
+        let titleHistory = Text()
+        titleHistory.stringValue = NSLocalizedString("Recent", comment: "")
+        titleHistory.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .bold)
+        titleHistory.textColor = .secondaryLabelColor
+        content.addSubview(titleHistory)
         
         let backgroundBookmarks = NSView()
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
@@ -53,8 +56,8 @@ final class New: NSView {
         titleBookmarks.topAnchor.constraint(equalTo: content.topAnchor).isActive = true
         titleBookmarks.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         
-        titleRecent.bottomAnchor.constraint(equalTo: content.centerYAnchor).isActive = true
-        titleRecent.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
+        titleHistory.bottomAnchor.constraint(equalTo: content.centerYAnchor).isActive = true
+        titleHistory.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         
         bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor, constant: 1).isActive = true
         bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor, constant: -1).isActive = true
@@ -62,11 +65,11 @@ final class New: NSView {
         bookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor, constant: -1).isActive = true
         
         backgroundBookmarks.topAnchor.constraint(equalTo: titleBookmarks.bottomAnchor, constant: 10).isActive = true
-        backgroundBookmarks.bottomAnchor.constraint(equalTo: titleRecent.topAnchor, constant: -30).isActive = true
+        backgroundBookmarks.bottomAnchor.constraint(equalTo: titleHistory.topAnchor, constant: -30).isActive = true
         backgroundBookmarks.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         backgroundBookmarks.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         
-        backgroundHistory.topAnchor.constraint(equalTo: titleRecent.bottomAnchor, constant: 10).isActive = true
+        backgroundHistory.topAnchor.constraint(equalTo: titleHistory.bottomAnchor, constant: 10).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         backgroundHistory.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
@@ -75,6 +78,32 @@ final class New: NSView {
         history.bottomAnchor.constraint(equalTo: backgroundHistory.bottomAnchor, constant: -1).isActive = true
         history.leftAnchor.constraint(equalTo: backgroundHistory.leftAnchor, constant: 1).isActive = true
         history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor, constant: -1).isActive = true
+        
+        cloud
+            .archive
+            .map {
+                $0.bookmarks.isEmpty
+            }
+            .removeDuplicates()
+            .sink {
+                titleBookmarks.isHidden = $0
+                backgroundBookmarks.isHidden = $0
+                bookmarks.isHidden = $0
+            }
+            .store(in: &subs)
+        
+        cloud
+            .archive
+            .map {
+                $0.browse.isEmpty
+            }
+            .removeDuplicates()
+            .sink {
+                titleHistory.isHidden = $0
+                backgroundHistory.isHidden = $0
+                history.isHidden = $0
+            }
+            .store(in: &subs)
     }
     
     override func mouseDown(with: NSEvent) {

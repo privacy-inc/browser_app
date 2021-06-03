@@ -52,7 +52,8 @@ final class Search: NSView {
         share
             .click
             .sink {
-                
+                Share(id: id)
+                    .show(relativeTo: share.bounds, of: share, preferredEdge: .minY)
             }
             .store(in: &subs)
         

@@ -27,7 +27,7 @@ extension Tab.Modal {
                         }
                     }
                     HStack {
-                        Control(title: "Options", image: "square.and.arrow.up.on.square") {
+                        Control(title: "Share", image: "square.and.arrow.up") {
                             dismiss()
                             session.modal = .options(id)
                         }
