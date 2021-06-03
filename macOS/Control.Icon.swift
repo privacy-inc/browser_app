@@ -6,14 +6,14 @@ extension Control {
         
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
-            super.init()
-            
             let icon = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
             icon.translatesAutoresizingMaskIntoConstraints = false
             icon.contentTintColor = .secondaryLabelColor
-            addSubview(icon)
             self.icon = icon
             
+            super.init(layer: false)
+            
+            addSubview(icon)
             icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             icon.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         }

@@ -13,12 +13,14 @@ class Control: NSView {
     final override var mouseDownCanMoveWindow: Bool { false }
     
     required init?(coder: NSCoder) { nil }
-    init() {
+    init(layer: Bool) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        wantsLayer = layer
         setAccessibilityElement(true)
         setAccessibilityRole(.button)
         addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
+        update()
     }
     
     final override func resetCursorRects() {
