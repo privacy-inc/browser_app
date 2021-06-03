@@ -3,7 +3,7 @@ import Combine
 
 final class Window: NSWindow {
     let id: UUID
-    private weak var search: Search!
+    private(set) weak var search: Search!
     private var subs = Set<AnyCancellable>()
     
     init(id: UUID) {
@@ -43,9 +43,13 @@ final class Window: NSWindow {
                 case .new:
                     self?.show(New(id: id))
                 case let .browse(browse):
-                    self?.show(Web(id: id, browse: browse))
-                case .error:
-                    break
+                    let web = (tabber.items.value[web: id] as? Web) ?? Web(id: id, browse: browse)
+                    if tabber.items.value[web: id] == nil {
+                        tabber.update(id, web: web)
+                    }
+                    self?.show(web)
+                case let .error(browse, error):
+                    self?.show(Error(id: id, browse: browse, error: error))
                 }
             }
             .store(in: &subs)
@@ -73,6 +77,16 @@ final class Window: NSWindow {
             .removeDuplicates()
             .sink { [weak self] in
                 self?.tab.title = $0
+            }
+            .store(in: &subs)
+        
+        session
+            .close
+            .filter {
+                $0 == id
+            }
+            .sink { [weak self] _ in
+                self?.close()
             }
             .store(in: &subs)
     }
@@ -125,8 +139,6 @@ final class Window: NSWindow {
                 $0.removeFromSuperview()
             }
         
-        view.wantsLayer = true
-        view.layer!.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         view.layer!.cornerRadius = 9
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView!.addSubview(view)

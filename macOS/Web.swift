@@ -20,6 +20,8 @@ final class Web: Webview {
         configuration.userContentController.add(handler, name: "handler")
         
         super.init(configuration: configuration, id: id, browse: browse, settings: settings)
+        wantsLayer = true
+        layer!.maskedCorners = [.layerMinXMaxYCorner, .layerMaxXMaxYCorner]
         setValue(false, forKey: "drawsBackground")
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
         handler.web = self
@@ -223,6 +225,10 @@ final class Web: Webview {
                 self?.pageZoom /= 1.1
             }
             .store(in: &subs)
+    }
+    
+    deinit {
+        print("gone")
     }
     
     override func external(_ url: URL) {

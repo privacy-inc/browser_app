@@ -7,6 +7,8 @@ final class New: NSView {
     required init?(coder: NSCoder) { nil }
     init(id: UUID) {
         super.init(frame: .zero)
+        wantsLayer = true
+        layer!.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
         
         let content = NSView()
         content.translatesAutoresizingMaskIntoConstraints = false

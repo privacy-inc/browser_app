@@ -14,6 +14,7 @@ extension NSApplication {
             return
         }
         current.makeKeyAndOrderFront(nil)
+        current.makeFirstResponder(current.search.field)
     }
     
     @objc func newWindow() {

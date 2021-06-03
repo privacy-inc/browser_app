@@ -19,6 +19,7 @@ struct Session {
     let actualSize = PassthroughSubject<UUID, Never>()
     let zoomIn = PassthroughSubject<UUID, Never>()
     let zoomOut = PassthroughSubject<UUID, Never>()
+    let close = PassthroughSubject<UUID, Never>()
     
     init() {
         decimal.numberStyle = .decimal

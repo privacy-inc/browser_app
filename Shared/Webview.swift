@@ -128,6 +128,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             .flatMap(\.failingURL)
             ?? url ?? URL(string: "about:blank")!, withError.localizedDescription)
         cloud.activity()
+        tabber.update(id, progress: 1)
     }
     
     final func webView(_: WKWebView, didFinish: WKNavigation!) {

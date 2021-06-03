@@ -1,5 +1,4 @@
 import SwiftUI
-import WebKit
 import Sleuth
 
 extension Tab {
@@ -35,16 +34,21 @@ extension Tab {
                                 session.load.send((id: id, access: $1))
                             }
                     }
+                    .frame(maxWidth: 200)
                     Control(title: "Cancel", image: "xmark") {
-                        guard let web = session.tab[web: id] as? WKWebView else { return }
-                        if web.url == nil {
-                            tabber.clear(id)
-                        } else {
-                            cloud.update(browse, url: web.url ?? URL(string: "about:blank")!)
+                        guard let web = tabber.items.value[web: id] as? Web.Coordinator else { return }
+                        if let url = web.url {
+                            cloud.update(browse, url: url)
                             cloud.update(browse, title: web.title ?? "")
                             tabber.dismiss(id)
+                        } else {
+                            withAnimation(.spring(blendDuration: 0.4)) {
+                                session.section = .tab(tabber.new())
+                            }
+                            tabber.close(id)
                         }
                     }
+                    .frame(width: 200)
                     Spacer()
                         .frame(height: 30)
                 }

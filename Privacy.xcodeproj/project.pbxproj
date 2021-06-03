@@ -66,6 +66,8 @@
 		CE781123264C08990097FAC2 /* Tab.New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781122264C08990097FAC2 /* Tab.New.swift */; };
 		CE80555A266789E10096D1A5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE805559266789E10096D1A5 /* Toast.swift */; };
 		CE80555B26678B100096D1A5 /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
+		CE81AC4126692008004B5B63 /* Window.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81AC4026692008004B5B63 /* Window.Error.swift */; };
+		CE81AC4326692798004B5B63 /* Window.Error.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81AC4226692798004B5B63 /* Window.Error.Option.swift */; };
 		CE847B13265E9EB900A045B3 /* Flip.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE847B12265E9EB900A045B3 /* Flip.swift */; };
 		CE847B15265EA08A00A045B3 /* CollectionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE847B14265EA08A00A045B3 /* CollectionItem.swift */; };
 		CE847B17265EA0AC00A045B3 /* CollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE847B16265EA0AC00A045B3 /* CollectionCell.swift */; };
@@ -242,6 +244,8 @@
 		CE781120264C00580097FAC2 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE781122264C08990097FAC2 /* Tab.New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.swift; sourceTree = "<group>"; };
 		CE805559266789E10096D1A5 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
+		CE81AC4026692008004B5B63 /* Window.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Error.swift; sourceTree = "<group>"; };
+		CE81AC4226692798004B5B63 /* Window.Error.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Error.Option.swift; sourceTree = "<group>"; };
 		CE847B12265E9EB900A045B3 /* Flip.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flip.swift; sourceTree = "<group>"; };
 		CE847B14265EA08A00A045B3 /* CollectionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItem.swift; sourceTree = "<group>"; };
 		CE847B16265EA0AC00A045B3 /* CollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionCell.swift; sourceTree = "<group>"; };
@@ -535,12 +539,14 @@
 				CE0D6BFD265FEBD5000B3FF1 /* Search.Field.swift */,
 				CE0D6BF3265FDAE9000B3FF1 /* Search.swift */,
 				CE676A64265E5FCD0042EDC2 /* Session.swift */,
-				CEA0027E2668DE970098B04D /* Share.swift */,
 				CEA002802668E10D0098B04D /* Share.Option.swift */,
+				CEA0027E2668DE970098B04D /* Share.swift */,
 				CECE1F94265E90A100ACBB0B /* Text.swift */,
 				CE805559266789E10096D1A5 /* Toast.swift */,
 				CE9E175F266106B800E8BF24 /* Web.Handler.swift */,
 				CE9E175C2661051900E8BF24 /* Web.swift */,
+				CE81AC4226692798004B5B63 /* Window.Error.Option.swift */,
+				CE81AC4026692008004B5B63 /* Window.Error.swift */,
 				CE676A62265E52B10042EDC2 /* Window.swift */,
 				CEF5862F265E468D00D9A6F1 /* Assets.xcassets */,
 			);
@@ -833,6 +839,7 @@
 				CE9E175B2660F3BB00E8BF24 /* Control.Icon.swift in Sources */,
 				CE0D6BFE265FEBD5000B3FF1 /* Search.Field.swift in Sources */,
 				CE9E175E2661053100E8BF24 /* Webview.swift in Sources */,
+				CE81AC4126692008004B5B63 /* Window.Error.swift in Sources */,
 				CEF5862C265E468C00D9A6F1 /* App.swift in Sources */,
 				CECE1F99265E94F000ACBB0B /* New.History.swift in Sources */,
 				CE0D6BFA265FDF6B000B3FF1 /* Control.Squircle.swift in Sources */,
@@ -845,6 +852,7 @@
 				CE847B1B265EA1BC00A045B3 /* CollectionCellText.swift in Sources */,
 				CE9E1760266106B800E8BF24 /* Web.Handler.swift in Sources */,
 				CE676A63265E52B10042EDC2 /* Window.swift in Sources */,
+				CE81AC4326692798004B5B63 /* Window.Error.Option.swift in Sources */,
 				CE12B21B265E6C2F000EA487 /* New.swift in Sources */,
 				CEC9859826639780001DA288 /* Search.Autocomplete.Cell.swift in Sources */,
 				CEA0027F2668DE970098B04D /* Share.swift in Sources */,
