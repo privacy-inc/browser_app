@@ -1,6 +1,6 @@
 import AppKit
 
-extension New.History {
+extension New {
     final class Cell: CollectionCell {
         static let insets = CGFloat(10)
         static let insets2 = insets * 2
@@ -15,6 +15,10 @@ extension New.History {
         
         override var highlighted: CGColor {
             NSColor.windowBackgroundColor.cgColor
+        }
+        
+        override var pressed: CGColor {
+            NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
         }
         
         required init?(coder: NSCoder) { nil }

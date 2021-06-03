@@ -13,6 +13,10 @@ class CollectionCell: CALayer {
         .clear
     }
     
+    var pressed: CGColor {
+        .clear
+    }
+    
     private var insets2: CGFloat {
         insets + insets
     }
@@ -52,6 +56,8 @@ class CollectionCell: CALayer {
                 backgroundColor = none
             case .highlighted:
                 backgroundColor = highlighted
+            case .pressed:
+                backgroundColor = pressed
             }
         }
     }

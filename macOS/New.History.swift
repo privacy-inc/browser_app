@@ -2,7 +2,7 @@ import AppKit
 import Combine
 
 extension New {
-    final class History: Collection<New.History.Cell> {
+    final class History: Collection<New.Cell> {
         private static let width = CGFloat(180)
         private static let padding = CGFloat(3)
         
@@ -100,15 +100,13 @@ extension New {
                                         .y
                                         .map(\.1)
                                         .max()
-                                        .map {
-                                            $0 + Self.padding
-                                        } ?? 0)
+                                        ?? 0)
                 }
                 .store(in: &subs)
             
             selected
                 .sink {
-                    cloud.revisit($0) { _ in }
+                    cloud.revisit($0)
                     tabber.browse(id, $0)
                 }
                 .store(in: &subs)

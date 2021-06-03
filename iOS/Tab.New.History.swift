@@ -13,7 +13,7 @@ extension Tab.New {
                     VStack(spacing: metrics.spacing) {
                         ForEach(0 ..< list[column].count, id: \.self) { index in
                             Cell(browse: list[column][index]) {
-                                cloud.revisit(list[column][index].id) { _ in }
+                                cloud.revisit(list[column][index].id)
                                 tabber.browse(id, list[column][index].id)
                             }
                             .frame(width: metrics.width)

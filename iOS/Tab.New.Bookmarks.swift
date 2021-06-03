@@ -13,14 +13,9 @@ extension Tab.New {
                     .frame(height: 1)
                     .padding(.horizontal)
                 Button {
-                    let browse = session.tab[state: id].browse
                     cloud
-                        .open(index, id: browse) {
-                            if browse == $0 {
-                                session.load.send((id: id, access: $1))
-                            } else {
-                                tabber.browse(id, $0)
-                            }
+                        .open(index) {
+                            tabber.browse(id, $0)
                         }
                 } label: {
                     VStack(alignment: .leading) {

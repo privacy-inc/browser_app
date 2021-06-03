@@ -12,7 +12,7 @@ extension Collection {
             ForEach(0 ..< browse.count, id: \.self) { index in
                 Button {
                     cloud
-                        .revisit(browse[index].id) { _ in }
+                        .revisit(browse[index].id)
                     tabber.browse(id, browse[index].id)
                     visible.wrappedValue.dismiss()
                 } label: {

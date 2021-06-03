@@ -29,6 +29,7 @@ extension Control {
             switch state {
             case .pressed:
                 image.contentTintColor = .labelColor
+                layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
             case .highlighted:
                 layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
             default:

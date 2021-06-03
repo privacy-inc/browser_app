@@ -36,7 +36,11 @@ class Control: NSView {
     }
     
     final override func mouseDown(with: NSEvent) {
-        guard state == .on || state == .highlighted else {
+        guard with.clickCount == 1 else {
+            super.mouseDown(with: with)
+            return
+        }
+        guard state == .on || state == .highlighted || state == .pressed else {
             super.mouseDown(with: with)
             return
         }
@@ -45,16 +49,26 @@ class Control: NSView {
     }
     
     final override func mouseUp(with: NSEvent) {
+        guard with.clickCount == 1 else {
+            super.mouseUp(with: with)
+            return
+        }
         guard state == .highlighted || state == .on || state == .pressed else {
             super.mouseUp(with: with)
             return
         }
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
-            state = .on
             click.send()
         } else {
-            state = .on
             super.mouseUp(with: with)
+        }
+        if state == .highlighted || state == .pressed {
+            NSAnimationContext
+                .runAnimationGroup {
+                    $0.duration = 0.5
+                    $0.allowsImplicitAnimation = true
+                    state = .on
+                }
         }
     }
     

@@ -22,7 +22,9 @@ extension Control {
             super.update()
             
             switch state {
-            case .pressed, .highlighted:
+            case .pressed:
+                icon.contentTintColor = .controlAccentColor
+            case .highlighted:
                 icon.contentTintColor = .labelColor
             default:
                 icon.contentTintColor = .secondaryLabelColor

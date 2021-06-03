@@ -21,13 +21,22 @@ final class New: NSView {
         titleRecent.textColor = .secondaryLabelColor
         content.addSubview(titleRecent)
         
+        let backgroundBookmarks = NSView()
+        backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
+        backgroundBookmarks.wantsLayer = true
+        backgroundBookmarks.layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
+        backgroundBookmarks.layer!.cornerRadius = 6
+        backgroundBookmarks.layer!.borderWidth = 1
+        backgroundBookmarks.layer!.borderColor = NSColor.controlAccentColor.cgColor
+        content.addSubview(backgroundBookmarks)
+        
         let backgroundHistory = NSView()
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
         backgroundHistory.wantsLayer = true
-        backgroundHistory.layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
-        backgroundHistory.layer!.cornerRadius = 6
-        backgroundHistory.layer!.borderWidth = 1
-        backgroundHistory.layer!.borderColor = NSColor.controlAccentColor.cgColor
+        backgroundHistory.layer!.backgroundColor = backgroundBookmarks.layer!.backgroundColor
+        backgroundHistory.layer!.cornerRadius = backgroundBookmarks.layer!.cornerRadius
+        backgroundHistory.layer!.borderWidth = backgroundBookmarks.layer!.borderWidth
+        backgroundHistory.layer!.borderColor = backgroundBookmarks.layer!.borderColor
         content.addSubview(backgroundHistory)
         
         let bookmarks = Bookmarks(id: id)
@@ -47,10 +56,15 @@ final class New: NSView {
         titleRecent.bottomAnchor.constraint(equalTo: content.centerYAnchor).isActive = true
         titleRecent.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         
-        bookmarks.topAnchor.constraint(equalTo: titleBookmarks.bottomAnchor, constant: 10).isActive = true
-        bookmarks.bottomAnchor.constraint(equalTo: titleRecent.topAnchor, constant: -30).isActive = true
-        bookmarks.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
-        bookmarks.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
+        bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor, constant: 1).isActive = true
+        bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor, constant: -1).isActive = true
+        bookmarks.leftAnchor.constraint(equalTo: backgroundBookmarks.leftAnchor, constant: 1).isActive = true
+        bookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor, constant: -1).isActive = true
+        
+        backgroundBookmarks.topAnchor.constraint(equalTo: titleBookmarks.bottomAnchor, constant: 10).isActive = true
+        backgroundBookmarks.bottomAnchor.constraint(equalTo: titleRecent.topAnchor, constant: -30).isActive = true
+        backgroundBookmarks.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
+        backgroundBookmarks.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         
         backgroundHistory.topAnchor.constraint(equalTo: titleRecent.bottomAnchor, constant: 10).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true

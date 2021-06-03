@@ -3,5 +3,6 @@ import Foundation
 enum CollectionCellState {
     case
     none,
-    highlighted
+    highlighted,
+    pressed
 }

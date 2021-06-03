@@ -120,6 +120,7 @@ final class Search: NSView {
             .map {
                 $0[state: id].isBrowse
             }
+            .removeDuplicates()
             .sink { isBrowse in
                 [info, bookmark, share, find]
                     .forEach {
@@ -133,6 +134,7 @@ final class Search: NSView {
             .map {
                 $0[state: id].isBrowse && $0[back: id]
             }
+            .removeDuplicates()
             .sink {
                 back.state = $0 ? .on : .off
             }
@@ -143,6 +145,7 @@ final class Search: NSView {
             .map {
                 $0[state: id].isBrowse && $0[forward: id]
             }
+            .removeDuplicates()
             .sink {
                 forward.state = $0 ? .on : .off
             }
@@ -152,6 +155,10 @@ final class Search: NSView {
             .items
             .map {
                 (isBrowse: $0[state: id].isBrowse, loading: $0[loading: id])
+            }
+            .removeDuplicates {
+                $0.isBrowse == $1.isBrowse
+                    && $0.loading == $1.loading
             }
             .sink {
                 reload.state = $0.isBrowse && !$0.loading ? .on : .hidden

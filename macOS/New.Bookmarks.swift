@@ -3,9 +3,9 @@ import Combine
 import Sleuth
 
 extension New {
-    final class Bookmarks: Collection<New.Bookmarks.Cell> {
-        private static let padding = CGFloat(4)
-        private static let insets = CGFloat(6)
+    final class Bookmarks: Collection<New.Cell> {
+        private static let insets = CGFloat(3)
+        private static let insets2 = insets + insets
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
@@ -20,6 +20,9 @@ extension New {
                 .publisher(for: NSView.frameDidChangeNotification, object: contentView)
                 .compactMap {
                     ($0.object as? NSView)?.bounds.width
+                }
+                .map {
+                    $0 - Self.insets2
                 }
                 .removeDuplicates()
                 .subscribe(width)
@@ -70,10 +73,19 @@ extension New {
                                                     y: $0.y,
                                                     width: width,
                                                     height: height)))
-                            $0.y += height + Self.padding
+                            $0.y += height + Self.insets
                         }
                     self?.items.send(result.items)
-                    self?.height.send(result.y + Self.insets)
+                    self?.height.send(result.y)
+                }
+                .store(in: &subs)
+            
+            selected
+                .sink {
+                    cloud
+                        .open($0) {
+                            tabber.browse(id, $0)
+                        }
                 }
                 .store(in: &subs)
         }

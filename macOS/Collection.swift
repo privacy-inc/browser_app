@@ -8,6 +8,7 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
     final let selected = PassthroughSubject<Int, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
+    private let press = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
     
     required init?(coder: NSCoder) { nil }
@@ -103,6 +104,21 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
             }
             .store(in: &subs)
         
+        press
+            .map { point in
+                cells
+                    .first {
+                        $0.frame.contains(point)
+                    }
+            }
+            .compactMap {
+                $0
+            }
+            .sink {
+                $0.state = .pressed
+            }
+            .store(in: &subs)
+        
         select
             .map { point in
                 cells
@@ -139,8 +155,19 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
     }
     
     final override func mouseDown(with: NSEvent) {
-        guard with.clickCount == 1 else { return }
+        guard with.clickCount == 1 else {
+            super.mouseDown(with: with)
+            return
+        }
         window?.makeFirstResponder(self)
+        press.send(point(with: with))
+    }
+    
+    final override func mouseUp(with: NSEvent) {
+        guard with.clickCount == 1 else {
+            super.mouseUp(with: with)
+            return
+        }
         select.send(point(with: with))
     }
  

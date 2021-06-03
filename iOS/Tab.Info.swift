@@ -66,7 +66,7 @@ extension Tab {
         }
         
         private var secure: Bool {
-            page.secure ?? false
+            page?.secure ?? false
         }
         
         private var page: Page? {

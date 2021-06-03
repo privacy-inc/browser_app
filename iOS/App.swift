@@ -48,18 +48,10 @@ let purchases = Purchases()
                         UIApplication.shared.resign()
                         Int(url.lastPathComponent)
                             .map {
-                                switch session.section {
-                                case let .tab(id):
-                                    tabber.browse(id, $0)
-                                    cloud
-                                        .revisit($0) {
-                                            session.load.send((id: id, access: $0))
-                                        }
-                                default:
-                                    let id = tabber.new()
-                                    tabber.browse(id, $0)
-                                    session.section = .tab(id)
-                                }
+                                let id = tabber.new()
+                                cloud.revisit($0)
+                                tabber.browse(id, $0)
+                                session.section = .tab(id)
                             }
                     default:
                         switch session.section {
