@@ -106,9 +106,17 @@ final class Web: Webview {
                 self?.createPDF {
                     guard
                         case let .success(data) = $0,
-                        let name = self?.url?.file("pdf")
+                        let title = self?.title
                     else { return }
-//                    UIApplication.shared.share(data.temporal(name))
+                    let save = NSSavePanel()
+                    save.allowedFileTypes = ["pdf"]
+                    save.nameFieldStringValue = title
+                    save.begin {
+                        if $0 == .OK, let url = save.url {
+                            try? data.write(to: url, options: .atomic)
+                            NSWorkspace.shared.activateFileViewerSelecting([url])
+                        }
+                    }
                 }
             }
             .store(in: &subs)
@@ -122,9 +130,17 @@ final class Web: Webview {
                 self?.createWebArchiveData {
                     guard
                         case let .success(data) = $0,
-                        let name = self?.url?.file("webarchive")
+                        let title = self?.title
                     else { return }
-//                    UIApplication.shared.share(data.temporal(name))
+                    let save = NSSavePanel()
+                    save.allowedFileTypes = ["webarchive"]
+                    save.nameFieldStringValue = title
+                    save.begin {
+                        if $0 == .OK, let url = save.url {
+                            try? data.write(to: url, options: .atomic)
+                            NSWorkspace.shared.activateFileViewerSelecting([url])
+                        }
+                    }
                 }
             }
             .store(in: &subs)
@@ -136,11 +152,20 @@ final class Web: Webview {
             }
             .sink { [weak self] _ in
                 self?.takeSnapshot(with: nil) { image, _ in
-//                    guard
-//                        let data = image?.pngData(),
-//                        let name = self?.url?.file("png")
-//                    else { return }
-//                    UIApplication.shared.share(data.temporal(name))
+                    guard
+                        let tiff = image?.tiffRepresentation,
+                        let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:]),
+                        let title = self?.title
+                    else { return }
+                    let save = NSSavePanel()
+                    save.allowedFileTypes = ["png"]
+                    save.nameFieldStringValue = title
+                    save.begin {
+                        if $0 == .OK, let url = save.url {
+                            try? data.write(to: url, options: .atomic)
+                            NSWorkspace.shared.activateFileViewerSelecting([url])
+                        }
+                    }
                 }
             }
             .store(in: &subs)

@@ -103,24 +103,27 @@ final class Share: NSPopover {
         let pageSnapshot = Option(title: "Snapshot", image: "text.below.photo.fill")
         pageSnapshot
             .click
-            .sink {
-                
+            .sink { [weak self] in
+                self?.close()
+                session.snapshot.send(id)
             }
             .store(in: &subs)
         
         let exportPdf = Option(title: "PDF", image: "doc.richtext")
         exportPdf
             .click
-            .sink {
-                
+            .sink { [weak self] in
+                self?.close()
+                session.pdf.send(id)
             }
             .store(in: &subs)
         
         let exportWebarchive = Option(title: "Web archive", image: "doc.zipper")
         exportWebarchive
             .click
-            .sink {
-                
+            .sink { [weak self] in
+                self?.close()
+                session.webarchive.send(id)
             }
             .store(in: &subs)
         
