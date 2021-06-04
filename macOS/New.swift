@@ -65,7 +65,7 @@ final class New: NSView {
         trackers
             .click
             .sink {
-                
+                NSApp.trackers()
             }
             .store(in: &subs)
         addSubview(trackers)

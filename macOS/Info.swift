@@ -42,6 +42,7 @@ final class Info: NSPopover {
         title.stringValue = page?.title ?? ""
         title.font = .preferredFont(forTextStyle: .callout)
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        title.isSelectable = true
         contentViewController!.view.addSubview(title)
         
         let url = Text()
@@ -49,6 +50,7 @@ final class Info: NSPopover {
         url.font = .preferredFont(forTextStyle: .callout)
         url.textColor = .secondaryLabelColor
         url.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+        url.isSelectable = true
         contentViewController!.view.addSubview(url)
         
         let copy = Control.Squircle(icon: "doc.on.doc")

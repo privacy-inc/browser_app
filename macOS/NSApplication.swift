@@ -37,6 +37,11 @@ extension NSApplication {
             .makeKeyAndOrderFront(nil)
     }
     
+    @objc func trackers() {
+        (window() ?? Trackers())
+            .makeKeyAndOrderFront(nil)
+    }
+    
     @objc func preferences() {
 //        (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
     }
