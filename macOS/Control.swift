@@ -28,12 +28,12 @@ class Control: NSView {
     }
     
     final override func mouseEntered(with: NSEvent) {
-        guard state == .on else { return }
+        guard state == .on || state == .pressed else { return }
         state = .highlighted
     }
     
     final override func mouseExited(with: NSEvent) {
-        guard state == .highlighted else { return }
+        guard state == .highlighted || state == .pressed else { return }
         state = .on
     }
     

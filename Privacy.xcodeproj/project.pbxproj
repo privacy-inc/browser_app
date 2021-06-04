@@ -145,6 +145,11 @@
 		CEF5863C265E4E4600D9A6F1 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEF5863B265E4E4600D9A6F1 /* Sleuth */; };
 		CEF97E60266A312A00550E10 /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E5F266A312A00550E10 /* NSMenu.swift */; };
 		CEF97E62266A3A8400550E10 /* NSSavePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E61266A3A8400550E10 /* NSSavePanel.swift */; };
+		CEF97E64266A4CFA00550E10 /* New.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E63266A4CFA00550E10 /* New.Option.swift */; };
+		CEF97E66266A507F00550E10 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E65266A507F00550E10 /* Activity.swift */; };
+		CEF97E68266A5ACD00550E10 /* Activity.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E67266A5ACD00550E10 /* Activity.Chart.swift */; };
+		CEF97E69266A5B6400550E10 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
+		CEF97E6B266A605200550E10 /* Activity.Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E6A266A605200550E10 /* Activity.Title.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -327,6 +332,10 @@
 		CEF58639265E4E3900D9A6F1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		CEF97E5F266A312A00550E10 /* NSMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
 		CEF97E61266A3A8400550E10 /* NSSavePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSavePanel.swift; sourceTree = "<group>"; };
+		CEF97E63266A4CFA00550E10 /* New.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.Option.swift; sourceTree = "<group>"; };
+		CEF97E65266A507F00550E10 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
+		CEF97E67266A5ACD00550E10 /* Activity.Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.Chart.swift; sourceTree = "<group>"; };
+		CEF97E6A266A605200550E10 /* Activity.Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.Title.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -512,6 +521,9 @@
 			children = (
 				CEF58635265E468D00D9A6F1 /* macOS.entitlements */,
 				CEF58634265E468D00D9A6F1 /* Info.plist */,
+				CEF97E67266A5ACD00550E10 /* Activity.Chart.swift */,
+				CEF97E65266A507F00550E10 /* Activity.swift */,
+				CEF97E6A266A605200550E10 /* Activity.Title.swift */,
 				CEF5862B265E468C00D9A6F1 /* App.swift */,
 				CECDA7D82664FF1700F87546 /* Array.Search.Autocomplete.Cell.swift */,
 				CE0D6BF1265FC8B0000B3FF1 /* CGRect.swift */,
@@ -531,6 +543,7 @@
 				CECE1F96265E91C000ACBB0B /* New.Bookmarks.swift */,
 				CE0D6BEF265FB8A0000B3FF1 /* New.Cell.swift */,
 				CECE1F98265E94F000ACBB0B /* New.History.swift */,
+				CEF97E63266A4CFA00550E10 /* New.Option.swift */,
 				CE12B21A265E6C2F000EA487 /* New.swift */,
 				CE6F0D7626669AAA00538D9A /* NSApplication.swift */,
 				CE70B43C265FA92C00A357BC /* NSAttributedString.swift */,
@@ -719,6 +732,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CEF97E69266A5B6400550E10 /* Media.xcassets in Resources */,
 				CEF58630265E468D00D9A6F1 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -828,6 +842,7 @@
 				CE676A66265E60C60042EDC2 /* Purchases.swift in Sources */,
 				CE0D6BF6265FDF29000B3FF1 /* Control.swift in Sources */,
 				CECE1F97265E91C000ACBB0B /* New.Bookmarks.swift in Sources */,
+				CEF97E6B266A605200550E10 /* Activity.Title.swift in Sources */,
 				CE676A6B265E64EE0042EDC2 /* Menu.swift in Sources */,
 				CE0D6C00265FF14A000B3FF1 /* Search.Field.Cell.swift in Sources */,
 				CECDA7D92664FF1700F87546 /* Array.Search.Autocomplete.Cell.swift in Sources */,
@@ -836,6 +851,8 @@
 				CE70B43D265FA92C00A357BC /* NSAttributedString.swift in Sources */,
 				CE9E175D2661051900E8BF24 /* Web.swift in Sources */,
 				CE0D6BF0265FB8A0000B3FF1 /* New.Cell.swift in Sources */,
+				CEF97E64266A4CFA00550E10 /* New.Option.swift in Sources */,
+				CEF97E68266A5ACD00550E10 /* Activity.Chart.swift in Sources */,
 				CE847B15265EA08A00A045B3 /* CollectionItem.swift in Sources */,
 				CE70B43A265FA3A800A357BC /* CollectionItemInfo.swift in Sources */,
 				CE0D6BF4265FDAE9000B3FF1 /* Search.swift in Sources */,
@@ -864,6 +881,7 @@
 				CE12B21B265E6C2F000EA487 /* New.swift in Sources */,
 				CEC9859826639780001DA288 /* Search.Autocomplete.Cell.swift in Sources */,
 				CEA0027F2668DE970098B04D /* Share.swift in Sources */,
+				CEF97E66266A507F00550E10 /* Activity.swift in Sources */,
 				CEE845F326663D7E00D0A9DC /* Search.Bar.swift in Sources */,
 				CE0D6C02265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift in Sources */,
 				CECE1F95265E90A100ACBB0B /* Text.swift in Sources */,

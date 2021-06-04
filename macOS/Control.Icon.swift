@@ -8,7 +8,6 @@ extension Control {
         init(icon: String) {
             let icon = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
             icon.translatesAutoresizingMaskIntoConstraints = false
-            icon.contentTintColor = .secondaryLabelColor
             self.icon = icon
             
             super.init(layer: false)

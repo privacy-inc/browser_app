@@ -32,16 +32,25 @@ extension NSApplication {
             }
     }
     
+    @objc func activity() {
+        (window() ?? Activity())
+            .makeKeyAndOrderFront(nil)
+    }
+    
     @objc func preferences() {
 //        (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
     }
     
     private var active: Window? {
-        keyWindow as? Window
-            ?? windows
+        keyWindow as? Window ?? window()
+    }
+    
+    private func window<T>() -> T? {
+        windows
             .compactMap {
-                $0 as? Window
-            }.first
+                $0 as? T
+            }
+            .first
     }
     
     private func newTab(id: UUID, search: Bool, change: Bool) {

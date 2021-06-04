@@ -10,15 +10,15 @@ extension New {
         }
         
         override var none: CGColor {
-            NSColor.controlBackgroundColor.cgColor
+            NSColor.controlAccentColor.withAlphaComponent(0.2).cgColor
         }
         
         override var highlighted: CGColor {
-            NSColor.windowBackgroundColor.cgColor
+            NSColor.controlAccentColor.withAlphaComponent(0.4).cgColor
         }
         
         override var pressed: CGColor {
-            NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
+            NSColor.controlAccentColor.withAlphaComponent(0.6).cgColor
         }
         
         required init?(coder: NSCoder) { nil }

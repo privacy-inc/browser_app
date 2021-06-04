@@ -19,19 +19,19 @@ final class New: NSView {
         let titleBookmarks = Text()
         titleBookmarks.stringValue = NSLocalizedString("Bookmarks", comment: "")
         titleBookmarks.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .bold)
-        titleBookmarks.textColor = .secondaryLabelColor
+        titleBookmarks.textColor = .controlAccentColor
         content.addSubview(titleBookmarks)
         
         let titleHistory = Text()
         titleHistory.stringValue = NSLocalizedString("Recent", comment: "")
         titleHistory.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .bold)
-        titleHistory.textColor = .secondaryLabelColor
+        titleHistory.textColor = .controlAccentColor
         content.addSubview(titleHistory)
         
         let backgroundBookmarks = NSView()
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
         backgroundBookmarks.wantsLayer = true
-        backgroundBookmarks.layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
+        backgroundBookmarks.layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.1).cgColor
         backgroundBookmarks.layer!.cornerRadius = 6
         backgroundBookmarks.layer!.borderWidth = 1
         backgroundBookmarks.layer!.borderColor = NSColor.controlAccentColor.cgColor
@@ -51,6 +51,24 @@ final class New: NSView {
         
         let history = History(id: id)
         backgroundHistory.addSubview(history)
+         
+        let activity = Option(icon: "chart.bar.xaxis")
+        activity
+            .click
+            .sink {
+                NSApp.activity()
+            }
+            .store(in: &subs)
+        addSubview(activity)
+        
+        let trackers = Option(icon: "shield.lefthalf.fill")
+        trackers
+            .click
+            .sink {
+                
+            }
+            .store(in: &subs)
+        addSubview(trackers)
         
         content.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.5).isActive = true
         content.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.6).isActive = true
@@ -68,12 +86,12 @@ final class New: NSView {
         bookmarks.leftAnchor.constraint(equalTo: backgroundBookmarks.leftAnchor, constant: 1).isActive = true
         bookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor, constant: -1).isActive = true
         
-        backgroundBookmarks.topAnchor.constraint(equalTo: titleBookmarks.bottomAnchor, constant: 10).isActive = true
+        backgroundBookmarks.topAnchor.constraint(equalTo: titleBookmarks.bottomAnchor, constant: 5).isActive = true
         backgroundBookmarks.bottomAnchor.constraint(equalTo: titleHistory.topAnchor, constant: -30).isActive = true
         backgroundBookmarks.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         backgroundBookmarks.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
         
-        backgroundHistory.topAnchor.constraint(equalTo: titleHistory.bottomAnchor, constant: 10).isActive = true
+        backgroundHistory.topAnchor.constraint(equalTo: titleHistory.bottomAnchor, constant: 5).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         backgroundHistory.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
@@ -108,6 +126,12 @@ final class New: NSView {
                 history.isHidden = $0
             }
             .store(in: &subs)
+        
+        trackers.bottomAnchor.constraint(equalTo: activity.topAnchor, constant: -10).isActive = true
+        trackers.rightAnchor.constraint(equalTo: activity.rightAnchor).isActive = true
+        
+        activity.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+        activity.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
     }
     
     override func mouseDown(with: NSEvent) {

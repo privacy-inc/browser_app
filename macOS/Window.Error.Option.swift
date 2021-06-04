@@ -9,7 +9,6 @@ extension Window.Error {
         init(icon: String, title: String) {
             let image = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
             image.translatesAutoresizingMaskIntoConstraints = false
-            image.contentTintColor = .secondaryLabelColor
             image.symbolConfiguration = .init(textStyle: .title3)
             self.image = image
             
