@@ -179,7 +179,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     @objc private func triggerWebsite() {
-        NSApp.open(url: URL(string: "https://privacy-inc.github.io/about")!)
+        NSApp.open(tab: URL(string: "https://privacy-inc.github.io/about")!, change: true)
     }
     
     @objc private func triggerFocus(_ item: NSMenuItem) {

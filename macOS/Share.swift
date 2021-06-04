@@ -78,15 +78,10 @@ final class Share: NSPopover {
                     .flatMap(\.access.url?.download)
                     .map { [weak self] downloaded in
                         self?.close()
-                        
-                        let save = NSSavePanel()
-                        save.nameFieldStringValue = downloaded.lastPathComponent
-                        save.begin {
-                            if $0 == .OK, let url = save.url {
-                                try? Data(contentsOf: downloaded).write(to: url, options: .atomic)
-                                NSWorkspace.shared.activateFileViewerSelecting([url])
+                        (try? Data(contentsOf: downloaded))
+                            .map {
+                                NSSavePanel.save(data: $0, name: downloaded.lastPathComponent, type: nil)
                             }
-                        }
                     }
             }
             .store(in: &subs)

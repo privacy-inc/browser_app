@@ -26,7 +26,7 @@ class Keyboard: UIView, UIKeyInput, UITextFieldDelegate {
         field.clearButtonMode = .always
         field.autocorrectionType = .no
         field.autocapitalizationType = .none
-        field.spellCheckingType = .yes
+        field.spellCheckingType = .no
         field.backgroundColor = UIApplication.dark ? .init(white: 1, alpha: 0.2) : .init(white: 1, alpha: 0.6)
         field.tintColor = .label
         field.allowsEditingTextAttributes = false

@@ -143,10 +143,10 @@ final class Window: NSWindow {
         view.translatesAutoresizingMaskIntoConstraints = false
         contentView!.addSubview(view)
         
-        view.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.bottomAnchor, constant: -1).isActive = true
-        view.leftAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.leftAnchor, constant: 1).isActive = true
-        view.rightAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.rightAnchor, constant: -1).isActive = true
+        view.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
+        view.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
+        view.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
+        view.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
     }
     
     private func dim(opacity: CGFloat) {

@@ -143,6 +143,8 @@
 		CEF58630265E468D00D9A6F1 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEF5862F265E468D00D9A6F1 /* Assets.xcassets */; };
 		CEF5863A265E4E3900D9A6F1 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEF58639265E4E3900D9A6F1 /* CloudKit.framework */; };
 		CEF5863C265E4E4600D9A6F1 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEF5863B265E4E4600D9A6F1 /* Sleuth */; };
+		CEF97E60266A312A00550E10 /* NSMenu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E5F266A312A00550E10 /* NSMenu.swift */; };
+		CEF97E62266A3A8400550E10 /* NSSavePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E61266A3A8400550E10 /* NSSavePanel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -323,6 +325,8 @@
 		CEF58634265E468D00D9A6F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEF58635265E468D00D9A6F1 /* macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = macOS.entitlements; sourceTree = "<group>"; };
 		CEF58639265E4E3900D9A6F1 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
+		CEF97E5F266A312A00550E10 /* NSMenu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenu.swift; sourceTree = "<group>"; };
+		CEF97E61266A3A8400550E10 /* NSSavePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSavePanel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -530,7 +534,9 @@
 				CE12B21A265E6C2F000EA487 /* New.swift */,
 				CE6F0D7626669AAA00538D9A /* NSApplication.swift */,
 				CE70B43C265FA92C00A357BC /* NSAttributedString.swift */,
+				CEF97E5F266A312A00550E10 /* NSMenu.swift */,
 				CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */,
+				CEF97E61266A3A8400550E10 /* NSSavePanel.swift */,
 				CEC9859726639780001DA288 /* Search.Autocomplete.Cell.swift */,
 				CEC9859526637821001DA288 /* Search.Autocomplete.swift */,
 				CEE845F226663D7E00D0A9DC /* Search.Bar.swift */,
@@ -818,6 +824,7 @@
 				CE847B13265E9EB900A045B3 /* Flip.swift in Sources */,
 				CEA002812668E10D0098B04D /* Share.Option.swift in Sources */,
 				CE676A6D265E65A30042EDC2 /* NSMenuItem.swift in Sources */,
+				CEF97E60266A312A00550E10 /* NSMenu.swift in Sources */,
 				CE676A66265E60C60042EDC2 /* Purchases.swift in Sources */,
 				CE0D6BF6265FDF29000B3FF1 /* Control.swift in Sources */,
 				CECE1F97265E91C000ACBB0B /* New.Bookmarks.swift in Sources */,
@@ -840,6 +847,7 @@
 				CE0D6BFE265FEBD5000B3FF1 /* Search.Field.swift in Sources */,
 				CE9E175E2661053100E8BF24 /* Webview.swift in Sources */,
 				CE81AC4126692008004B5B63 /* Window.Error.swift in Sources */,
+				CEF97E62266A3A8400550E10 /* NSSavePanel.swift in Sources */,
 				CEF5862C265E468C00D9A6F1 /* App.swift in Sources */,
 				CECE1F99265E94F000ACBB0B /* New.History.swift in Sources */,
 				CE0D6BFA265FDF6B000B3FF1 /* Control.Squircle.swift in Sources */,

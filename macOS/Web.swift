@@ -110,15 +110,7 @@ final class Web: Webview {
                         case let .success(data) = $0,
                         let title = self?.title
                     else { return }
-                    let save = NSSavePanel()
-                    save.allowedFileTypes = ["pdf"]
-                    save.nameFieldStringValue = title
-                    save.begin {
-                        if $0 == .OK, let url = save.url {
-                            try? data.write(to: url, options: .atomic)
-                            NSWorkspace.shared.activateFileViewerSelecting([url])
-                        }
-                    }
+                    NSSavePanel.save(data: data, name: title, type: "pdf")
                 }
             }
             .store(in: &subs)
@@ -134,15 +126,7 @@ final class Web: Webview {
                         case let .success(data) = $0,
                         let title = self?.title
                     else { return }
-                    let save = NSSavePanel()
-                    save.allowedFileTypes = ["webarchive"]
-                    save.nameFieldStringValue = title
-                    save.begin {
-                        if $0 == .OK, let url = save.url {
-                            try? data.write(to: url, options: .atomic)
-                            NSWorkspace.shared.activateFileViewerSelecting([url])
-                        }
-                    }
+                    NSSavePanel.save(data: data, name: title, type: "webarchive")
                 }
             }
             .store(in: &subs)
@@ -159,39 +143,7 @@ final class Web: Webview {
                         let data = NSBitmapImageRep(data: tiff)?.representation(using: .png, properties: [:]),
                         let title = self?.title
                     else { return }
-                    let save = NSSavePanel()
-                    save.allowedFileTypes = ["png"]
-                    save.nameFieldStringValue = title
-                    save.begin {
-                        if $0 == .OK, let url = save.url {
-                            try? data.write(to: url, options: .atomic)
-                            NSWorkspace.shared.activateFileViewerSelecting([url])
-                        }
-                    }
-                }
-            }
-            .store(in: &subs)
-        
-        session
-            .find
-            .filter {
-                $0.0 == id
-            }
-            .map {
-                $0.1
-            }
-            .sink { [weak self] in
-                self?.find($0) {
-                    guard $0.matchFound else { return }
-                    self?.evaluateJavaScript(Script.highlight) { offset, _ in
-                        offset
-                            .flatMap {
-                                $0 as? CGFloat
-                            }
-                            .map {
-                                self?.found($0)
-                            }
-                    }
+                    NSSavePanel.save(data: data, name: title, type: "png")
                 }
             }
             .store(in: &subs)
@@ -235,76 +187,116 @@ final class Web: Webview {
         NSWorkspace.shared.open(url)
     }
     
+    func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {
+        window?.makeFirstResponder(self)
+    }
+    
     func webView(_: WKWebView, createWebViewWith: WKWebViewConfiguration, for action: WKNavigationAction, windowFeatures: WKWindowFeatures) -> WKWebView? {
-//        if action.targetFrame == nil && action.navigationType == .other {
-//            action.request.url.map { new in
-//                switch destination {
-//                case .window:
-//                    (NSApp as? App)?.window(new)
-//                case .tab:
-//                    (window as? Window)?.newTab(new)
-//                case .download:
-//                    URLSession.shared.dataTaskPublisher(for: new)
-//                        .map(\.data)
-//                        .receive(on: DispatchQueue.main)
-//                        .replaceError(with: .init())
-//                        .sink { [weak self] in
-//                            (self?.window as? Window)?.save(new.lastPathComponent, data: $0)
-//                        }.store(in: &subs)
-//                    break
-//                }
-//                destination = .window
-//            }
-//        } else if action.navigationType == .linkActivated {
-//            action.request.url.map {
-//                (window as? Window)?.newTab($0)
-//            }
-//        }
+        switch action.navigationType {
+        case .linkActivated:
+            action
+                .request
+                .url
+                .map {
+                    NSApp.open(tab: $0, change: true)
+                }
+        case .other:
+            if action.targetFrame == nil {
+                action
+                    .request
+                    .url
+                    .map { url in
+                        switch destination {
+                        case let .tab(change):
+                            NSApp.open(tab: url, change: change)
+                        case .window:
+                            NSApp.open(window: url)
+                        case .download:
+                            URLSession
+                                .shared
+                                .dataTaskPublisher(for: url)
+                                .map(\.data)
+                                .receive(on: DispatchQueue.main)
+                                .replaceError(with: .init())
+                                .sink {
+                                    NSSavePanel.save(data: $0, name: url.lastPathComponent, type: nil)
+                                }
+                                .store(in: &subs)
+                            break
+                        }
+                        destination = .window
+                    }
+            }
+        default:
+            break
+        }
         return nil
     }
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
-        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenLinkInNewWindow" }.map { item in
-            let newTab = NSMenuItem(title: NSLocalizedString("Open Link in New Tab", comment: ""), action: #selector(tabbed), keyEquivalent: "")
-            newTab.target = self
-            newTab.representedObject = item
-            menu.items = [newTab, .separator()] + menu.items
+        menu.remove(id: "WKMenuItemIdentifierOpenLink")
+        
+        if let image = menu.remove(id: "WKMenuItemIdentifierOpenImageInNewWindow") {
+            let tabStay = image.immitate(with: "Open Image in New Tab", action: #selector(tab(stay:)))
+            tabStay.target = self
             
-            menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierDownloadLinkedFile" }.map {
-                $0.target = self
-                $0.action = #selector(download)
-                $0.representedObject = item
-            }
-        }
-        menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierOpenImageInNewWindow" }.map { item in
-            let newTab = NSMenuItem(title: NSLocalizedString("Open Image in New Tab", comment: ""), action: #selector(tabbed), keyEquivalent: "")
-            newTab.target = self
-            newTab.representedObject = item
-            menu.insertItem(newTab, at: menu.items.firstIndex(of: item)!)
+            let tabChange = image.immitate(with: "Open Image in New Tab and Change", action: #selector(tab(change:)))
+            tabChange.target = self
             
-            menu.items.first { $0.identifier?.rawValue == "WKMenuItemIdentifierDownloadImage" }.map {
-                $0.target = self
-                $0.action = #selector(download)
-                $0.representedObject = item
-            }
+            menu.items = [
+                tabStay,
+                tabChange,
+                image,
+                .separator()
+            ]
+            + menu.items
+            
+            menu
+                .mutate(id: "WKMenuItemIdentifierDownloadImage") {
+                    $0.target = self
+                    $0.action = #selector(download(item:))
+                    $0.representedObject = image
+                }
+        }
+        
+        if let window = menu.remove(id: "WKMenuItemIdentifierOpenLinkInNewWindow") {
+            window.title = "Open in New Window"
+            
+            let tabStay = window.immitate(with: "Open in New Tab", action: #selector(tab(stay:)))
+            tabStay.target = self
+            
+            let tabChange = window.immitate(with: "Open in New Tab and Change", action: #selector(tab(change:)))
+            tabChange.target = self
+            
+            menu.items = [
+                tabStay,
+                tabChange,
+                window,
+                .separator()
+            ]
+            + menu.items
+            
+            menu
+                .mutate(id: "WKMenuItemIdentifierDownloadLinkedFile") {
+                    $0.target = self
+                    $0.action = #selector(download(item:))
+                    $0.representedObject = window
+                }
         }
     }
     
-    private func found(_ offset: CGFloat) {
-//        scrollView.scrollRectToVisible(.init(x: 0,
-//                                             y: offset + scrollView.contentOffset.y - (offset > 0 ? 160 : -180),
-//                                             width: 320,
-//                                             height: 320),
-//                                       animated: true)
+    @objc private func tab(change item: NSMenuItem) {
+        destination = .tab(true)
+        item.activate()
     }
     
-    @objc private func tabbed(_ item: NSMenuItem) {
-//        destination = .tab
-//        item.synth()
+    @objc private func tab(stay item: NSMenuItem) {
+        destination = .tab(false)
+        item.activate()
     }
     
-    @objc private func download(_ item: NSMenuItem) {
-//        destination = .download
-//        item.synth()
+    @objc private func download(item: NSMenuItem) {
+        destination = .download
+        item.activate()
     }
 }
