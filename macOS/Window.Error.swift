@@ -12,7 +12,6 @@ extension Window {
             translatesAutoresizingMaskIntoConstraints = false
             wantsLayer = true
             layer!.backgroundColor = NSColor.underPageBackgroundColor.cgColor
-            layer!.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false

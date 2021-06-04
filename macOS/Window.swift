@@ -41,15 +41,15 @@ final class Window: NSWindow {
             .sink { [weak self] in
                 switch $0 {
                 case .new:
-                    self?.show(New(id: id))
+                    self?.contentView = New(id: id)
                 case let .browse(browse):
                     let web = (tabber.items.value[web: id] as? Web) ?? Web(id: id, browse: browse)
                     if tabber.items.value[web: id] == nil {
                         tabber.update(id, web: web)
                     }
-                    self?.show(web)
+                    self?.contentView = web
                 case let .error(browse, error):
-                    self?.show(Error(id: id, browse: browse, error: error))
+                    self?.contentView = Error(id: id, browse: browse, error: error)
                 }
             }
             .store(in: &subs)
@@ -130,23 +130,6 @@ final class Window: NSWindow {
         } else {
             close()
         }
-    }
-    
-    private func show(_ view: NSView) {
-        contentView!
-            .subviews
-            .forEach {
-                $0.removeFromSuperview()
-            }
-        
-        view.layer!.cornerRadius = 9
-        view.translatesAutoresizingMaskIntoConstraints = false
-        contentView!.addSubview(view)
-        
-        view.topAnchor.constraint(equalTo: contentView!.topAnchor).isActive = true
-        view.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -1).isActive = true
-        view.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 1).isActive = true
-        view.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -1).isActive = true
     }
     
     private func dim(opacity: CGFloat) {
