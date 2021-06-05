@@ -136,6 +136,8 @@ final class New: NSView {
     
     override func mouseDown(with: NSEvent) {
         super.mouseDown(with: with)
-        window?.makeFirstResponder(self)
+        if with.clickCount == 1 {
+            window?.makeFirstResponder(self)
+        }
     }
 }

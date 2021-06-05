@@ -62,6 +62,10 @@ class CollectionCell: CALayer {
         }
     }
     
+    final override func hitTest(_: CGPoint) -> CALayer? {
+        nil
+    }
+    
     final override class func defaultAction(forKey: String) -> CAAction? {
         NSNull()
     }

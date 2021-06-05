@@ -36,31 +36,15 @@ class Control: NSView {
     }
     
     final override func mouseDown(with: NSEvent) {
-        guard with.clickCount == 1 else {
-            super.mouseDown(with: with)
-            return
-        }
-        guard state == .on || state == .highlighted || state == .pressed else {
-            super.mouseDown(with: with)
-            return
-        }
+        guard with.clickCount == 1, state == .on || state == .highlighted || state == .pressed else { return }
         window?.makeFirstResponder(self)
         state = .pressed
     }
     
     final override func mouseUp(with: NSEvent) {
-        guard with.clickCount == 1 else {
-            super.mouseUp(with: with)
-            return
-        }
-        guard state == .highlighted || state == .on || state == .pressed else {
-            super.mouseUp(with: with)
-            return
-        }
+        guard with.clickCount == 1, state == .highlighted || state == .on || state == .pressed else { return }
         if bounds.contains(convert(with.locationInWindow, from: nil)) {
             click.send()
-        } else {
-            super.mouseUp(with: with)
         }
         if state == .highlighted || state == .pressed {
             NSAnimationContext

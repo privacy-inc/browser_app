@@ -17,4 +17,8 @@ final class Text: NSTextField {
     override func hitTest(_ point: NSPoint) -> NSView? {
         isSelectable ? super.hitTest(point) : nil
     }
+    
+    override func acceptsFirstMouse(for: NSEvent?) -> Bool {
+        false
+    }
 }

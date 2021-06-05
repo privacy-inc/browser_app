@@ -9,6 +9,10 @@ final class CollectionCellText: CATextLayer {
         isWrapped = true
     }
     
+    override func hitTest(_: CGPoint) -> CALayer? {
+        nil
+    }
+    
     override class func defaultAction(forKey: String) -> CAAction? {
         NSNull()
     }

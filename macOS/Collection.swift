@@ -155,22 +155,23 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
     }
     
     final override func mouseDown(with: NSEvent) {
-        guard with.clickCount == 1 else {
-            super.mouseDown(with: with)
-            return
-        }
+        guard with.clickCount == 1 else { return }
         window?.makeFirstResponder(self)
         press.send(point(with: with))
     }
     
     final override func mouseUp(with: NSEvent) {
-        guard with.clickCount == 1 else {
-            super.mouseUp(with: with)
-            return
-        }
+        guard with.clickCount == 1 else { return }
         select.send(point(with: with))
     }
- 
+    
+    final override func acceptsFirstMouse(for: NSEvent?) -> Bool {
+        true
+    }
+    override func shouldDelayWindowOrdering(for: NSEvent) -> Bool {
+        true
+    }
+    
     private func point(with: NSEvent) -> CGPoint {
         documentView!.convert(with.locationInWindow, from: nil)
     }
