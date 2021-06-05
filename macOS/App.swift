@@ -32,6 +32,8 @@ let purchases = Purchases()
     }
     
     func applicationDidFinishLaunching(_: Notification) {
+        froob()
+        
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             if let created = Defaults.created {
                 let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
@@ -39,7 +41,7 @@ let purchases = Purchases()
                     SKStoreReviewController.requestReview()
                     Defaults.rated = true
                 } else if Defaults.rated && !Defaults.premium && days > 6 {
-//                    self.froob.send()
+                    self.froob()
                 }
             } else {
                 Defaults.created = .init()

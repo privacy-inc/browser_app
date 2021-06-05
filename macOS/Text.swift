@@ -1,6 +1,6 @@
 import AppKit
 
-final class Text: NSTextField {
+final class Text: NSTextField, NSTextFieldDelegate {
     override var acceptsFirstResponder: Bool { false }
     override var canBecomeKeyView: Bool { false }
     

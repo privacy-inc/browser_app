@@ -7,11 +7,7 @@ extension Info {
         var body: some View {
             Message(
                 title: "Privacy\nPlus",
-                message: """
-    By purchasing Privacy Plus you support research and development at Privacy Inc and for Privacy Browser.
-
-    Privacy Plus is an In-App Purchase, it is non-consumable, meaning it is a 1 time only purchase and you can use it both on iOS and macOS.
-    """) {
+                message: Purchases.froob) {
                 Button {
                     session.modal = nil
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {

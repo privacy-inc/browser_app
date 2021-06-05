@@ -32,13 +32,23 @@ extension NSApplication {
             }
     }
     
-    @objc func activity() {
+    func activity() {
         (window() ?? Activity())
             .makeKeyAndOrderFront(nil)
     }
     
-    @objc func trackers() {
+    func trackers() {
         (window() ?? Trackers())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func froob() {
+        (window() ?? Info.Froob())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func store() {
+        (window() ?? Store())
             .makeKeyAndOrderFront(nil)
     }
     
