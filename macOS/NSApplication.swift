@@ -47,6 +47,16 @@ extension NSApplication {
             .makeKeyAndOrderFront(nil)
     }
     
+    func why() {
+        (window() ?? Info.Why())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func alternatives() {
+        (window() ?? Info.Alternatives())
+            .makeKeyAndOrderFront(nil)
+    }
+    
     func store() {
         (window() ?? Store())
             .makeKeyAndOrderFront(nil)

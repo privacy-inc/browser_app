@@ -63,7 +63,7 @@ extension Store {
                 why
                     .click
                     .sink {
-                        
+                        NSApp.why()
                     }
                     .store(in: &subs)
                 addSubview(why)
@@ -72,7 +72,7 @@ extension Store {
                 alternatives
                     .click
                     .sink {
-                        
+                        NSApp.alternatives()
                     }
                     .store(in: &subs)
                 addSubview(alternatives)

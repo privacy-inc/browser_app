@@ -18,7 +18,7 @@ class Info: NSWindow {
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         contentView!.addSubview(text)
         
-        text.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
+        text.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor, constant: 10).isActive = true
         text.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 30).isActive = true
         text.rightAnchor.constraint(equalTo: contentView!.rightAnchor, constant: -30).isActive = true
         text.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -30).isActive = true
