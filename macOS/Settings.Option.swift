@@ -23,7 +23,7 @@ extension Settings {
             addSubview(text)
             
             widthAnchor.constraint(equalToConstant: 280).isActive = true
-            heightAnchor.constraint(equalToConstant: 32).isActive = true
+            heightAnchor.constraint(equalToConstant: 34).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
@@ -43,7 +43,7 @@ extension Settings {
             case .highlighted:
                 layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
             default:
-                layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
+                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
                 image.contentTintColor = .labelColor
                 text.textColor = .labelColor
             }
