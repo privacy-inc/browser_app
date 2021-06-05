@@ -3,7 +3,7 @@ import Combine
 
 extension New {
     final class History: Collection<New.Cell> {
-        private static let width = CGFloat(130)
+        private static let width = CGFloat(150)
         private static let padding = CGFloat(3)
         
         required init?(coder: NSCoder) { nil }
