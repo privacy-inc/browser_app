@@ -6,7 +6,7 @@ extension Info {
         private var subscription: AnyCancellable?
         
         init() {
-            super.init(title: "Privacy Plus", message: Purchases.froob)
+            super.init(title: "Support Privacy", message: Purchases.froob)
             animationBehavior = .alertPanel
             
             let accept = Control.Capsule(title: "Accept")
@@ -26,7 +26,6 @@ extension Info {
                 .sink { [weak self] in
                     NSApp.store()
                     self?.close()
-                    
                 }
         }
     }

@@ -9,7 +9,7 @@ extension Window {
         init(id: UUID) {
             super.init()
             behavior = .transient
-            contentSize = .init(width: 300, height: 280)
+            contentSize = .init(width: 300, height: 200)
             contentViewController = .init()
             contentViewController!.view = .init(frame: .init(origin: .zero, size: contentSize))
             
@@ -90,6 +90,7 @@ extension Window {
             
             copy.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 10).isActive = true
             copy.rightAnchor.constraint(equalTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
+            copy.bottomAnchor.constraint(equalTo: contentViewController!.view.bottomAnchor, constant: -30).isActive = true
         }
     }
 }

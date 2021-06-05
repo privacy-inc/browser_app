@@ -9,7 +9,6 @@ extension Window {
         required init?(coder: NSCoder) { nil }
         init(id: UUID, browse: Int, error: Tab.Error) {
             super.init(frame: .zero)
-            translatesAutoresizingMaskIntoConstraints = false
             
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false

@@ -19,9 +19,7 @@ extension Purchases {
         
         var subtitle: String {
             switch self {
-            case .plus: return NSLocalizedString("""
-Support Privacy
-""", comment: "")
+            case .plus: return NSLocalizedString("Support Privacy", comment: "")
             }
         }
     }

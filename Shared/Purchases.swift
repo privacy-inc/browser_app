@@ -40,22 +40,24 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
     
     func paymentQueue(_: SKPaymentQueue, updatedTransactions: [SKPaymentTransaction]) {
         guard !updatedTransactions.contains(where: { $0.transactionState == .purchasing }) else { return }
-        updatedTransactions.forEach { transation in
-            switch transation.transactionState {
-            case .failed:
-                DispatchQueue.main.async {
-                    self.error.value = NSLocalizedString("Purchase failed", comment: "")
-                }
-            case .purchased, .restored:
-                DispatchQueue.main.async {
-                    switch Item(rawValue: transation.payment.productIdentifier)! {
-                    case .plus: Defaults.premium = true
+        updatedTransactions
+            .forEach { transation in
+                switch transation.transactionState {
+                case .failed:
+                    DispatchQueue.main.async {
+                        self.error.value = NSLocalizedString("There was an error connecting to the App Store, please try again later.", comment: "")
                     }
+                case .purchased, .restored:
+                    DispatchQueue.main.async {
+                        switch Item(rawValue: transation.payment.productIdentifier)! {
+                        case .plus:
+                            Defaults.premium = true
+                        }
+                    }
+                default: break
                 }
-            default: break
+                SKPaymentQueue.default().finishTransaction(transation)
             }
-            SKPaymentQueue.default().finishTransaction(transation)
-        }
         DispatchQueue.main.async {
             self.loading.value = false
         }

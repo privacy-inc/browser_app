@@ -14,23 +14,24 @@ struct Store: View {
             Button {
                 purchases.restore()
             } label: {
-                Text("Restore purchases")
-                    .font(.footnote.bold())
-                    .frame(height: 50)
-                    .contentShape(Rectangle())
+                if error == nil && !loading {
+                    Text("Restore purchases")
+                        .font(.footnote.bold())
+                        .frame(height: 50)
+                        .contentShape(Rectangle())
+                }
             }
         }) {
             if let error = error {
                 Text(verbatim: error)
-                            .foregroundColor(.secondary)
-                            .padding()
-                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
+                    .foregroundColor(.secondary)
+                    .padding()
+                    .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
             } else if loading {
-                Text("Loading")
-                            .bold()
-                            .foregroundColor(.secondary)
-                            .padding()
-                            .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
+                Image(systemName: "hourglass.bottomhalf.fill")
+                    .font(.largeTitle)
+                    .foregroundColor(.init(.tertiaryLabel))
+                    .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
             } else {
                 List {
                     Section(header:
