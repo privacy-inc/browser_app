@@ -2,13 +2,12 @@ import AppKit
 
 extension Window.Error {
     final class Option: Control {
-        private weak var image: NSImageView!
+        private weak var image: Image!
         private weak var text: Text!
         
         required init?(coder: NSCoder) { nil }
         init(icon: String, title: String) {
-            let image = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
-            image.translatesAutoresizingMaskIntoConstraints = false
+            let image = Image(icon: icon)
             image.symbolConfiguration = .init(textStyle: .title3)
             self.image = image
             

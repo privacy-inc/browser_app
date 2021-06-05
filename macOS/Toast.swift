@@ -28,8 +28,7 @@ final class Toast: NSPanel {
         content.layer!.cornerRadius = 16
         contentView!.addSubview(content)
         
-        let icon = NSImageView(image: NSImage(systemSymbolName: message.icon, accessibilityDescription: nil)!)
-        icon.translatesAutoresizingMaskIntoConstraints = false
+        let icon = Image(icon: message.icon)
         icon.symbolConfiguration = .init(textStyle: .title3)
         icon.contentTintColor = .labelColor
         content.addSubview(icon)

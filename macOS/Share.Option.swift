@@ -2,13 +2,12 @@ import AppKit
 
 extension Share {
     final class Option: Control {
-        private weak var image: NSImageView!
+        private weak var image: Image!
         private weak var text: Text!
         
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {
-            let image = NSImageView(image: NSImage(systemSymbolName: image, accessibilityDescription: nil)!)
-            image.translatesAutoresizingMaskIntoConstraints = false
+            let image = Image(icon: image)
             image.symbolConfiguration = .init(textStyle: .title3)
             self.image = image
             

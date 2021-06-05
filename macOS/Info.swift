@@ -20,18 +20,19 @@ final class Info: NSPopover {
         let secure = page?.secure ?? false
         let domain = page?.access.domain ?? ""
         
-        let image = NSImageView(image: NSImage(systemSymbolName: secure ? "lock.fill" : "exclamationmark.triangle.fill", accessibilityDescription: nil)!)
-        image.translatesAutoresizingMaskIntoConstraints = false
+        let image = Image(icon: secure ? "lock.fill" : "exclamationmark.triangle.fill")
         image.symbolConfiguration = .init(textStyle: .largeTitle)
         image.contentTintColor = secure ? .controlAccentColor : .systemPink
         contentViewController!.view.addSubview(image)
         
         let message = Text()
+        message.isSelectable = true
         message.stringValue = secure ? "Secure Connection" : "Site Not Secure"
         message.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .bold)
         contentViewController!.view.addSubview(message)
         
         let description = Text()
+        description.isSelectable = true
         description.stringValue = secure ? "Using an encrypted connection to \(domain)" : "Connection to \(domain) is NOT encrypted"
         description.font = .preferredFont(forTextStyle: .callout)
         description.textColor = .secondaryLabelColor

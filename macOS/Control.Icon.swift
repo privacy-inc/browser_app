@@ -2,12 +2,11 @@ import AppKit
 
 extension Control {
     final class Icon: Control {
-        private(set) weak var icon: NSImageView!
+        private(set) weak var icon: Image!
         
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
-            let icon = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
-            icon.translatesAutoresizingMaskIntoConstraints = false
+            let icon = Image(icon: icon)
             self.icon = icon
             
             super.init(layer: false)

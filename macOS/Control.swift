@@ -10,8 +10,6 @@ class Control: NSView {
     
     final let click = PassthroughSubject<Void, Never>()
     
-    final override var mouseDownCanMoveWindow: Bool { false }
-    
     required init?(coder: NSCoder) { nil }
     init(layer: Bool) {
         super.init(frame: .zero)
@@ -72,6 +70,22 @@ class Control: NSView {
                     state = .on
                 }
         }
+    }
+    
+    final override func shouldDelayWindowOrdering(for: NSEvent) -> Bool {
+        true
+    }
+    
+    final override var acceptsFirstResponder: Bool {
+        true
+    }
+    
+    final override var mouseDownCanMoveWindow: Bool {
+        false
+    }
+    
+    final override func acceptsFirstMouse(for: NSEvent?) -> Bool {
+        true
     }
     
     func update() {

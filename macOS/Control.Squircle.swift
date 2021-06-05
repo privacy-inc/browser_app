@@ -2,12 +2,11 @@ import AppKit
 
 extension Control {
     final class Squircle: Control {
-        private weak var image: NSImageView!
+        private weak var image: Image!
         
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
-            let image = NSImageView(image: NSImage(systemSymbolName: icon, accessibilityDescription: nil)!)
-            image.translatesAutoresizingMaskIntoConstraints = false
+            let image = Image(icon: icon)
             image.symbolConfiguration = .init(textStyle: .title3)
             self.image = image
             

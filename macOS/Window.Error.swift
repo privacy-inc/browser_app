@@ -17,8 +17,7 @@ extension Window {
             content.translatesAutoresizingMaskIntoConstraints = false
             addSubview(content)
             
-            let icon = NSImageView(image: NSImage(systemSymbolName: "exclamationmark.triangle.fill", accessibilityDescription: nil)!)
-            icon.translatesAutoresizingMaskIntoConstraints = false
+            let icon = Image(icon: "exclamationmark.triangle.fill")
             icon.symbolConfiguration = .init(pointSize: 50, weight: .regular)
             icon.imageScaling = .scaleNone
             content.addSubview(icon)

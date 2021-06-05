@@ -9,8 +9,7 @@ extension Trackers {
         init() {
             super.init(frame: .zero)
             
-            let icon = NSImageView(image: NSImage(systemSymbolName: "shield.lefthalf.fill", accessibilityDescription: nil)!)
-            icon.translatesAutoresizingMaskIntoConstraints = false
+            let icon = Image(icon: "shield.lefthalf.fill")
             icon.contentTintColor = .controlAccentColor
             icon.symbolConfiguration = .init(textStyle: .largeTitle)
             addSubview(icon)
