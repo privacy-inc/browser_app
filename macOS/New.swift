@@ -4,10 +4,6 @@ import Combine
 final class New: NSView {
     private var subs = Set<AnyCancellable>()
     
-    deinit {
-        print("gone new")
-    }
-    
     required init?(coder: NSCoder) { nil }
     init(id: UUID) {
         super.init(frame: .zero)
