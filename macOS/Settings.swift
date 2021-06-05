@@ -16,7 +16,7 @@ final class Settings: NSWindow {
         
         let tab = NSTabView()
         tab.addTabViewItem(General())
-        tab.addTabViewItem(General())
+        tab.addTabViewItem(Features())
         contentView = tab
     }
 }
