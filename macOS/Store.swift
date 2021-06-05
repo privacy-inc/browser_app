@@ -14,10 +14,9 @@ final class Store: NSWindow {
         titlebarAppearsTransparent = true
         center()
         
-//        let bar = NSTitlebarAccessoryViewController()
-//        bar.view = Title()
-//        bar.layoutAttribute = .top
-//        addTitlebarAccessoryViewController(bar)
-        
+        let bar = NSTitlebarAccessoryViewController()
+        bar.view = Title()
+        bar.layoutAttribute = .top
+        addTitlebarAccessoryViewController(bar)
     }
 }

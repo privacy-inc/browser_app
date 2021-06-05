@@ -1,7 +1,7 @@
 import AppKit
 
 class Info: NSWindow {
-    init(title: String, message: String, option: Option?) {
+    init(title: String, message: String) {
         super.init(contentRect: .init(x: 0, y: 0, width: 400, height: 600),
                    styleMask: [.closable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         toolbar = .init()
@@ -9,20 +9,6 @@ class Info: NSWindow {
         titlebarAppearsTransparent = true
         self.title = title
         center()
-        
-        option
-            .map {
-                let view = NSView()
-                view.addSubview($0)
-                
-                $0.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
-                $0.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -5).isActive = true
-                
-                let bar = NSTitlebarAccessoryViewController()
-                bar.view = view
-                bar.layoutAttribute = .top
-                addTitlebarAccessoryViewController(bar)
-            }
         
         let text = Text()
         text.stringValue = message
