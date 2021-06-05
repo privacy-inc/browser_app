@@ -63,7 +63,8 @@ extension NSApplication {
     }
     
     @objc func preferences() {
-//        (windows.first { $0 is Preferences } ?? Preferences()).makeKeyAndOrderFront(nil)
+        (window() ?? Settings())
+            .makeKeyAndOrderFront(nil)
     }
     
     private var active: Window? {

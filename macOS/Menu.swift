@@ -106,7 +106,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .child(title, #selector(triggerFocus)) {
                         $0.target = self
                         $0.tag = index
-                        $0.state = NSApp.keyWindow == NSApp.windows[index] ? .on : .off
+                        $0.state = NSApp.mainWindow == NSApp.windows[index] ? .on : .off
                     }
                 }
         case "Page":

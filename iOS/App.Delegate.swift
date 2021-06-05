@@ -26,7 +26,7 @@ extension App {
                 if let created = Defaults.created {
                     let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
                     if !Defaults.rated && days > 4 {
-                        SKStoreReviewController.requestReview(in: application.windows.first!.windowScene!)
+                        SKStoreReviewController.requestReview(in: application.connectedScenes.compactMap { $0 as? UIWindowScene }.first!)
                         Defaults.rated = true
                     } else if Defaults.rated && !Defaults.premium && days > 6 {
                         self.froob.send()

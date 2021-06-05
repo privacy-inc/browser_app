@@ -32,8 +32,6 @@ let purchases = Purchases()
     }
     
     func applicationDidFinishLaunching(_: Notification) {
-        froob()
-        
         DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
             if let created = Defaults.created {
                 let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
