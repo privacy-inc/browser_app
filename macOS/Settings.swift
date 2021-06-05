@@ -5,7 +5,7 @@ final class Settings: NSWindow {
     private var subs = Set<AnyCancellable>()
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 420, height: 380),
+        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 380),
                    styleMask: [.closable, .miniaturizable, .titled], backing: .buffered, defer: true)
         toolbar = .init()
         titlebarAppearsTransparent = true
@@ -17,6 +17,9 @@ final class Settings: NSWindow {
         let tab = NSTabView()
         tab.addTabViewItem(General())
         tab.addTabViewItem(Features())
+        tab.addTabViewItem(Security())
+        tab.addTabViewItem(Privacy())
+        tab.addTabViewItem(Data())
         contentView = tab
     }
 }

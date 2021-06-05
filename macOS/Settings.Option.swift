@@ -23,7 +23,7 @@ extension Settings {
             addSubview(text)
             
             widthAnchor.constraint(equalToConstant: 280).isActive = true
-            heightAnchor.constraint(equalToConstant: 30).isActive = true
+            heightAnchor.constraint(equalToConstant: 32).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
