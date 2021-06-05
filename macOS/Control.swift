@@ -17,7 +17,7 @@ class Control: NSView {
         wantsLayer = layer
         setAccessibilityElement(true)
         setAccessibilityRole(.button)
-        addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeInActiveApp, .inVisibleRect], owner: self))
+        addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self))
         update()
     }
     

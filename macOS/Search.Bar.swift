@@ -28,6 +28,7 @@ extension Search {
             background.translatesAutoresizingMaskIntoConstraints = false
             background.wantsLayer = true
             background.layer!.cornerRadius = 4
+            background.state = .active
             addSubview(background)
             
             let shape = CAShapeLayer()

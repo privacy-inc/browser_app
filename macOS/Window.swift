@@ -111,7 +111,7 @@ final class Window: NSWindow {
     
     override func resignMain() {
         super.resignMain()
-        dim(opacity: 0.6)
+        dim(opacity: 0.7)
     }
     
     override func newWindowForTab(_: Any?) {
@@ -133,6 +133,6 @@ final class Window: NSWindow {
     }
     
     private func dim(opacity: CGFloat) {
-        titlebarAccessoryViewControllers.first!.view.alphaValue = opacity
+        search.alphaValue = opacity
     }
 }

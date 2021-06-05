@@ -25,7 +25,7 @@ extension Control {
             case .highlighted:
                 icon.contentTintColor = .labelColor
             default:
-                icon.contentTintColor = .secondaryLabelColor
+                icon.contentTintColor = .tertiaryLabelColor
             }
         }
     }

@@ -10,8 +10,6 @@ extension Window {
         init(id: UUID, browse: Int, error: Tab.Error) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
-            wantsLayer = true
-            layer!.backgroundColor = NSColor.underPageBackgroundColor.cgColor
             
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false
@@ -65,10 +63,10 @@ extension Window {
                 .store(in: &subs)
             content.addSubview(cancel)
             
-            content.topAnchor.constraint(equalTo: topAnchor).isActive = true
+            content.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
             content.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             content.widthAnchor.constraint(equalToConstant: 300).isActive = true
-            content.heightAnchor.constraint(equalToConstant: 300).isActive = true
+            content.bottomAnchor.constraint(equalTo: cancel.bottomAnchor).isActive = true
             
             icon.topAnchor.constraint(equalTo: content.topAnchor, constant: 50).isActive = true
             icon.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
@@ -81,11 +79,18 @@ extension Window {
             description.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
             description.rightAnchor.constraint(lessThanOrEqualTo: content.rightAnchor).isActive = true
             
-            retry.bottomAnchor.constraint(equalTo: cancel.topAnchor, constant: -10).isActive = true
+            retry.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 50).isActive = true
             retry.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
             
-            cancel.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
+            cancel.topAnchor.constraint(equalTo: retry.bottomAnchor, constant: 10).isActive = true
             cancel.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
+        }
+        
+        override func mouseDown(with: NSEvent) {
+            super.mouseDown(with: with)
+            if with.clickCount == 1 {
+                window?.makeFirstResponder(self)
+            }
         }
     }
 }

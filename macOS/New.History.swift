@@ -3,7 +3,7 @@ import Combine
 
 extension New {
     final class History: Collection<New.Cell> {
-        private static let width = CGFloat(180)
+        private static let width = CGFloat(130)
         private static let padding = CGFloat(3)
         
         required init?(coder: NSCoder) { nil }
@@ -24,7 +24,7 @@ extension New {
                 .map {
                     let available = $0 - Self.padding
                     let aprox = Self.width + Self.padding
-                    let count = Int(floor(available / aprox))
+                    let count = max(Int(floor(available / aprox)), 1)
                     return (count: count, width: Self.width + (available.truncatingRemainder(dividingBy: aprox) / .init(count)))
                 }
                 .subscribe(columns)

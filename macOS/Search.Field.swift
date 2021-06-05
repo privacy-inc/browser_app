@@ -127,14 +127,14 @@ extension Search {
             autocomplete.end()
             window!.makeFirstResponder(window!.contentView)
             
-            let browse = tabber.items.value[state: id].browse
+            let state = tabber.items.value[state: id]
             cloud
-                .browse(stringValue, id: browse) { [weak self] in
+                .browse(stringValue, id: state.browse) { [weak self] in
                     guard let id = self?.id else { return }
-                    if browse == $0 {
-    //                    if case .error = self?.wrapper.session.tab.state(id) {
-    //                        self?.wrapper.session.tab.browse(id, $0)
-    //                    }
+                    if state.browse == $0 {
+                        if state.isError {
+                            tabber.browse(id, $0)
+                        }
                         session.load.send((id: id, access: $1))
                     } else {
                         tabber.browse(id, $0)
