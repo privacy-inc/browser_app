@@ -32,24 +32,21 @@ let purchases = Purchases()
     }
     
     func applicationDidFinishLaunching(_: Notification) {
-//        Session.purchases.plusOne.sink {
-//            Session.mutate {
-//                $0.capacity += 1
-//            }
-//        }.store(in: &subs)
-//
-//        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//            if let created = Defaults.created {
-//                if !Defaults.rated && Calendar.current.dateComponents([.day], from: created, to: .init()).day! > 4 {
-//                    Defaults.rated = true
-//                    SKStoreReviewController.requestReview()
-//                }
-//            } else {
-//                Defaults.created = .init()
-//            }
-//        }
-//
-//        registerForRemoteNotifications()
+        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+            if let created = Defaults.created {
+                let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
+                if !Defaults.rated && days > 4 {
+                    SKStoreReviewController.requestReview()
+                    Defaults.rated = true
+                } else if Defaults.rated && !Defaults.premium && days > 6 {
+//                    self.froob.send()
+                }
+            } else {
+                Defaults.created = .init()
+            }
+        }
+
+        registerForRemoteNotifications()
     }
     
     func applicationDidBecomeActive(_: Notification) {

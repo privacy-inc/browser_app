@@ -30,7 +30,7 @@ final class Search: NSView {
         info
             .click
             .sink {
-                Info(id: id)
+                Window.Info(id: id)
                     .show(relativeTo: info.bounds, of: info, preferredEdge: .minY)
             }
             .store(in: &subs)
@@ -52,7 +52,7 @@ final class Search: NSView {
         share
             .click
             .sink {
-                Share(id: id)
+                Window.Share(id: id)
                     .show(relativeTo: share.bounds, of: share, preferredEdge: .minY)
             }
             .store(in: &subs)

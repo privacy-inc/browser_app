@@ -22,14 +22,14 @@ extension App {
                 }
                 .store(in: &subs)
 
-            DispatchQueue.main.asyncAfter(deadline: .now() + 3) { [weak self] in
+            DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                 if let created = Defaults.created {
                     let days = Calendar.current.dateComponents([.day], from: created, to: .init()).day!
                     if !Defaults.rated && days > 4 {
                         SKStoreReviewController.requestReview(in: application.windows.first!.windowScene!)
                         Defaults.rated = true
                     } else if Defaults.rated && !Defaults.premium && days > 6 {
-                        self?.froob.send()
+                        self.froob.send()
                     }
                 } else {
                     Defaults.created = .init()

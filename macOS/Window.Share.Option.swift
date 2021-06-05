@@ -1,6 +1,6 @@
 import AppKit
 
-extension Share {
+extension Window.Share {
     final class Option: Control {
         private weak var image: Image!
         private weak var text: Text!
