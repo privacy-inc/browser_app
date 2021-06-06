@@ -17,10 +17,10 @@ extension Control {
             addSubview(text)
             
             heightAnchor.constraint(equalToConstant: 32).isActive = true
-            rightAnchor.constraint(equalTo: text.rightAnchor, constant: 20).isActive = true
+            rightAnchor.constraint(equalTo: text.rightAnchor, constant: 22).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 22).isActive = true
         }
         
         override func update() {
@@ -28,9 +28,7 @@ extension Control {
             
             switch state {
             case .pressed:
-                layer!.backgroundColor = NSColor.controlBackgroundColor.withAlphaComponent(0.4).cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.7).cgColor
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.8).cgColor
             default:
                 layer!.backgroundColor = NSColor.controlAccentColor.cgColor
                 text.textColor = .white

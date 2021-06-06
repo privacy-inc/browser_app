@@ -59,7 +59,7 @@ extension Store {
                     .store(in: &subs)
                 addSubview(purchase)
                 
-                let why = Option(title: "Why In-App Purchases", image: "questionmark")
+                let why = Option(title: "Why In-App Purchases", image: "questionmark.circle.fill")
                 why
                     .click
                     .sink {

@@ -30,7 +30,7 @@ extension Store {
                 .store(in: &subs)
             
             restore.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            restore.rightAnchor.constraint(equalTo: rightAnchor, constant: -5).isActive = true
+            restore.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         }
     }
 }

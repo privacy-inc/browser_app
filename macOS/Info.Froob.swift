@@ -9,7 +9,7 @@ extension Info {
             super.init(title: "Support Privacy", message: Purchases.froob)
             animationBehavior = .alertPanel
             
-            let accept = Control.Capsule(title: "Accept")
+            let accept = Control.Capsule(title: "Continue")
             let view = NSView()
             view.addSubview(accept)
             
