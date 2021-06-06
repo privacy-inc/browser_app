@@ -91,7 +91,7 @@ Enable and disable this on System Preferences.
                 view!.addSubview(browser)
                 
                 let icon = Image(icon: "checkmark.circle.fill")
-                icon.symbolConfiguration = .init(textStyle: .title1)
+                icon.symbolConfiguration = .init(textStyle: .title3)
                 icon.contentTintColor = .controlAccentColor
                 view!.addSubview(icon)
                 

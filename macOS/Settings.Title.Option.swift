@@ -1,14 +1,14 @@
 import AppKit
 
-extension Window.Error {
+extension Settings.Title {
     final class Option: Control {
         private weak var image: Image!
         private weak var text: Text!
         
         required init?(coder: NSCoder) { nil }
-        init(icon: String, title: String) {
-            let image = Image(icon: icon)
-            image.symbolConfiguration = .init(textStyle: .title3)
+        init(title: String, image: String) {
+            let image = Image(icon: image)
+            image.symbolConfiguration = .init(textStyle: .body)
             self.image = image
             
             let text = Text()
@@ -22,14 +22,14 @@ extension Window.Error {
             addSubview(image)
             addSubview(text)
             
-            widthAnchor.constraint(equalToConstant: 120).isActive = true
-            heightAnchor.constraint(equalToConstant: 30).isActive = true
+            heightAnchor.constraint(equalToConstant: 34).isActive = true
+            rightAnchor.constraint(equalTo: image.rightAnchor, constant: 10).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            image.leftAnchor.constraint(equalTo: text.rightAnchor, constant: 10).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 5).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         }
         
         override func update() {
@@ -37,15 +37,15 @@ extension Window.Error {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .labelColor
-                text.textColor = .labelColor
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+                image.contentTintColor = .white
+                text.textColor = .white
+                layer!.backgroundColor = NSColor.controlAccentColor.cgColor
             case .highlighted:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.1).cgColor
             default:
                 layer!.backgroundColor = .clear
-                image.contentTintColor = .secondaryLabelColor
-                text.textColor = .secondaryLabelColor
+                image.contentTintColor = .labelColor
+                text.textColor = .labelColor
             }
         }
     }

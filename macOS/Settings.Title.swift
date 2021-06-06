@@ -9,7 +9,7 @@ extension Settings {
         init() {
             super.init(frame: .zero)
             
-            let restore = Control.Capsule(title: "Privacy Plus")
+            let restore = Option(title: "Privacy Plus", image: "plus")
             restore
                 .click
                 .sink {
@@ -19,7 +19,7 @@ extension Settings {
             addSubview(restore)
             
             restore.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            restore.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            restore.rightAnchor.constraint(equalTo: rightAnchor, constant: -4).isActive = true
         }
     }
 }
