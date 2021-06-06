@@ -64,7 +64,7 @@ extension Window {
                         .map {
                             NSPasteboard.general.clearContents()
                             NSPasteboard.general.setString($0, forType: .string)
-                            Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc"))
+                            Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
                         }
                     self?.close()
                 }

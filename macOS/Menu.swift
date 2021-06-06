@@ -175,7 +175,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     @objc private func triggerCopyLink() {
         NSPasteboard.general.clearContents()
         NSPasteboard.general.setString(url.absoluteString, forType: .string)
-        Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc"))
+        Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
     }
     
     @objc private func triggerWebsite() {

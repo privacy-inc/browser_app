@@ -19,7 +19,7 @@ extension Settings {
                     NSAlert.delete(title: "Delete cache") { [weak self] in
                         self?.clear()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted cache", icon: "trash"))
+                        Toast.show(message: .init(title: "Deleted cache", icon: "trash.fill"))
                     }
                 }
                 .store(in: &subs)
@@ -31,7 +31,7 @@ extension Settings {
                     NSAlert.delete(title: "Delete history") { [weak self] in
                         cloud.forgetBrowse()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted history", icon: "trash"))
+                        Toast.show(message: .init(title: "Deleted history", icon: "trash.fill"))
                     }
                 }
                 .store(in: &subs)
@@ -43,7 +43,7 @@ extension Settings {
                     NSAlert.delete(title: "Delete activity") { [weak self] in
                         cloud.forgetActivity()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted activity", icon: "trash"))
+                        Toast.show(message: .init(title: "Deleted activity", icon: "trash.fill"))
                     }
                 }
                 .store(in: &subs)
@@ -55,7 +55,7 @@ extension Settings {
                     NSAlert.delete(title: "Delete trackers") { [weak self] in
                         cloud.forgetBlocked()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted trackers", icon: "trash"))
+                        Toast.show(message: .init(title: "Deleted trackers", icon: "trash.fill"))
                     }
                 }
                 .store(in: &subs)
@@ -68,7 +68,7 @@ extension Settings {
                         cloud.forget()
                         self?.clear()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted everything", icon: "flame"))
+                        Toast.show(message: .init(title: "Deleted everything", icon: "flame.fill"))
                     }
                 }
                 .store(in: &subs)

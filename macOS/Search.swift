@@ -44,7 +44,7 @@ final class Search: NSView {
                     .value[state: id]
                     .browse
                     .map(cloud.bookmark)
-                Toast.show(message: .init(title: "Bookmark added", icon: "bookmark"))
+                Toast.show(message: .init(title: "Bookmark added", icon: "bookmark.fill"))
             }
             .store(in: &subs)
         

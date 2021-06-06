@@ -3,7 +3,7 @@ import AppKit
 final class Toast: NSPanel {
     class func show(message: Message) {
         let toast = Self(message: message)
-        toast.orderFront(nil)
+        toast.orderFrontRegardless()
         toast.setFrameTopLeftPoint(.init(x: (NSScreen.main?.frame.width ?? 600) - toast.frame.width - 10,
                                          y: (NSScreen.main?.frame.height ?? 400) - 35))
         
@@ -13,7 +13,7 @@ final class Toast: NSPanel {
     }
     
     private init(message: Message) {
-        super.init(contentRect: .init(origin: .zero, size: .init(width: 200, height: 50)), styleMask: [.borderless], backing: .buffered, defer: true)
+        super.init(contentRect: .init(origin: .zero, size: .init(width: 240, height: 50)), styleMask: [.borderless], backing: .buffered, defer: true)
         isMovable = false
         backgroundColor = .clear
         isOpaque = false
@@ -25,7 +25,7 @@ final class Toast: NSPanel {
         content.material = .popover
         content.state = .active
         content.wantsLayer = true
-        content.layer!.cornerRadius = 16
+        content.layer!.cornerRadius = 12
         contentView!.addSubview(content)
         
         let icon = Image(icon: message.icon)
@@ -35,7 +35,7 @@ final class Toast: NSPanel {
         
         let title = Text()
         title.stringValue = message.title
-        title.textColor = .secondaryLabelColor
+        title.textColor = .labelColor
         title.font = .preferredFont(forTextStyle: .callout)
         title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         content.addSubview(title)
@@ -54,6 +54,7 @@ final class Toast: NSPanel {
     }
     
     override func mouseDown(with: NSEvent) {
+        guard with.clickCount == 1 else { return }
         close()
     }
 }
