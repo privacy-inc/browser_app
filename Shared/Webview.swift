@@ -22,9 +22,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         configuration.userContentController.addUserScript(.init(source: settings.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(.init(source: settings.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
         
-        WKContentRuleListStore.default()!.compileContentRuleList(forIdentifier: "rules", encodedContentRuleList: settings.rules) { rules, _ in
-            rules.map(configuration.userContentController.add)
-        }
+        WKContentRuleListStore
+            .default()!
+            .compileContentRuleList(forIdentifier: "rules", encodedContentRuleList: settings.rules) { rules, _ in
+                rules.map(configuration.userContentController.add)
+            }
         
         super.init(frame: .zero, configuration: configuration)
         navigationDelegate = self
@@ -126,7 +128,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             tabber.error(id, .init(url: $0.absoluteString, description: $1))
         } ((withError as? URLError)
             .flatMap(\.failingURL)
-            ?? url ?? URL(string: "about:blank")!, withError.localizedDescription)
+            ?? url
+            ?? {
+                $0?["NSErrorFailingURLKey"] as? URL
+            } (withError._userInfo as? [String : Any])
+            ?? URL(string: "about:blank")!, withError.localizedDescription)
         cloud.activity()
         tabber.update(id, progress: 1)
     }
@@ -150,6 +156,13 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
             decisionHandler(.cancel, preferences)
         case .block:
             decisionHandler(.cancel, preferences)
+            decidePolicyFor
+                .targetFrame
+                .map(\.isMainFrame)
+                .map {
+                    guard $0 else { return }
+                    tabber.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "Blocked"))
+                }
         }
     }
 }

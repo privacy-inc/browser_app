@@ -10,6 +10,8 @@ extension Window {
         init(id: UUID, browse: Int, error: Tab.Error) {
             super.init(frame: .zero)
             
+            print(error)
+            
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false
             addSubview(content)
@@ -21,7 +23,7 @@ extension Window {
             
             let domain = Text()
             domain.stringValue = error.domain
-            domain.font = .preferredFont(forTextStyle: .headline)
+            domain.font = .preferredFont(forTextStyle: .title3)
             domain.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             content.addSubview(domain)
             
@@ -45,7 +47,7 @@ extension Window {
                 .store(in: &subs)
             content.addSubview(retry)
             
-            let cancel = Option(icon: "xmark", title: "Cancel")
+            let cancel = Option(icon: "xmark.circle.fill", title: "Cancel")
             cancel
                 .click
                 .sink {

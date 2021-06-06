@@ -29,7 +29,7 @@ extension Window.Error {
             image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            text.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 5).isActive = true
         }
         
         override func update() {
@@ -37,15 +37,15 @@ extension Window.Error {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .controlAccentColor
-                text.textColor = .controlAccentColor
-                layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            default:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
                 image.contentTintColor = .labelColor
                 text.textColor = .labelColor
+                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            case .highlighted:
+                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+            default:
+                layer!.backgroundColor = .clear
+                image.contentTintColor = .secondaryLabelColor
+                text.textColor = .secondaryLabelColor
             }
         }
     }
