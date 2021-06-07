@@ -10,14 +10,11 @@ extension Settings {
         init(title: String) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
-            wantsLayer = true
-            layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            layer!.cornerRadius = 6
             
             let text = Text()
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .callout)
-            text.textColor = .secondaryLabelColor
+            text.textColor = .labelColor
             addSubview(text)
             
             let toggle = NSSwitch()
@@ -26,13 +23,13 @@ extension Settings {
             toggle.translatesAutoresizingMaskIntoConstraints = false
             addSubview(toggle)
             
-            heightAnchor.constraint(equalToConstant: 42).isActive = true
+            heightAnchor.constraint(equalToConstant: 38).isActive = true
             widthAnchor.constraint(equalToConstant: 280).isActive = true
             
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
+            text.leftAnchor.constraint(equalTo: toggle.rightAnchor, constant: 10).isActive = true
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
-            toggle.rightAnchor.constraint(equalTo: rightAnchor, constant: -15).isActive = true
+            toggle.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
             toggle.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             
             sub = value

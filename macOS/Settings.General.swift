@@ -17,19 +17,22 @@ extension Settings {
             engineTitle.stringValue = "Search engine"
             view!.addSubview(engineTitle)
             
-            let engine = Segmented(items: ["Ecosia", "Google"])
-            engine.select.send(.init(cloud
-                .archive
-                .value
-                .settings
-                .engine
-                .rawValue))
+            let engine = Segmented(items: ["Google", "Ecosia"])
+            switch cloud.archive.value.settings.engine {
+            case .google:
+                engine.select.send(0)
+            case .ecosia:
+                engine.select.send(1)
+            }
             engine
                 .select
                 .sink {
-                    Engine(rawValue: .init($0))
-                        .map(cloud
-                                .engine)
+                    switch $0 {
+                    case 0:
+                        cloud.engine(.google)
+                    default:
+                        cloud.engine(.ecosia)
+                    }
                 }
                 .store(in: &subs)
             view!.addSubview(engine)
@@ -37,35 +40,12 @@ extension Settings {
             let browserTitle = Text()
             browserTitle.font = .preferredFont(forTextStyle: .callout)
             browserTitle.textColor = .secondaryLabelColor
-            browserTitle.stringValue = isDefault ? """
-Make this app your default browser and all websites will open automatically on Privacy.
-""" : """
-Privacy as your Default Browser
+            browserTitle.stringValue = """
+You can make this app your default browser and all websites will open automatically on Privacy.
 """
             browserTitle.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             view!.addSubview(browserTitle)
-            
-            let locationTitle = Text()
-            locationTitle.font = .preferredFont(forTextStyle: .callout)
-            locationTitle.textColor = .secondaryLabelColor
-            locationTitle.stringValue = """
-This app will never access your location, but may prompt you if a website is asking for it.
-Enable and disable this on System Preferences.
-"""
-            locationTitle.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            view!.addSubview(locationTitle)
-            
-            let location = Option(title: "Location", image: "location")
-            location
-                .click
-                .sink {
-                    NSWorkspace
-                        .shared
-                        .open(URL(string: "x-apple.systempreferences:com.apple.preference.security?Privacy_LocationServices")!)
-                }
-                .store(in: &subs)
-            view!.addSubview(location)
-            
+
             engineTitle.topAnchor.constraint(equalTo: view!.topAnchor, constant: 20).isActive = true
             engineTitle.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
             
@@ -73,21 +53,15 @@ Enable and disable this on System Preferences.
             engine.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             engine.widthAnchor.constraint(equalToConstant: 280).isActive = true
             
-            browserTitle.topAnchor.constraint(equalTo: engine.bottomAnchor, constant: 30).isActive = true
+            browserTitle.topAnchor.constraint(equalTo: engine.bottomAnchor, constant: 100).isActive = true
             browserTitle.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
             browserTitle.rightAnchor.constraint(equalTo: engine.rightAnchor).isActive = true
             
-            locationTitle.topAnchor.constraint(equalTo: browserTitle.bottomAnchor, constant: 90).isActive = true
-            locationTitle.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
-            locationTitle.rightAnchor.constraint(equalTo: engine.rightAnchor).isActive = true
-            
-            location.topAnchor.constraint(equalTo: locationTitle.bottomAnchor, constant: 10).isActive = true
-            location.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
-            
             if isDefault {
                 let browser = Text()
-                browser.stringValue = "Defalt Browser"
-                browser.font = .preferredFont(forTextStyle: .callout)
+                browser.stringValue = "Default Browser"
+                browser.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium)
+                browser.textColor = .secondaryLabelColor
                 view!.addSubview(browser)
                 
                 let icon = Image(icon: "checkmark.circle.fill")
@@ -99,7 +73,7 @@ Enable and disable this on System Preferences.
                 browser.leftAnchor.constraint(equalTo: icon.rightAnchor, constant: 5).isActive = true
                 
                 icon.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
-                icon.topAnchor.constraint(equalTo: browserTitle.bottomAnchor, constant: 20).isActive = true
+                icon.bottomAnchor.constraint(equalTo: browserTitle.topAnchor, constant: -10).isActive = true
             } else {
                 let browser = Option(title: "Make default browser", image: "magnifyingglass")
                 browser
@@ -112,7 +86,7 @@ Enable and disable this on System Preferences.
                     .store(in: &subs)
                 view!.addSubview(browser)
                 
-                browser.topAnchor.constraint(equalTo: browserTitle.bottomAnchor, constant: 10).isActive = true
+                browser.bottomAnchor.constraint(equalTo: browserTitle.topAnchor, constant: -10).isActive = true
                 browser.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             }
         }

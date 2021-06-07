@@ -54,7 +54,7 @@ final class Segmented: NSView {
         
         indicator.topAnchor.constraint(equalTo: topAnchor).isActive = true
         indicator.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        indicator.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / CGFloat(items.count)).isActive = true
+        indicator.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 1 / .init(items.count)).isActive = true
         
         layoutSubtreeIfNeeded()
         

@@ -16,7 +16,7 @@ extension Settings {
             cache
                 .click
                 .sink {
-                    NSAlert.delete(title: "Delete cache") { [weak self] in
+                    NSAlert.delete(title: "Delete cache", icon: "trash.fill") { [weak self] in
                         self?.clear()
                         self?.view?.window?.close()
                         Toast.show(message: .init(title: "Deleted cache", icon: "trash.fill"))
@@ -24,38 +24,38 @@ extension Settings {
                 }
                 .store(in: &subs)
             
-            let history = Option(title: "Forget history", image: "trash")
+            let history = Option(title: "Forget history", image: "clock")
             history
                 .click
                 .sink {
-                    NSAlert.delete(title: "Delete history") { [weak self] in
+                    NSAlert.delete(title: "Delete history", icon: "clock.fill") { [weak self] in
                         cloud.forgetBrowse()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted history", icon: "trash.fill"))
+                        Toast.show(message: .init(title: "Deleted history", icon: "clock.fill"))
                     }
                 }
                 .store(in: &subs)
             
-            let activity = Option(title: "Forget activity", image: "trash")
+            let activity = Option(title: "Forget activity", image: "chart.bar.xaxis")
             activity
                 .click
                 .sink {
-                    NSAlert.delete(title: "Delete activity") { [weak self] in
+                    NSAlert.delete(title: "Delete activity", icon: "chart.bar.xaxis") { [weak self] in
                         cloud.forgetActivity()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted activity", icon: "trash.fill"))
+                        Toast.show(message: .init(title: "Deleted activity", icon: "chart.bar.xaxis"))
                     }
                 }
                 .store(in: &subs)
             
-            let trackers = Option(title: "Forget trackers", image: "trash")
+            let trackers = Option(title: "Forget trackers", image: "shield.lefthalf.fill")
             trackers
                 .click
                 .sink {
-                    NSAlert.delete(title: "Delete trackers") { [weak self] in
+                    NSAlert.delete(title: "Delete trackers", icon: "shield.lefthalf.fill") { [weak self] in
                         cloud.forgetBlocked()
                         self?.view?.window?.close()
-                        Toast.show(message: .init(title: "Deleted trackers", icon: "trash.fill"))
+                        Toast.show(message: .init(title: "Deleted trackers", icon: "shield.lefthalf.fill"))
                     }
                 }
                 .store(in: &subs)
@@ -64,7 +64,7 @@ extension Settings {
             everything
                 .click
                 .sink {
-                    NSAlert.delete(title: "Delete everything") { [weak self] in
+                    NSAlert.delete(title: "Delete everything", icon: "flame.fill") { [weak self] in
                         cloud.forget()
                         self?.clear()
                         self?.view?.window?.close()

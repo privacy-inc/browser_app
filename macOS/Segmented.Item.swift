@@ -6,14 +6,14 @@ extension Segmented {
         
         required init?(coder: NSCoder) { nil }
         init(title: String) {
-            super.init(layer: false)
-            
             let label = Text()
-            label.font = .systemFont(ofSize: 12, weight: .bold)
+            label.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium)
             label.stringValue = title
-            addSubview(label)
             self.label = label
             
+            super.init(layer: false)
+            addSubview(label)
+
             label.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             label.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }

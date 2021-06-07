@@ -1,10 +1,10 @@
 import AppKit
 
 extension NSAlert {
-    class func delete(title: String, completion: () -> Void) {
+    class func delete(title: String, icon: String, completion: () -> Void) {
         let alert = NSAlert()
         alert.alertStyle = .warning
-        alert.icon = NSImage(systemSymbolName: "trash", accessibilityDescription: nil)
+        alert.icon = NSImage(systemSymbolName: icon, accessibilityDescription: nil)
         alert.messageText = title
         
         let delete = alert.addButton(withTitle: NSLocalizedString("Delete", comment: ""))

@@ -73,6 +73,7 @@
 		CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111E264BFCBE0097FAC2 /* UIApplication.swift */; };
 		CE781121264C00580097FAC2 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781120264C00580097FAC2 /* Search.swift */; };
 		CE781123264C08990097FAC2 /* Tab.New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781122264C08990097FAC2 /* Tab.New.swift */; };
+		CE7F6512266E30C300E889A9 /* Settings.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F6511266E30C300E889A9 /* Settings.Location.swift */; };
 		CE80555A266789E10096D1A5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE805559266789E10096D1A5 /* Toast.swift */; };
 		CE80555B26678B100096D1A5 /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
 		CE81AC4126692008004B5B63 /* Window.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE81AC4026692008004B5B63 /* Window.Error.swift */; };
@@ -290,6 +291,7 @@
 		CE78111E264BFCBE0097FAC2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE781120264C00580097FAC2 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE781122264C08990097FAC2 /* Tab.New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.swift; sourceTree = "<group>"; };
+		CE7F6511266E30C300E889A9 /* Settings.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Location.swift; sourceTree = "<group>"; };
 		CE805559266789E10096D1A5 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CE81AC4026692008004B5B63 /* Window.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Error.swift; sourceTree = "<group>"; };
 		CE81AC4226692798004B5B63 /* Window.Error.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Error.Option.swift; sourceTree = "<group>"; };
@@ -635,6 +637,7 @@
 				CEF001AF266BEE1800993CDD /* Settings.Data.swift */,
 				CEF001A7266BE65F00993CDD /* Settings.Features.swift */,
 				CEF001A3266BCE3600993CDD /* Settings.General.swift */,
+				CE7F6511266E30C300E889A9 /* Settings.Location.swift */,
 				CEF001A5266BD65300993CDD /* Settings.Option.swift */,
 				CEF001AD266BED8000993CDD /* Settings.Privacy.swift */,
 				CEF001AB266BEB9E00993CDD /* Settings.Security.swift */,
@@ -1005,6 +1008,7 @@
 				CEA0027F2668DE970098B04D /* Window.Share.swift in Sources */,
 				CEF001A4266BCE3600993CDD /* Settings.General.swift in Sources */,
 				CEF97E66266A507F00550E10 /* Activity.swift in Sources */,
+				CE7F6512266E30C300E889A9 /* Settings.Location.swift in Sources */,
 				CEF001A0266BC96400993CDD /* Segmented.swift in Sources */,
 				CEE845F326663D7E00D0A9DC /* Search.Bar.swift in Sources */,
 				CE0D6C02265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift in Sources */,

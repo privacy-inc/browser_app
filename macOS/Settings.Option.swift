@@ -9,11 +9,13 @@ extension Settings {
         init(title: String, image: String) {
             let image = Image(icon: image)
             image.symbolConfiguration = .init(textStyle: .body)
+            image.contentTintColor = .labelColor
             self.image = image
             
             let text = Text()
             text.stringValue = title
-            text.font = .preferredFont(forTextStyle: .callout)
+            text.font = .preferredFont(forTextStyle: .body)
+            text.textColor = .labelColor
             self.text = text
             
             super.init(layer: true)
@@ -22,14 +24,14 @@ extension Settings {
             addSubview(image)
             addSubview(text)
             
-            widthAnchor.constraint(equalToConstant: 280).isActive = true
+            widthAnchor.constraint(equalToConstant: 210).isActive = true
             heightAnchor.constraint(equalToConstant: 34).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            text.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 10).isActive = true
         }
         
         override func update() {
@@ -37,15 +39,11 @@ extension Settings {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .controlAccentColor
-                text.textColor = .controlAccentColor
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
-            case .highlighted:
                 layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-            default:
+            case .highlighted:
                 layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-                image.contentTintColor = .labelColor
-                text.textColor = .labelColor
+            default:
+                layer!.backgroundColor = .clear
             }
         }
     }

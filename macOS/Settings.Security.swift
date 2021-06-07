@@ -11,31 +11,33 @@ extension Settings {
             super.init(identifier: "Security")
             label = "Security"
             
-            let settings = cloud.archive.value.settings
-            
-            let title = Text()
-            title.font = .preferredFont(forTextStyle: .callout)
-            title.textColor = .secondaryLabelColor
-            title.stringValue = "Reopen your tabs\nfor changes to become effective"
-            
             let http = Switch(title: NSLocalizedString("Force secure connections", comment: ""))
-            http.value.send(!settings.http)
+            http.value.send(!cloud.archive.value.settings.http)
             http
                 .value
                 .sink {
                     cloud.http(!$0)
                 }
                 .store(in: &subs)
+            view!.addSubview(http)
             
-            var top = view!.topAnchor
-            [title, http]
-                .forEach {
-                    view!.addSubview($0)
-                    
-                    $0.topAnchor.constraint(equalTo: top, constant: top == view!.topAnchor || top == title.bottomAnchor ? 20 : 5).isActive = true
-                    $0.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
-                    top = $0.bottomAnchor
-                }
+            let title = Text()
+            title.font = .preferredFont(forTextStyle: .callout)
+            title.textColor = .secondaryLabelColor
+            title.stringValue = """
+This will force all websites to use an encrypted connection with SSL and over HTTPS.
+
+But it will fail to open websites that only support insecure connections over HTTP, this sometimes happens on old websites.
+"""
+            title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            view!.addSubview(title)
+            
+            http.topAnchor.constraint(equalTo: view!.topAnchor, constant: 20).isActive = true
+            http.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
+            
+            title.topAnchor.constraint(equalTo: http.bottomAnchor, constant: 10).isActive = true
+            title.leftAnchor.constraint(equalTo: http.leftAnchor).isActive = true
+            title.rightAnchor.constraint(equalTo: http.rightAnchor).isActive = true
         }
     }
 }
