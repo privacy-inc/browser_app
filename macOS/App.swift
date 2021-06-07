@@ -8,6 +8,7 @@ let session = Session()
 let cloud = Cloud.new
 let tabber = Tab()
 let purchases = Purchases()
+let location = Location()
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
     static let dark = NSApp.windows.first?.effectiveAppearance == .init(named: .darkAqua)

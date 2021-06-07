@@ -13,16 +13,13 @@ final class Web: Webview {
             settings.dark = false
         }
         
-        let handler = Handler()
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
-        configuration.userContentController.add(handler, name: "handler")
         
         super.init(configuration: configuration, id: id, browse: browse, settings: settings)
         setValue(false, forKey: "drawsBackground")
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
-        handler.web = self
         
         session
             .load
@@ -183,6 +180,28 @@ final class Web: Webview {
     
     override func external(_ url: URL) {
         NSWorkspace.shared.open(url)
+    }
+    
+    override func userContentController(_ controller: WKUserContentController, didReceive: WKScriptMessage) {
+        super.userContentController(controller, didReceive: didReceive)
+        
+        switch didReceive.body as? String {
+        case "_privacy_incognit_location_request":
+            guard settings.location else { return }
+            var sub: AnyCancellable?
+            sub = location
+                .current
+                .compactMap {
+                    $0
+                }
+                .sink { [weak self] in
+                    sub?.cancel()
+                    self?.evaluateJavaScript(
+                        "_privacy_incognit_location_received(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));")
+                }
+            location.request()
+        default: break
+        }
     }
     
     func webView(_: WKWebView, didStartProvisionalNavigation: WKNavigation!) {

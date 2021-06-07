@@ -2,7 +2,7 @@ import WebKit
 import Combine
 import Sleuth
 
-class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
+class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     final var subs = Set<AnyCancellable>()
     final let id: UUID
     final let browse: Int
@@ -32,6 +32,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
+        self.configuration.userContentController.add(self, name: "handler")
         
         publisher(for: \.estimatedProgress, options: .new)
             .removeDuplicates()
@@ -94,6 +95,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate {
     
     func external(_ url: URL) {
         
+    }
+    
+    func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
+
     }
     
     final func load(_ access: Page.Access) {

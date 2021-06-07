@@ -104,10 +104,10 @@
 		CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */; };
 		CE9C2002264821E0001504A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C2001264821E0001504A2 /* App.swift */; };
 		CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9C2005264821E1001504A2 /* Assets.xcassets */; };
+		CE9CF61B266E4BE700B277DF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CF61A266E4BE700B277DF /* Location.swift */; };
 		CE9E175B2660F3BB00E8BF24 /* Control.Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E175A2660F3BB00E8BF24 /* Control.Icon.swift */; };
 		CE9E175D2661051900E8BF24 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E175C2661051900E8BF24 /* Web.swift */; };
 		CE9E175E2661053100E8BF24 /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE919A90264D58480051EE27 /* Webview.swift */; };
-		CE9E1760266106B800E8BF24 /* Web.Handler.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9E175F266106B800E8BF24 /* Web.Handler.swift */; };
 		CEA0027F2668DE970098B04D /* Window.Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0027E2668DE970098B04D /* Window.Share.swift */; };
 		CEA002812668E10D0098B04D /* Window.Share.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA002802668E10D0098B04D /* Window.Share.Option.swift */; };
 		CEA65F42265D0A7400A35436 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F41265D0A7400A35436 /* App.swift */; };
@@ -324,9 +324,9 @@
 		CE9C2001264821E0001504A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE9C2005264821E1001504A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE9C200A264821E1001504A2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE9CF61A266E4BE700B277DF /* Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Location.swift; sourceTree = "<group>"; };
 		CE9E175A2660F3BB00E8BF24 /* Control.Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Icon.swift; sourceTree = "<group>"; };
 		CE9E175C2661051900E8BF24 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
-		CE9E175F266106B800E8BF24 /* Web.Handler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Handler.swift; sourceTree = "<group>"; };
 		CEA0027E2668DE970098B04D /* Window.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Share.swift; sourceTree = "<group>"; };
 		CEA002802668E10D0098B04D /* Window.Share.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Share.Option.swift; sourceTree = "<group>"; };
 		CEA65F41265D0A7400A35436 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
@@ -613,6 +613,7 @@
 				CE0D4239266B8AC600386433 /* Info.Froob.swift */,
 				CE0D4235266B86CD00386433 /* Info.swift */,
 				CEF00199266BC6FF00993CDD /* Info.Why.swift */,
+				CE9CF61A266E4BE700B277DF /* Location.swift */,
 				CE676A6A265E64EE0042EDC2 /* Menu.swift */,
 				CECE1F96265E91C000ACBB0B /* New.Bookmarks.swift */,
 				CE0D6BEF265FB8A0000B3FF1 /* New.Cell.swift */,
@@ -659,7 +660,6 @@
 				CEF97E70266A685700550E10 /* Trackers.Item.swift */,
 				CEF97E6C266A631700550E10 /* Trackers.swift */,
 				CEF97E72266A759300550E10 /* Trackers.Title.swift */,
-				CE9E175F266106B800E8BF24 /* Web.Handler.swift */,
 				CE9E175C2661051900E8BF24 /* Web.swift */,
 				CE81AC4226692798004B5B63 /* Window.Error.Option.swift */,
 				CE81AC4026692008004B5B63 /* Window.Error.swift */,
@@ -958,6 +958,7 @@
 				CE0D6BF2265FC8B0000B3FF1 /* CGRect.swift in Sources */,
 				CECE1F9D265E9E5100ACBB0B /* Collection.swift in Sources */,
 				CE70B43D265FA92C00A357BC /* NSAttributedString.swift in Sources */,
+				CE9CF61B266E4BE700B277DF /* Location.swift in Sources */,
 				CED418B9266CD2FF006155C5 /* Settings.Title.Option.swift in Sources */,
 				CE9E175D2661051900E8BF24 /* Web.swift in Sources */,
 				CEF001A8266BE65F00993CDD /* Settings.Features.swift in Sources */,
@@ -1002,7 +1003,6 @@
 				CEF0019A266BC6FF00993CDD /* Info.Why.swift in Sources */,
 				CE70B43B265FA85700A357BC /* RelativeDateTimeFormatter.swift in Sources */,
 				CE847B1B265EA1BC00A045B3 /* CollectionCellText.swift in Sources */,
-				CE9E1760266106B800E8BF24 /* Web.Handler.swift in Sources */,
 				CE676A63265E52B10042EDC2 /* Window.swift in Sources */,
 				CE81AC4326692798004B5B63 /* Window.Error.Option.swift in Sources */,
 				CE12B21B265E6C2F000EA487 /* New.swift in Sources */,
