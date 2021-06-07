@@ -1,7 +1,7 @@
 import AppKit
 
 extension Settings {
-    final class Option: Control {
+    class Option: Control {
         private weak var image: Image!
         private weak var text: Text!
         

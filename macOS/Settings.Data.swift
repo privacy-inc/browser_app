@@ -60,7 +60,7 @@ extension Settings {
                 }
                 .store(in: &subs)
             
-            let everything = Option(title: "Forget everything", image: "flame")
+            let everything = Option.Destructive(title: "Forget everything", image: "flame")
             everything
                 .click
                 .sink {
