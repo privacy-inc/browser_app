@@ -13,17 +13,15 @@ extension Window.Error {
             
             let text = Text()
             text.stringValue = title
-            text.font = .preferredFont(forTextStyle: .callout)
+            text.font = .preferredFont(forTextStyle: .body)
             self.text = text
             
-            super.init(layer: true)
-            layer!.cornerRadius = 4
-            
+            super.init(layer: false)
             addSubview(image)
             addSubview(text)
             
             widthAnchor.constraint(equalToConstant: 120).isActive = true
-            heightAnchor.constraint(equalToConstant: 30).isActive = true
+            heightAnchor.constraint(equalToConstant: 36).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
@@ -37,13 +35,12 @@ extension Window.Error {
             
             switch state {
             case .pressed:
+                image.contentTintColor = .controlAccentColor
+                text.textColor = .controlAccentColor
+            case .highlighted:
                 image.contentTintColor = .labelColor
                 text.textColor = .labelColor
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
             default:
-                layer!.backgroundColor = .clear
                 image.contentTintColor = .secondaryLabelColor
                 text.textColor = .secondaryLabelColor
             }

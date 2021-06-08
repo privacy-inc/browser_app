@@ -9,7 +9,7 @@ extension Window {
         init(id: UUID) {
             super.init()
             behavior = .transient
-            contentSize = .init(width: 240, height: 410)
+            contentSize = .init(width: 200, height: 390)
             contentViewController = .init()
             contentViewController!.view = .init(frame: .init(origin: .zero, size: contentSize))
             
@@ -140,9 +140,9 @@ extension Window {
             
             [url, page, export]
                 .forEach {
-                    $0.font = .font(style: .callout, weight: .bold)
+                    $0.font = .preferredFont(forTextStyle: .footnote)
                     $0.textColor = .secondaryLabelColor
-                    $0.leftAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor, constant: -90).isActive = true
+                    $0.leftAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor, constant: -60).isActive = true
                 }
             
             [urlShare, pageShare, pageDownload, pagePrint, pageSnapshot, exportPdf, exportWebarchive]

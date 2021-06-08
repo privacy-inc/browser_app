@@ -9,9 +9,6 @@ extension Window {
         required init?(coder: NSCoder) { nil }
         init(id: UUID, browse: Int, error: Tab.Error) {
             super.init(frame: .zero)
-            
-            print(error)
-            
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false
             addSubview(content)
@@ -19,6 +16,7 @@ extension Window {
             let icon = Image(icon: "exclamationmark.triangle.fill")
             icon.symbolConfiguration = .init(pointSize: 50, weight: .regular)
             icon.imageScaling = .scaleNone
+            icon.contentTintColor = .tertiaryLabelColor
             content.addSubview(icon)
             
             let domain = Text()
@@ -83,7 +81,7 @@ extension Window {
             retry.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 50).isActive = true
             retry.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
             
-            cancel.topAnchor.constraint(equalTo: retry.bottomAnchor, constant: 10).isActive = true
+            cancel.topAnchor.constraint(equalTo: retry.bottomAnchor).isActive = true
             cancel.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
         }
         

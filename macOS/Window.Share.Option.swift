@@ -22,8 +22,8 @@ extension Window.Share {
             addSubview(image)
             addSubview(text)
             
-            widthAnchor.constraint(equalToConstant: 180).isActive = true
-            heightAnchor.constraint(equalToConstant: 34).isActive = true
+            widthAnchor.constraint(equalToConstant: 140).isActive = true
+            heightAnchor.constraint(equalToConstant: 32).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
@@ -41,9 +41,9 @@ extension Window.Share {
                 text.textColor = .controlAccentColor
                 layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
             case .highlighted:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-            default:
                 layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
+            default:
+                layer!.backgroundColor = .clear
                 image.contentTintColor = .labelColor
                 text.textColor = .labelColor
             }
