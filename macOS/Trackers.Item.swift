@@ -9,12 +9,12 @@ extension Trackers {
             
             let text = Selectable()
             text.attributedStringValue = .make { string in
-                string.append(.make(name, font: .preferredFont(forTextStyle: .callout)))
+                string.append(.make(name, font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
                 string.linebreak()
                 count
                     .last
                     .map {
-                        string.append(.make(RelativeDateTimeFormatter().string(from: $0), font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
+                        string.append(.make(RelativeDateTimeFormatter().string(from: $0), font: .preferredFont(forTextStyle: .callout), color: .tertiaryLabelColor))
                     }
             }
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -23,13 +23,14 @@ extension Trackers {
             let counter = Text()
             counter.stringValue = session.decimal.string(from: .init(value: count.count)) ?? ""
             counter.font = .monoDigit(style: .title2, weight: .regular)
+            counter.textColor = .secondaryLabelColor
             addSubview(counter)
             
             bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 10).isActive = true
             
             text.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
             text.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            text.rightAnchor.constraint(lessThanOrEqualTo: counter.leftAnchor, constant: -10).isActive = true
+            text.rightAnchor.constraint(equalTo: counter.leftAnchor, constant: -10).isActive = true
             
             counter.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
             counter.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true

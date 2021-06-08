@@ -8,7 +8,6 @@ extension Activity {
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)
-            
             let since = Text()
             since.font = .preferredFont(forTextStyle: .callout)
             since.textColor = .secondaryLabelColor

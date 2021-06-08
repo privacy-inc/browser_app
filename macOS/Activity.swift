@@ -5,7 +5,7 @@ final class Activity: NSWindow {
     private var subscription: AnyCancellable?
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 500, height: 240),
+        super.init(contentRect: .init(x: 0, y: 0, width: 560, height: 220),
                    styleMask: [.closable, .miniaturizable, .titled], backing: .buffered, defer: true)
         toolbar = .init()
         isReleasedWhenClosed = false
