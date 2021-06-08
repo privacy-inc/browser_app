@@ -10,10 +10,10 @@ class Info: NSWindow {
         self.title = title
         center()
         
-        let text = Text()
-        text.stringValue = message
-        text.isSelectable = true
-        text.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .light)
+        let text = Selectable()
+        text.font = .font(style: .title3, weight: .light)
+        text.textColor = .labelColor
+        text.attributedStringValue = .make(message, font: text.font!)
         text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         contentView!.addSubview(text)
         

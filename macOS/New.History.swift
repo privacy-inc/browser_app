@@ -40,20 +40,19 @@ extension New {
                             .init(
                                 id: browse.id,
                                 string: .make {
-                                    $0.add(RelativeDateTimeFormatter().string(from: browse.date),
-                                           font: .preferredFont(forTextStyle: .callout),
-                                           color: .secondaryLabelColor)
+                                    $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),
+                                                    font: .preferredFont(forTextStyle: .callout),
+                                                    color: .secondaryLabelColor))
                                     if !browse.page.title.isEmpty {
                                         $0.linebreak()
-                                        $0.add(browse.page.title,
-                                               font: .preferredFont(forTextStyle: .body),
-                                               color: .labelColor)
+                                        $0.append(.make(browse.page.title,
+                                                        font: .preferredFont(forTextStyle: .body)))
                                     }
                                     if !browse.page.access.domain.isEmpty {
                                         $0.linebreak()
-                                        $0.add(browse.page.access.domain,
-                                               font: .preferredFont(forTextStyle: .footnote),
-                                               color: .secondaryLabelColor)
+                                        $0.append(.make(browse.page.access.domain,
+                                                        font: .preferredFont(forTextStyle: .footnote),
+                                                        color: .secondaryLabelColor))
                                     }
                                 })
                         }

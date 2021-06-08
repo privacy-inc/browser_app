@@ -21,6 +21,11 @@ extension Store {
             name.stringValue = item.title
             addSubview(name)
             
+            let icon = Image(icon: item.icon)
+            icon.symbolConfiguration = .init(textStyle: .largeTitle)
+            icon.contentTintColor = .labelColor
+            addSubview(icon)
+            
             let subtitle = Text()
             subtitle.font = .preferredFont(forTextStyle: .callout)
             subtitle.stringValue = item.subtitle
@@ -31,7 +36,10 @@ extension Store {
             image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
             
             name.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 20).isActive = true
-            name.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
+            name.centerXAnchor.constraint(equalTo: centerXAnchor, constant: -10).isActive = true
+            
+            icon.leftAnchor.constraint(equalTo: name.rightAnchor, constant: 5).isActive = true
+            icon.centerYAnchor.constraint(equalTo: name.centerYAnchor).isActive = true
             
             subtitle.topAnchor.constraint(equalTo: name.bottomAnchor, constant: 5).isActive = true
             subtitle.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -47,7 +55,7 @@ extension Store {
             } else {
                 let value = Text()
                 value.stringValue = price
-                value.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .bold)
+                value.font = .font(style: .body, weight: .medium)
                 addSubview(value)
                 
                 let purchase = Control.Capsule(title: "Purchase")
@@ -83,7 +91,7 @@ extension Store {
                 purchase.topAnchor.constraint(equalTo: value.bottomAnchor, constant: 5).isActive = true
                 purchase.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
                 
-                why.bottomAnchor.constraint(equalTo: alternatives.topAnchor, constant: -5).isActive = true
+                why.bottomAnchor.constraint(equalTo: alternatives.topAnchor).isActive = true
                 why.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
                 
                 alternatives.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -40).isActive = true

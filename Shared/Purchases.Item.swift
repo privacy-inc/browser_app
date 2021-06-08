@@ -13,7 +13,13 @@ extension Purchases {
         
         var title: String {
             switch self {
-            case .plus: return NSLocalizedString("Privacy Plus", comment: "")
+            case .plus: return NSLocalizedString("Privacy", comment: "")
+            }
+        }
+        
+        var icon: String {
+            switch self {
+            case .plus: return "plus"
             }
         }
         

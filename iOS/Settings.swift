@@ -57,7 +57,7 @@ struct Settings: View {
                             session.modal = .store
                         }
                     } label: {
-                        Text("Privacy Plus")
+                        Text("Privacy +")
                             .font(.callout.bold())
                             .frame(maxWidth: .greatestFiniteMagnitude)
                     }

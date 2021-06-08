@@ -10,13 +10,13 @@ final class New: NSView {
         
         let titleBookmarks = Text()
         titleBookmarks.stringValue = NSLocalizedString("Bookmarks", comment: "")
-        titleBookmarks.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .bold)
+        titleBookmarks.font = .font(style: .title3, weight: .bold)
         titleBookmarks.textColor = .controlAccentColor
         addSubview(titleBookmarks)
         
         let titleHistory = Text()
         titleHistory.stringValue = NSLocalizedString("Recent", comment: "")
-        titleHistory.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .title3).pointSize, weight: .bold)
+        titleHistory.font = titleBookmarks.font!
         titleHistory.textColor = .controlAccentColor
         addSubview(titleHistory)
         

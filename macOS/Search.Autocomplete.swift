@@ -49,12 +49,12 @@ extension Search {
             let cells = PassthroughSubject<[Cell], Never>()
             
             let titleBookmarks = Text()
-            titleBookmarks.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .bold)
+            titleBookmarks.font = .font(style: .callout, weight: .bold)
             titleBookmarks.textColor = .tertiaryLabelColor
             titleBookmarks.stringValue = NSLocalizedString("Bookmarks", comment: "")
             
             let titleRecent = Text()
-            titleRecent.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .bold)
+            titleRecent.font = titleBookmarks.font!
             titleRecent.textColor = .tertiaryLabelColor
             titleRecent.stringValue = NSLocalizedString("Recent", comment: "")
             

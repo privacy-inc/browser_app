@@ -22,7 +22,7 @@ extension Settings.Title {
             addSubview(image)
             addSubview(text)
             
-            heightAnchor.constraint(equalToConstant: 34).isActive = true
+            heightAnchor.constraint(equalToConstant: 32).isActive = true
             rightAnchor.constraint(equalTo: image.rightAnchor, constant: 10).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -41,7 +41,7 @@ extension Settings.Title {
                 text.textColor = .white
                 layer!.backgroundColor = NSColor.controlAccentColor.cgColor
             case .highlighted:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.1).cgColor
+                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.2).cgColor
             default:
                 layer!.backgroundColor = .clear
                 image.contentTintColor = .labelColor

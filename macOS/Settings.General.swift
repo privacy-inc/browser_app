@@ -60,7 +60,7 @@ You can make this app your default browser and all websites will open automatica
             if isDefault {
                 let browser = Text()
                 browser.stringValue = "Default Browser"
-                browser.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium)
+                browser.font = .font(style: .callout, weight: .medium)
                 browser.textColor = .secondaryLabelColor
                 view!.addSubview(browser)
                 
@@ -75,7 +75,7 @@ You can make this app your default browser and all websites will open automatica
                 icon.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
                 icon.bottomAnchor.constraint(equalTo: browserTitle.topAnchor, constant: -10).isActive = true
             } else {
-                let browser = Option(title: "Make default browser", image: "magnifyingglass")
+                let browser = Option.Basic(title: "Make default browser", image: "magnifyingglass")
                 browser
                     .click
                     .sink { [weak self] in

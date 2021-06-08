@@ -7,43 +7,32 @@ extension Trackers {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
-            let textName = Text()
-            textName.isSelectable = true
-            textName.stringValue = name
-            textName.font = .preferredFont(forTextStyle: .callout)
-            textName.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            addSubview(textName)
+            let text = Selectable()
+            text.attributedStringValue = .make { string in
+                string.append(.make(name, font: .preferredFont(forTextStyle: .callout)))
+                string.linebreak()
+                count
+                    .last
+                    .map {
+                        string.append(.make(RelativeDateTimeFormatter().string(from: $0), font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
+                    }
+            }
+            text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            addSubview(text)
             
-            let textSince = Text()
-            textSince.isSelectable = true
-            textSince.stringValue = name
-            textSince.font = .preferredFont(forTextStyle: .callout)
-            textSince.textColor = .secondaryLabelColor
-            count
-                .last
-                .map {
-                    textSince.stringValue = RelativeDateTimeFormatter().string(from: $0)
-                }
+            let counter = Text()
+            counter.stringValue = session.decimal.string(from: .init(value: count.count)) ?? ""
+            counter.font = .monoDigit(style: .title2, weight: .regular)
+            addSubview(counter)
             
-            addSubview(textSince)
+            bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 10).isActive = true
             
-            let textCount = Text()
-            textCount.isSelectable = true
-            textCount.stringValue = session.decimal.string(from: .init(value: count.count)) ?? ""
-            textCount.font = .monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .regular)
-            addSubview(textCount)
+            text.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            text.rightAnchor.constraint(lessThanOrEqualTo: counter.leftAnchor, constant: -10).isActive = true
             
-            bottomAnchor.constraint(equalTo: textSince.bottomAnchor, constant: 10).isActive = true
-            
-            textName.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
-            textName.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            textName.rightAnchor.constraint(lessThanOrEqualTo: textCount.leftAnchor, constant: -10).isActive = true
-            
-            textSince.topAnchor.constraint(equalTo: textName.bottomAnchor, constant: 2).isActive = true
-            textSince.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-            
-            textCount.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-            textCount.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            counter.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            counter.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         }
     }
 }

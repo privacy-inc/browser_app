@@ -140,7 +140,7 @@ extension Window {
             
             [url, page, export]
                 .forEach {
-                    $0.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .bold)
+                    $0.font = .font(style: .callout, weight: .bold)
                     $0.textColor = .secondaryLabelColor
                     $0.leftAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor, constant: -90).isActive = true
                 }

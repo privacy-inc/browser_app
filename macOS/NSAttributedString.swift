@@ -7,6 +7,43 @@ extension NSAttributedString {
         return mutable
     }
     
+    class func make(_ string: String, font: NSFont) -> Self {
+        .init(string: string, attributes: [
+                        .font: font])
+    }
+    
+    class func make(_ string: String, font: NSFont, color: NSColor) -> Self {
+        .init(string: string, attributes: [
+                        .font: font,
+                        .foregroundColor: color])
+    }
+    
+    class func make(_ string: String, font: NSFont, alignment: NSTextAlignment) -> Self {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = alignment
+        return .init(string: string, attributes: [
+                        .font: font,
+                        .paragraphStyle: paragraph])
+    }
+    
+    class func make(_ string: String, font: NSFont, color: NSColor, alignment: NSTextAlignment) -> Self {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.alignment = alignment
+        return .init(string: string, attributes: [
+                        .font: font,
+                        .foregroundColor: color,
+                        .paragraphStyle: paragraph])
+    }
+    
+    class func make(_ string: String, font: NSFont, color: NSColor, lineBreak: NSLineBreakMode) -> Self {
+        let paragraph = NSMutableParagraphStyle()
+        paragraph.lineBreakMode = lineBreak
+        return .init(string: string, attributes: [
+                        .font: font,
+                        .foregroundColor: color,
+                        .paragraphStyle: paragraph])
+    }
+    
     func height(for width: CGFloat) -> CGFloat {
         CTFramesetterSuggestFrameSizeWithConstraints(
             CTFramesetterCreateWithAttributedString(self),
@@ -16,26 +53,5 @@ extension NSAttributedString {
                   height: .greatestFiniteMagnitude),
             nil)
             .height
-    }
-}
-
-extension NSMutableAttributedString {
-    func linebreak() {
-        append(.init(string: "\n"))
-    }
-    
-    func add(_ string: String, font: NSFont, color: NSColor) {
-        append(.init(string: string, attributes: [
-                        .font: font,
-                        .foregroundColor: color]))
-    }
-    
-    func add(_ string: String, font: NSFont, color: NSColor, lineBreak: NSLineBreakMode) {
-        let paragraph = NSMutableParagraphStyle()
-        paragraph.lineBreakMode = lineBreak
-        append(.init(string: string, attributes: [
-                        .font: font,
-                        .foregroundColor: color,
-                        .paragraphStyle: paragraph]))
     }
 }

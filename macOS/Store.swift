@@ -11,7 +11,7 @@ final class Store: NSWindow {
         toolbar = .init()
         isReleasedWhenClosed = false
         setFrameAutosaveName("Store")
-        title = NSLocalizedString("Privacy Plus", comment: "")
+        title = NSLocalizedString("Privacy + ", comment: "")
         titlebarAppearsTransparent = true
         center()
         

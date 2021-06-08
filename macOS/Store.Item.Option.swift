@@ -16,9 +16,7 @@ extension Store.Item {
             text.font = .preferredFont(forTextStyle: .callout)
             self.text = text
             
-            super.init(layer: true)
-            layer!.cornerRadius = 4
-            
+            super.init(layer: false)
             addSubview(image)
             addSubview(text)
             
@@ -39,11 +37,10 @@ extension Store.Item {
             case .pressed:
                 image.contentTintColor = .white
                 text.textColor = .white
-                layer!.backgroundColor = NSColor.controlAccentColor.cgColor
             case .highlighted:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.1).cgColor
+                image.contentTintColor = .labelColor
+                text.textColor = .labelColor
             default:
-                layer!.backgroundColor = .clear
                 image.contentTintColor = .secondaryLabelColor
                 text.textColor = .secondaryLabelColor
             }

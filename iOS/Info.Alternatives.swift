@@ -6,7 +6,7 @@ extension Info {
             Message(
                 title: "Alternatives\nto purchasing",
                 message: Purchases.alternatives) { }
-                .navigationTitle("Privacy Plus")
+                .navigationTitle("Privacy +")
         }
     }
 

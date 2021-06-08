@@ -23,37 +23,38 @@ extension Window {
             
             let image = Image(icon: secure ? "lock.fill" : "exclamationmark.triangle.fill")
             image.symbolConfiguration = .init(textStyle: .largeTitle)
-            image.contentTintColor = secure ? .controlAccentColor : .systemPink
+            image.contentTintColor = .labelColor
             contentViewController!.view.addSubview(image)
             
-            let message = Text()
-            message.isSelectable = true
-            message.stringValue = secure ? "Secure Connection" : "Site Not Secure"
-            message.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .body).pointSize, weight: .bold)
-            contentViewController!.view.addSubview(message)
-            
-            let description = Text()
-            description.isSelectable = true
-            description.stringValue = secure ? "Using an encrypted connection to \(domain)" : "Connection to \(domain) is NOT encrypted"
-            description.font = .preferredFont(forTextStyle: .callout)
-            description.textColor = .secondaryLabelColor
-            description.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            contentViewController!.view.addSubview(description)
-            
-            let title = Text()
-            title.stringValue = page?.title ?? ""
-            title.font = .preferredFont(forTextStyle: .callout)
-            title.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            title.isSelectable = true
-            contentViewController!.view.addSubview(title)
-            
-            let url = Text()
-            url.stringValue = page?.access.string ?? ""
-            url.font = .preferredFont(forTextStyle: .callout)
-            url.textColor = .secondaryLabelColor
-            url.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            url.isSelectable = true
-            contentViewController!.view.addSubview(url)
+            let text = Selectable()
+            text.attributedStringValue = .make { string in
+                string.append(.make(secure ? "Secure Connection" : "Site Not Secure",
+                                    font: .font(style: .body, weight: .bold),
+                                    alignment: .center))
+                string.linebreak()
+                string.append(.make(secure ? "Using an encrypted connection to \(domain)" : "Connection to \(domain) is NOT encrypted",
+                                    font: .preferredFont(forTextStyle: .callout),
+                                    color: .secondaryLabelColor))
+                string.linebreak()
+                page
+                    .map(\.title)
+                    .map {
+                        string.linebreak()
+                        string.append(.make($0, font: .preferredFont(forTextStyle: .callout)))
+                    }
+                
+                page
+                    .map(\.access.string)
+                    .map {
+                        string.linebreak()
+                        string.append(.make($0,
+                                            font: .preferredFont(forTextStyle: .callout),
+                                            color: .secondaryLabelColor,
+                                            lineBreak: .byCharWrapping))
+                    }
+            }
+            text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            contentViewController!.view.addSubview(text)
             
             let copy = Control.Squircle(icon: "doc.on.doc")
             subscription = copy
@@ -73,22 +74,11 @@ extension Window {
             image.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
             image.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
             
-            message.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
-            message.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
+            text.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+            text.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
+            text.rightAnchor.constraint(equalTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
             
-            description.topAnchor.constraint(equalTo: message.bottomAnchor, constant: 2).isActive = true
-            description.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
-            description.rightAnchor.constraint(lessThanOrEqualTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
-            
-            title.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 20).isActive = true
-            title.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
-            title.rightAnchor.constraint(lessThanOrEqualTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
-            
-            url.topAnchor.constraint(equalTo: title.bottomAnchor, constant: 2).isActive = true
-            url.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
-            url.rightAnchor.constraint(lessThanOrEqualTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
-            
-            copy.topAnchor.constraint(equalTo: url.bottomAnchor, constant: 10).isActive = true
+            copy.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 10).isActive = true
             copy.rightAnchor.constraint(equalTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
             copy.bottomAnchor.constraint(equalTo: contentViewController!.view.bottomAnchor, constant: -30).isActive = true
         }

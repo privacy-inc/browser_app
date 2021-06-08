@@ -38,18 +38,18 @@ extension Search.Autocomplete {
         private func render(highlight: Bool) {
             text.attributedStringValue = .make {
                 if !filtered.title.isEmpty {
-                    $0.add(filtered.title,
-                           font: .preferredFont(forTextStyle: .callout),
-                           color: highlight ? .white : .labelColor)
+                    $0.append(.make(filtered.title,
+                                    font: .preferredFont(forTextStyle: .callout),
+                                    color: highlight ? .white : .labelColor))
                 }
                 if !filtered.url.isEmpty {
                     if !filtered.title.isEmpty {
                         $0.linebreak()
                     }
-                    $0.add(filtered.url,
-                           font: .preferredFont(forTextStyle: .footnote),
-                           color: highlight ? .white : .secondaryLabelColor,
-                           lineBreak: .byCharWrapping)
+                    $0.append(.make(filtered.url,
+                                    font: .preferredFont(forTextStyle: .footnote),
+                                    color: highlight ? .white : .secondaryLabelColor,
+                                    lineBreak: .byCharWrapping))
                 }
             }
         }

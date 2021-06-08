@@ -1,6 +1,6 @@
 import AppKit
 
-final class Text: NSTextField {
+final class Selectable: NSTextField {
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .zero)
@@ -8,6 +8,8 @@ final class Text: NSTextField {
         backgroundColor = .clear
         isBezeled = false
         isEditable = false
+        isSelectable = true
+        allowsEditingTextAttributes = true
         setAccessibilityRole(.staticText)
     }
     
@@ -21,10 +23,6 @@ final class Text: NSTextField {
     
     override var allowsVibrancy: Bool {
         true
-    }
-    
-    override func hitTest(_ point: NSPoint) -> NSView? {
-        nil
     }
     
     override func acceptsFirstMouse(for: NSEvent?) -> Bool {

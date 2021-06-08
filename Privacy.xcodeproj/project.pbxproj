@@ -124,6 +124,10 @@
 		CEA65F56265D1A9000A35436 /* Trackers.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F55265D1A9000A35436 /* Trackers.Item.swift */; };
 		CEA65F58265D203900A35436 /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F57265D203900A35436 /* Forget.swift */; };
 		CEA65F5A265D205C00A35436 /* Forget.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F59265D205C00A35436 /* Forget.Cell.swift */; };
+		CEAB2F46266F818F003AEC08 /* NSMutableAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F45266F818F003AEC08 /* NSMutableAttributedString.swift */; };
+		CEAB2F48266F8A84003AEC08 /* Settings.Option.Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F47266F8A84003AEC08 /* Settings.Option.Basic.swift */; };
+		CEAB2F4A266F8AEA003AEC08 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F49266F8AEA003AEC08 /* Selectable.swift */; };
+		CEAB2F4C266F8C2A003AEC08 /* NSFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F4B266F8C2A003AEC08 /* NSFont.swift */; };
 		CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */; };
 		CEC9859626637821001DA288 /* Search.Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9859526637821001DA288 /* Search.Autocomplete.swift */; };
 		CEC9859826639780001DA288 /* Search.Autocomplete.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9859726639780001DA288 /* Search.Autocomplete.Cell.swift */; };
@@ -340,6 +344,10 @@
 		CEA65F55265D1A9000A35436 /* Trackers.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Item.swift; sourceTree = "<group>"; };
 		CEA65F57265D203900A35436 /* Forget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.swift; sourceTree = "<group>"; };
 		CEA65F59265D205C00A35436 /* Forget.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Cell.swift; sourceTree = "<group>"; };
+		CEAB2F45266F818F003AEC08 /* NSMutableAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMutableAttributedString.swift; sourceTree = "<group>"; };
+		CEAB2F47266F8A84003AEC08 /* Settings.Option.Basic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Option.Basic.swift; sourceTree = "<group>"; };
+		CEAB2F49266F8AEA003AEC08 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
+		CEAB2F4B266F8C2A003AEC08 /* NSFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFont.swift; sourceTree = "<group>"; };
 		CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.Indicator.swift; sourceTree = "<group>"; };
 		CEC9859526637821001DA288 /* Search.Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Autocomplete.swift; sourceTree = "<group>"; };
 		CEC9859726639780001DA288 /* Search.Autocomplete.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Autocomplete.Cell.swift; sourceTree = "<group>"; };
@@ -623,8 +631,10 @@
 				CEF001B1266BEF4400993CDD /* NSAlert.swift */,
 				CE6F0D7626669AAA00538D9A /* NSApplication.swift */,
 				CE70B43C265FA92C00A357BC /* NSAttributedString.swift */,
+				CEAB2F4B266F8C2A003AEC08 /* NSFont.swift */,
 				CEF97E5F266A312A00550E10 /* NSMenu.swift */,
 				CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */,
+				CEAB2F45266F818F003AEC08 /* NSMutableAttributedString.swift */,
 				CEF97E61266A3A8400550E10 /* NSSavePanel.swift */,
 				CEF97E6E266A642D00550E10 /* Scroll.swift */,
 				CEC9859726639780001DA288 /* Search.Autocomplete.Cell.swift */,
@@ -636,11 +646,13 @@
 				CE0D6BF3265FDAE9000B3FF1 /* Search.swift */,
 				CEF001A1266BC97B00993CDD /* Segmented.Item.swift */,
 				CEF0019F266BC96400993CDD /* Segmented.swift */,
+				CEAB2F49266F8AEA003AEC08 /* Selectable.swift */,
 				CE676A64265E5FCD0042EDC2 /* Session.swift */,
 				CEF001AF266BEE1800993CDD /* Settings.Data.swift */,
 				CEF001A7266BE65F00993CDD /* Settings.Features.swift */,
 				CEF001A3266BCE3600993CDD /* Settings.General.swift */,
 				CE7F6511266E30C300E889A9 /* Settings.Location.swift */,
+				CEAB2F47266F8A84003AEC08 /* Settings.Option.Basic.swift */,
 				CE7F6513266E386900E889A9 /* Settings.Option.Destructive.swift */,
 				CEF001A5266BD65300993CDD /* Settings.Option.swift */,
 				CEF001AD266BED8000993CDD /* Settings.Privacy.swift */,
@@ -939,6 +951,7 @@
 				CE847B13265E9EB900A045B3 /* Flip.swift in Sources */,
 				CE0D4243266B95F800386433 /* Control.Title.swift in Sources */,
 				CEA002812668E10D0098B04D /* Window.Share.Option.swift in Sources */,
+				CEAB2F46266F818F003AEC08 /* NSMutableAttributedString.swift in Sources */,
 				CE676A6D265E65A30042EDC2 /* NSMenuItem.swift in Sources */,
 				CEF0019E266BC93C00993CDD /* Settings.swift in Sources */,
 				CE0D423F266B934700386433 /* Store.swift in Sources */,
@@ -971,6 +984,7 @@
 				CEF001AA266BE71600993CDD /* Settings.Switch.swift in Sources */,
 				CE70B43A265FA3A800A357BC /* CollectionItemInfo.swift in Sources */,
 				CEF97E6D266A631700550E10 /* Trackers.swift in Sources */,
+				CEAB2F4A266F8AEA003AEC08 /* Selectable.swift in Sources */,
 				CE0D6BF4265FDAE9000B3FF1 /* Search.swift in Sources */,
 				CEF001B2266BEF4400993CDD /* NSAlert.swift in Sources */,
 				CE80555A266789E10096D1A5 /* Toast.swift in Sources */,
@@ -989,6 +1003,7 @@
 				CEF00198266BC2DB00993CDD /* Store.Item.Option.swift in Sources */,
 				CECE1F99265E94F000ACBB0B /* New.History.swift in Sources */,
 				CE0D423C266B8CB200386433 /* Purchases.Info.swift in Sources */,
+				CEAB2F48266F8A84003AEC08 /* Settings.Option.Basic.swift in Sources */,
 				CE0D6BFA265FDF6B000B3FF1 /* Control.Squircle.swift in Sources */,
 				CEF00192266BB4E900993CDD /* Store.Loading.swift in Sources */,
 				CE0D423A266B8AC600386433 /* Info.Froob.swift in Sources */,
@@ -1012,6 +1027,7 @@
 				CEF001A4266BCE3600993CDD /* Settings.General.swift in Sources */,
 				CEF97E66266A507F00550E10 /* Activity.swift in Sources */,
 				CE7F6512266E30C300E889A9 /* Settings.Location.swift in Sources */,
+				CEAB2F4C266F8C2A003AEC08 /* NSFont.swift in Sources */,
 				CEF001A0266BC96400993CDD /* Segmented.swift in Sources */,
 				CEE845F326663D7E00D0A9DC /* Search.Bar.swift in Sources */,
 				CE0D6C02265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift in Sources */,

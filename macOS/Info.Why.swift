@@ -6,7 +6,7 @@ extension Info {
         private var subscription: AnyCancellable?
         
         init() {
-            super.init(title: "Why purchasing Privacy Plus?", message: Purchases.why)
+            super.init(title: "Why purchasing?", message: Purchases.why)
         }
     }
 }

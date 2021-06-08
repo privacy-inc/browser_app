@@ -40,17 +40,16 @@ extension New {
                                 id: index,
                                 string: .make {
                                     if !page.title.isEmpty {
-                                        $0.add(page.title,
-                                               font: .preferredFont(forTextStyle: .body),
-                                               color: .labelColor)
+                                        $0.append(.make(page.title,
+                                                        font: .preferredFont(forTextStyle: .body)))
                                     }
                                     if !page.access.domain.isEmpty {
                                         if !page.title.isEmpty {
                                             $0.linebreak()
                                         }
-                                        $0.add(page.access.domain,
-                                               font: .preferredFont(forTextStyle: .callout),
-                                               color: .secondaryLabelColor)
+                                        $0.append(.make(page.access.domain,
+                                                        font: .preferredFont(forTextStyle: .callout),
+                                                        color: .secondaryLabelColor))
                                     }
                                 })
                         }

@@ -7,7 +7,7 @@ extension Segmented {
         required init?(coder: NSCoder) { nil }
         init(title: String) {
             let label = Text()
-            label.font = .systemFont(ofSize: NSFont.preferredFont(forTextStyle: .callout).pointSize, weight: .medium)
+            label.font = .font(style: .callout, weight: .medium)
             label.stringValue = title
             self.label = label
             

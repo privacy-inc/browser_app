@@ -9,17 +9,17 @@ extension Settings {
         init() {
             super.init(frame: .zero)
             
-            let restore = Option(title: "Privacy Plus", image: "plus")
-            restore
+            let plus = Option(title: "Privacy", image: "plus")
+            plus
                 .click
                 .sink {
                     NSApp.store()
                 }
                 .store(in: &subs)
-            addSubview(restore)
+            addSubview(plus)
             
-            restore.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            restore.rightAnchor.constraint(equalTo: rightAnchor, constant: -4).isActive = true
+            plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+            plus.rightAnchor.constraint(equalTo: rightAnchor, constant: -4).isActive = true
         }
     }
 }

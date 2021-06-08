@@ -12,7 +12,7 @@ extension Settings {
             super.init(identifier: "Data")
             label = "Data"
             
-            let cache = Option(title: "Forget cache", image: "trash")
+            let cache = Option.Basic(title: "Forget cache", image: "trash")
             cache
                 .click
                 .sink {
@@ -24,7 +24,7 @@ extension Settings {
                 }
                 .store(in: &subs)
             
-            let history = Option(title: "Forget history", image: "clock")
+            let history = Option.Basic(title: "Forget history", image: "clock")
             history
                 .click
                 .sink {
@@ -36,7 +36,7 @@ extension Settings {
                 }
                 .store(in: &subs)
             
-            let activity = Option(title: "Forget activity", image: "chart.bar.xaxis")
+            let activity = Option.Basic(title: "Forget activity", image: "chart.bar.xaxis")
             activity
                 .click
                 .sink {
@@ -48,7 +48,7 @@ extension Settings {
                 }
                 .store(in: &subs)
             
-            let trackers = Option(title: "Forget trackers", image: "shield.lefthalf.fill")
+            let trackers = Option.Basic(title: "Forget trackers", image: "shield.lefthalf.fill")
             trackers
                 .click
                 .sink {

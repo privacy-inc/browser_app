@@ -15,7 +15,7 @@ extension Trackers {
             addSubview(icon)
             
             let trackers = Text()
-            trackers.font = .monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .regular)
+            trackers.font = .monoDigit(style: .title2, weight: .regular)
             trackers.textColor = .systemPink
             addSubview(trackers)
             
@@ -26,7 +26,7 @@ extension Trackers {
             addSubview(titleTrackers)
             
             let incidences = Text()
-            incidences.font = .monospacedDigitSystemFont(ofSize: NSFont.preferredFont(forTextStyle: .title2).pointSize, weight: .regular)
+            incidences.font = trackers.font!
             incidences.textColor = .systemPink
             addSubview(incidences)
             

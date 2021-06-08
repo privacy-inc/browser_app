@@ -11,7 +11,7 @@ extension Settings {
             super.init(identifier: "Location")
             label = "Location"
             
-            let location = Option(title: "Location permission", image: "location")
+            let location = Option.Basic(title: "Location permission", image: "location")
             location
                 .click
                 .sink {
