@@ -2,20 +2,18 @@ import AppKit
 
 extension Settings {
     class Option: Control {
-        private weak var image: Image!
-        private weak var text: Text!
+        private(set) weak var image: Image!
+        private(set) weak var text: Text!
         
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {
             let image = Image(icon: image)
             image.symbolConfiguration = .init(textStyle: .body)
-            image.contentTintColor = .labelColor
             self.image = image
             
             let text = Text()
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .body)
-            text.textColor = .labelColor
             self.text = text
             
             super.init(layer: true)
@@ -32,19 +30,6 @@ extension Settings {
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             text.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 10).isActive = true
-        }
-        
-        override func update() {
-            super.update()
-            
-            switch state {
-            case .pressed:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            default:
-                layer!.backgroundColor = .clear
-            }
         }
     }
 }

@@ -21,6 +21,11 @@ class Control: NSView {
         update()
     }
     
+    func update() {
+        isHidden = state == .hidden
+        alphaValue = state == .off ? 0.25 : 1
+    }
+    
     final override func resetCursorRects() {
         addCursorRect(bounds, cursor: .arrow)
     }
@@ -70,10 +75,5 @@ class Control: NSView {
     
     final override func acceptsFirstMouse(for: NSEvent?) -> Bool {
         true
-    }
-    
-    func update() {
-        isHidden = state == .hidden
-        alphaValue = state == .off ? 0.25 : 1
     }
 }
