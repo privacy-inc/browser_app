@@ -45,7 +45,23 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .child("Copy", #selector(NSText.copy(_:)), "c"),
                     .child("Paste", #selector(NSText.paste), "v"),
                     .child("Delete", #selector(NSText.delete)),
-                    .child("Select All", #selector(NSText.selectAll), "a")])
+                    .child("Select All", #selector(NSText.selectAll), "a"),
+                    .separator(),
+                    .parent("Find", [
+                        .child("Find", #selector(Web.performTextFinderAction(_:)), "f") {
+                            $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
+                        },
+                        .child("Find Next", #selector(Web.performTextFinderAction(_:)), "g") {
+                            $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
+                        },
+                        .child("Find Previous", #selector(Web.performTextFinderAction(_:)), "G") {
+                            $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
+                        },
+                        .separator(),
+                        .child("Hide Find Banner", #selector(Web.performTextFinderAction(_:)), "F") {
+                            $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
+                        }
+                    ])])
     }
     
     private var page: NSMenuItem {
