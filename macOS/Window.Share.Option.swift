@@ -9,11 +9,13 @@ extension Window.Share {
         init(title: String, image: String) {
             let image = Image(icon: image)
             image.symbolConfiguration = .init(textStyle: .title3)
+            image.contentTintColor = .labelColor
             self.image = image
             
             let text = Text()
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .callout)
+            text.textColor = .labelColor
             self.text = text
             
             super.init(layer: true)
@@ -37,16 +39,16 @@ extension Window.Share {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .controlAccentColor
-                text.textColor = .controlAccentColor
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.3).cgColor
+                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
             case .highlighted:
-                layer!.backgroundColor = NSColor.controlBackgroundColor.cgColor
+                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
             default:
                 layer!.backgroundColor = .clear
-                image.contentTintColor = .labelColor
-                text.textColor = .labelColor
             }
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

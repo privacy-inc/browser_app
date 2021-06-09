@@ -9,11 +9,11 @@ final class Activity: NSWindow {
                    styleMask: [.closable, .miniaturizable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         toolbar = .init()
         isReleasedWhenClosed = false
-        setFrameAutosaveName("Activity")
         titlebarAppearsTransparent = true
         title = NSLocalizedString("Activity", comment: "")
-        center()
         contentView = NSVisualEffectView()
+        center()
+        setFrameAutosaveName("Activity")
         
         let since = Text()
         since.font = .preferredFont(forTextStyle: .callout)
@@ -26,10 +26,10 @@ final class Activity: NSWindow {
         now.stringValue = NSLocalizedString("Now", comment: "")
         contentView!.addSubview(now)
         
-        let viewer = Viewer()
+        let viewer = NSView()
+        viewer.translatesAutoresizingMaskIntoConstraints = false
+        viewer.wantsLayer = true
         contentView!.addSubview(viewer)
-        
-        var chart: Chart?
         
         since.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
         since.leftAnchor.constraint(equalTo: contentView!.leftAnchor, constant: 30).isActive = true
@@ -57,10 +57,17 @@ final class Activity: NSWindow {
             .archive
             .map(\.plotter)
             .removeDuplicates()
-            .sink { [weak self] in
-                chart?.removeFromSuperlayer()
-                chart = .init(frame: viewer.layer!.bounds.insetBy(dx: 40, dy: 40), values: $0)
-                viewer.layer!.addSublayer(chart!)
+            .sink {
+                viewer
+                    .layer!
+                    .sublayers
+                    .map {
+                        $0.forEach {
+                            $0.removeFromSuperlayer()
+                        }
+                    }
+                
+                viewer.layer!.addSublayer(Chart(frame: viewer.layer!.bounds.insetBy(dx: 40, dy: 40), values: $0))
             }
             .store(in: &subs)
     }

@@ -10,10 +10,10 @@ final class Store: NSWindow {
                    styleMask: [.closable, .miniaturizable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         toolbar = .init()
         isReleasedWhenClosed = false
-        setFrameAutosaveName("Store")
         title = NSLocalizedString("Privacy + ", comment: "")
         titlebarAppearsTransparent = true
         center()
+        setFrameAutosaveName("Store")
         
         let bar = NSTitlebarAccessoryViewController()
         bar.view = Title()

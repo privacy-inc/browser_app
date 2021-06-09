@@ -10,10 +10,10 @@ final class Trackers: NSWindow {
         toolbar = .init()
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true
-        setFrameAutosaveName("Trackers")
         title = NSLocalizedString("Trackers", comment: "")
-        center()
         contentView = NSVisualEffectView()
+        center()
+        setFrameAutosaveName("Trackers")
         
         let bar = NSTitlebarAccessoryViewController()
         bar.view = Title()
@@ -26,10 +26,7 @@ final class Trackers: NSWindow {
         let incidences = Text()
         contentView!.addSubview(incidences)
         
-        let separator = NSView()
-        separator.translatesAutoresizingMaskIntoConstraints = false
-        separator.wantsLayer = true
-        separator.layer!.backgroundColor = NSColor.separatorColor.cgColor
+        let separator = Separator()
         contentView!.addSubview(separator)
         
         let scroll = Scroll()
@@ -47,7 +44,6 @@ final class Trackers: NSWindow {
         separator.topAnchor.constraint(equalTo: domains.bottomAnchor, constant: 20).isActive = true
         separator.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
         separator.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
-        separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
         
         scroll.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
         scroll.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
@@ -58,6 +54,12 @@ final class Trackers: NSWindow {
         subscription = cloud
             .archive
             .map(\.trackers)
+            .first()
+            .merge(with: cloud
+                    .archive
+                    .map(\.trackers)
+                    .debounce(for: .seconds(1), scheduler: DispatchQueue.main)
+                    .dropFirst())
             .removeDuplicates {
                 $0.flatMap(\.count) == $1.flatMap(\.count)
             }
@@ -98,17 +100,12 @@ final class Trackers: NSWindow {
                         $0.rightAnchor.constraint(equalTo: scroll.right, constant: -20).isActive = true
                         
                         if top != scroll.top {
-                            let separator = NSView()
-                            separator.translatesAutoresizingMaskIntoConstraints = false
-                            separator.wantsLayer = true
-                            separator.layer!.backgroundColor = NSColor.separatorColor.cgColor
-                            
+                            let separator = Separator()
                             scroll.add(separator)
                             
                             separator.topAnchor.constraint(equalTo: top).isActive = true
                             separator.leftAnchor.constraint(equalTo: scroll.left, constant: 20).isActive = true
                             separator.rightAnchor.constraint(equalTo: scroll.right, constant: -20).isActive = true
-                            separator.heightAnchor.constraint(equalToConstant: 1).isActive = true
                             $0.topAnchor.constraint(equalTo: separator.bottomAnchor).isActive = true
                         } else {
                             $0.topAnchor.constraint(equalTo: top, constant: 10).isActive = true

@@ -35,6 +35,7 @@
 		CE0D6C00265FF14A000B3FF1 /* Search.Field.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D6BFF265FF14A000B3FF1 /* Search.Field.Cell.swift */; };
 		CE0D6C02265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D6C01265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift */; };
 		CE12B21B265E6C2F000EA487 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12B21A265E6C2F000EA487 /* New.swift */; };
+		CE2930F22670D2B7003E60F0 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2930F12670D2B7003E60F0 /* Separator.swift */; };
 		CE2E9883265136D400844E8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E9882265136D400844E8B /* Toast.swift */; };
 		CE2E98852651374700844E8B /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
 		CE55EDE72667BB9400386C5B /* Window.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55EDE62667BB9400386C5B /* Window.Info.swift */; };
@@ -128,7 +129,6 @@
 		CEAB2F48266F8A84003AEC08 /* Settings.Option.Basic.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F47266F8A84003AEC08 /* Settings.Option.Basic.swift */; };
 		CEAB2F4A266F8AEA003AEC08 /* Selectable.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F49266F8AEA003AEC08 /* Selectable.swift */; };
 		CEAB2F4C266F8C2A003AEC08 /* NSFont.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F4B266F8C2A003AEC08 /* NSFont.swift */; };
-		CEAB2F4E266FC358003AEC08 /* Activity.Viewer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEAB2F4D266FC358003AEC08 /* Activity.Viewer.swift */; };
 		CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */; };
 		CEC9859626637821001DA288 /* Search.Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9859526637821001DA288 /* Search.Autocomplete.swift */; };
 		CEC9859826639780001DA288 /* Search.Autocomplete.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9859726639780001DA288 /* Search.Autocomplete.Cell.swift */; };
@@ -260,6 +260,7 @@
 		CE0D6BFF265FF14A000B3FF1 /* Search.Field.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Field.Cell.swift; sourceTree = "<group>"; };
 		CE0D6C01265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Field.Cell.Editor.swift; sourceTree = "<group>"; };
 		CE12B21A265E6C2F000EA487 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
+		CE2930F12670D2B7003E60F0 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		CE2E9882265136D400844E8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CE2E98842651374700844E8B /* Toast.Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.Message.swift; sourceTree = "<group>"; };
 		CE55EDE62667BB9400386C5B /* Window.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Info.swift; sourceTree = "<group>"; };
@@ -348,7 +349,6 @@
 		CEAB2F47266F8A84003AEC08 /* Settings.Option.Basic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Option.Basic.swift; sourceTree = "<group>"; };
 		CEAB2F49266F8AEA003AEC08 /* Selectable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Selectable.swift; sourceTree = "<group>"; };
 		CEAB2F4B266F8C2A003AEC08 /* NSFont.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSFont.swift; sourceTree = "<group>"; };
-		CEAB2F4D266FC358003AEC08 /* Activity.Viewer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.Viewer.swift; sourceTree = "<group>"; };
 		CEBACCAA265693DB00A8F6F9 /* Tab.Loading.Indicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.Indicator.swift; sourceTree = "<group>"; };
 		CEC9859526637821001DA288 /* Search.Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Autocomplete.swift; sourceTree = "<group>"; };
 		CEC9859726639780001DA288 /* Search.Autocomplete.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Autocomplete.Cell.swift; sourceTree = "<group>"; };
@@ -599,7 +599,6 @@
 				CEF58634265E468D00D9A6F1 /* Info.plist */,
 				CEF97E67266A5ACD00550E10 /* Activity.Chart.swift */,
 				CEF97E65266A507F00550E10 /* Activity.swift */,
-				CEAB2F4D266FC358003AEC08 /* Activity.Viewer.swift */,
 				CEF5862B265E468C00D9A6F1 /* App.swift */,
 				CECDA7D82664FF1700F87546 /* Array.Search.Autocomplete.Cell.swift */,
 				CE0D6BF1265FC8B0000B3FF1 /* CGRect.swift */,
@@ -647,6 +646,7 @@
 				CEF001A1266BC97B00993CDD /* Segmented.Item.swift */,
 				CEF0019F266BC96400993CDD /* Segmented.swift */,
 				CEAB2F49266F8AEA003AEC08 /* Selectable.swift */,
+				CE2930F12670D2B7003E60F0 /* Separator.swift */,
 				CE676A64265E5FCD0042EDC2 /* Session.swift */,
 				CEF001AF266BEE1800993CDD /* Settings.Data.swift */,
 				CEF001A7266BE65F00993CDD /* Settings.Features.swift */,
@@ -952,6 +952,7 @@
 				CE0D4243266B95F800386433 /* Control.Title.swift in Sources */,
 				CEA002812668E10D0098B04D /* Window.Share.Option.swift in Sources */,
 				CEAB2F46266F818F003AEC08 /* NSMutableAttributedString.swift in Sources */,
+				CE2930F22670D2B7003E60F0 /* Separator.swift in Sources */,
 				CE676A6D265E65A30042EDC2 /* NSMenuItem.swift in Sources */,
 				CEF0019E266BC93C00993CDD /* Settings.swift in Sources */,
 				CE0D423F266B934700386433 /* Store.swift in Sources */,
@@ -1005,7 +1006,6 @@
 				CEAB2F48266F8A84003AEC08 /* Settings.Option.Basic.swift in Sources */,
 				CE0D6BFA265FDF6B000B3FF1 /* Control.Squircle.swift in Sources */,
 				CEF00192266BB4E900993CDD /* Store.Loading.swift in Sources */,
-				CEAB2F4E266FC358003AEC08 /* Activity.Viewer.swift in Sources */,
 				CE0D423A266B8AC600386433 /* Info.Froob.swift in Sources */,
 				CE55EDE72667BB9400386C5B /* Window.Info.swift in Sources */,
 				CE0D6BF8265FDF51000B3FF1 /* Control.State.swift in Sources */,

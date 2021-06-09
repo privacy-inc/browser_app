@@ -17,7 +17,6 @@ final class Window: NSWindow {
                    defer: false)
         minSize = .init(width: 400, height: 200)
         toolbar = .init()
-        collectionBehavior = .fullScreenNone
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         tab.title = NSLocalizedString("Privacy", comment: "")
