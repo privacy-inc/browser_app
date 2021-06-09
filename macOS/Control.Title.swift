@@ -25,7 +25,7 @@ extension Control {
             super.update()
             
             switch state {
-            case .pressed:
+            case .pressed, .highlighted:
                 text.textColor = .labelColor
             default:
                 text.textColor = .secondaryLabelColor
