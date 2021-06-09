@@ -252,6 +252,7 @@ final class Web: Webview {
     
     override func willOpenMenu(_ menu: NSMenu, with: NSEvent) {
         menu.remove(id: "WKMenuItemIdentifierOpenLink")
+        menu.remove(id: "WKMenuItemIdentifierSearchWeb")
         
         if let image = menu.remove(id: "WKMenuItemIdentifierOpenImageInNewWindow") {
             let tabStay = image.immitate(with: "Open Image in New Tab", action: #selector(tab(stay:)))
