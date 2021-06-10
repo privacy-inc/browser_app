@@ -6,7 +6,6 @@ struct Session {
     let decimal = NumberFormatter()
     let tab = CurrentValueSubject<Tab, Never>(.init())
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()
-    let find = PassthroughSubject<(id: UUID, query: String), Never>()
     let search = PassthroughSubject<UUID, Never>()
     let reload = PassthroughSubject<UUID, Never>()
     let stop = PassthroughSubject<UUID, Never>()
