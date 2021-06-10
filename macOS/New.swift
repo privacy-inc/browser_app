@@ -91,7 +91,7 @@ final class New: NSView {
         trackers.bottomAnchor.constraint(equalTo: activity.topAnchor, constant: -10).isActive = true
         trackers.rightAnchor.constraint(equalTo: activity.rightAnchor).isActive = true
         
-        activity.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+        activity.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
         activity.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
         
         cloud

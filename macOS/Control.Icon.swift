@@ -21,9 +21,9 @@ extension Control {
             
             switch state {
             case .pressed:
-                icon.contentTintColor = .controlAccentColor
-            case .highlighted:
                 icon.contentTintColor = .labelColor
+            case .highlighted:
+                icon.contentTintColor = .secondaryLabelColor
             default:
                 icon.contentTintColor = .tertiaryLabelColor
             }
