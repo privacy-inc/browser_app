@@ -13,9 +13,13 @@ extension Store {
                 Image(purchase.image)
                     .padding(.top, 40)
                     .padding(.bottom)
-                Text(verbatim: purchase.title)
-                    .foregroundColor(.primary)
-                    .font(.largeTitle.bold())
+                HStack {
+                    Text(verbatim: purchase.title)
+                        .font(.largeTitle.bold())
+                    Image(systemName: purchase.icon)
+                        .font(.largeTitle)
+                }
+                .foregroundColor(.primary)
                 Text(verbatim: purchase.subtitle)
                     .multilineTextAlignment(.center)
                     .fixedSize(horizontal: false, vertical: true)
