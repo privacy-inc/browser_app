@@ -48,21 +48,22 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .child("Select All", #selector(NSText.selectAll), "a"),
                     .separator(),
                     .parent("Find", [
-                        .child("Find", #selector(NSResponder.performTextFinderAction(_:)), "f") {
+                        .child("Find", #selector(NSResponder.performTextFinderAction), "f") {
                             $0.tag = .init(NSTextFinder.Action.showFindInterface.rawValue)
                         },
-                        .child("Find Next", #selector(NSResponder.performTextFinderAction(_:)), "g") {
+                        .child("Find Next", #selector(NSResponder.performTextFinderAction), "g") {
                             $0.tag = .init(NSTextFinder.Action.nextMatch.rawValue)
                         },
-                        .child("Find Previous", #selector(NSResponder.performTextFinderAction(_:)), "G") {
+                        .child("Find Previous", #selector(NSResponder.performTextFinderAction), "G") {
                             $0.tag = .init(NSTextFinder.Action.previousMatch.rawValue)
                         },
                         .separator(),
-                        .child("Hide Find Banner", nil, "F") {
+                        .child("Hide Find Banner", #selector(NSResponder.performTextFinderAction), "F") {
                             $0.tag = .init(NSTextFinder.Action.hideFindInterface.rawValue)
                         }
                     ]) {
                         $0.submenu!.delegate = self
+                        $0.submenu!.autoenablesItems = false
                     }])
     }
     
@@ -165,24 +166,23 @@ final class Menu: NSMenu, NSMenuDelegate {
                     $0.representedObject = id
                 }]
         case "Find":
+            let browser = (NSApp.keyWindow as? Window)
+                .flatMap {
+                    $0
+                        .contentView
+                        .flatMap {
+                            $0 as? Browser
+                        }
+                }
             menu
                 .items
-                .first {
-                    $0.tag == .init(NSTextFinder.Action.hideFindInterface.rawValue)
-                }
-                .map {
-                    $0.action = (NSApp.keyWindow as? Window)
-                        .flatMap {
-                            $0
-                                .contentView
-                                .flatMap {
-                                    $0 as? Browser
-                                }
-                                .map(\.isFindBarVisible)
-                                .map {
-                                    $0 ? #selector(NSResponder.performTextFinderAction(_:)) : nil
-                                }
-                        } ?? nil
+                .forEach {
+                    switch NSTextFinder.Action(rawValue: $0.tag) {
+                    case .hideFindInterface:
+                        $0.isEnabled = browser != nil && browser!.isFindBarVisible
+                    default:
+                        $0.isEnabled = browser != nil
+                    }
                 }
         default: break
         }
