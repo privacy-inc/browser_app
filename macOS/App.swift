@@ -74,6 +74,13 @@ let location = Location()
         }
         return false
     }
+    
+    func application(_: NSApplication, open: [URL]) {
+        open
+            .forEach {
+                self.open(tab: $0, change: true)
+            }
+    }
 
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
         event
