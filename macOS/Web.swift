@@ -4,7 +4,7 @@ import Sleuth
 
 final class Web: Webview {
     private var destination = Destination.window
-    private let finder = NSTextFinder()
+    let finder = NSTextFinder()
 
     required init?(coder: NSCoder) { nil }
     init(id: UUID, browse: Int) {
@@ -19,17 +19,10 @@ final class Web: Webview {
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
         
         super.init(configuration: configuration, id: id, browse: browse, settings: settings)
+        translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
-        
-        let bar = Bar()
-        addSubview(bar)
         finder.client = self
-        finder.findBarContainer = bar
-        
-        bar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
-        bar.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        bar.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         
         session
             .load
@@ -190,22 +183,6 @@ final class Web: Webview {
     
     override func external(_ url: URL) {
         NSWorkspace.shared.open(url)
-    }
-    
-    override func performTextFinderAction(_ sender: Any?) {
-        (sender as? NSMenuItem)
-            .flatMap {
-                NSTextFinder.Action(rawValue: $0.tag)
-            }
-            .map {
-                finder.performAction($0)
-                
-                switch $0 {
-                case .showFindInterface:
-                    finder.findBarContainer!.isFindBarVisible = true
-                default: break
-                }
-            }
     }
     
     override func userContentController(_ controller: WKUserContentController, didReceive: WKScriptMessage) {

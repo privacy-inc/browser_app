@@ -46,7 +46,7 @@ final class Window: NSWindow {
                     if tabber.items.value[web: id] == nil {
                         tabber.update(id, web: web)
                     }
-                    self?.contentView = web
+                    self?.contentView = Browser(web: web)
                 case let .error(browse, error):
                     self?.contentView = Error(id: id, browse: browse, error: error)
                 }
