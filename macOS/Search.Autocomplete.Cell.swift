@@ -5,13 +5,11 @@ extension Search.Autocomplete {
     final class Cell: NSView {
         var highlighted = false {
             didSet {
-                layer!.backgroundColor = highlighted ? NSColor.systemBlue.cgColor : .clear
-                render(highlight: highlighted)
+                layer!.backgroundColor = highlighted ? NSColor.controlBackgroundColor.cgColor : .clear
             }
         }
         
         let filtered: Filtered
-        private weak var text: Text!
         
         required init?(coder: NSCoder) { nil }
         init(filtered: Filtered) {
@@ -23,24 +21,11 @@ extension Search.Autocomplete {
             
             let text = Text()
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            addSubview(text)
-            self.text = text
-            
-            render(highlight: false)
-            
-            bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 5).isActive = true
-            
-            text.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
-            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -5).isActive = true
-        }
-        
-        private func render(highlight: Bool) {
             text.attributedStringValue = .make {
                 if !filtered.title.isEmpty {
                     $0.append(.make(filtered.title,
                                     font: .preferredFont(forTextStyle: .callout),
-                                    color: highlight ? .white : .labelColor))
+                                    color: .labelColor))
                 }
                 if !filtered.url.isEmpty {
                     if !filtered.title.isEmpty {
@@ -48,10 +33,17 @@ extension Search.Autocomplete {
                     }
                     $0.append(.make(filtered.url,
                                     font: .preferredFont(forTextStyle: .footnote),
-                                    color: highlight ? .white : .secondaryLabelColor,
+                                    color: .secondaryLabelColor,
                                     lineBreak: .byCharWrapping))
                 }
             }
+            addSubview(text)
+            
+            bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 5).isActive = true
+            
+            text.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
+            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -5).isActive = true
         }
     }
 }

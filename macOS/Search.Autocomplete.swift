@@ -49,14 +49,16 @@ extension Search {
             let cells = PassthroughSubject<[Cell], Never>()
             
             let titleBookmarks = Text()
-            titleBookmarks.font = .font(style: .callout, weight: .bold)
+            titleBookmarks.font = .preferredFont(forTextStyle: .callout)
             titleBookmarks.textColor = .tertiaryLabelColor
-            titleBookmarks.stringValue = NSLocalizedString("Bookmarks", comment: "")
+            titleBookmarks.stringValue = NSLocalizedString("BOOKMARKS", comment: "")
+            
+            let separator = Separator()
             
             let titleRecent = Text()
             titleRecent.font = titleBookmarks.font!
             titleRecent.textColor = .tertiaryLabelColor
-            titleRecent.stringValue = NSLocalizedString("Recent", comment: "")
+            titleRecent.stringValue = NSLocalizedString("RECENT", comment: "")
             
             adjust
                 .combineLatest(NotificationCenter
@@ -128,6 +130,15 @@ extension Search {
                     }
                     
                     if !recent.isEmpty {
+                        if !bookmarks.isEmpty {
+                            self.content.addSubview(separator)
+                            
+                            separator.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
+                            separator.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                            separator.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -15).isActive = true
+                            top = separator.bottomAnchor
+                        }
+                        
                         self.content.addSubview(titleRecent)
 
                         titleRecent.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
