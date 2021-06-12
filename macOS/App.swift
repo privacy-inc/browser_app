@@ -54,10 +54,6 @@ let location = Location()
         cloud.pull.send()
     }
     
-    func applicationWillResignActive(_: Notification) {
-        sendAction(#selector(NSPopover.cancelOperation), to: nil, from: nil)
-    }
-    
     func application(_: NSApplication, didReceiveRemoteNotification: [String : Any]) {
         cloud.pull.send()
     }

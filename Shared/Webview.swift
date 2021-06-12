@@ -171,4 +171,17 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
                 }
         }
     }
+    
+    final class func clear() {
+        URLCache.shared.removeAllCachedResponses()
+        HTTPCookieStorage.shared.removeCookies(since: .distantPast)
+        [WKWebsiteDataStore.default(), WKWebsiteDataStore.nonPersistent()].forEach {
+            $0.fetchDataRecords(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes()) {
+                $0.forEach {
+                    WKWebsiteDataStore.default().removeData(ofTypes: $0.dataTypes, for: [$0]) { }
+                }
+            }
+            $0.removeData(ofTypes: WKWebsiteDataStore.allWebsiteDataTypes(), modifiedSince: .distantPast) { }
+        }
+    }
 }

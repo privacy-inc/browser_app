@@ -18,6 +18,22 @@ final class Browser: NSView, NSTextFinderBarContainer {
         web.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
     }
     
+    override func performTextFinderAction(_ sender: Any?) {
+        (sender as? NSMenuItem)
+            .flatMap {
+                NSTextFinder.Action(rawValue: $0.tag)
+            }
+            .map {
+                finder.performAction($0)
+
+                switch $0 {
+                case .showFindInterface:
+                    isFindBarVisible = true
+                default: break
+                }
+            }
+    }
+    
     var findBarView: NSView? {
         didSet {
             oldValue?.removeFromSuperview()
@@ -41,21 +57,5 @@ final class Browser: NSView, NSTextFinderBarContainer {
     
     func findBarViewDidChangeHeight() {
         
-    }
-    
-    override func performTextFinderAction(_ sender: Any?) {
-        (sender as? NSMenuItem)
-            .flatMap {
-                NSTextFinder.Action(rawValue: $0.tag)
-            }
-            .map {
-                finder.performAction($0)
-
-                switch $0 {
-                case .showFindInterface:
-                    isFindBarVisible = true
-                default: break
-                }
-            }
     }
 }

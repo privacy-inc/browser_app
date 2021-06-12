@@ -51,7 +51,6 @@ final class New: NSView {
                 NSApp.activity()
             }
             .store(in: &subs)
-        addSubview(activity)
         
         let trackers = Option(icon: "shield.lefthalf.fill")
         trackers
@@ -60,7 +59,14 @@ final class New: NSView {
                 NSApp.trackers()
             }
             .store(in: &subs)
-        addSubview(trackers)
+        
+        let forget = Option(icon: "flame.fill")
+        forget
+            .click
+            .sink {
+                NSApp.trackers()
+            }
+            .store(in: &subs)
         
         titleBookmarks.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
         titleBookmarks.leftAnchor.constraint(equalTo: leftAnchor, constant: 30).isActive = true
@@ -88,11 +94,14 @@ final class New: NSView {
         history.leftAnchor.constraint(equalTo: backgroundHistory.leftAnchor, constant: 1).isActive = true
         history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor, constant: -1).isActive = true
         
-        trackers.bottomAnchor.constraint(equalTo: activity.topAnchor, constant: -10).isActive = true
-        trackers.rightAnchor.constraint(equalTo: activity.rightAnchor).isActive = true
-        
-        activity.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -16).isActive = true
-        activity.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+        var bottom = bottomAnchor
+        [activity, trackers, forget]
+            .forEach {
+                addSubview($0)
+                $0.bottomAnchor.constraint(equalTo: bottom, constant: bottom == bottomAnchor ? -16 : -10).isActive = true
+                $0.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
+                bottom = $0.topAnchor
+            }
         
         cloud
             .archive

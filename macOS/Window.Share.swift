@@ -8,7 +8,7 @@ extension Window {
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
             super.init()
-            behavior = .transient
+            behavior = .semitransient
             contentSize = .init(width: 200, height: 390)
             contentViewController = .init()
             contentViewController!.view = .init(frame: .init(origin: .zero, size: contentSize))

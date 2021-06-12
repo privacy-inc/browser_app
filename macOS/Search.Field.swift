@@ -98,7 +98,7 @@ extension Search {
         
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
-            case #selector(cancelOperation), #selector(complete):
+            case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
                 if autocomplete.isVisible {
                     autocomplete.end()
                 } else {
