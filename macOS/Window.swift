@@ -5,6 +5,7 @@ final class Window: NSWindow {
     let id: UUID
     private(set) weak var search: Search!
     private var subs = Set<AnyCancellable>()
+    private let finder = NSTextFinder()
     
     init(id: UUID) {
         self.id = id
@@ -46,7 +47,10 @@ final class Window: NSWindow {
                     if tabber.items.value[web: id] == nil {
                         tabber.update(id, web: web)
                     }
-                    self?.contentView = Browser(web: web)
+                    let browser = Browser(web: web)
+                    self?.finder.client = web
+                    self?.finder.findBarContainer = browser
+                    self?.contentView = browser
                 case let .error(browse, error):
                     self?.contentView = Error(id: id, browse: browse, error: error)
                 }
@@ -115,6 +119,22 @@ final class Window: NSWindow {
     
     override func newWindowForTab(_: Any?) {
         NSApp.newTab()
+    }
+    
+    override func performTextFinderAction(_ sender: Any?) {
+        (sender as? NSMenuItem)
+            .flatMap {
+                NSTextFinder.Action(rawValue: $0.tag)
+            }
+            .map {
+                finder.performAction($0)
+
+                switch $0 {
+                case .showFindInterface:
+                    finder.findBarContainer?.isFindBarVisible = true
+                default: break
+                }
+            }
     }
     
     @objc func location() {

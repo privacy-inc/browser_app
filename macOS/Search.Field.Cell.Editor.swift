@@ -43,5 +43,9 @@ extension Search.Field.Cell {
             NSPasteboard.general.setString(clean, forType: .string)
             super.paste(sender)
         }
+        
+        override func performTextFinderAction(_ sender: Any?) {
+            window?.performTextFinderAction(sender)
+        }
     }
 }

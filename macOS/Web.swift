@@ -4,8 +4,7 @@ import Sleuth
 
 final class Web: Webview {
     private var destination = Destination.window
-    let finder = NSTextFinder()
-
+    
     required init?(coder: NSCoder) { nil }
     init(id: UUID, browse: Int) {
         var settings = cloud.archive.value.settings
@@ -22,7 +21,6 @@ final class Web: Webview {
         translatesAutoresizingMaskIntoConstraints = false
         setValue(false, forKey: "drawsBackground")
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
-        finder.client = self
         
         session
             .load
