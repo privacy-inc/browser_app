@@ -21,7 +21,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         configuration.websiteDataStore = .nonPersistent()
         configuration.userContentController.addUserScript(.init(source: settings.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(.init(source: settings.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-        configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
 
         WKContentRuleListStore
             .default()!
