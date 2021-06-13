@@ -52,8 +52,17 @@ extension Settings {
                 }
                 .store(in: &subs)
             
+            let third = Switch(title: NSLocalizedString("Block third-party scripts", comment: ""))
+            third.value.send(!cloud.archive.value.settings.third)
+            third
+                .value
+                .sink {
+                    cloud.third(!$0)
+                }
+                .store(in: &subs)
+            
             var top = view!.topAnchor
-            [dark, javascript, popups, ads, screen]
+            [dark, javascript, popups, ads, screen, third]
                 .forEach {
                     view!.addSubview($0)
                     

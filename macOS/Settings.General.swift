@@ -13,7 +13,7 @@ extension Settings {
             
             let engineTitle = Text()
             engineTitle.font = .preferredFont(forTextStyle: .callout)
-            engineTitle.textColor = .secondaryLabelColor
+            engineTitle.textColor = .labelColor
             engineTitle.stringValue = "Search engine"
             view!.addSubview(engineTitle)
             
