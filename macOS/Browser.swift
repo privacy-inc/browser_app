@@ -1,19 +1,29 @@
 import AppKit
 
-final class Browser: NSView, NSTextFinderBarContainer {
+final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
     private var top: NSLayoutConstraint!
+    private weak var separator: Separator!
     
     required init?(coder: NSCoder) { nil }
     init(web: Web) {
         super.init(frame: .zero)
-//        material = .contentBackground
-//        state = .active
+        material = .underWindowBackground
         addSubview(web)
+        
+        let separator = Separator()
+        separator.isHidden = true
+        addSubview(separator)
+        self.separator = separator
+        
         top = web.topAnchor.constraint(equalTo: topAnchor)
         top.isActive = true
         web.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         web.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         web.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        separator.bottomAnchor.constraint(equalTo: web.topAnchor).isActive = true
+        separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
     }
     
     var findBarView: NSView? {
@@ -22,7 +32,7 @@ final class Browser: NSView, NSTextFinderBarContainer {
             findBarView
                 .map {
                     $0.frame.size.width = 320
-                    $0.frame.origin = .init(x: bounds.width - 330, y: bounds.height - ($0.frame.height + safeAreaInsets.top + 10))
+                    $0.frame.origin = .init(x: bounds.width - 330, y: bounds.height - ($0.frame.height + safeAreaInsets.top + 5))
                     $0.autoresizingMask = [.minXMargin, .minYMargin]
                     addSubview($0)
                 }
@@ -42,7 +52,8 @@ final class Browser: NSView, NSTextFinderBarContainer {
                     $0.removeFromSuperview()
                 }
             findBarView?.isHidden = !isFindBarVisible
-            top.constant = isFindBarVisible ? 50 + safeAreaInsets.top : 0
+            separator.isHidden = !isFindBarVisible
+            top.constant = isFindBarVisible ? 40 + safeAreaInsets.top : 0
         }
     }
     
