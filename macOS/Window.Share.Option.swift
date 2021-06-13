@@ -28,7 +28,7 @@ extension Window.Share {
             heightAnchor.constraint(equalToConstant: 32).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+            image.centerXAnchor.constraint(equalTo: rightAnchor, constant: -22).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
