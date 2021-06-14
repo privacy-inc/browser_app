@@ -21,11 +21,9 @@ final class Forget: NSPopover {
         cache
             .click
             .sink { [weak self] in
-                NSAlert.delete(title: "Delete cache", icon: "trash.fill") { [weak self] in
-                    Webview.clear()
-                    Toast.show(message: .init(title: "Deleted cache", icon: "trash.fill"))
-                    self?.close()
-                }
+                Webview.clear()
+                Toast.show(message: .init(title: "Deleted cache", icon: "trash.fill"))
+                self?.close()
             }
             .store(in: &subs)
         
@@ -33,11 +31,9 @@ final class Forget: NSPopover {
         history
             .click
             .sink { [weak self] in
-                NSAlert.delete(title: "Delete history", icon: "clock.fill") { [weak self] in
-                    cloud.forgetBrowse()
-                    Toast.show(message: .init(title: "Deleted history", icon: "clock.fill"))
-                    self?.close()
-                }
+                cloud.forgetBrowse()
+                Toast.show(message: .init(title: "Deleted history", icon: "clock.fill"))
+                self?.close()
             }
             .store(in: &subs)
         
@@ -45,11 +41,9 @@ final class Forget: NSPopover {
         activity
             .click
             .sink { [weak self] in
-                NSAlert.delete(title: "Delete activity", icon: "chart.bar.xaxis") { [weak self] in
-                    cloud.forgetActivity()
-                    Toast.show(message: .init(title: "Deleted activity", icon: "chart.bar.xaxis"))
-                    self?.close()
-                }
+                cloud.forgetActivity()
+                Toast.show(message: .init(title: "Deleted activity", icon: "chart.bar.xaxis"))
+                self?.close()
             }
             .store(in: &subs)
         
@@ -57,11 +51,9 @@ final class Forget: NSPopover {
         trackers
             .click
             .sink { [weak self] in
-                NSAlert.delete(title: "Delete trackers", icon: "shield.lefthalf.fill") { [weak self] in
-                    cloud.forgetBlocked()
-                    Toast.show(message: .init(title: "Deleted trackers", icon: "shield.lefthalf.fill"))
-                    self?.close()
-                }
+                cloud.forgetBlocked()
+                Toast.show(message: .init(title: "Deleted trackers", icon: "shield.lefthalf.fill"))
+                self?.close()
             }
             .store(in: &subs)
         
@@ -69,12 +61,10 @@ final class Forget: NSPopover {
         everything
             .click
             .sink { [weak self] in
-                NSAlert.delete(title: "Delete everything", icon: "flame.fill") { [weak self] in
-                    Webview.clear()
-                    cloud.forget()
-                    Toast.show(message: .init(title: "Deleted everything", icon: "flame.fill"))
-                    self?.close()
-                }
+                Webview.clear()
+                cloud.forget()
+                Toast.show(message: .init(title: "Deleted everything", icon: "flame.fill"))
+                self?.close()
             }
             .store(in: &subs)
         

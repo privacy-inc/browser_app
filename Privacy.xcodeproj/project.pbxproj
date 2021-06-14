@@ -169,7 +169,6 @@
 		CEF001AA266BE71600993CDD /* Settings.Switch.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001A9266BE71600993CDD /* Settings.Switch.swift */; };
 		CEF001AC266BEB9E00993CDD /* Settings.Security.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001AB266BEB9E00993CDD /* Settings.Security.swift */; };
 		CEF001AE266BED8000993CDD /* Settings.Privacy.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001AD266BED8000993CDD /* Settings.Privacy.swift */; };
-		CEF001B2266BEF4400993CDD /* NSAlert.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001B1266BEF4400993CDD /* NSAlert.swift */; };
 		CEF001B4266BF4F400993CDD /* Settings.Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001B3266BF4F400993CDD /* Settings.Title.swift */; };
 		CEF09FFA265BD30400E83BAE /* Info.Why.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09FF9265BD30400E83BAE /* Info.Why.swift */; };
 		CEF09FFC265BD31700E83BAE /* Info.Alternatives.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF09FFB265BD31700E83BAE /* Info.Alternatives.swift */; };
@@ -393,7 +392,6 @@
 		CEF001A9266BE71600993CDD /* Settings.Switch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Switch.swift; sourceTree = "<group>"; };
 		CEF001AB266BEB9E00993CDD /* Settings.Security.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Security.swift; sourceTree = "<group>"; };
 		CEF001AD266BED8000993CDD /* Settings.Privacy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Privacy.swift; sourceTree = "<group>"; };
-		CEF001B1266BEF4400993CDD /* NSAlert.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAlert.swift; sourceTree = "<group>"; };
 		CEF001B3266BF4F400993CDD /* Settings.Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Title.swift; sourceTree = "<group>"; };
 		CEF09FF9265BD30400E83BAE /* Info.Why.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Why.swift; sourceTree = "<group>"; };
 		CEF09FFB265BD31700E83BAE /* Info.Alternatives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Alternatives.swift; sourceTree = "<group>"; };
@@ -636,7 +634,6 @@
 				CECE1F98265E94F000ACBB0B /* New.History.swift */,
 				CEF97E63266A4CFA00550E10 /* New.Option.swift */,
 				CE12B21A265E6C2F000EA487 /* New.swift */,
-				CEF001B1266BEF4400993CDD /* NSAlert.swift */,
 				CE6F0D7626669AAA00538D9A /* NSApplication.swift */,
 				CE70B43C265FA92C00A357BC /* NSAttributedString.swift */,
 				CEAB2F4B266F8C2A003AEC08 /* NSFont.swift */,
@@ -996,7 +993,6 @@
 				CE8E4D42267760450023839A /* Forget.Option.swift in Sources */,
 				CEAB2F4A266F8AEA003AEC08 /* Selectable.swift in Sources */,
 				CE0D6BF4265FDAE9000B3FF1 /* Search.swift in Sources */,
-				CEF001B2266BEF4400993CDD /* NSAlert.swift in Sources */,
 				CE80555A266789E10096D1A5 /* Toast.swift in Sources */,
 				CEC9859626637821001DA288 /* Search.Autocomplete.swift in Sources */,
 				CEF001AC266BEB9E00993CDD /* Settings.Security.swift in Sources */,
