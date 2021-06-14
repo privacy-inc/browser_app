@@ -14,6 +14,13 @@ extension Tabs {
                     .init(title: .init("FORGET"),
                           buttons: [
                             .default(.init("Close all tabs")) {
+                                session
+                                    .tab
+                                    .ids
+                                    .forEach {
+                                        (session.tab[web: $0] as? Web.Coordinator)?.clear()
+                                    }
+                                
                                 withAnimation(.spring(blendDuration: 0.4)) {
                                     session.section = .search(tabber.closeAll())
                                 }

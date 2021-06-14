@@ -36,7 +36,7 @@ extension Tab {
                     }
                     .frame(maxWidth: 200)
                     Control(title: "Cancel", image: "xmark") {
-                        guard let web = tabber.items.value[web: id] as? Web.Coordinator else { return }
+                        guard let web = session.tab[web: id] as? Web.Coordinator else { return }
                         if let url = web.url {
                             cloud.update(browse, url: url)
                             cloud.update(browse, title: web.title ?? "")
