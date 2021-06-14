@@ -4,6 +4,10 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
     private var top: NSLayoutConstraint!
     private weak var separator: Separator!
     
+    deinit {
+        print("browser gone")
+    }
+    
     required init?(coder: NSCoder) { nil }
     init(web: Web) {
         super.init(frame: .zero)
@@ -31,6 +35,7 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
             oldValue?.removeFromSuperview()
             findBarView
                 .map {
+                    $0.removeFromSuperview()
                     $0.frame.size.width = 320
                     $0.frame.origin = .init(x: bounds.width - 330, y: bounds.height - ($0.frame.height + safeAreaInsets.top + 5))
                     $0.autoresizingMask = [.minXMargin, .minYMargin]

@@ -89,6 +89,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     deinit {
+        stopLoading()
         uiDelegate = nil
         navigationDelegate = nil
     }
