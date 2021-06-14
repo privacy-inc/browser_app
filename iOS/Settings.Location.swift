@@ -6,50 +6,34 @@ extension Settings {
         @Binding var session: Session
         
         var body: some View {
-            ScrollView {
-                Image(systemName: location ? "location" : "location.slash")
-                    .font(.largeTitle)
-                    .foregroundColor(location ? .blue : .pink)
-                    .padding(.top, 20)
-                Text("Websites may request this app access to your location to provide maps, navigation or other services.")
-                    .foregroundColor(.secondary)
-                    .font(.callout)
-                    .padding([.horizontal, .top])
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                Text("This app will never access your location at all, but might prompt you to grant access if a website is asking for it.")
-                    .foregroundColor(.secondary)
-                    .font(.callout)
-                    .padding([.horizontal, .top])
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                Text("You can enable and disable this app from allowing websites to access your location directly on Settings:")
-                    .foregroundColor(.secondary)
-                    .font(.callout)
-                    .padding([.horizontal, .top])
-                    .fixedSize(horizontal: false, vertical: true)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                Text("Settings > Privacy > Location")
-                    .font(.callout)
-                    .padding(.horizontal)
-                    .padding(.top, 2)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+            List {
+                Section(header:
+                            VStack {
+                                Image(systemName: location ? "location" : "location.slash")
+                                    .font(.largeTitle)
+                                    .foregroundColor(location ? .blue : .pink)
+                                    .padding(.vertical)
+                                Text("""
+This app will never access your location, but may ask you to grant access if a website is requesting it.
+
+You can change this permission on Settings > Privacy > Location.
+""")
+                                    .foregroundColor(.secondary)
+                                    .font(.callout)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .padding(.vertical)
+                                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                            }
+                            .textCase(.none)) {
+                    Button {
+                        UIApplication.shared.settings()
+                    } label: {
+                        Text("Change")
+                    }
+                }
             }
-            .navigationBarTitle("Location")
-            .navigationBarItems(trailing:
-                                    Button {
-                                        UIApplication.shared.settings()
-                                    } label: {
-                                        ZStack {
-                                            RoundedRectangle(cornerRadius: 4)
-                                                .foregroundColor(.accentColor)
-                                            Text("Change")
-                                                .foregroundColor(.white)
-                                                .font(.footnote)
-                                                .padding(.horizontal)
-                                                .padding(.vertical, 6)
-                                        }
-                                    })
+            .listStyle(GroupedListStyle())
+            .navigationBarTitle("Location", displayMode: .inline)
         }
         
         private var location: Bool {
