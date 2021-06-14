@@ -1,16 +1,10 @@
 import AppKit
 
-extension Settings.Option {
-    class Basic: Settings.Option {
-        required init?(coder: NSCoder) { nil }
-        override init(title: String, image: String) {
-            super.init(title: title, image: image)
-            text.textColor = .labelColor
-            self.image.contentTintColor = .labelColor
-        }
-        
+extension Forget.Option {
+    final class Basic: Forget.Option {
         override func update() {
             super.update()
+            
             switch state {
             case .pressed:
                 layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor

@@ -64,7 +64,8 @@ final class New: NSView {
         forget
             .click
             .sink {
-                NSApp.trackers()
+                Forget()
+                    .show(relativeTo: forget.bounds, of: forget, preferredEdge: .maxX)
             }
             .store(in: &subs)
         

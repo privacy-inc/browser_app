@@ -75,7 +75,7 @@ You can make this app your default browser and all websites will open automatica
                 icon.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
                 icon.bottomAnchor.constraint(equalTo: browserTitle.topAnchor, constant: -10).isActive = true
             } else {
-                let browser = Option.Basic(title: "Make default browser", image: "magnifyingglass")
+                let browser = Option(title: "Make default browser", image: "magnifyingglass")
                 browser
                     .click
                     .sink { [weak self] in
