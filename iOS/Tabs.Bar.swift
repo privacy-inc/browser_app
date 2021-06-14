@@ -3,20 +3,41 @@ import SwiftUI
 extension Tabs {
     struct Bar: View {
         @Binding var session: Session
-        @State private var close = false
+        @State private var flame = false
         
         var body: some View {
             HStack(spacing: 0) {
-                Control(image: "xmark") {
-                    close = true
+                Control(image: "flame.fill") {
+                    flame = true
                 }
-                .actionSheet(isPresented: $close) {
-                    .init(title: .init("Close all tabs?"),
+                .actionSheet(isPresented: $flame) {
+                    .init(title: .init("FORGET"),
                           buttons: [
-                            .destructive(.init("Close all")) {
+                            .default(.init("Close all tabs")) {
                                 withAnimation(.spring(blendDuration: 0.4)) {
                                     session.section = .search(tabber.closeAll())
                                 }
+                            },
+                            .default(.init("Delete cache")) {
+                                Webview.clear()
+                                session.toast = .init(title: "Deleted cache", icon: "trash.fill")
+                            },
+                            .default(.init("Delete history")) {
+                                cloud.forgetBrowse()
+                                session.toast = .init(title: "Deleted history", icon: "clock.fill")
+                            },
+                            .default(.init("Delete activity")) {
+                                cloud.forgetActivity()
+                                session.toast = .init(title: "Deleted activity", icon: "chart.bar.xaxis")
+                            },
+                            .default(.init("Delete trackers")) {
+                                cloud.forgetBlocked()
+                                session.toast = .init(title: "Deleted trackers", icon: "shield.lefthalf.fill")
+                            },
+                            .destructive(.init("Delete everything")) {
+                                Webview.clear()
+                                cloud.forget()
+                                session.toast = .init(title: "Deleted everything", icon: "flame.fill")
                             },
                             .cancel()])
                 }
