@@ -32,7 +32,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
-        self.configuration.userContentController.add(self, name: "handler")
+        configuration.userContentController.add(self, name: "handler")
         
         publisher(for: \.estimatedProgress, options: .new)
             .removeDuplicates()

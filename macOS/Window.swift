@@ -1,10 +1,12 @@
 import AppKit
+import WebKit
 import Combine
 
 final class Window: NSWindow {
     let id: UUID
     private(set) weak var search: Search!
     private var subs = Set<AnyCancellable>()
+    private let configuration = WKWebViewConfiguration()
     private let finder = NSTextFinder()
     
     init(id: UUID) {
@@ -39,11 +41,12 @@ final class Window: NSWindow {
             }
             .removeDuplicates()
             .sink { [weak self] in
+                guard let configuration = self?.configuration else { return }
                 switch $0 {
                 case .new:
                     self?.contentView = New(id: id)
                 case let .browse(browse):
-                    let web = (tabber.items.value[web: id] as? Web) ?? Web(id: id, browse: browse)
+                    let web = (tabber.items.value[web: id] as? Web) ?? Web(id: id, browse: browse, configuration: configuration)
                     if tabber.items.value[web: id] == nil {
                         tabber.update(id, web: web)
                     }
@@ -52,6 +55,8 @@ final class Window: NSWindow {
                     self?.finder.findBarContainer = browser
                     self?.contentView = browser
                 case let .error(browse, error):
+                    self?.finder.client = nil
+                    self?.finder.findBarContainer = nil
                     self?.contentView = Error(id: id, browse: browse, error: error)
                 }
             }
@@ -95,6 +100,7 @@ final class Window: NSWindow {
     }
     
     override func close() {
+        configuration.userContentController.removeScriptMessageHandler(forName: "handler")
         tabber.close(id)
         super.close()
     }
