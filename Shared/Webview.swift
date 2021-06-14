@@ -88,18 +88,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         load(cloud.archive.value.page(browse).access)
     }
     
-    deinit {
-        stopLoading()
-        uiDelegate = nil
-        navigationDelegate = nil
-    }
-    
     func external(_ url: URL) {
         
     }
     
     func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
 
+    }
+    
+    final func clear() {
+        stopLoading()
+        configuration.userContentController.removeScriptMessageHandler(forName: "handler")
+        uiDelegate = nil
+        navigationDelegate = nil
     }
     
     final func load(_ access: Page.Access) {

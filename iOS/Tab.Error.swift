@@ -45,6 +45,7 @@ extension Tab {
                             withAnimation(.spring(blendDuration: 0.4)) {
                                 session.section = .tab(tabber.new())
                             }
+                            web.clear()
                             tabber.close(id)
                         }
                     }

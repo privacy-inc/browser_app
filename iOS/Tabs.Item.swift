@@ -10,6 +10,7 @@ extension Tabs {
         var body: some View {
             VStack {
                 Button {
+                    (tabber.items.value[web: id] as? Web.Coordinator)?.clear()
                     withAnimation(.spring(blendDuration: 0.4)) {
                         tabber.close(id)
                     }

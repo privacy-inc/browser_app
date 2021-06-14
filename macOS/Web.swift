@@ -6,13 +6,14 @@ final class Web: Webview {
     private var destination = Destination.window
     
     required init?(coder: NSCoder) { nil }
-    init(id: UUID, browse: Int, configuration: WKWebViewConfiguration) {
+    init(id: UUID, browse: Int) {
         var settings = cloud.archive.value.settings
         
         if !App.dark {
             settings.dark = false
         }
         
+        let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
         
