@@ -12,6 +12,7 @@ struct Settings: View {
     @State private var popups = true
     @State private var ads = true
     @State private var screen = true
+    @State private var third = true
     
     var body: some View {
         Popup(title: "Settings", leading: { }) {
@@ -33,6 +34,7 @@ struct Settings: View {
                     Toggle("Block pop-ups", isOn: $popups)
                     Toggle("Remove ads", isOn: $ads)
                     Toggle("Remove screen blockers", isOn: $screen)
+                    Toggle("Block third-party scripts", isOn: $third)
                 }
                 Section(header: Text("Security")) {
                     Toggle("Force secure connections", isOn: $http)
@@ -46,9 +48,6 @@ struct Settings: View {
                 }
                 Section {
                     NavigationLink("Default browser", destination: Default(session: $session))
-                }
-                Section {
-                    NavigationLink("Clear data", destination: Data())
                 }
                 Section {
                     Button {
@@ -93,6 +92,9 @@ struct Settings: View {
         .onChange(of: screen) {
             cloud.screen(!$0)
         }
+        .onChange(of: third) {
+            cloud.third(!$0)
+        }
         .onAppear {
             engine = session.archive.settings.engine
             dark = session.archive.settings.dark
@@ -103,6 +105,7 @@ struct Settings: View {
             popups = !session.archive.settings.popups
             ads = !session.archive.settings.ads
             screen = !session.archive.settings.screen
+            third = !session.archive.settings.third
         }
     }
 }
