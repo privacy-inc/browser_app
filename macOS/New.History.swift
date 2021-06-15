@@ -110,5 +110,9 @@ extension New {
                 }
                 .store(in: &subs)
         }
+        
+        override var allowsVibrancy: Bool {
+            true
+        }
     }
 }

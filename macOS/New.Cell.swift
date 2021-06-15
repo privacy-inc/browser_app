@@ -9,16 +9,12 @@ extension New {
             Self.insets
         }
         
-        override var none: CGColor {
-            NSColor.controlAccentColor.withAlphaComponent(0.2).cgColor
-        }
-        
         override var highlighted: CGColor {
-            NSColor.controlAccentColor.withAlphaComponent(0.4).cgColor
+            NSColor.windowBackgroundColor.cgColor
         }
         
         override var pressed: CGColor {
-            NSColor.controlAccentColor.withAlphaComponent(0.6).cgColor
+            NSColor.underPageBackgroundColor.cgColor
         }
         
         required init?(coder: NSCoder) { nil }

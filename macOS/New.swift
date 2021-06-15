@@ -8,34 +8,14 @@ final class New: NSView {
     init(id: UUID) {
         super.init(frame: .zero)
         
-        let titleBookmarks = Text()
-        titleBookmarks.stringValue = NSLocalizedString("Bookmarks", comment: "")
-        titleBookmarks.font = .font(style: .title3, weight: .bold)
-        titleBookmarks.textColor = .controlAccentColor
-        addSubview(titleBookmarks)
-        
-        let titleHistory = Text()
-        titleHistory.stringValue = NSLocalizedString("Recent", comment: "")
-        titleHistory.font = titleBookmarks.font!
-        titleHistory.textColor = .controlAccentColor
-        addSubview(titleHistory)
-        
-        let backgroundBookmarks = NSView()
+        let backgroundBookmarks = NSVisualEffectView()
+        backgroundBookmarks.material = .menu
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
-        backgroundBookmarks.wantsLayer = true
-        backgroundBookmarks.layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.1).cgColor
-        backgroundBookmarks.layer!.cornerRadius = 6
-        backgroundBookmarks.layer!.borderWidth = 1
-        backgroundBookmarks.layer!.borderColor = NSColor.controlAccentColor.cgColor
         addSubview(backgroundBookmarks)
         
-        let backgroundHistory = NSView()
+        let backgroundHistory = NSVisualEffectView()
+        backgroundHistory.material = .sidebar
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
-        backgroundHistory.wantsLayer = true
-        backgroundHistory.layer!.backgroundColor = backgroundBookmarks.layer!.backgroundColor
-        backgroundHistory.layer!.cornerRadius = backgroundBookmarks.layer!.cornerRadius
-        backgroundHistory.layer!.borderWidth = backgroundBookmarks.layer!.borderWidth
-        backgroundHistory.layer!.borderColor = backgroundBookmarks.layer!.borderColor
         addSubview(backgroundHistory)
         
         let bookmarks = Bookmarks(id: id)
@@ -69,31 +49,25 @@ final class New: NSView {
             }
             .store(in: &subs)
         
-        titleBookmarks.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 30).isActive = true
-        titleBookmarks.leftAnchor.constraint(equalTo: leftAnchor, constant: 30).isActive = true
+        backgroundBookmarks.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        backgroundBookmarks.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        backgroundBookmarks.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        backgroundBookmarks.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
         
-        backgroundBookmarks.topAnchor.constraint(equalTo: titleBookmarks.bottomAnchor, constant: 5).isActive = true
-        backgroundBookmarks.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor, multiplier: 0.2).isActive = true
-        backgroundBookmarks.leftAnchor.constraint(equalTo: titleBookmarks.leftAnchor).isActive = true
-        backgroundBookmarks.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.4).isActive = true
+        backgroundHistory.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        backgroundHistory.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        backgroundHistory.leftAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
+        backgroundHistory.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2).isActive = true
         
-        titleHistory.topAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor, constant: 30).isActive = true
-        titleHistory.leftAnchor.constraint(equalTo: titleBookmarks.leftAnchor).isActive = true
+        bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor).isActive = true
+        bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor).isActive = true
+        bookmarks.leftAnchor.constraint(equalTo: backgroundBookmarks.leftAnchor).isActive = true
+        bookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
         
-        backgroundHistory.topAnchor.constraint(equalTo: titleHistory.bottomAnchor, constant: 5).isActive = true
-        backgroundHistory.heightAnchor.constraint(equalTo: heightAnchor, multiplier: 0.3).isActive = true
-        backgroundHistory.leftAnchor.constraint(equalTo: titleHistory.leftAnchor).isActive = true
-        backgroundHistory.widthAnchor.constraint(equalTo: backgroundBookmarks.widthAnchor).isActive = true
-        
-        bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor, constant: 1).isActive = true
-        bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor, constant: -1).isActive = true
-        bookmarks.leftAnchor.constraint(equalTo: backgroundBookmarks.leftAnchor, constant: 1).isActive = true
-        bookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor, constant: -1).isActive = true
-        
-        history.topAnchor.constraint(equalTo: backgroundHistory.topAnchor, constant: 1).isActive = true
-        history.bottomAnchor.constraint(equalTo: backgroundHistory.bottomAnchor, constant: -1).isActive = true
-        history.leftAnchor.constraint(equalTo: backgroundHistory.leftAnchor, constant: 1).isActive = true
-        history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor, constant: -1).isActive = true
+        history.topAnchor.constraint(equalTo: backgroundHistory.topAnchor).isActive = true
+        history.bottomAnchor.constraint(equalTo: backgroundHistory.bottomAnchor).isActive = true
+        history.leftAnchor.constraint(equalTo: backgroundHistory.leftAnchor).isActive = true
+        history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor).isActive = true
         
         var bottom = bottomAnchor
         [activity, trackers, forget]
@@ -111,7 +85,6 @@ final class New: NSView {
             }
             .removeDuplicates()
             .sink {
-                titleBookmarks.isHidden = $0
                 backgroundBookmarks.isHidden = $0
                 bookmarks.isHidden = $0
             }
@@ -124,7 +97,6 @@ final class New: NSView {
             }
             .removeDuplicates()
             .sink {
-                titleHistory.isHidden = $0
                 backgroundHistory.isHidden = $0
                 history.isHidden = $0
             }
