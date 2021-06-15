@@ -41,7 +41,8 @@ extension New {
                                 string: .make {
                                     if !page.title.isEmpty {
                                         $0.append(.make(page.title,
-                                                        font: .preferredFont(forTextStyle: .callout)))
+                                                        font: .preferredFont(forTextStyle: .callout),
+                                                        color: .labelColor))
                                     }
                                     if !page.access.domain.isEmpty {
                                         if !page.title.isEmpty {

@@ -39,7 +39,8 @@ extension New {
                                 string: .make {
                                     if !browse.page.title.isEmpty {
                                         $0.append(.make(browse.page.title,
-                                                        font: .preferredFont(forTextStyle: .body)))
+                                                        font: .preferredFont(forTextStyle: .body),
+                                                        color: .labelColor))
                                         $0.linebreak()
                                     }
                                     if !browse.page.access.domain.isEmpty {
