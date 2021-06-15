@@ -83,30 +83,6 @@ final class New: NSView {
                 $0.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
                 bottom = $0.topAnchor
             }
-        
-        cloud
-            .archive
-            .map {
-                $0.bookmarks.isEmpty
-            }
-            .removeDuplicates()
-            .sink {
-                backgroundBookmarks.isHidden = $0
-                bookmarks.isHidden = $0
-            }
-            .store(in: &subs)
-        
-        cloud
-            .archive
-            .map {
-                $0.browse.isEmpty
-            }
-            .removeDuplicates()
-            .sink {
-                backgroundHistory.isHidden = $0
-                history.isHidden = $0
-            }
-            .store(in: &subs)
     }
     
     override func mouseDown(with: NSEvent) {
