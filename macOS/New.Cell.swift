@@ -2,7 +2,7 @@ import AppKit
 
 extension New {
     final class Cell: CollectionCell {
-        static let insets = CGFloat(10)
+        static let insets = CGFloat(12)
         static let insets2 = insets * 2
         
         override var insets: CGFloat {
@@ -14,14 +14,14 @@ extension New {
         }
         
         override var pressed: CGColor {
-            NSColor.underPageBackgroundColor.cgColor
+            NSColor.controlBackgroundColor.cgColor
         }
         
         required init?(coder: NSCoder) { nil }
         override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
-            cornerRadius = 4
+            cornerRadius = 6
         }
     }
 }

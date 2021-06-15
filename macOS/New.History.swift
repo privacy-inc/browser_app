@@ -4,7 +4,7 @@ import Combine
 extension New {
     final class History: Collection<New.Cell> {
         private static let width = CGFloat(150)
-        private static let padding = CGFloat(3)
+        private static let padding = CGFloat(4)
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
@@ -41,7 +41,7 @@ extension New {
                                 id: browse.id,
                                 string: .make {
                                     $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),
-                                                    font: .preferredFont(forTextStyle: .callout),
+                                                    font: .preferredFont(forTextStyle: .footnote),
                                                     color: .secondaryLabelColor))
                                     if !browse.page.title.isEmpty {
                                         $0.linebreak()
@@ -51,7 +51,7 @@ extension New {
                                     if !browse.page.access.domain.isEmpty {
                                         $0.linebreak()
                                         $0.append(.make(browse.page.access.domain,
-                                                        font: .preferredFont(forTextStyle: .footnote),
+                                                        font: .preferredFont(forTextStyle: .callout),
                                                         color: .secondaryLabelColor))
                                     }
                                 })
