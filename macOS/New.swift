@@ -52,12 +52,18 @@ final class New: NSView {
         backgroundBookmarks.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         backgroundBookmarks.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundBookmarks.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        backgroundBookmarks.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.1).isActive = true
+        backgroundBookmarks.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+        let bookmarksWidth = backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.1)
+        bookmarksWidth.priority = .defaultLow
+        bookmarksWidth.isActive = true
         
         backgroundHistory.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
-        backgroundHistory.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.2).isActive = true
+        backgroundHistory.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
+        let historyWidth = backgroundHistory.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.2)
+        historyWidth.priority = .defaultLow
+        historyWidth.isActive = true
         
         bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor).isActive = true
         bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor).isActive = true

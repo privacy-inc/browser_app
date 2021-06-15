@@ -3,7 +3,7 @@ import Combine
 import Sleuth
 
 extension New {
-    final class Bookmarks: Collection<New.Cell> {
+    final class Bookmarks: Collection<New.Bookmarks.Cell> {
         private static let insets = CGFloat(4)
         private static let insets2 = insets + insets
         

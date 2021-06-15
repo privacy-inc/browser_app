@@ -21,7 +21,7 @@ class CollectionCell: CALayer {
         insets + insets
     }
     
-    private weak var text: CollectionCellText!
+    private(set) weak var text: CollectionCellText!
     required init?(coder: NSCoder) { nil }
     override init(layer: Any) { super.init(layer: layer) }
     required override init() {
@@ -34,7 +34,6 @@ class CollectionCell: CALayer {
     final var item: CollectionItem? {
         didSet {
             state = .none
-            
             if let item = item {
                 frame = item.rect
                 text.frame = .init(

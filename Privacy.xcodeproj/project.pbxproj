@@ -25,7 +25,7 @@
 		CE0D423F266B934700386433 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D423E266B934700386433 /* Store.swift */; };
 		CE0D4241266B958B00386433 /* Store.Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D4240266B958B00386433 /* Store.Title.swift */; };
 		CE0D4243266B95F800386433 /* Control.Title.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D4242266B95F800386433 /* Control.Title.swift */; };
-		CE0D6BF0265FB8A0000B3FF1 /* New.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D6BEF265FB8A0000B3FF1 /* New.Cell.swift */; };
+		CE0D6BF0265FB8A0000B3FF1 /* New.History.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D6BEF265FB8A0000B3FF1 /* New.History.Cell.swift */; };
 		CE0D6BF2265FC8B0000B3FF1 /* CGRect.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D6BF1265FC8B0000B3FF1 /* CGRect.swift */; };
 		CE0D6BF4265FDAE9000B3FF1 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D6BF3265FDAE9000B3FF1 /* Search.swift */; };
 		CE0D6BF6265FDF29000B3FF1 /* Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0D6BF5265FDF29000B3FF1 /* Control.swift */; };
@@ -56,6 +56,7 @@
 		CE676A67265E60C80042EDC2 /* Purchases.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C25265AB2EC00F8589D /* Purchases.Item.swift */; };
 		CE676A6B265E64EE0042EDC2 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A6A265E64EE0042EDC2 /* Menu.swift */; };
 		CE676A6D265E65A30042EDC2 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */; };
+		CE6A3DC82678B40B00CF8537 /* New.Bookmarks.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6A3DC72678B40B00CF8537 /* New.Bookmarks.Cell.swift */; };
 		CE6F0D7726669AAA00538D9A /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F0D7626669AAA00538D9A /* NSApplication.swift */; };
 		CE70B43A265FA3A800A357BC /* CollectionItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE70B439265FA3A800A357BC /* CollectionItemInfo.swift */; };
 		CE70B43B265FA85700A357BC /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */; };
@@ -249,7 +250,7 @@
 		CE0D423E266B934700386433 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; sourceTree = "<group>"; };
 		CE0D4240266B958B00386433 /* Store.Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Title.swift; sourceTree = "<group>"; };
 		CE0D4242266B95F800386433 /* Control.Title.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.Title.swift; sourceTree = "<group>"; };
-		CE0D6BEF265FB8A0000B3FF1 /* New.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.Cell.swift; sourceTree = "<group>"; };
+		CE0D6BEF265FB8A0000B3FF1 /* New.History.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.History.Cell.swift; sourceTree = "<group>"; };
 		CE0D6BF1265FC8B0000B3FF1 /* CGRect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGRect.swift; sourceTree = "<group>"; };
 		CE0D6BF3265FDAE9000B3FF1 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE0D6BF5265FDF29000B3FF1 /* Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Control.swift; sourceTree = "<group>"; };
@@ -279,6 +280,7 @@
 		CE676A64265E5FCD0042EDC2 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CE676A6A265E64EE0042EDC2 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
+		CE6A3DC72678B40B00CF8537 /* New.Bookmarks.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.Bookmarks.Cell.swift; sourceTree = "<group>"; };
 		CE6F0D7626669AAA00538D9A /* NSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplication.swift; sourceTree = "<group>"; };
 		CE70B439265FA3A800A357BC /* CollectionItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemInfo.swift; sourceTree = "<group>"; };
 		CE70B43C265FA92C00A357BC /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
@@ -623,8 +625,9 @@
 				CEF00199266BC6FF00993CDD /* Info.Why.swift */,
 				CE9CF61A266E4BE700B277DF /* Location.swift */,
 				CE676A6A265E64EE0042EDC2 /* Menu.swift */,
+				CE6A3DC72678B40B00CF8537 /* New.Bookmarks.Cell.swift */,
 				CECE1F96265E91C000ACBB0B /* New.Bookmarks.swift */,
-				CE0D6BEF265FB8A0000B3FF1 /* New.Cell.swift */,
+				CE0D6BEF265FB8A0000B3FF1 /* New.History.Cell.swift */,
 				CECE1F98265E94F000ACBB0B /* New.History.swift */,
 				CEF97E63266A4CFA00550E10 /* New.Option.swift */,
 				CE12B21A265E6C2F000EA487 /* New.swift */,
@@ -959,6 +962,7 @@
 				CE0D6BF6265FDF29000B3FF1 /* Control.swift in Sources */,
 				CEF97E6F266A642D00550E10 /* Scroll.swift in Sources */,
 				CECE1F97265E91C000ACBB0B /* New.Bookmarks.swift in Sources */,
+				CE6A3DC82678B40B00CF8537 /* New.Bookmarks.Cell.swift in Sources */,
 				CE676A6B265E64EE0042EDC2 /* Menu.swift in Sources */,
 				CE0D6C00265FF14A000B3FF1 /* Search.Field.Cell.swift in Sources */,
 				CEF001A6266BD65300993CDD /* Settings.Option.swift in Sources */,
@@ -973,7 +977,7 @@
 				CED418B9266CD2FF006155C5 /* Settings.Title.Option.swift in Sources */,
 				CE9E175D2661051900E8BF24 /* Web.swift in Sources */,
 				CEF001A8266BE65F00993CDD /* Settings.Features.swift in Sources */,
-				CE0D6BF0265FB8A0000B3FF1 /* New.Cell.swift in Sources */,
+				CE0D6BF0265FB8A0000B3FF1 /* New.History.Cell.swift in Sources */,
 				CEF97E64266A4CFA00550E10 /* New.Option.swift in Sources */,
 				CEF97E68266A5ACD00550E10 /* Activity.Chart.swift in Sources */,
 				CEF00194266BB84E00993CDD /* Store.Error.swift in Sources */,

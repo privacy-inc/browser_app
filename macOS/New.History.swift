@@ -2,16 +2,16 @@ import AppKit
 import Combine
 
 extension New {
-    final class History: Collection<New.Cell> {
-        private static let width = CGFloat(150)
-        private static let padding = CGFloat(4)
+    final class History: Collection<New.History.Cell> {
+        private static let insets = CGFloat(4)
+        private static let insets2 = insets + insets
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
             super.init()
             translatesAutoresizingMaskIntoConstraints = false
             
-            let columns = PassthroughSubject<(count: Int, width: CGFloat), Never>()
+            let width = PassthroughSubject<CGFloat, Never>()
             let info = PassthroughSubject<[CollectionItemInfo], Never>()
             
             NotificationCenter
@@ -20,14 +20,11 @@ extension New {
                 .compactMap {
                     ($0.object as? NSView)?.bounds.width
                 }
-                .removeDuplicates()
                 .map {
-                    let available = $0 - Self.padding
-                    let aprox = Self.width + Self.padding
-                    let count = max(Int(floor(available / aprox)), 1)
-                    return (count: count, width: Self.width + (available.truncatingRemainder(dividingBy: aprox) / .init(count)))
+                    $0 - Self.insets2
                 }
-                .subscribe(columns)
+                .removeDuplicates()
+                .subscribe(width)
                 .store(in: &subs)
             
             cloud
@@ -40,20 +37,20 @@ extension New {
                             .init(
                                 id: browse.id,
                                 string: .make {
-                                    $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),
-                                                    font: .preferredFont(forTextStyle: .footnote),
-                                                    color: .secondaryLabelColor))
                                     if !browse.page.title.isEmpty {
-                                        $0.linebreak()
                                         $0.append(.make(browse.page.title,
                                                         font: .preferredFont(forTextStyle: .body)))
+                                        $0.linebreak()
                                     }
                                     if !browse.page.access.domain.isEmpty {
-                                        $0.linebreak()
                                         $0.append(.make(browse.page.access.domain,
                                                         font: .preferredFont(forTextStyle: .callout),
                                                         color: .secondaryLabelColor))
+                                        $0.linebreak()
                                     }
+                                    $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),
+                                                    font: .preferredFont(forTextStyle: .callout),
+                                                    color: .secondaryLabelColor))
                                 })
                         }
                 }
@@ -62,44 +59,23 @@ extension New {
             
             info
                 .removeDuplicates()
-                .combineLatest(columns
-                                .removeDuplicates {
-                                    $0.count == $1.count
-                                        && $0.width == $1.width
-                                })
-                .sink { [weak self] (info: [CollectionItemInfo], columns: (count: Int, width: CGFloat)) in
+                .combineLatest(width
+                                .removeDuplicates())
+                .sink { [weak self] (info: [CollectionItemInfo], width: CGFloat) in
                     let result = info
-                        .reduce(into: (
-                                    items: Set<CollectionItem>(),
-                                    column: columns.count,
-                                    x: CGFloat(),
-                                    y: (0 ..< columns.count)
-                                        .reduce(into: [Int: CGFloat]()) {
-                                            $0[$1] = Self.padding
-                                        })) {
-                            if $0.column < columns.count - 1 {
-                                $0.column += 1
-                            } else {
-                                $0.column = 0
-                                $0.x = Self.padding
-                            }
-                            let height = ceil($1.string.height(for: columns.width - Cell.insets2) + Cell.insets2)
+                        .reduce(into: (items: Set<CollectionItem>(), y: Self.insets)) {
+                            let height = ceil($1.string.height(for: width - Cell.insets2) + Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(
-                                                    x: $0.x,
-                                                    y: $0.y[$0.column]!,
-                                                    width: columns.width,
+                                                    x: Self.insets,
+                                                    y: $0.y,
+                                                    width: width,
                                                     height: height)))
-                            $0.x += columns.width + Self.padding
-                            $0.y[$0.column]! += height + Self.padding
+                            $0.y += height + Self.insets
                         }
                     self?.items.send(result.items)
-                    self?.height.send(result
-                                        .y
-                                        .map(\.1)
-                                        .max()
-                                        ?? 0)
+                    self?.height.send(result.y)
                 }
                 .store(in: &subs)
             

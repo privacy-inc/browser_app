@@ -1,6 +1,6 @@
 import AppKit
 
-extension New {
+extension New.History {
     final class Cell: CollectionCell {
         static let insets = CGFloat(12)
         static let insets2 = insets * 2
@@ -22,6 +22,7 @@ extension New {
         required init() {
             super.init()
             cornerRadius = 6
+            text.alignmentMode = .right
         }
     }
 }
