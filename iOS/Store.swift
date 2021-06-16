@@ -16,6 +16,7 @@ struct Store: View {
             } label: {
                 if error == nil && !loading {
                     Text("Restore purchases")
+                        .foregroundColor(.secondary)
                         .font(.footnote.bold())
                         .frame(height: 50)
                         .contentShape(Rectangle())

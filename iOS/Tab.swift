@@ -21,7 +21,7 @@ struct Tab: View {
             ZStack {
                 VStack(spacing: 0) {
                     Rectangle()
-                        .fill(Color(.tertiaryLabel))
+                        .fill(Color.secondary)
                         .frame(height: 1)
                     switch session.tab[state: id] {
                     case .new:
@@ -36,8 +36,14 @@ struct Tab: View {
                     case let .error(browse, error):
                         Error(session: $session, id: id, browse: browse, error: error)
                     }
-                    Loading(percent: session.tab[progress: id])
+                    Rectangle()
+                        .fill(Color.secondary)
+                        .frame(height: 1)
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
+                }
+                VStack {
+//                    Loading(percent: session.tab[progress: id])
+                    Spacer()
                 }
                 Modal(session: $session, show: $modal, find: $find, id: id)
                 session
