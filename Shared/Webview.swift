@@ -2,9 +2,6 @@ import WebKit
 import Combine
 import Sleuth
 
-private let url_cant_be_shown = 101
-private let frame_load_interrupted = 102
-
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     final var subs = Set<AnyCancellable>()
     final let id: UUID
@@ -127,7 +124,9 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         let url = url ?? self.url ?? URL(string: "about:blank")!
         cloud.update(browse, url: url)
         cloud.update(browse, title: description)
+        cloud.activity()
         tabber.error(id, .init(url: url.absoluteString, description: description))
+        tabber.update(id, progress: 1)
     }
     
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -146,8 +145,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
                 ?? {
                     $0?["NSErrorFailingURLKey"] as? URL
                 } (withError._userInfo as? [String : Any]), description: withError.localizedDescription)
-        cloud.activity()
-        tabber.update(id, progress: 1)
     }
     
     final func webView(_: WKWebView, didFinish: WKNavigation!) {
@@ -205,3 +202,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         }
     }
 }
+
+private let url_cant_be_shown = 101
+private let frame_load_interrupted = 102
