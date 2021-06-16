@@ -2,21 +2,21 @@ import SwiftUI
 
 extension Tab.Loading {
     struct Indicator: Shape {
-        var percent: Double
+        var show: AnimatablePair<Double, Double>
         
         func path(in rect: CGRect) -> Path {
             .init {
-                $0.move(to: .init(x: 0, y: 1))
-                $0.addLine(to: .init(x: .init(percent) * rect.width, y: 1))
+                $0.move(to: .init(x: .init(show.first) * rect.width, y: 1))
+                $0.addLine(to: .init(x: .init(show.second) * rect.width, y: 1))
             }
         }
         
-        var animatableData: Double {
+        var animatableData: AnimatablePair<Double, Double> {
             get {
-                percent
+                show
             }
             set {
-                percent = newValue
+                show = newValue
             }
         }
     }

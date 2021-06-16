@@ -41,10 +41,7 @@ struct Tab: View {
                         .frame(height: 1)
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
-                VStack {
-//                    Loading(percent: session.tab[progress: id])
-                    Spacer()
-                }
+                Loading(session: $session, id: id)
                 Modal(session: $session, show: $modal, find: $find, id: id)
                 session
                     .toast
