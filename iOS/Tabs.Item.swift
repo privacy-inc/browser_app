@@ -41,8 +41,8 @@ extension Tabs {
                                 Image(uiImage: image)
                                     .resizable()
                                     .aspectRatio(contentMode: .fill)
-                                    .frame(width: size.width * 0.7, height: size.height - 145)
-                                    .clipShape(RoundedRectangle(cornerRadius: 12))
+                                    .frame(width: size.width * 0.7, height: size.height - 140)
+                                    .clipShape(RoundedRectangle(cornerRadius: 10))
                                     .padding(2)
                         } else {
                             Image("blank")
