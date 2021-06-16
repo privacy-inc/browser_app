@@ -1,10 +1,16 @@
 import AppKit
 
 final class Menu: NSMenu, NSMenuDelegate {
+    private let status = NSStatusBar.system.statusItem(withLength: NSStatusItem.variableLength)
+    
     required init(coder: NSCoder) { super.init(coder: coder) }
     init() {
         super.init(title: "")
         items = [app, file, edit, page, window, help]
+        status.button!.image = NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "")?
+            .withSymbolConfiguration(.init(pointSize: 18, weight: .bold))
+        status.button!.target = self
+        status.button!.action = #selector(triggerStatus)
     }
     
     private var app: NSMenuItem {
@@ -203,6 +209,13 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .page)
             .flatMap(\.access.url)
             ?? URL(string: "https://privacy-inc.github.io/about")!
+    }
+    
+    @objc private func triggerStatus(_ button: NSStatusBarButton) {
+        let forget = Forget()
+        forget.behavior = .transient
+        forget.show(relativeTo: button.bounds, of: button, preferredEdge: .minY)
+        forget.contentViewController!.view.window!.makeKey()
     }
     
     @objc private func triggerShare(_ item: NSMenuItem) {

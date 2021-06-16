@@ -3,7 +3,7 @@ import Combine
 
 final class Forget: NSPopover {
     private var subs = Set<AnyCancellable>()
-    
+
     required init?(coder: NSCoder) { nil }
     override init() {
         super.init()
