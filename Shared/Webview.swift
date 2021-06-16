@@ -123,6 +123,13 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         load(.init(url: url))
     }
     
+    final func error(url: URL?, description: String) {
+        let url = url ?? self.url ?? URL(string: "about:blank")!
+        cloud.update(browse, url: url)
+        cloud.update(browse, title: description)
+        tabber.error(id, .init(url: url.absoluteString, description: description))
+    }
+    
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         guard settings.http else {
             completionHandler(.performDefaultHandling, nil)
@@ -133,18 +140,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
         guard (withError as NSError).code != frame_load_interrupted else { return }
-        
-        ;{
-            cloud.update(browse, url: $0)
-            cloud.update(browse, title: $1)
-            tabber.error(id, .init(url: $0.absoluteString, description: $1))
-        } ((withError as? URLError)
-            .flatMap(\.failingURL)
-            ?? url
-            ?? {
-                $0?["NSErrorFailingURLKey"] as? URL
-            } (withError._userInfo as? [String : Any])
-            ?? URL(string: "about:blank")!, withError.localizedDescription)
+        error(url: (withError as? URLError)
+                .flatMap(\.failingURL)
+                ?? url
+                ?? {
+                    $0?["NSErrorFailingURLKey"] as? URL
+                } (withError._userInfo as? [String : Any]), description: withError.localizedDescription)
         cloud.activity()
         tabber.update(id, progress: 1)
     }
@@ -159,7 +160,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")
             preferences.allowsContentJavaScript = settings.javascript
-            if #available(macOS 11.3, *), decidePolicyFor.shouldPerformDownload {
+            if #available(macOS 11.3, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
                 print("download")
                 decisionHandler(.download, preferences)
             } else {
@@ -184,39 +185,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        guard !navigationResponse.canShowMIMEType else {
+        guard #available(macOS 11.3, iOS 14.5, *), !navigationResponse.canShowMIMEType else {
             decisionHandler(.allow)
             return
         }
-
-        print(navigationResponse)
-        print(navigationResponse.response)
-        print(navigationResponse.response.suggestedFilename)
-        if #available(macOS 11.3, *) {
-            decisionHandler(.download)
-//            self.downlo
-        } else {
-            decisionHandler(.allow)
-        }
-    }
-//
-    @available(macOS 11.3, *) override func startDownload(using request: URLRequest, completionHandler: @escaping (WKDownload) -> Void) {
-        fatalError()
-    }
-    
-    @available(macOS 11.3, *)
-    override func resumeDownload(fromResumeData resumeData: Data, completionHandler: @escaping (WKDownload) -> Void) {
-        fatalError()
-    }
-    
-    @available(macOS 11.3, *)
-    func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
-        download.delegate = self
-    }
-    
-    @available(macOS 11.3, *)
-    func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, didBecome download: WKDownload) {
-        download.delegate = self
+        decisionHandler(.download)
     }
     
     final class func clear() {

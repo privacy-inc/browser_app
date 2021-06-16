@@ -86,6 +86,8 @@
 		<key>NSAllowsArbitraryLoads</key>
 		<true/>
 	</dict>
+	<key>NSDownloadsFolderUsageDescription</key>
+	<string>Download files to your folder.</string>
 	<key>NSLocationUsageDescription</key>
 	<string>This website wants to access your location.</string>
 	<key>NSPrincipalClass</key>
