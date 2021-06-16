@@ -39,7 +39,7 @@ extension Tab.New {
             .init(session
                     .archive
                     .bookmarks
-                    .prefix(3))
+                    .prefix(5))
         }
     }
 }

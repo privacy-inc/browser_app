@@ -24,7 +24,7 @@ extension Collection {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Text(verbatim: browse[index].page.access.domain)
-                            .font(.caption2.bold())
+                            .font(.caption2)
                             .foregroundColor(.secondary)
                         Text(verbatim: RelativeDateTimeFormatter().string(from: browse[index].date))
                             .font(.caption2)

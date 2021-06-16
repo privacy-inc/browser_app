@@ -25,7 +25,7 @@ extension Collection {
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Text(verbatim: bookmarks[index].access.domain)
-                            .font(.caption2.bold())
+                            .font(.caption2)
                             .foregroundColor(.secondary)
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)

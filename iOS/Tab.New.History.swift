@@ -29,7 +29,7 @@ extension Tab.New {
             session
                 .archive
                 .browse
-                .prefix(14)
+                .prefix(20)
                 .reduce(into: (Array(repeating: [], count: metrics.columns), metrics.columns)) {
                     $0.1 = $0.1 < metrics.columns - 1 ? $0.1 + 1 : 0
                     $0.0[$0.1].append($1)

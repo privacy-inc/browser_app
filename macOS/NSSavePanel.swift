@@ -15,4 +15,16 @@ extension NSSavePanel {
             }
         }
     }
+    
+    class func save(name: String, success: @escaping (URL?) -> Void) {
+        let panel = Self()
+        panel.nameFieldStringValue = name
+        panel.begin {
+            if $0 == .OK, let url = panel.url {
+                success(url)
+            } else {
+                success(nil)
+            }
+        }
+    }
 }

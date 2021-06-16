@@ -2,6 +2,9 @@ import WebKit
 import Combine
 import Sleuth
 
+private let url_cant_be_shown = 101
+private let frame_load_interrupted = 102
+
 class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     final var subs = Set<AnyCancellable>()
     final let id: UUID
@@ -129,7 +132,9 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-        {
+        guard (withError as NSError).code != frame_load_interrupted else { return }
+        
+        ;{
             cloud.update(browse, url: $0)
             cloud.update(browse, title: $1)
             tabber.error(id, .init(url: $0.absoluteString, description: $1))
@@ -154,7 +159,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")
             preferences.allowsContentJavaScript = settings.javascript
-            decisionHandler(.allow, preferences)
+            if #available(macOS 11.3, *), decidePolicyFor.shouldPerformDownload {
+                print("download")
+                decisionHandler(.download, preferences)
+            } else {
+                decisionHandler(.allow, preferences)
+            }
         case .external:
             print("external \(decidePolicyFor.request.url!)")
             decisionHandler(.cancel, preferences)
@@ -171,6 +181,42 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
                     tabber.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "Blocked"))
                 }
         }
+    }
+    
+    func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
+        guard !navigationResponse.canShowMIMEType else {
+            decisionHandler(.allow)
+            return
+        }
+
+        print(navigationResponse)
+        print(navigationResponse.response)
+        print(navigationResponse.response.suggestedFilename)
+        if #available(macOS 11.3, *) {
+            decisionHandler(.download)
+//            self.downlo
+        } else {
+            decisionHandler(.allow)
+        }
+    }
+//
+    @available(macOS 11.3, *) override func startDownload(using request: URLRequest, completionHandler: @escaping (WKDownload) -> Void) {
+        fatalError()
+    }
+    
+    @available(macOS 11.3, *)
+    override func resumeDownload(fromResumeData resumeData: Data, completionHandler: @escaping (WKDownload) -> Void) {
+        fatalError()
+    }
+    
+    @available(macOS 11.3, *)
+    func webView(_ webView: WKWebView, navigationAction: WKNavigationAction, didBecome download: WKDownload) {
+        download.delegate = self
+    }
+    
+    @available(macOS 11.3, *)
+    func webView(_ webView: WKWebView, navigationResponse: WKNavigationResponse, didBecome download: WKDownload) {
+        download.delegate = self
     }
     
     final class func clear() {
