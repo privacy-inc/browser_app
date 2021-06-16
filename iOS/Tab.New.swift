@@ -11,39 +11,40 @@ extension Tab {
                     .edgesIgnoringSafeArea(.horizontal)
                 GeometryReader { proxy in
                     ScrollView {
-                        HStack {
-                            Text("Bookmarks")
-                                .font(.footnote.bold())
-                                .foregroundColor(.accentColor)
-                                .padding(.leading)
-                            Spacer()
-                            Button {
-                                session.modal = .bookmarks(id)
-                            } label: {
-                                Image(systemName: "list.bullet")
-                                    .font(.title3)
-                                    .frame(width: 65, height: 30)
-                                    .contentShape(Rectangle())
+                        Button {
+                            session.modal = .bookmarks(id)
+                        } label: {
+                            ZStack {
+                                Capsule()
+                                    .fill(Color.accentColor)
+                                Label("Bookmarks", systemImage: "list.bullet")
+                                    .font(.callout)
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 7)
+                                    .padding(.horizontal)
                             }
+                            .contentShape(Rectangle())
+                            .fixedSize()
                         }
                         .padding(.top)
                         Bookmarks(session: $session, id: id)
-                        HStack {
-                            Text("Recent")
-                                .font(.footnote.bold())
-                                .foregroundColor(.accentColor)
-                                .padding(.leading)
-                            Spacer()
-                            Button {
-                                session.modal = .history(id)
-                            } label: {
-                                Image(systemName: "list.bullet")
-                                    .font(.title3)
-                                    .frame(width: 65, height: 30)
-                                    .contentShape(Rectangle())
+                        Button {
+                            session.modal = .history(id)
+                        } label: {
+                            ZStack {
+                                Capsule()
+                                    .fill(Color.accentColor)
+                                Label("Recent", systemImage: "list.bullet")
+                                    .font(.callout)
+                                    .foregroundColor(.white)
+                                    .padding(.vertical, 7)
+                                    .padding(.horizontal)
                             }
+                            .contentShape(Rectangle())
+                            .fixedSize()
                         }
-                        .padding(.top, 30)
+                        .padding(.top, 50)
+                        .padding(.bottom)
                         History(session: $session, id: id, metrics: .init(size: proxy.size))
                     }
                 }
