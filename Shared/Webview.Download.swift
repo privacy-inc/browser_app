@@ -1,7 +1,7 @@
 import WebKit
 import Sleuth
 
-@available(macOS 11.3, iOS 14.5, *) extension Webview: WKDownloadDelegate, UIDocumentInteractionControllerDelegate {
+@available(macOS 11.3, iOS 14.5, *) extension Webview: WKDownloadDelegate {
     func webView(_: WKWebView, navigationAction: WKNavigationAction, didBecome: WKDownload) {
         didBecome.delegate = self
     }
@@ -48,5 +48,3 @@ import Sleuth
     
     #endif
 }
-
-import UIKit
