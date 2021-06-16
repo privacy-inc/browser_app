@@ -9,6 +9,7 @@ final class Web: Webview {
     init(id: UUID, browse: Int) {
         var settings = cloud.archive.value.settings
         
+        let background = !settings.dark && App.dark
         if !App.dark {
             settings.dark = false
         }
@@ -19,8 +20,10 @@ final class Web: Webview {
         
         super.init(configuration: configuration, id: id, browse: browse, settings: settings)
         translatesAutoresizingMaskIntoConstraints = false
-        setValue(false, forKey: "drawsBackground")
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
+        if !background {
+            setValue(false, forKey: "drawsBackground")
+        }
         
         session
             .load
