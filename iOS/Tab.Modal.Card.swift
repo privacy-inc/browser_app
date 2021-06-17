@@ -36,14 +36,21 @@ extension Tab.Modal {
                             find = true
                         }
                     }
-                    if session.tab[loading: id] {
-                        Control(title: "Stop", image: "xmark") {
-                            
+                    HStack {
+                        Control(title: "Close", image: "xmark") {
+                            (session.tab[web: id] as? Web.Coordinator)?.clear()
+                            tabber.close(id)
+                            session.section = .tabs(id)
                         }
-                    } else {
-                        Control(title: "Reload", image: "arrow.clockwise") {
-                            dismiss()
-                            session.reload.send(id)
+                        if session.tab[loading: id] {
+                            Control(title: "Stop", image: "xmark") {
+                                
+                            }
+                        } else {
+                            Control(title: "Reload", image: "arrow.clockwise") {
+                                dismiss()
+                                session.reload.send(id)
+                            }
                         }
                     }
                     Spacer()
