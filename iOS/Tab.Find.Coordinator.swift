@@ -12,22 +12,9 @@ extension Tab.Find {
             field.returnKeyType = .search
             field.leftViewMode = .always
             
-            let container = UIView()
-            container.translatesAutoresizingMaskIntoConstraints = false
-            container.isUserInteractionEnabled = false
-            
-            let icon = UIImageView(image: .init(systemName: "doc.text.magnifyingglass"))
-            icon.translatesAutoresizingMaskIntoConstraints = false
-            icon.contentMode = .center
-            icon.clipsToBounds = true
-            icon.tintColor = .secondaryLabel
-            container.addSubview(icon)
-            
-            field.leftView = container
-            
             let next = UIButton()
             next.translatesAutoresizingMaskIntoConstraints = false
-            next.setImage(UIImage(systemName: "arrow.right"), for: .normal)
+            next.setImage(UIImage(systemName: "doc.text.magnifyingglass"), for: .normal)
             next.imageView!.tintColor = .label
             next.addTarget(self, action: #selector(search), for: .touchUpInside)
             next.isEnabled = false
@@ -37,14 +24,8 @@ extension Tab.Find {
             
             field.leftAnchor.constraint(equalTo: cancel.rightAnchor).isActive = true
             field.rightAnchor.constraint(equalTo: next.leftAnchor, constant: -10).isActive = true
-            
-            icon.centerYAnchor.constraint(equalTo: container.centerYAnchor).isActive = true
-            icon.rightAnchor.constraint(equalTo: container.rightAnchor, constant: 2).isActive = true
-            
-            container.widthAnchor.constraint(equalToConstant: 27).isActive = true
-            container.heightAnchor.constraint(equalTo: container.widthAnchor).isActive = true
-            
             cancel.leftAnchor.constraint(equalTo: input.safeAreaLayoutGuide.leftAnchor).isActive = true
+            
             next.rightAnchor.constraint(equalTo: input.safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
             next.widthAnchor.constraint(equalToConstant: 50).isActive = true
             next.topAnchor.constraint(equalTo: input.topAnchor).isActive = true
