@@ -20,14 +20,13 @@ extension Collection {
                     VStack(alignment: .leading) {
                         if !bookmarks[index].title.isEmpty {
                             Text(verbatim: bookmarks[index].title)
-                                .font(.footnote)
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Text(verbatim: bookmarks[index].access.domain)
-                            .font(.caption2)
                             .foregroundColor(.secondary)
                     }
+                    .font(.footnote)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding(.vertical, 5)
                 }

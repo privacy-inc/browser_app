@@ -21,11 +21,16 @@ extension Trackers {
                         }
                 }
                 Spacer()
-                Text(NSNumber(value: count.count), formatter: session.decimal)
-                    .font(.callout.monospacedDigit())
-                    .foregroundColor(.secondary)
+                ZStack {
+                    Circle()
+                        .fill(Color(.secondarySystemFill))
+                    Text(NSNumber(value: count.count), formatter: session.decimal)
+                        .font(.footnote)
+                        .foregroundColor(.primary)
+                }
+                .frame(width: 38, height: 38)
             }
-            .padding(.vertical, 5)
+            .padding(.vertical, 6)
         }
     }
 }

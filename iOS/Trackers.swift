@@ -37,7 +37,7 @@ struct Trackers: View {
                     }
                 }
             }
-            .listStyle(GroupedListStyle())
+            .listStyle(InsetGroupedListStyle())
         }
         .onAppear {
             trackers = session.archive.trackers

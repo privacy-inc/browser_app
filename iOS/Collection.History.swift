@@ -19,17 +19,15 @@ extension Collection {
                     VStack(alignment: .leading) {
                         if !browse[index].page.title.isEmpty {
                             Text(verbatim: browse[index].page.title)
-                                .font(.footnote)
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
                         Text(verbatim: browse[index].page.access.domain)
-                            .font(.caption2)
                             .foregroundColor(.secondary)
                         Text(verbatim: RelativeDateTimeFormatter().string(from: browse[index].date))
-                            .font(.caption2)
                             .foregroundColor(.secondary)
                     }
+                    .font(.footnote)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                     .padding(.vertical, 3)
                 }

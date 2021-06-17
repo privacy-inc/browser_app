@@ -8,30 +8,34 @@ extension Tab.New {
         
         var body: some View {
             ForEach(0 ..< list.count, id: \.self) { index in
-                Rectangle()
-                    .fill(Color(.secondarySystemFill))
-                    .frame(height: 1)
-                    .padding(.horizontal)
                 Button {
                     cloud
                         .open(index) {
                             tabber.browse(id, $0)
                         }
                 } label: {
-                    VStack(alignment: .leading) {
+                    HStack {
+                        ZStack {
+                            RoundedRectangle(cornerRadius: 4)
+                                .fill(Color.accentColor)
+                            Text(verbatim: list[index].access.domain)
+                                .font(.caption2)
+                                .foregroundColor(.white)
+                                .padding(.vertical, 10)
+                                .padding(.horizontal, 8)
+                        }
+                        .fixedSize()
                         Text(verbatim: list[index].title)
                             .font(.footnote)
                             .foregroundColor(.primary)
                             .fixedSize(horizontal: false, vertical: true)
-                        Text(verbatim: list[index].access.domain)
-                            .font(.caption2)
-                            .foregroundColor(.secondary)
+                            .padding(.trailing)
                     }
-                    .padding(.vertical, 4)
                     .padding(.horizontal)
                     .contentShape(Rectangle())
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
+                .padding(.top, 12)
             }
         }
         

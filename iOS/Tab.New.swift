@@ -17,8 +17,8 @@ extension Tab {
                             ZStack {
                                 Capsule()
                                     .fill(Color.accentColor)
-                                Label("Bookmarks", systemImage: "list.bullet")
-                                    .font(.callout)
+                                Label("BOOKMARKS", systemImage: "list.bullet")
+                                    .font(.footnote.bold())
                                     .foregroundColor(.white)
                                     .padding(.vertical, 7)
                                     .padding(.horizontal)
@@ -26,7 +26,8 @@ extension Tab {
                             .contentShape(Rectangle())
                             .fixedSize()
                         }
-                        .padding(.top)
+                        .padding(.top, 25)
+                        .padding(.bottom, 10)
                         Bookmarks(session: $session, id: id)
                         Button {
                             session.modal = .history(id)
@@ -34,8 +35,8 @@ extension Tab {
                             ZStack {
                                 Capsule()
                                     .fill(Color.accentColor)
-                                Label("Recent", systemImage: "list.bullet")
-                                    .font(.callout)
+                                Label("RECENT", systemImage: "list.bullet")
+                                    .font(.footnote.bold())
                                     .foregroundColor(.white)
                                     .padding(.vertical, 7)
                                     .padding(.horizontal)
