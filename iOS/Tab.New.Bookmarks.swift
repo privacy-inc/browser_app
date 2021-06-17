@@ -16,18 +16,17 @@ extension Tab.New {
                 } label: {
                     HStack {
                         ZStack {
-                            RoundedRectangle(cornerRadius: 4)
-                                .fill(Color.accentColor)
+                            RoundedRectangle(cornerRadius: 6)
+                                .fill(Color(.tertiarySystemBackground))
                             Text(verbatim: list[index].access.domain)
-                                .font(.caption2)
-                                .foregroundColor(.white)
-                                .padding(.vertical, 10)
-                                .padding(.horizontal, 8)
+                                .font(.footnote)
+                                .foregroundColor(.primary)
+                                .padding(10)
                         }
                         .fixedSize()
                         Text(verbatim: list[index].title)
                             .font(.footnote)
-                            .foregroundColor(.primary)
+                            .foregroundColor(.secondary)
                             .fixedSize(horizontal: false, vertical: true)
                             .padding(.trailing)
                     }
@@ -35,7 +34,7 @@ extension Tab.New {
                     .contentShape(Rectangle())
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
-                .padding(.top, 12)
+                .padding(.top, 8)
             }
         }
         
