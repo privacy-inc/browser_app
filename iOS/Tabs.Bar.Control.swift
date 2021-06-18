@@ -3,12 +3,13 @@ import SwiftUI
 extension Tabs.Bar {
     struct Control: View {
         let image: String
+        var font = Font.title3
         let action: () -> Void
         
         var body: some View {
             Button(action: action) {
                 Image(systemName: image)
-                    .font(.title3)
+                    .font(font)
                     .frame(width: 60)
                     .frame(maxHeight: .greatestFiniteMagnitude)
                     .contentShape(Rectangle())

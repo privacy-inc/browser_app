@@ -11,7 +11,6 @@ extension Tab {
                 Indicator(show: show)
                     .stroke(Color.accentColor, lineWidth: 3)
                     .edgesIgnoringSafeArea(.horizontal)
-                    .offset(y: -2)
                 Spacer()
             }
             .onChange(of: session.tab[progress: id]) { value in

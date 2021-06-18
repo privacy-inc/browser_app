@@ -40,6 +40,11 @@ struct Search: View {
             }
             Bar(session: $session, filter: $filter, id: id)
                 .frame(height: 0)
+            session
+                .toast
+                .map {
+                    Toast(session: $session, message: $0)
+                }
         }
         .onAppear(perform: update)
         .onChange(of: filter) { _ in

@@ -3,6 +3,7 @@ import SwiftUI
 extension Tabs {
     struct Bar: View {
         @Binding var session: Session
+        let closeAll: () -> Void
         @State private var flame = false
         
         var body: some View {
@@ -13,38 +14,28 @@ extension Tabs {
                 .actionSheet(isPresented: $flame) {
                     .init(title: .init("FORGET"),
                           buttons: [
-                            .default(.init("Close all tabs")) {
-                                session
-                                    .tab
-                                    .ids
-                                    .forEach {
-                                        (session.tab[web: $0] as? Web.Coordinator)?.clear()
-                                    }
-                                
-                                withAnimation(.spring(blendDuration: 0.4)) {
-                                    session.section = .search(tabber.closeAll())
-                                }
-                            },
-                            .default(.init("Delete cache")) {
+                            .default(.init("Cache")) {
                                 Webview.clear()
-                                session.toast = .init(title: "Deleted cache", icon: "trash.fill")
+                                session.toast = .init(title: "Forgot cache", icon: "trash.fill")
                             },
-                            .default(.init("Delete history")) {
+                            .default(.init("History")) {
                                 cloud.forgetBrowse()
-                                session.toast = .init(title: "Deleted history", icon: "clock.fill")
+                                session.toast = .init(title: "Forgot history", icon: "clock.fill")
+                                closeAll()
                             },
-                            .default(.init("Delete activity")) {
+                            .default(.init("Activity")) {
                                 cloud.forgetActivity()
-                                session.toast = .init(title: "Deleted activity", icon: "chart.bar.xaxis")
+                                session.toast = .init(title: "Forgot activity", icon: "chart.bar.xaxis")
                             },
-                            .default(.init("Delete trackers")) {
+                            .default(.init("Trackers")) {
                                 cloud.forgetBlocked()
-                                session.toast = .init(title: "Deleted trackers", icon: "shield.lefthalf.fill")
+                                session.toast = .init(title: "Forgot trackers", icon: "shield.lefthalf.fill")
                             },
-                            .destructive(.init("Delete everything")) {
+                            .destructive(.init("Everything")) {
                                 Webview.clear()
                                 cloud.forget()
-                                session.toast = .init(title: "Deleted everything", icon: "flame.fill")
+                                session.toast = .init(title: "Forgot everything", icon: "flame.fill")
+                                closeAll()
                             },
                             .cancel()])
                 }
@@ -53,7 +44,7 @@ extension Tabs {
                     session.modal = .activity
                 }
                 
-                Control(image: "plus") {
+                Control(image: "plus", font: .title2) {
                     session.modal = nil
                     withAnimation(.spring(blendDuration: 0.4)) {
                         session.section = .search(tabber.new())
