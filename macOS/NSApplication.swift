@@ -66,6 +66,16 @@ extension NSApplication {
             .makeKeyAndOrderFront(nil)
     }
     
+    func closeAll() {
+        windows
+            .filter {
+                $0 is Window
+            }
+            .forEach {
+                $0.close()
+            }
+    }
+    
     @objc func preferences() {
         (window() ?? Settings())
             .makeKeyAndOrderFront(nil)

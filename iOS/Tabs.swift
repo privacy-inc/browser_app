@@ -11,19 +11,29 @@ struct Tabs: View {
             ZStack {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
-                GeometryReader { proxy in
-                    ScrollView(.horizontal) {
-                        ScrollViewReader { scroll in
-                            HStack(spacing: 5) {
-                                ForEach(0 ..< ids.count, id: \.self) {
-                                    Item(session: $session, id: ids[$0], namespace: namespace, size: proxy.size)
-                                        .id(ids[$0])
+                VStack(alignment: .leading) {
+                    Button(action: closeAll) {
+                        Label("CLOSE ALL", systemImage: "xmark")
+                            .font(.footnote)
+                            .foregroundColor(.secondary)
+                            .frame(height: 28)
+                            .contentShape(Rectangle())
+                    }
+                    .padding([.leading, .top])
+                    GeometryReader { proxy in
+                        ScrollView(.horizontal) {
+                            ScrollViewReader { scroll in
+                                HStack(spacing: 5) {
+                                    ForEach(0 ..< ids.count, id: \.self) {
+                                        Item(session: $session, id: ids[$0], namespace: namespace, size: proxy.size)
+                                            .id(ids[$0])
+                                    }
                                 }
-                            }
-                            .padding()
-                            .onAppear {
-                                previous.map {
-                                    scroll.scrollTo($0, anchor: .center)
+                                .padding([.leading, .trailing, .bottom])
+                                .onAppear {
+                                    previous.map {
+                                        scroll.scrollTo($0, anchor: .center)
+                                    }
                                 }
                             }
                         }
