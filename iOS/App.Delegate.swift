@@ -11,7 +11,7 @@ extension App {
         
         func application(_ application: UIApplication, willFinishLaunchingWithOptions: [UIApplication.LaunchOptionsKey : Any]? = nil) -> Bool {
             application.registerForRemoteNotifications()
-
+            
             cloud
                 .archive
                 .removeDuplicates()

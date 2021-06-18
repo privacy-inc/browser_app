@@ -43,6 +43,7 @@ extension Search {
                 .padding(.vertical, 22)
                 .padding(.leading, 30)
             }
+            .padding(.horizontal)
         }
     }
 }

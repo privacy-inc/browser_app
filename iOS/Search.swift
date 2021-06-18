@@ -18,15 +18,25 @@ struct Search: View {
                     .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
             } else {
                 ScrollView(showsIndicators: false) {
+                    Spacer()
+                        .frame(height: 20)
                     if !bookmarks.isEmpty {
                         Autocomplete(session: $session, id: id, title: "BOOKMARKS", items: bookmarks)
                     }
                     if !recent.isEmpty {
                         Autocomplete(session: $session, id: id, title: "RECENT", items: recent)
                     }
+                    Spacer()
+                        .frame(height: 20)
                 }
                 .animation(.spring(blendDuration: 0.2))
-                .padding()
+            }
+            VStack {
+                Spacer()
+                Rectangle()
+                    .fill(Color.black)
+                    .frame(height: 1)
+                    .edgesIgnoringSafeArea(.horizontal)
             }
             Bar(session: $session, filter: $filter, id: id)
                 .frame(height: 0)
