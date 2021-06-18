@@ -9,8 +9,8 @@ final class Web: Webview {
     init(id: UUID, browse: Int) {
         var settings = cloud.archive.value.settings
         
-        let background = !settings.dark && App.dark
-        if !App.dark {
+        let background = !settings.dark && NSApp.dark
+        if !NSApp.dark {
             settings.dark = false
         }
         

@@ -11,7 +11,6 @@ let purchases = Purchases()
 let location = Location()
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
-    static let dark = NSApp.windows.first?.effectiveAppearance == .init(named: .darkAqua)
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }

@@ -1,6 +1,10 @@
 import AppKit
 
 extension NSApplication {
+    var dark: Bool {
+        effectiveAppearance.name != .aqua
+    }
+    
     @objc func newTab() {
         newTab(id: tabber.new(), search: true, change: true)
     }
