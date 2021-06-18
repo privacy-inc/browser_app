@@ -15,7 +15,23 @@ struct Settings: View {
     @State private var third = true
     
     var body: some View {
-        Popup(title: "Settings", leading: { }) {
+        Popup(title: "Settings", leading: {
+            Button {
+                session.modal = nil
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    session.modal = .store
+                }
+            } label: {
+                HStack {
+                    Text("Privacy")
+                        .font(.callout)
+                    Image(systemName: "plus")
+                        .font(.body)
+                }
+                .padding([.top, .bottom, .trailing])
+            }
+            .contentShape(Rectangle())
+        }) {
             List {
                 Section(header: Text("Search Engine")) {
                     Picker("Search Engine", selection: $engine) {
@@ -48,18 +64,6 @@ struct Settings: View {
                 }
                 Section {
                     NavigationLink("Default browser", destination: Default(session: $session))
-                }
-                Section {
-                    Button {
-                        session.modal = nil
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            session.modal = .store
-                        }
-                    } label: {
-                        Text("Privacy +")
-                            .font(.callout.bold())
-                            .frame(maxWidth: .greatestFiniteMagnitude)
-                    }
                 }
             }
             .toggleStyle(SwitchToggleStyle(tint: .accentColor))
