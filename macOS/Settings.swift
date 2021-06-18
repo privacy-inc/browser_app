@@ -30,8 +30,8 @@ final class Settings: NSWindow {
         tab.addTabViewItem(General())
         tab.addTabViewItem(Features())
         tab.addTabViewItem(Security())
-        tab.addTabViewItem(Location())
         tab.addTabViewItem(Privacy())
+        tab.addTabViewItem(Location())
         contentView!.addSubview(tab)
         
         disclaimer.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor, constant: -20).isActive = true
