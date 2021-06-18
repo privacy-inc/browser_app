@@ -18,7 +18,7 @@ let location = Location()
         super.init()
         delegate = self
         
-        SecKeychainSetSearchList([] as CFArray)
+        SecKeychainSetUserInteractionAllowed(false)
         
         NSAppleEventManager.shared().setEventHandler(
             self,
