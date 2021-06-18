@@ -131,7 +131,14 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
         guard settings.http else {
-            completionHandler(.performDefaultHandling, nil)
+            var result = SecTrustResultType.invalid
+            SecTrustGetTrustResult(didReceive.protectionSpace.serverTrust!, &result)
+            switch result {
+            case .unspecified:
+                completionHandler(.cancelAuthenticationChallenge, nil)
+            default:
+                completionHandler(.performDefaultHandling, nil)
+            }
             return
         }
         completionHandler(.useCredential, didReceive.protectionSpace.serverTrust.map(URLCredential.init(trust:)))

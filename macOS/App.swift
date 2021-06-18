@@ -18,6 +18,8 @@ let location = Location()
         super.init()
         delegate = self
         
+        SecKeychainSetSearchList([] as CFArray)
+        
         NSAppleEventManager.shared().setEventHandler(
             self,
             andSelector: #selector(handle(_:_:)),
