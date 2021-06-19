@@ -1,17 +1,17 @@
 import SwiftUI
 
 struct Blur: UIViewRepresentable {
-    let effect: UIVisualEffect
+    let style: UIBlurEffect.Style
     
-    func makeCoordinator() -> Coordinator {
-        .init(effect: effect)
+    func makeCoordinator() -> UIVisualEffectView {
+        .init(effect: UIBlurEffect(style: style))
     }
     
-    func makeUIView(context: Context) -> Coordinator {
+    func makeUIView(context: Context) -> UIVisualEffectView {
         context.coordinator
     }
     
-    func updateUIView(_: Coordinator, context: Context) {
+    func updateUIView(_: UIVisualEffectView, context: Context) {
         
     }
 }

@@ -15,7 +15,7 @@ extension Tab.Find {
             let next = UIButton()
             next.translatesAutoresizingMaskIntoConstraints = false
             next.setImage(UIImage(systemName: "doc.text.magnifyingglass"), for: .normal)
-            next.imageView!.tintColor = .label
+            next.imageView!.tintColor = .systemBlue
             next.addTarget(self, action: #selector(search), for: .touchUpInside)
             next.isEnabled = false
             next.imageEdgeInsets.top = 4
@@ -44,9 +44,6 @@ extension Tab.Find {
         func textFieldDidChangeSelection(_: UITextField) {
             {
                 _next.isEnabled = !$0.isEmpty
-                if $0.count > 3 {
-                    search()
-                }
             } (query)
         }
         

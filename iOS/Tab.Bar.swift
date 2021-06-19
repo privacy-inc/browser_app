@@ -8,31 +8,40 @@ extension Tab {
         let tabs: () -> Void
         
         var body: some View {
-            ZStack {
-                Color(.quaternarySystemFill)
-                    .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
-                HStack(spacing: 0) {
-                    Control(disabled: !session.tab[state: id].isBrowse || !session.tab[back: id], image: "arrow.left") {
-                        session.back.send(id)
-                    }
-                    Control(disabled: !session.tab[state: id].isBrowse || !session.tab[forward: id], image: "arrow.right") {
-                        session.forward.send(id)
-                    }
-                    Search(session: $session, id: id)
-                        .padding(.horizontal, 10)
-                    Control(disabled: !session.tab[state: id].isBrowse, image: "line.horizontal.3") {
-                        UIApplication.shared.resign()
-                        withAnimation(.easeInOut(duration: 0.25)) {
-                            modal = true
+            VStack {
+                Spacer()
+                ZStack {
+                    Blur(style: .systemThinMaterial)
+                        .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
+                    VStack(spacing: 0) {
+                        Rectangle()
+                            .fill(Color(.systemBackground).opacity(0.25))
+                            .frame(height: 1)
+                            .allowsHitTesting(false)
+                        HStack(spacing: 0) {
+                            Control(disabled: !session.tab[state: id].isBrowse || !session.tab[back: id], image: "arrow.left") {
+                                session.back.send(id)
+                            }
+                            Control(disabled: !session.tab[state: id].isBrowse || !session.tab[forward: id], image: "arrow.right") {
+                                session.forward.send(id)
+                            }
+                            Search(session: $session, id: id)
+                                .padding(.horizontal, 10)
+                            Control(disabled: !session.tab[state: id].isBrowse, image: "line.horizontal.3") {
+                                UIApplication.shared.resign()
+                                withAnimation(.easeInOut(duration: 0.25)) {
+                                    modal = true
+                                }
+                            }
+                            Control(image: "app", action: tabs)
                         }
+                        .frame(height: 34)
+                        .padding(.horizontal)
+                        .padding(.vertical, 10)
                     }
-                    Control(image: "app", action: tabs)
                 }
-                .frame(height: 34)
-                .padding(.horizontal)
-                .padding(.vertical, 10)
+                .fixedSize(horizontal: false, vertical: true)
             }
-            .fixedSize(horizontal: false, vertical: true)
         }
     }
 }

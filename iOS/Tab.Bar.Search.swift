@@ -14,7 +14,7 @@ extension Tab.Bar {
             } label: {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
-                        .fill(Color(.tertiarySystemFill))
+                        .fill(Color(white: 0, opacity: 0.05))
                     Image(systemName: "magnifyingglass")
                         .foregroundColor(.primary)
                 }

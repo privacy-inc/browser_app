@@ -31,14 +31,14 @@ struct Search: View {
                 }
                 .animation(.spring(blendDuration: 0.2))
             }
-            VStack {
+            VStack(spacing: 0) {
                 Spacer()
-                Rectangle()
-                    .fill(Color.black)
-                    .frame(height: 1)
-                    .allowsHitTesting(false)
-                    .edgesIgnoringSafeArea(.horizontal)
+                Color
+                    .black
+                    .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
+                    .fixedSize(horizontal: false, vertical: true)
             }
+            .allowsHitTesting(false)
             Bar(session: $session, filter: $filter, id: id)
                 .frame(height: 0)
             session

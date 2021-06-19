@@ -8,9 +8,9 @@ extension Tab {
         var body: some View {
             ZStack {
                 Color(.secondarySystemBackground)
-                    .edgesIgnoringSafeArea(.horizontal)
+                    .edgesIgnoringSafeArea([.leading, .trailing, .top])
                 GeometryReader { proxy in
-                    ScrollView {
+                    ScrollView(showsIndicators: false) {
                         Button {
                             session.modal = .bookmarks(id)
                         } label: {
@@ -47,6 +47,7 @@ extension Tab {
                         .padding(.top, 50)
                         .padding(.bottom)
                         History(session: $session, id: id, metrics: .init(size: proxy.size))
+                            .padding(.bottom, 60)
                     }
                 }
             }

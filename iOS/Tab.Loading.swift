@@ -7,13 +7,23 @@ extension Tab {
         @State private var show = AnimatablePair(Double(), Double())
         
         var body: some View {
-            VStack {
+            VStack(spacing: 0) {
+                ZStack {
+                    Blur(style: .systemThinMaterial)
+                        .edgesIgnoringSafeArea([.leading, .trailing, .top])
+                    Rectangle()
+                        .fill(Color(.systemBackground).opacity(0.25))
+                        .frame(height: 1)
+                        .allowsHitTesting(false)
+                }
+                .fixedSize(horizontal: false, vertical: true)
                 Indicator(show: show)
                     .stroke(Color.accentColor, lineWidth: 3)
+                    .frame(height: 3)
                     .edgesIgnoringSafeArea(.horizontal)
-                    .offset(y: 2)
                 Spacer()
             }
+            .allowsHitTesting(false)
             .onChange(of: session.tab[progress: id]) { value in
                 show.first = 0
                 withAnimation(.easeInOut(duration: 0.3)) {

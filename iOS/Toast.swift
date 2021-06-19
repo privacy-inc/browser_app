@@ -9,7 +9,7 @@ struct Toast: View {
         VStack {
             if visible {
                 ZStack {
-                    Blur(effect: UIBlurEffect(style: .systemThinMaterial))
+                    Blur(style: .systemThinMaterial)
                         .edgesIgnoringSafeArea([.top, .leading, .trailing])
                     VStack {
                         Label(message.title, systemImage: message.icon)

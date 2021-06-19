@@ -11,7 +11,7 @@ extension Tab {
         var body: some View {
             ZStack {
                 if show {
-                    Blur(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
+                    Blur(style: .systemUltraThinMaterialDark)
                         .edgesIgnoringSafeArea(.all)
                         .onTapGesture(perform: dismiss)
                     VStack(spacing: 0) {

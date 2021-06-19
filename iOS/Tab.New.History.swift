@@ -31,6 +31,7 @@ extension Tab.New {
                 .browse
                 .prefix(20)
                 .reduce(into: (Array(repeating: [], count: metrics.columns), metrics.columns)) {
+                    guard metrics.columns > 0 else { return }
                     $0.1 = $0.1 < metrics.columns - 1 ? $0.1 + 1 : 0
                     $0.0[$0.1].append($1)
                 }
