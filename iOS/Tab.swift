@@ -41,6 +41,7 @@ struct Tab: View {
                         .frame(height: 1)
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
+                .allowsHitTesting(!modal)
                 Loading(session: $session, id: id)
                 Modal(session: $session, show: $modal, find: $find, id: id)
                 session

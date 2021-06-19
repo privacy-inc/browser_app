@@ -11,14 +11,14 @@ extension Tab {
         var body: some View {
             ZStack {
                 if show {
-                    Color.black.opacity(0.7)
+                    Blur(effect: UIBlurEffect(style: .systemUltraThinMaterialDark))
                         .edgesIgnoringSafeArea(.all)
                         .onTapGesture(perform: dismiss)
                     VStack(spacing: 0) {
                         Spacer()
                         HStack {
                             Capsule()
-                                .fill(Color(.tertiarySystemBackground))
+                                .fill(Color(.systemBackground).opacity(0.5))
                                 .frame(width: 60, height: 3)
                                 .padding(.bottom, 12)
                                 .padding(.top, 40)
@@ -50,6 +50,8 @@ extension Tab {
                     )
                 }
             }
+            .allowsHitTesting(show)
+            .accessibilityAddTraits(.isModal)
             .onChange(of: show) {
                 if $0 {
                     find = false

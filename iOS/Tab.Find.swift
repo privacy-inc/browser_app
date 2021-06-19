@@ -14,6 +14,8 @@ extension Tab {
             context.coordinator
         }
         
-        func updateUIView(_: Coordinator, context: Context) { }
+        func updateUIView(_: Coordinator, context: Context) {
+            
+        }
     }
 }

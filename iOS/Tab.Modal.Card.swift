@@ -10,7 +10,7 @@ extension Tab.Modal {
         var body: some View {
             ZStack {
                 RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.tertiarySystemBackground))
+                    .fill(Color(.systemBackground).opacity(0.5))
                 VStack {
                     HStack {
                         Control(title: "Info", image: "info.circle") {
