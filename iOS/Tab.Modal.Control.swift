@@ -10,7 +10,7 @@ extension Tab.Modal {
             Button(action: action) {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
-                        .fill(Color(.systemBackground).opacity(0.2))
+                        .fill(Color(.systemBackground).opacity(0.1))
                     HStack {
                         Text(title)
                         Spacer()

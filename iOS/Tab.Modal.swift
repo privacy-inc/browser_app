@@ -18,7 +18,7 @@ extension Tab {
                         Spacer()
                         HStack {
                             Capsule()
-                                .fill(Color(.systemBackground).opacity(0.5))
+                                .fill(Color(.systemBackground).opacity(0.3))
                                 .frame(width: 60, height: 3)
                                 .padding(.bottom, 12)
                                 .padding(.top, 40)
@@ -35,7 +35,7 @@ extension Tab {
                         DragGesture()
                             .onChanged { gesture in
                                 withAnimation(.spring(blendDuration: 0.25)) {
-                                    offset = max(-250 + gesture.translation.height, -400)
+                                    offset = max(-280 + gesture.translation.height, -400)
                                 }
                             }
                             .onEnded {
@@ -43,7 +43,7 @@ extension Tab {
                                     dismiss()
                                 } else {
                                     withAnimation(.easeInOut(duration: 0.3)) {
-                                        offset = -250
+                                        offset = -280
                                     }
                                 }
                             }
@@ -57,7 +57,7 @@ extension Tab {
                     find = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
                         withAnimation(.spring(blendDuration: 0.1)) {
-                            offset = -250
+                            offset = -280
                         }
                     }
                 }

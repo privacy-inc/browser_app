@@ -9,8 +9,8 @@ extension Tab.Modal {
         
         var body: some View {
             ZStack {
-                RoundedRectangle(cornerRadius: 10)
-                    .fill(Color(.systemBackground).opacity(0.5))
+                RoundedRectangle(cornerRadius: 14)
+                    .fill(Color(.systemBackground).opacity(0.3))
                 VStack {
                     HStack {
                         Control(title: "Info", image: "info.circle") {
@@ -55,6 +55,7 @@ extension Tab.Modal {
                     }
                     Spacer()
                 }
+                .padding(.top, 5)
                 .padding([.top, .leading, .trailing])
             }
         }
