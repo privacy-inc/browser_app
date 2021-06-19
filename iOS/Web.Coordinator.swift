@@ -6,6 +6,12 @@ extension Web {
     final class Coordinator: Webview {
         weak var newTab: PassthroughSubject<URL, Never>!
         
+        override var safeAreaInsets: UIEdgeInsets {
+            var insets = super.safeAreaInsets
+            insets.bottom += 60
+            return insets
+        }
+        
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web, id: UUID, browse: Int) {
             newTab = wrapper.session.newTab
