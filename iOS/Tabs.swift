@@ -9,7 +9,7 @@ struct Tabs: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
-                Color(.secondarySystemBackground)
+                Color(.systemFill)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
                 VStack(alignment: .leading) {
                     Button(action: closeAll) {

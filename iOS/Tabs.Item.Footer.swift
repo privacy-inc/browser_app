@@ -9,17 +9,14 @@ extension Tabs.Item {
             VStack(alignment: .leading) {
                 if !title.isEmpty {
                     Text(verbatim: title)
-                        .font(.footnote)
-                        .lineLimit(1)
-                        .padding(.horizontal)
                 }
                 Text(verbatim: subtitle)
-                    .font(.caption2)
-                    .lineLimit(1)
                     .foregroundColor(.secondary)
-                    .padding(.leading)
                 Spacer()
             }
+            .lineLimit(1)
+            .font(.footnote)
+            .padding(.horizontal)
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
         }
         

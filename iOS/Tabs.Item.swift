@@ -51,7 +51,7 @@ extension Tabs {
                     }
                 }
                 Footer(session: $session, id: id)
-                    .frame(width: size.width * 0.7, height: 55)
+                Spacer()
             }
             .matchedGeometryEffect(id: id, in: namespace, properties: .position, isSource: false)
         }
