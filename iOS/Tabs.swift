@@ -48,6 +48,7 @@ struct Tabs: View {
             Rectangle()
                 .fill(Color.accentColor)
                 .frame(height: 1)
+                .allowsHitTesting(false)
             Bar(session: $session, closeAll: closeAll)
         }
     }

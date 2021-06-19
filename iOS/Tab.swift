@@ -23,6 +23,7 @@ struct Tab: View {
                     Rectangle()
                         .fill(Color.secondary)
                         .frame(height: 1)
+                        .allowsHitTesting(false)
                     switch session.tab[state: id] {
                     case .new:
                         New(session: $session, id: id)
@@ -39,10 +40,12 @@ struct Tab: View {
                     Rectangle()
                         .fill(Color.secondary)
                         .frame(height: 1)
+                        .allowsHitTesting(false)
                     Bar(session: $session, modal: $modal, id: id, tabs: tabs)
                 }
                 .allowsHitTesting(!modal)
                 Loading(session: $session, id: id)
+                    .allowsHitTesting(false)
                 Modal(session: $session, show: $modal, find: $find, id: id)
                 session
                     .toast

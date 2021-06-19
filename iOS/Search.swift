@@ -36,6 +36,7 @@ struct Search: View {
                 Rectangle()
                     .fill(Color.black)
                     .frame(height: 1)
+                    .allowsHitTesting(false)
                     .edgesIgnoringSafeArea(.horizontal)
             }
             Bar(session: $session, filter: $filter, id: id)

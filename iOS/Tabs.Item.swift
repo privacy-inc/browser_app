@@ -19,6 +19,7 @@ extension Tabs {
                         Rectangle()
                             .fill(Color(.systemFill))
                             .frame(height: 1)
+                            .allowsHitTesting(false)
                         Image(systemName: "xmark")
                             .foregroundColor(.primary)
                             .frame(height: 45)
