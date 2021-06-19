@@ -22,7 +22,7 @@ extension Tab {
                         .padding(.horizontal, 10)
                     Control(disabled: !session.tab[state: id].isBrowse, image: "line.horizontal.3") {
                         UIApplication.shared.resign()
-                        withAnimation(.easeInOut(duration: 0.3)) {
+                        withAnimation(.easeInOut(duration: 0.25)) {
                             modal = true
                         }
                     }

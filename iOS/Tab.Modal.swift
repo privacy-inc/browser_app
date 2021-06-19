@@ -54,7 +54,7 @@ extension Tab {
                 if $0 {
                     find = false
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.05) {
-                        withAnimation(.spring(blendDuration: 0.2)) {
+                        withAnimation(.spring(blendDuration: 0.1)) {
                             offset = -250
                         }
                     }
@@ -64,11 +64,11 @@ extension Tab {
         
         private func dismiss() {
             UIApplication.shared.resign()
-            withAnimation(.spring(blendDuration: 0.2)) {
+            withAnimation(.spring(blendDuration: 0.15)) {
                 offset = 0
             }
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-                withAnimation(.easeInOut(duration: 0.2)) {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.15) {
+                withAnimation(.easeInOut(duration: 0.1)) {
                     show = false
                 }
             }
