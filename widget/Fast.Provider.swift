@@ -18,8 +18,8 @@ extension Fast {
             let items = intent.sites == .bookmarks
                 ? archive
                     .bookmarks
-                    .enumerated()
                     .prefix(8)
+                    .enumerated()
                     .map {
                         Entry.Item(id: $0.0, sites: .bookmarks, title: $0.1.title, domain: $0.1.access.domain)
                     }

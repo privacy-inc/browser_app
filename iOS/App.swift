@@ -44,14 +44,55 @@ let purchases = Purchases()
                 switch url.scheme {
                 case "privacy":
                     switch url.host {
-                    case "id":
+                    case "history":
                         UIApplication.shared.resign()
                         Int(url.lastPathComponent)
-                            .map {
-                                let id = tabber.new()
-                                cloud.revisit($0)
-                                tabber.browse(id, $0)
-                                session.section = .tab(id)
+                            .map { browse in
+                                let complete = {
+                                    let id = tabber.new()
+                                    cloud.revisit(browse)
+                                    tabber.browse(id, browse)
+                                    session.section = .tab(id)
+                                }
+                                switch session.section {
+                                case let .tab(id):
+                                    if session.tab[state: id].isBrowse {
+                                        session.section = .tabs(nil)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            complete()
+                                        }
+                                    } else {
+                                        complete()
+                                    }
+                                default:
+                                    complete()
+                                }
+                            }
+                    case "bookmark":
+                        UIApplication.shared.resign()
+                        Int(url.lastPathComponent)
+                            .map { index in
+                                let complete = {
+                                    let id = tabber.new()
+                                    cloud
+                                        .open(index) {
+                                            tabber.browse(id, $0)
+                                        }
+                                    session.section = .tab(id)
+                                }
+                                switch session.section {
+                                case let .tab(id):
+                                    if session.tab[state: id].isBrowse {
+                                        session.section = .tabs(nil)
+                                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
+                                            complete()
+                                        }
+                                    } else {
+                                        complete()
+                                    }
+                                default:
+                                    complete()
+                                }
                             }
                     default:
                         switch session.section {
