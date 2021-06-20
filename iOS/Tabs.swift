@@ -9,7 +9,7 @@ struct Tabs: View {
     var body: some View {
         VStack(spacing: 0) {
             ZStack {
-                Color(.secondarySystemFill)
+                Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea([.top, .leading, .trailing])
                 VStack(alignment: .leading) {
                     Button(action: closeAll) {
@@ -46,7 +46,7 @@ struct Tabs: View {
                     }
             }
             Rectangle()
-                .fill(Color.accentColor)
+                .fill(Color(.systemFill))
                 .frame(height: 1)
                 .allowsHitTesting(false)
             Bar(session: $session, closeAll: closeAll)

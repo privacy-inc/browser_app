@@ -50,6 +50,7 @@ extension Tabs {
                                 .frame(width: size.width * 0.7, height: size.height - 145)
                         }
                     }
+                    .fixedSize()
                 }
                 Footer(session: $session, id: id)
                 Spacer()

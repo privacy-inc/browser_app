@@ -10,8 +10,12 @@ struct Search: View {
     
     var body: some View {
         ZStack {
+            Color
+                .black
+                .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
             Color(white: 0.2, opacity: 1)
-                .edgesIgnoringSafeArea(.all)
+                .padding(.bottom, 1)
+                .edgesIgnoringSafeArea([.leading, .trailing, .top])
             if bookmarks.isEmpty && recent.isEmpty {
                 Image("blank")
                     .padding(.top, 100)
@@ -31,14 +35,6 @@ struct Search: View {
                 }
                 .animation(.spring(blendDuration: 0.2))
             }
-            VStack(spacing: 0) {
-                Spacer()
-                Color
-                    .black
-                    .edgesIgnoringSafeArea([.leading, .trailing, .bottom])
-                    .fixedSize(horizontal: false, vertical: true)
-            }
-            .allowsHitTesting(false)
             Bar(session: $session, filter: $filter, id: id)
                 .frame(height: 0)
             session

@@ -118,6 +118,13 @@
 		CE9E175E2661053100E8BF24 /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE919A90264D58480051EE27 /* Webview.swift */; };
 		CEA0027F2668DE970098B04D /* Window.Share.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA0027E2668DE970098B04D /* Window.Share.swift */; };
 		CEA002812668E10D0098B04D /* Window.Share.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA002802668E10D0098B04D /* Window.Share.Option.swift */; };
+		CEA02A7B267F3A35006851F4 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA02A7A267F3A35006851F4 /* WidgetKit.framework */; };
+		CEA02A7D267F3A35006851F4 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA02A7C267F3A35006851F4 /* SwiftUI.framework */; };
+		CEA02A80267F3A35006851F4 /* widget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA02A7F267F3A35006851F4 /* widget.swift */; };
+		CEA02A83267F3A36006851F4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEA02A82267F3A36006851F4 /* Assets.xcassets */; };
+		CEA02A85267F3A36006851F4 /* widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = CEA02A81267F3A36006851F4 /* widget.intentdefinition */; };
+		CEA02A86267F3A36006851F4 /* widget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = CEA02A81267F3A36006851F4 /* widget.intentdefinition */; };
+		CEA02A89267F3A36006851F4 /* widget.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CEA02A79267F3A35006851F4 /* widget.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CEA65F42265D0A7400A35436 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F41265D0A7400A35436 /* App.swift */; };
 		CEA65F44265D0A9900A35436 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEA65F43265D0A9900A35436 /* Sleuth */; };
 		CEA65F46265D0AC700A35436 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F45265D0AC700A35436 /* Session.swift */; };
@@ -195,6 +202,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		CEA02A87267F3A36006851F4 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = CE85774D264821A50026C302 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = CEA02A78267F3A35006851F4;
+			remoteInfo = widgetExtension;
+		};
 		CECA7FE5265D06C900B3B600 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = CE85774D264821A50026C302 /* Project object */;
@@ -212,6 +226,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		CEA02A8A267F3A36006851F4 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				CEA02A89267F3A36006851F4 /* widget.appex in Embed App Extensions */,
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CECA7FF7265D06C900B3B600 /* Embed Watch Content */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -344,6 +369,13 @@
 		CE9E175C2661051900E8BF24 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CEA0027E2668DE970098B04D /* Window.Share.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Share.swift; sourceTree = "<group>"; };
 		CEA002802668E10D0098B04D /* Window.Share.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Share.Option.swift; sourceTree = "<group>"; };
+		CEA02A79267F3A35006851F4 /* widget.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = widget.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		CEA02A7A267F3A35006851F4 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		CEA02A7C267F3A35006851F4 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		CEA02A7F267F3A35006851F4 /* widget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = widget.swift; sourceTree = "<group>"; };
+		CEA02A81267F3A36006851F4 /* widget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = widget.intentdefinition; sourceTree = "<group>"; };
+		CEA02A82267F3A36006851F4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		CEA02A84267F3A36006851F4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEA65F41265D0A7400A35436 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CEA65F45265D0AC700A35436 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEA65F47265D0B0800A35436 /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
@@ -430,6 +462,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CEA02A76267F3A35006851F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA02A7D267F3A35006851F4 /* SwiftUI.framework in Frameworks */,
+				CEA02A7B267F3A35006851F4 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		CECA7FE0265D06C900B3B600 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -461,6 +502,7 @@
 				CE919A89264D53930051EE27 /* Shared */,
 				CECA7FDB265D06C800B3B600 /* watchOS */,
 				CECA7FE7265D06C900B3B600 /* watchOS Extension */,
+				CEA02A7E267F3A35006851F4 /* widget */,
 			);
 			sourceTree = "<group>";
 		};
@@ -486,6 +528,8 @@
 				CEF58639265E4E3900D9A6F1 /* CloudKit.framework */,
 				CEA65F4C265D117700A35436 /* CloudKit.framework */,
 				CE91FA85264ABDEC009A1F88 /* CloudKit.framework */,
+				CEA02A7A267F3A35006851F4 /* WidgetKit.framework */,
+				CEA02A7C267F3A35006851F4 /* SwiftUI.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -497,6 +541,7 @@
 				CECA7FDA265D06C800B3B600 /* Privacy.app */,
 				CECA7FE3265D06C900B3B600 /* Privacy.appex */,
 				CEF58629265E468C00D9A6F1 /* Privacy.app */,
+				CEA02A79267F3A35006851F4 /* widget.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -570,6 +615,17 @@
 				CE9C2005264821E1001504A2 /* Assets.xcassets */,
 			);
 			path = iOS;
+			sourceTree = "<group>";
+		};
+		CEA02A7E267F3A35006851F4 /* widget */ = {
+			isa = PBXGroup;
+			children = (
+				CEA02A7F267F3A35006851F4 /* widget.swift */,
+				CEA02A81267F3A36006851F4 /* widget.intentdefinition */,
+				CEA02A82267F3A36006851F4 /* Assets.xcassets */,
+				CEA02A84267F3A36006851F4 /* Info.plist */,
+			);
+			path = widget;
 			sourceTree = "<group>";
 		};
 		CECA7FDB265D06C800B3B600 /* watchOS */ = {
@@ -705,11 +761,13 @@
 				CE9C1FFB264821E0001504A2 /* Frameworks */,
 				CE9C1FFC264821E0001504A2 /* Resources */,
 				CECA7FF7265D06C900B3B600 /* Embed Watch Content */,
+				CEA02A8A267F3A36006851F4 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				CECA7FF5265D06C900B3B600 /* PBXTargetDependency */,
+				CEA02A88267F3A36006851F4 /* PBXTargetDependency */,
 			);
 			name = iOS;
 			packageProductDependencies = (
@@ -718,6 +776,23 @@
 			productName = iOS;
 			productReference = CE9C1FFE264821E0001504A2 /* Privacy.app */;
 			productType = "com.apple.product-type.application";
+		};
+		CEA02A78267F3A35006851F4 /* widget */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = CEA02A8D267F3A36006851F4 /* Build configuration list for PBXNativeTarget "widget" */;
+			buildPhases = (
+				CEA02A75267F3A35006851F4 /* Sources */,
+				CEA02A76267F3A35006851F4 /* Frameworks */,
+				CEA02A77267F3A35006851F4 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = widget;
+			productName = widgetExtension;
+			productReference = CEA02A79267F3A35006851F4 /* widget.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		CECA7FD9265D06C800B3B600 /* watchOS */ = {
 			isa = PBXNativeTarget;
@@ -788,6 +863,9 @@
 					CE9C1FFD264821E0001504A2 = {
 						CreatedOnToolsVersion = 12.5;
 					};
+					CEA02A78267F3A35006851F4 = {
+						CreatedOnToolsVersion = 12.5;
+					};
 					CECA7FD9265D06C800B3B600 = {
 						CreatedOnToolsVersion = 12.5;
 					};
@@ -819,6 +897,7 @@
 				CECA7FD9265D06C800B3B600 /* watchOS */,
 				CECA7FE2265D06C900B3B600 /* watchOS Extension */,
 				CEF58628265E468C00D9A6F1 /* macOS */,
+				CEA02A78267F3A35006851F4 /* widget */,
 			);
 		};
 /* End PBXProject section */
@@ -830,6 +909,14 @@
 			files = (
 				CE919A8B264D53A70051EE27 /* Media.xcassets in Resources */,
 				CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA02A77267F3A35006851F4 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA02A83267F3A36006851F4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -929,11 +1016,21 @@
 				CE03EDCF264FBE8E0031B649 /* Tab.New.History.Cell.swift in Sources */,
 				CE781121264C00580097FAC2 /* Search.swift in Sources */,
 				CE91FA8C264AC5A0009A1F88 /* Tab.Bar.Control.swift in Sources */,
+				CEA02A86267F3A36006851F4 /* widget.intentdefinition in Sources */,
 				CEDE59C12657C25A001B26F0 /* Tab.Find.swift in Sources */,
 				CE71B7192653C495002B8748 /* Collection.History.swift in Sources */,
 				CE5678A1265ABD5F0087B8F8 /* Store.Item.swift in Sources */,
 				CE91FA82264AB79C009A1F88 /* Tabs.swift in Sources */,
 				CE03EDD1264FBFC20031B649 /* RelativeDateTimeFormatter.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		CEA02A75267F3A35006851F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				CEA02A85267F3A36006851F4 /* widget.intentdefinition in Sources */,
+				CEA02A80267F3A35006851F4 /* widget.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1056,6 +1153,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		CEA02A88267F3A36006851F4 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = CEA02A78267F3A35006851F4 /* widget */;
+			targetProxy = CEA02A87267F3A36006851F4 /* PBXContainerItemProxy */;
+		};
 		CECA7FE6265D06C900B3B600 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = CECA7FE2265D06C900B3B600 /* watchOS Extension */;
@@ -1110,6 +1212,7 @@
 		CE9C200B264821E1001504A2 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1180,6 +1283,7 @@
 		CE9C200C264821E1001504A2 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -1236,6 +1340,147 @@
 				PRODUCT_BUNDLE_IDENTIFIER = incognit;
 				PROVISIONING_PROFILE_SPECIFIER = "Incognit store";
 				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		CEA02A8B267F3A36006851F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 7AMWG3RLHN;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = incognit.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		CEA02A8C267F3A36006851F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = 7AMWG3RLHN;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = widget/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = incognit.widget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -1655,6 +1900,15 @@
 			buildConfigurations = (
 				CE9C200B264821E1001504A2 /* Debug */,
 				CE9C200C264821E1001504A2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		CEA02A8D267F3A36006851F4 /* Build configuration list for PBXNativeTarget "widget" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CEA02A8B267F3A36006851F4 /* Debug */,
+				CEA02A8C267F3A36006851F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
