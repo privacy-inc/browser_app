@@ -1,5 +1,5 @@
-import WidgetKit
 import SwiftUI
+import WidgetKit
 
 struct Search: Widget {
     var body: some WidgetConfiguration {

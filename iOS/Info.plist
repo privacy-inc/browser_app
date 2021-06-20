@@ -82,6 +82,10 @@
 	<string>This website wants to access your location.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>Save photos to your library</string>
+	<key>NSUserActivityTypes</key>
+	<array>
+		<string>FastIntent</string>
+	</array>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

@@ -55,10 +55,10 @@ extension Search {
             
             let separator = Separator()
             
-            let titleRecent = Text()
-            titleRecent.font = titleBookmarks.font!
-            titleRecent.textColor = .tertiaryLabelColor
-            titleRecent.stringValue = NSLocalizedString("RECENT", comment: "")
+            let titleHistory = Text()
+            titleHistory.font = titleBookmarks.font!
+            titleHistory.textColor = .tertiaryLabelColor
+            titleHistory.stringValue = NSLocalizedString("HISTORY", comment: "")
             
             adjust
                 .combineLatest(NotificationCenter
@@ -105,7 +105,7 @@ extension Search {
                     let bookmarks = archive
                         .bookmarks
                         .filter(filter)
-                    let recent = archive
+                    let history = archive
                         .browse
                         .filter(filter)
                     
@@ -129,7 +129,7 @@ extension Search {
                             }
                     }
                     
-                    if !recent.isEmpty {
+                    if !history.isEmpty {
                         if !bookmarks.isEmpty {
                             self.content.addSubview(separator)
                             
@@ -139,13 +139,13 @@ extension Search {
                             top = separator.bottomAnchor
                         }
                         
-                        self.content.addSubview(titleRecent)
+                        self.content.addSubview(titleHistory)
 
-                        titleRecent.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
-                        titleRecent.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
-                        top = titleRecent.bottomAnchor
+                        titleHistory.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
+                        titleHistory.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                        top = titleHistory.bottomAnchor
                         
-                        recent
+                        history
                             .map(Cell.init(filtered:))
                             .forEach {
                                 self.content.addSubview($0)

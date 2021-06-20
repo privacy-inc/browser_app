@@ -26,7 +26,7 @@ struct Collection: View {
         case .bookmarks:
             return "Bookmarks"
         case .history:
-            return "Recent"
+            return "History"
         default:
             return ""
         }

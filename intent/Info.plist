@@ -26,13 +26,17 @@
 		<dict>
 			<key>IntentsRestrictedWhileLocked</key>
 			<array/>
-			<key>IntentsSupported</key>
+			<key>IntentsRestrictedWhileProtectedDataUnavailable</key>
 			<array/>
+			<key>IntentsSupported</key>
+			<array>
+				<string>FastIntent</string>
+			</array>
 		</dict>
 		<key>NSExtensionPointIdentifier</key>
 		<string>com.apple.intents-service</string>
 		<key>NSExtensionPrincipalClass</key>
-		<string>$(PRODUCT_MODULE_NAME).IntentHandler</string>
+		<string>$(PRODUCT_MODULE_NAME).Handler</string>
 	</dict>
 </dict>
 </plist>

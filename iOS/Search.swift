@@ -6,7 +6,7 @@ struct Search: View {
     let id: UUID
     @State private var filter = ""
     @State private var bookmarks = [Filtered]()
-    @State private var recent = [Filtered]()
+    @State private var history = [Filtered]()
     
     var body: some View {
         ZStack {
@@ -16,7 +16,7 @@ struct Search: View {
             Color(white: 0.2, opacity: 1)
                 .padding(.bottom, 1)
                 .edgesIgnoringSafeArea([.leading, .trailing, .top])
-            if bookmarks.isEmpty && recent.isEmpty {
+            if bookmarks.isEmpty && history.isEmpty {
                 Image("blank")
                     .padding(.top, 100)
                     .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
@@ -27,8 +27,8 @@ struct Search: View {
                     if !bookmarks.isEmpty {
                         Autocomplete(session: $session, id: id, title: "BOOKMARKS", items: bookmarks)
                     }
-                    if !recent.isEmpty {
-                        Autocomplete(session: $session, id: id, title: "RECENT", items: recent)
+                    if !history.isEmpty {
+                        Autocomplete(session: $session, id: id, title: "HISTORY", items: history)
                     }
                     Spacer()
                         .frame(height: 20)
@@ -54,7 +54,7 @@ struct Search: View {
             .archive
             .bookmarks
             .filter(filter)
-        recent = session
+        history = session
             .archive
             .browse
             .filter(filter)

@@ -35,7 +35,7 @@ extension Tab {
                             ZStack {
                                 Capsule()
                                     .fill(Color.accentColor)
-                                Label("RECENT", systemImage: "list.bullet")
+                                Label("HISTORY", systemImage: "list.bullet")
                                     .font(.footnote.bold())
                                     .foregroundColor(.white)
                                     .padding(.vertical, 7)
