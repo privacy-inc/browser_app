@@ -9,10 +9,11 @@ extension Search {
                 Image("search")
                 Text("Privacy")
                     .font(.callout)
-                    .foregroundColor(.init(.tertiaryLabel))
+                    .foregroundColor(.secondary)
                     .padding([.leading, .top], 24)
                     .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
             }
+            .widgetURL(URL(string: "privacy://")!)
         }
     }
 }
