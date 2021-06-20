@@ -172,6 +172,7 @@
 		CEDE59BF2657C229001B26F0 /* Tab.Find.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */; };
 		CEDE59C12657C25A001B26F0 /* Tab.Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59C02657C25A001B26F0 /* Tab.Find.swift */; };
 		CEDE59C32657DEA6001B26F0 /* Tab.Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59C22657DEA6001B26F0 /* Tab.Loading.swift */; };
+		CEE55795267F68B800F78723 /* Fast.Content.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE55794267F68B800F78723 /* Fast.Content.Cell.swift */; };
 		CEE845F326663D7E00D0A9DC /* Search.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEE845F226663D7E00D0A9DC /* Search.Bar.swift */; };
 		CEEB872026527EC700AF4E6A /* Session.Modal.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB871F26527EC700AF4E6A /* Session.Modal.swift */; };
 		CEEB872226527F9C00AF4E6A /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEEB872126527F9C00AF4E6A /* Collection.swift */; };
@@ -445,6 +446,7 @@
 		CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Find.Coordinator.swift; sourceTree = "<group>"; };
 		CEDE59C02657C25A001B26F0 /* Tab.Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Find.swift; sourceTree = "<group>"; };
 		CEDE59C22657DEA6001B26F0 /* Tab.Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Loading.swift; sourceTree = "<group>"; };
+		CEE55794267F68B800F78723 /* Fast.Content.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fast.Content.Cell.swift; sourceTree = "<group>"; };
 		CEE845F226663D7E00D0A9DC /* Search.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Bar.swift; sourceTree = "<group>"; };
 		CEEB871F26527EC700AF4E6A /* Session.Modal.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.Modal.swift; sourceTree = "<group>"; };
 		CEEB872126527F9C00AF4E6A /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
@@ -673,15 +675,16 @@
 				CEA02A90267F4150006851F4 /* Privacy.entitlements */,
 				CEA02A84267F3A36006851F4 /* Info.plist */,
 				CEA02A91267F43DF006851F4 /* Bundle.swift */,
-				CEA02A97267F451B006851F4 /* Search.Content.swift */,
-				CEA02A99267F452B006851F4 /* Search.Entry.swift */,
-				CEA02A95267F44F4006851F4 /* Search.Provider.swift */,
-				CEA02A93267F4442006851F4 /* Search.swift */,
+				CEE55794267F68B800F78723 /* Fast.Content.Cell.swift */,
 				CEC96608267F5E7D003E2C77 /* Fast.Content.swift */,
 				CEC9660A267F5F4A003E2C77 /* Fast.Entry.Item.swift */,
 				CEC96603267F5E57003E2C77 /* Fast.Entry.swift */,
 				CEC96606267F5E6C003E2C77 /* Fast.Provider.swift */,
 				CEC96600267F5D65003E2C77 /* Fast.swift */,
+				CEA02A97267F451B006851F4 /* Search.Content.swift */,
+				CEA02A99267F452B006851F4 /* Search.Entry.swift */,
+				CEA02A95267F44F4006851F4 /* Search.Provider.swift */,
+				CEA02A93267F4442006851F4 /* Search.swift */,
 				CEA02A82267F3A36006851F4 /* Assets.xcassets */,
 			);
 			path = widget;
@@ -1135,6 +1138,7 @@
 				CEC96601267F5D65003E2C77 /* Fast.swift in Sources */,
 				CEA02A96267F44F4006851F4 /* Search.Provider.swift in Sources */,
 				CEA02A9A267F452B006851F4 /* Search.Entry.swift in Sources */,
+				CEE55795267F68B800F78723 /* Fast.Content.Cell.swift in Sources */,
 				CEA02A94267F4442006851F4 /* Search.swift in Sources */,
 				CEC96604267F5E57003E2C77 /* Fast.Entry.swift in Sources */,
 				CEA02A92267F43DF006851F4 /* Bundle.swift in Sources */,

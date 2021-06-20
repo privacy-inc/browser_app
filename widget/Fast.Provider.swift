@@ -12,29 +12,32 @@ extension Fast {
         }
 
         func getTimeline(for intent: FastIntent, in: Context, completion: @escaping (Timeline<Entry>) -> ()) {
-//            guard
-//                let archive = Defaults.archive,
-//                let projectId = intent.project?.identifier.flatMap(Int.init),
-//                let columnId = intent.column?.identifier.flatMap(Int.init),
-//                let bottom = intent.bottom?.boolValue,
-//                projectId < archive.count(.archive),
-//                columnId < archive.count(.board(projectId))
-//            else {
-//                return completion(.init(entries: [.empty], policy: .never))
-//            }
-//            var cards = (0 ..< archive.count(.column(.board(projectId), columnId))).map {
-//                archive[content: .card(.column(.board(projectId), columnId), $0)]
-//            }
-//            if bottom {
-//                cards.reverse()
-//            }
-//            completion(.init(entries: [.init(
-//                                        id: projectId,
-//                                        board: archive[name: .board(projectId)],
-//                                        column: archive[title: .column(.board(projectId), columnId)],
-//                                        cards: cards,
-//                                        date: .init())],
-//                             policy: .never))
+            guard let archive = Defaults.archive else {
+                return completion(.init(entries: [.placeholder], policy: .never))
+            }
+            let items = intent.sites == .bookmarks
+                ? archive
+                    .bookmarks
+                    .enumerated()
+                    .prefix(8)
+                    .map {
+                        Entry.Item(id: $0.0, sites: .bookmarks, title: $0.1.title, domain: $0.1.access.domain)
+                    }
+                : archive
+                    .browse
+                    .prefix(8)
+                    .map {
+                        .init(id: $0.id, sites: .history, title: $0.page.title, domain: $0.page.access.domain)
+                    }
+            return completion(.init(entries: [.init(
+                                                sites: items
+                                                    .reduce(into: (Array(repeating: [], count: 2), 1)) {
+                                                        $0.1 = $0.1 == 1 ? 0 : 1
+                                                        $0.0[$0.1].append($1)
+                                                    }
+                                                    .0,
+                                                date: .init())],
+                                    policy: .never))
         }
     }
 }
