@@ -5,7 +5,14 @@ extension Search {
         let entry: Entry
         
         var body: some View {
-            Circle()
+            ZStack {
+                Image("search")
+                Text("Privacy")
+                    .font(.callout)
+                    .foregroundColor(.init(.tertiaryLabel))
+                    .padding([.leading, .top], 24)
+                    .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude, alignment: .topLeading)
+            }
         }
     }
 }
