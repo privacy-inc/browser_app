@@ -3,7 +3,6 @@ import Combine
 
 extension Search.Bar {
     final class Coordinator: Keyboard {
-        private var filter = false
         private var subs = Set<AnyCancellable>()
         private let wrapper: Search.Bar
         
@@ -32,20 +31,12 @@ extension Search.Bar {
             }
         }
         
-        func textFieldDidBeginEditing(_: UITextField) {
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-                self?.field.selectAll(nil)
-                self?.filter = true
-            }
-        }
-        
         func textFieldDidEndEditing(_: UITextField) {
             wrapper.dismiss()
             field.text = ""
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
-            filter = false
             let state = wrapper.session.tab[state: id]
             cloud
                 .browse(field.text!, id: state.browse) { [weak self] in
@@ -64,7 +55,6 @@ extension Search.Bar {
         }
         
         func textFieldDidChangeSelection(_: UITextField) {
-            guard filter else { return }
             wrapper.filter = field.text!.trimmingCharacters(in: .whitespacesAndNewlines)
         }
     }
