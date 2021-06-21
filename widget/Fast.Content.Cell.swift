@@ -18,8 +18,9 @@ extension Fast.Content {
                             .foregroundColor(.secondary)
                     }
                     .font(.caption2)
+                    .lineLimit(3)
                     .fixedSize(horizontal: false, vertical: true)
-                    .padding(12)
+                    .padding(10)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
             }
