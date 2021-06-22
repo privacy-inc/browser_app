@@ -25,6 +25,7 @@ extension Tab {
                             }
                             .contentShape(Rectangle())
                             .fixedSize()
+                            .frame(maxWidth: .greatestFiniteMagnitude)
                         }
                         .padding(.top, 25)
                         .padding(.bottom, 10)
@@ -43,6 +44,7 @@ extension Tab {
                             }
                             .contentShape(Rectangle())
                             .fixedSize()
+                            .frame(maxWidth: .greatestFiniteMagnitude)
                         }
                         .padding(.top, 50)
                         .padding(.bottom)

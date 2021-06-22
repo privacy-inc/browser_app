@@ -62,7 +62,7 @@ struct Tabs: View {
             }
         
         withAnimation(.spring(blendDuration: 0.4)) {
-            session.section = .search(tabber.closeAll())
+            session.section = .tab(tabber.closeAll())
         }
     }
 }
