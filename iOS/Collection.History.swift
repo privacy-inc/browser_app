@@ -32,6 +32,14 @@ extension Collection {
                     .padding(.vertical, 3)
                 }
             }
+            .onDelete {
+                $0
+                    .first
+                    .map {
+                        browse[$0].id
+                    }
+                    .map(cloud.remove(browse:))
+            }
         }
     }
 }

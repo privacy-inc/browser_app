@@ -31,6 +31,11 @@ extension Collection {
                     .padding(.vertical, 5)
                 }
             }
+            .onDelete {
+                $0
+                    .first
+                    .map(cloud.remove(bookmark:))
+            }
         }
     }
 }
