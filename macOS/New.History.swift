@@ -91,5 +91,11 @@ extension New {
         override var allowsVibrancy: Bool {
             true
         }
+        
+        override func delete() {
+            highlighted
+                .value
+                .map(cloud.remove(browse:))
+        }
     }
 }
