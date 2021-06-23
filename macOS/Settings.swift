@@ -12,7 +12,7 @@ final class Settings: NSWindow {
         isReleasedWhenClosed = false
         title = NSLocalizedString("Settings", comment: "")
         center()
-        setFrameAutosaveName("Settings")
+        setFrameAutosaveName("Preferences")
         
         let bar = NSTitlebarAccessoryViewController()
         bar.view = Title()
