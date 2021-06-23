@@ -7,8 +7,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     init() {
         super.init(title: "")
         items = [app, file, edit, page, window, help]
-        status.button!.image = NSImage(systemSymbolName: "eyeglasses", accessibilityDescription: "")?
-            .withSymbolConfiguration(.init(pointSize: 18, weight: .bold))
+        status.button!.image = NSImage(named: "status")
         status.button!.target = self
         status.button!.action = #selector(triggerStatus)
     }
