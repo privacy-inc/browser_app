@@ -1,15 +1,16 @@
 import AppKit
 import Combine
 
-class Collection<Cell>: NSScrollView where Cell : CollectionCell {
+class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell {
     final var subs = Set<AnyCancellable>()
     final let items = PassthroughSubject<Set<CollectionItem>, Never>()
     final let height = PassthroughSubject<CGFloat, Never>()
     final let selected = PassthroughSubject<Int, Never>()
+    final let highlighted = CurrentValueSubject<Int?, Never>(nil)
     private let select = PassthroughSubject<CGPoint, Never>()
-    private let highlight = PassthroughSubject<CGPoint, Never>()
     private let press = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
+    private let highlight = PassthroughSubject<CGPoint, Never>()
     
     required init?(coder: NSCoder) { nil }
     init() {
@@ -25,6 +26,9 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
         contentView.postsFrameChangedNotifications = true
         drawsBackground = false
         addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInActiveApp, .inVisibleRect], owner: self))
+        
+        menu = NSMenu()
+        menu!.delegate = self
         
         var cells = Set<Cell>()
         let clip = PassthroughSubject<CGRect, Never>()
@@ -96,12 +100,29 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
         
         highlight
             .sink { point in
-                cells.forEach {
-                    $0.state = $0.frame.contains(point)
-                        ? .highlighted
-                        : .none
-                }
+                cells
+                    .forEach {
+                        $0.state = $0.frame.contains(point)
+                            ? .highlighted
+                            : .none
+                    }
             }
+            .store(in: &subs)
+        
+        highlight
+            .map { point in
+                cells
+                    .compactMap(\.item)
+                    .first {
+                        $0
+                            .rect
+                            .contains(point)
+                    }
+            }
+            .map {
+                $0?.info.id
+            }
+            .subscribe(highlighted)
             .store(in: &subs)
         
         press
@@ -146,6 +167,19 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
             .store(in: &subs)
     }
     
+    @objc func delete() {
+        
+    }
+    
+    final func menuNeedsUpdate(_ menu: NSMenu) {
+        menu.items = highlighted.value == nil
+            ? []
+            : [.child("Delete", #selector(delete)) {
+                $0.target = self
+                $0.image = .init(systemSymbolName: "trash", accessibilityDescription: nil)
+            }]
+    }
+    
     final override func mouseExited(with: NSEvent) {
         clear.send()
     }
@@ -165,10 +199,16 @@ class Collection<Cell>: NSScrollView where Cell : CollectionCell {
         select.send(point(with: with))
     }
     
+    final override func rightMouseDown(with: NSEvent) {
+        highlight.send(point(with: with))
+        super.rightMouseDown(with: with)
+    }
+    
     final override func acceptsFirstMouse(for: NSEvent?) -> Bool {
         true
     }
-    override func shouldDelayWindowOrdering(for: NSEvent) -> Bool {
+    
+    final override func shouldDelayWindowOrdering(for: NSEvent) -> Bool {
         true
     }
     
