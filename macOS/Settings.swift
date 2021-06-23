@@ -10,9 +10,9 @@ final class Settings: NSWindow {
         toolbar = .init()
         titlebarAppearsTransparent = true
         isReleasedWhenClosed = false
-        title = NSLocalizedString("Settings", comment: "")
+        title = NSLocalizedString("Preferences", comment: "")
         center()
-        setFrameAutosaveName("Preferences")
+        setFrameAutosaveName("Settings")
         
         let bar = NSTitlebarAccessoryViewController()
         bar.view = Title()
