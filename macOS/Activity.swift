@@ -47,9 +47,12 @@ final class Activity: NSWindow {
         cloud
             .archive
             .compactMap(\.since)
+            .map {
+                RelativeDateTimeFormatter().string(from: $0)
+            }
             .removeDuplicates()
             .sink {
-                since.stringValue = RelativeDateTimeFormatter().string(from: $0)
+                since.stringValue = $0
             }
             .store(in: &subs)
         
