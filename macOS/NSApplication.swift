@@ -66,10 +66,16 @@ extension NSApplication {
             .makeKeyAndOrderFront(nil)
     }
     
-    func closeAll() {
+    func clear() {
         windows
+            .compactMap {
+                $0 as? Window
+            }
             .filter {
-                $0 is Window
+                tabber
+                    .items
+                    .value[state: $0.id]
+                    .browse != nil
             }
             .forEach {
                 $0.close()
