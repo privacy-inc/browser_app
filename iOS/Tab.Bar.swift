@@ -25,8 +25,12 @@ extension Tab {
                             Control(disabled: !session.tab[state: id].isBrowse || !session.tab[forward: id], image: "arrow.right") {
                                 session.forward.send(id)
                             }
-                            Search(session: $session, id: id)
-                                .padding(.horizontal, 10)
+                            Control(image: "magnifyingglass") {
+                                withAnimation(.easeInOut(duration: 0.3)) {
+                                    session.section = .search(id)
+                                }
+                                session.search.send()
+                            }
                             Control(disabled: !session.tab[state: id].isBrowse, image: "line.horizontal.3") {
                                 UIApplication.shared.resign()
                                 withAnimation(.easeInOut(duration: 0.25)) {
