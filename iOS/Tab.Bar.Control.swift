@@ -11,7 +11,7 @@ extension Tab.Bar {
                 Image(systemName: image)
                     .font(.title3)
                     .foregroundColor(disabled ? .init(.tertiaryLabel) : .primary)
-                    .frame(width: 60)
+                    .frame(width: 64)
                     .frame(maxHeight: .greatestFiniteMagnitude)
                     .contentShape(Rectangle())
             }

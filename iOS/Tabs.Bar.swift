@@ -60,7 +60,6 @@ extension Tabs {
                     session.modal = .settings
                 }
             }
-            .padding(.horizontal)
             .frame(height: 34)
             .padding(.vertical, 10)
         }

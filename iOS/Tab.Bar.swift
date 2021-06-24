@@ -40,7 +40,6 @@ extension Tab {
                             Control(image: "app", action: tabs)
                         }
                         .frame(height: 34)
-                        .padding(.horizontal)
                         .padding(.vertical, 10)
                     }
                 }

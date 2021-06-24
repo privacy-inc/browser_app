@@ -10,7 +10,7 @@ extension Tabs.Bar {
             Button(action: action) {
                 Image(systemName: image)
                     .font(font)
-                    .frame(width: 60)
+                    .frame(width: 64)
                     .frame(maxHeight: .greatestFiniteMagnitude)
                     .contentShape(Rectangle())
             }
