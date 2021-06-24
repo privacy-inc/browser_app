@@ -12,7 +12,7 @@ extension Tab {
                     Blur(style: .systemThinMaterial)
                         .edgesIgnoringSafeArea([.leading, .trailing, .top])
                     Rectangle()
-                        .fill(Color(.systemBackground).opacity(0.25))
+                        .fill(Color.primary.opacity(0.2))
                         .frame(height: 1)
                         .allowsHitTesting(false)
                 }

@@ -15,7 +15,7 @@ extension Tab {
                         .edgesIgnoringSafeArea([.bottom, .leading, .trailing])
                     VStack(spacing: 0) {
                         Rectangle()
-                            .fill(Color(.systemBackground).opacity(0.25))
+                            .fill(Color.primary.opacity(0.2))
                             .frame(height: 1)
                             .allowsHitTesting(false)
                         HStack(spacing: 0) {
