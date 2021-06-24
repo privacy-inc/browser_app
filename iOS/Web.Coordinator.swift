@@ -8,7 +8,7 @@ extension Web {
         
         override var safeAreaInsets: UIEdgeInsets {
             var insets = super.safeAreaInsets
-            insets.bottom += 60
+            insets.bottom += 54
             return insets
         }
         
@@ -32,6 +32,7 @@ extension Web {
             scrollView.contentInsetAdjustmentBehavior = .always
             isOpaque = !settings.dark
             scrollView.backgroundColor = .secondarySystemBackground
+            scrollView.verticalScrollIndicatorInsets.top += 2
             
             wrapper
                 .session
