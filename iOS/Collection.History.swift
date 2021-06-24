@@ -5,26 +5,26 @@ extension Collection {
     struct History: View {
         @Binding var session: Session
         let id: UUID
-        let browse: [Browse]
+        let browses: [Browse]
         @Environment(\.presentationMode) private var visible
         
         var body: some View {
-            ForEach(0 ..< browse.count, id: \.self) { index in
+            ForEach(0 ..< browses.count, id: \.self) { index in
                 Button {
                     cloud
-                        .revisit(browse[index].id)
-                    tabber.browse(id, browse[index].id)
+                        .revisit(browses[index].id)
+                    tabber.browse(id, browses[index].id)
                     visible.wrappedValue.dismiss()
                 } label: {
                     VStack(alignment: .leading) {
-                        if !browse[index].page.title.isEmpty {
-                            Text(verbatim: browse[index].page.title)
+                        if !browses[index].page.title.isEmpty {
+                            Text(verbatim: browses[index].page.title)
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        Text(verbatim: browse[index].page.access.domain)
+                        Text(verbatim: browses[index].page.access.domain)
                             .foregroundColor(.secondary)
-                        Text(verbatim: RelativeDateTimeFormatter().string(from: browse[index].date))
+                        Text(verbatim: RelativeDateTimeFormatter().string(from: browses[index].date))
                             .foregroundColor(.secondary)
                     }
                     .font(.footnote)
@@ -36,7 +36,7 @@ extension Collection {
                 $0
                     .first
                     .map {
-                        browse[$0].id
+                        browses[$0].id
                     }
                     .map(cloud.remove(browse:))
             }

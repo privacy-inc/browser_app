@@ -129,7 +129,7 @@ extension Search {
             
             let state = tabber.items.value[state: id]
             cloud
-                .browse(stringValue, id: state.browse) { [weak self] in
+                .browse(stringValue, browse: state.browse) { [weak self] in
                     guard let id = self?.id else { return }
                     if state.browse == $0 {
                         if state.isError {

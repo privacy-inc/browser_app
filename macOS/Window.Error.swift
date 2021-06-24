@@ -37,7 +37,7 @@ extension Window {
                 .click
                 .sink {
                     cloud
-                        .browse(error.url, id: browse) {
+                        .browse(error.url, browse: browse) {
                             tabber.browse(id, browse)
                             session.load.send((id: id, access: $1))
                         }

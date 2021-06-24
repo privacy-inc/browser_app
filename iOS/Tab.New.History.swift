@@ -28,7 +28,7 @@ extension Tab.New {
         private var list: [[Browse]] {
             session
                 .archive
-                .browse
+                .browses
                 .prefix(20)
                 .reduce(into: (Array(repeating: [], count: metrics.columns), metrics.columns)) {
                     guard metrics.columns > 0 else { return }

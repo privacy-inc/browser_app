@@ -29,7 +29,7 @@ extension Tab {
                         .frame(maxWidth: 300, alignment: .leading)
                     Control(title: "Try again", image: "gobackward") {
                         cloud
-                            .browse(error.url, id: browse) {
+                            .browse(error.url, browse: browse) {
                                 tabber.browse(id, $0)
                                 session.load.send((id: id, access: $1))
                             }

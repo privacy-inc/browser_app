@@ -24,7 +24,7 @@ extension Fast {
                         Entry.Item(id: $0.0, sites: .bookmarks, title: $0.1.title, domain: $0.1.access.domain)
                     }
                 : archive
-                    .browse
+                    .browses
                     .prefix(8)
                     .map {
                         .init(id: $0.id, sites: .history, title: $0.page.title, domain: $0.page.access.domain)

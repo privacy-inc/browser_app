@@ -29,7 +29,7 @@ extension New {
             
             cloud
                 .archive
-                .map(\.browse)
+                .map(\.browses)
                 .removeDuplicates()
                 .map {
                     $0

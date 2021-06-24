@@ -12,7 +12,7 @@ struct Collection: View {
                 case .bookmarks:
                     Bookmarks(session: $session, id: id, bookmarks: session.archive.bookmarks)
                 case .history:
-                    History(session: $session, id: id, browse: session.archive.browse)
+                    History(session: $session, id: id, browses: session.archive.browses)
                 default:
                     EmptyView()
                 }

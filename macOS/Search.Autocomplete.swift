@@ -106,7 +106,7 @@ extension Search {
                         .bookmarks
                         .filter(filter)
                     let history = archive
-                        .browse
+                        .browses
                         .filter(filter)
                     
                     if !bookmarks.isEmpty {
@@ -238,7 +238,7 @@ extension Search {
                     self?.parent?.makeFirstResponder(self?.parent?.contentView)
                     let browse = tabber.items.value[state: id].browse
                     cloud
-                        .browse($0.filtered.url, id: browse) {
+                        .browse($0.filtered.url, browse: browse) {
                             tabber.browse(id, $0)
                             if browse == $0 {
                                 session.load.send((id: id, access: $1))

@@ -29,7 +29,7 @@ extension Search {
                         Cell(item: item) {
                             let browse = session.tab[state: id].browse
                             cloud
-                                .browse(item.url, id: browse) {
+                                .browse(item.url, browse: browse) {
                                     UIApplication.shared.resign()
                                     session.section = .tab(id)
                                     tabber.browse(id, $0)

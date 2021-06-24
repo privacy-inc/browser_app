@@ -56,7 +56,7 @@ struct Search: View {
             .filter(filter)
         history = session
             .archive
-            .browse
+            .browses
             .filter(filter)
     }
 }
