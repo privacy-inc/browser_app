@@ -6,12 +6,6 @@ extension Web {
     final class Coordinator: Webview {
         weak var newTab: PassthroughSubject<URL, Never>!
         
-        override var safeAreaInsets: UIEdgeInsets {
-            var insets = super.safeAreaInsets
-            insets.bottom += 54
-            return insets
-        }
-        
         required init?(coder: NSCoder) { nil }
         init(wrapper: Web, id: UUID, browse: Int) {
             newTab = wrapper.session.newTab
@@ -28,11 +22,15 @@ extension Web {
             configuration.ignoresViewportScaleLimits = true
             
             super.init(configuration: configuration, id: id, browse: browse, settings: settings)
+            
             scrollView.keyboardDismissMode = .none
-            scrollView.contentInsetAdjustmentBehavior = .always
+            scrollView.contentInsetAdjustmentBehavior = .never
             isOpaque = !settings.dark
             scrollView.backgroundColor = .secondarySystemBackground
             scrollView.verticalScrollIndicatorInsets.top += 2
+            scrollView.contentInset.top += UIApplication.status + 2
+            scrollView.contentInset.bottom += 54
+            
             
             wrapper
                 .session
