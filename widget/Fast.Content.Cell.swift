@@ -12,13 +12,14 @@ extension Fast.Content {
                     VStack(alignment: .leading) {
                         if !item.title.isEmpty {
                             Text(verbatim: item.title)
+                                .lineLimit(3)
                                 .foregroundColor(.primary)
                         }
                         Text(verbatim: item.domain)
+                            .lineLimit(item.title.isEmpty ? 3 : 1)
                             .foregroundColor(.secondary)
                     }
                     .font(.caption2)
-                    .lineLimit(3)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(10)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)

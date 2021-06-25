@@ -18,14 +18,14 @@ extension Fast {
             let items = intent.sites == .bookmarks
                 ? archive
                     .bookmarks
-                    .prefix(8)
+                    .prefix(10)
                     .enumerated()
                     .map {
                         Entry.Item(id: $0.0, sites: .bookmarks, title: $0.1.title, domain: $0.1.access.domain)
                     }
                 : archive
                     .browses
-                    .prefix(8)
+                    .prefix(10)
                     .map {
                         .init(id: $0.id, sites: .history, title: $0.page.title, domain: $0.page.access.domain)
                     }
