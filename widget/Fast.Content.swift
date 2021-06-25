@@ -19,7 +19,7 @@ extension Fast {
                         }
                     }
                 }
-                .padding(.horizontal, spacing)
+                .padding(.horizontal, spacing + 2)
             }
         }
     }
