@@ -1,31 +1,6 @@
 import WebKit
 
 extension UIApplication {
-    static let status = shared
-        .connectedScenes
-        .compactMap {
-            $0 as? UIWindowScene
-        }
-        .compactMap {
-            $0
-                .statusBarManager
-        }
-        .map {
-            $0
-                .statusBarFrame
-        }
-        .map(\.height)
-        .max() ?? 0
-    
-    static let tab = shared
-        .connectedScenes
-        .compactMap {
-            $0 as? UIWindowScene
-        }
-        .compactMap {
-            $0.ins
-        }
-    
     static let dark = shared.windows.map(\.rootViewController?.traitCollection.userInterfaceStyle).first == .dark
     
     var root: UIViewController? {

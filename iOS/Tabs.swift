@@ -49,6 +49,7 @@ struct Tabs: View {
                 .fill(Color(.systemFill))
                 .frame(height: 1)
                 .allowsHitTesting(false)
+                .edgesIgnoringSafeArea(.horizontal)
             Bar(session: $session, closeAll: closeAll)
         }
     }

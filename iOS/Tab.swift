@@ -19,25 +19,29 @@ struct Tab: View {
                 .matchedGeometryEffect(id: id, in: namespace, properties: .position, isSource: true)
         } else {
             ZStack {
-                switch session.tab[state: id] {
-                case .new:
-                    New(session: $session, id: id)
-                        .allowsHitTesting(!modal)
-                case let .browse(browse):
-                    Web(session: $session, id: id, browse: browse)
-                        .allowsHitTesting(!modal)
-                        .edgesIgnoringSafeArea(.all)
-                    if find {
-                        Find(session: $session, find: $find, id: id)
-                            .frame(height: 0)
+                VStack(spacing: 0) {
+                    Loading(session: $session, id: id)
+                        .zIndex(1)
+                    switch session.tab[state: id] {
+                    case .new:
+                        New(session: $session, id: id)
+                            .allowsHitTesting(!modal)
+                    case let .browse(browse):
+                        Web(session: $session, id: id, browse: browse)
+                            .allowsHitTesting(!modal)
+                            .edgesIgnoringSafeArea(.horizontal)
+                        if find {
+                            Find(session: $session, find: $find, id: id)
+                                .frame(height: 0)
+                        }
+                    case let .error(browse, error):
+                        Error(session: $session, id: id, browse: browse, error: error)
+                            .allowsHitTesting(!modal)
                     }
-                case let .error(browse, error):
-                    Error(session: $session, id: id, browse: browse, error: error)
+                    Bar(session: $session, modal: $modal, id: id, tabs: tabs)
+                        .zIndex(1)
                         .allowsHitTesting(!modal)
                 }
-                Loading(session: $session, id: id)
-                Bar(session: $session, modal: $modal, id: id, tabs: tabs)
-                    .allowsHitTesting(!modal)
                 Modal(session: $session, show: $modal, find: $find, id: id)
                 session
                     .toast

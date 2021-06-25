@@ -52,6 +52,7 @@ extension Tab {
                     .frame(width: 200)
                     Spacer()
                         .frame(height: 30)
+                        .frame(maxWidth: .greatestFiniteMagnitude)
                 }
             }
         }

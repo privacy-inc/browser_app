@@ -22,16 +22,12 @@ extension Web {
             configuration.ignoresViewportScaleLimits = true
             
             super.init(configuration: configuration, id: id, browse: browse, settings: settings)
-            
             scrollView.keyboardDismissMode = .none
             scrollView.contentInsetAdjustmentBehavior = .never
+            scrollView.clipsToBounds = false
             isOpaque = !settings.dark
             scrollView.backgroundColor = .secondarySystemBackground
-            scrollView.verticalScrollIndicatorInsets.top += 2
-            scrollView.contentInset.top += UIApplication.status + 2
-            scrollView.contentInset.bottom += 54
-            
-            
+
             wrapper
                 .session
                 .load

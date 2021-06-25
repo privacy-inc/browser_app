@@ -10,7 +10,7 @@ extension Tab {
                 Color(.secondarySystemBackground)
                     .edgesIgnoringSafeArea([.leading, .trailing, .top])
                 GeometryReader { proxy in
-                    ScrollView(showsIndicators: false) {
+                    ScrollView {
                         Button {
                             session.modal = .bookmarks(id)
                         } label: {
@@ -49,7 +49,6 @@ extension Tab {
                         .padding(.top, 50)
                         .padding(.bottom)
                         History(session: $session, id: id, metrics: .init(size: proxy.size))
-                            .padding(.bottom, 60)
                     }
                 }
             }
