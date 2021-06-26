@@ -19,10 +19,11 @@ final class Toast: NSPanel {
         isOpaque = false
         hasShadow = true
         animationBehavior = .alertPanel
+        level = .floating
         
         let content = NSVisualEffectView()
         content.translatesAutoresizingMaskIntoConstraints = false
-        content.material = .hudWindow
+        content.material = .menu
         content.state = .active
         content.wantsLayer = true
         content.layer!.cornerRadius = 12

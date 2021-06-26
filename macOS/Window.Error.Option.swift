@@ -8,7 +8,7 @@ extension Window.Error {
         required init?(coder: NSCoder) { nil }
         init(icon: String, title: String) {
             let image = Image(icon: icon)
-            image.symbolConfiguration = .init(textStyle: .title3)
+            image.symbolConfiguration = .init(textStyle: .body)
             self.image = image
             
             let text = Text()
@@ -16,18 +16,20 @@ extension Window.Error {
             text.font = .preferredFont(forTextStyle: .body)
             self.text = text
             
-            super.init(layer: false)
+            super.init(layer: true)
+            layer!.cornerRadius = 4
+            layer!.borderWidth = 1
             addSubview(image)
             addSubview(text)
             
-            widthAnchor.constraint(equalToConstant: 120).isActive = true
+            widthAnchor.constraint(equalToConstant: 130).isActive = true
             heightAnchor.constraint(equalToConstant: 36).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            image.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 5).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         }
         
         override func update() {
@@ -37,13 +39,20 @@ extension Window.Error {
             case .pressed:
                 image.contentTintColor = .controlAccentColor
                 text.textColor = .controlAccentColor
+                layer!.borderColor = NSColor.controlAccentColor.cgColor
             case .highlighted:
                 image.contentTintColor = .labelColor
                 text.textColor = .labelColor
+                layer!.borderColor = NSColor.labelColor.cgColor
             default:
-                image.contentTintColor = .secondaryLabelColor
+                image.contentTintColor = .tertiaryLabelColor
                 text.textColor = .secondaryLabelColor
+                layer!.borderColor = NSColor.tertiaryLabelColor.cgColor
             }
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

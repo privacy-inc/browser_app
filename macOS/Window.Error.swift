@@ -3,7 +3,7 @@ import Combine
 import Sleuth
 
 extension Window {
-    final class Error: NSView {
+    final class Error: NSVisualEffectView {
         private var subs = Set<AnyCancellable>()
         private let id: UUID
         private let browse: Int
@@ -48,7 +48,7 @@ extension Window {
                 .store(in: &subs)
             content.addSubview(retry)
             
-            let cancel = Option(icon: "xmark.circle.fill", title: "Cancel")
+            let cancel = Option(icon: "xmark", title: "Cancel")
             cancel
                 .click
                 .sink { [weak self] in
@@ -76,7 +76,7 @@ extension Window {
             retry.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 50).isActive = true
             retry.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
             
-            cancel.topAnchor.constraint(equalTo: retry.bottomAnchor).isActive = true
+            cancel.topAnchor.constraint(equalTo: retry.bottomAnchor, constant: 5).isActive = true
             cancel.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
         }
         
