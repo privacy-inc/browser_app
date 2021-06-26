@@ -3,7 +3,7 @@ import Combine
 
 extension New {
     final class History: Collection<New.History.Cell> {
-        private static let insets = CGFloat(4)
+        private static let insets = CGFloat(6)
         private static let insets2 = insets + insets
         
         required init?(coder: NSCoder) { nil }
@@ -46,7 +46,8 @@ extension New {
                                     if !browse.page.access.domain.isEmpty {
                                         $0.append(.make(browse.page.access.domain,
                                                         font: .preferredFont(forTextStyle: .callout),
-                                                        color: .secondaryLabelColor))
+                                                        color: .secondaryLabelColor,
+                                                        lineBreak: .byTruncatingTail))
                                         $0.linebreak()
                                     }
                                     $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),

@@ -2,7 +2,7 @@ import AppKit
 
 extension New.Bookmarks {
     final class Cell: CollectionCell {
-        static let insets = CGFloat(10)
+        static let insets = CGFloat(12)
         static let insets2 = insets * 2
         
         override var insets: CGFloat {
@@ -10,18 +10,18 @@ extension New.Bookmarks {
         }
         
         override var highlighted: CGColor {
-            NSColor.selectedTextBackgroundColor.cgColor
+            NSColor.controlBackgroundColor.cgColor
         }
         
         override var pressed: CGColor {
-            NSColor.selectedContentBackgroundColor.cgColor
+            NSColor.selectedTextBackgroundColor.cgColor
         }
         
         required init?(coder: NSCoder) { nil }
         override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
-            cornerRadius = 4
+            cornerRadius = 8
         }
     }
 }

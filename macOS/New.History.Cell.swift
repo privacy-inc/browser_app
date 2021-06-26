@@ -10,19 +10,18 @@ extension New.History {
         }
         
         override var highlighted: CGColor {
-            NSColor.selectedTextBackgroundColor.cgColor
+            NSColor.controlBackgroundColor.cgColor
         }
         
         override var pressed: CGColor {
-            NSColor.selectedContentBackgroundColor.cgColor
+            NSColor.selectedTextBackgroundColor.cgColor
         }
         
         required init?(coder: NSCoder) { nil }
         override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
-            cornerRadius = 6
-            text.alignmentMode = .right
+            cornerRadius = 8
         }
     }
 }

@@ -52,16 +52,18 @@ final class New: NSView {
         backgroundBookmarks.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         backgroundBookmarks.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundBookmarks.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        backgroundBookmarks.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
-        let bookmarksWidth = backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.1)
+        backgroundBookmarks.widthAnchor.constraint(greaterThanOrEqualToConstant: 140).isActive = true
+        backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
+        let bookmarksWidth = backgroundBookmarks.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.15)
         bookmarksWidth.priority = .defaultLow
         bookmarksWidth.isActive = true
         
         backgroundHistory.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
-        backgroundHistory.widthAnchor.constraint(greaterThanOrEqualToConstant: 100).isActive = true
-        let historyWidth = backgroundHistory.widthAnchor.constraint(lessThanOrEqualTo: widthAnchor, multiplier: 0.2)
+        backgroundHistory.widthAnchor.constraint(greaterThanOrEqualToConstant: 140).isActive = true
+        backgroundHistory.widthAnchor.constraint(lessThanOrEqualToConstant: 300).isActive = true
+        let historyWidth = backgroundHistory.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3)
         historyWidth.priority = .defaultLow
         historyWidth.isActive = true
         

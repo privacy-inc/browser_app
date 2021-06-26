@@ -4,7 +4,7 @@ import Sleuth
 
 extension New {
     final class Bookmarks: Collection<New.Bookmarks.Cell> {
-        private static let insets = CGFloat(4)
+        private static let insets = CGFloat(6)
         private static let insets2 = insets + insets
         
         required init?(coder: NSCoder) { nil }
@@ -41,7 +41,7 @@ extension New {
                                 string: .make {
                                     if !page.title.isEmpty {
                                         $0.append(.make(page.title,
-                                                        font: .preferredFont(forTextStyle: .callout),
+                                                        font: .preferredFont(forTextStyle: .body),
                                                         color: .labelColor))
                                     }
                                     if !page.access.domain.isEmpty {
