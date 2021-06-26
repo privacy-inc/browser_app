@@ -22,7 +22,7 @@ final class Toast: NSPanel {
         
         let content = NSVisualEffectView()
         content.translatesAutoresizingMaskIntoConstraints = false
-        content.material = .popover
+        content.material = .hudWindow
         content.state = .active
         content.wantsLayer = true
         content.layer!.cornerRadius = 12

@@ -51,10 +51,12 @@ final class Window: NSWindow {
                     self?.finder.client = web
                     self?.finder.findBarContainer = browser
                     self?.contentView = browser
+                    self?.makeFirstResponder(web)
                 case let .error(browse, error):
                     self?.finder.client = nil
                     self?.finder.findBarContainer = nil
                     self?.contentView = Error(id: id, browse: browse, error: error)
+                    self?.makeFirstResponder(self?.contentView)
                 }
             }
             .store(in: &subs)

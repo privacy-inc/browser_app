@@ -135,11 +135,20 @@ final class Menu: NSMenu, NSMenuDelegate {
                 }
         case "Page":
             let id = (NSApp.keyWindow as? Window)?.id
+            
             let browse = id
                 .map {
                     tabber
                         .items
                         .value[state: $0].isBrowse
+                }
+                ?? false
+            
+            let error = id
+                .map {
+                    tabber
+                        .items
+                        .value[state: $0].isError
                 }
                 ?? false
             
@@ -149,7 +158,9 @@ final class Menu: NSMenu, NSMenuDelegate {
                     $0.target = self
                     $0.representedObject = id
                 },
-                .child("Reload", #selector(triggerReload), "r") {
+                error
+                ? .child("Try Again", #selector(Window.Error.tryAgain), "r")
+                : .child("Reload", #selector(triggerReload), "r") {
                     $0.isEnabled = browse
                     $0.target = self
                     $0.representedObject = id

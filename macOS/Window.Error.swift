@@ -5,9 +5,16 @@ import Sleuth
 extension Window {
     final class Error: NSView {
         private var subs = Set<AnyCancellable>()
+        private let id: UUID
+        private let browse: Int
+        private let error: Tab.Error
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID, browse: Int, error: Tab.Error) {
+            self.id = id
+            self.browse = browse
+            self.error = error
+            
             super.init(frame: .zero)
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false
@@ -35,12 +42,8 @@ extension Window {
             let retry = Option(icon: "gobackward", title: "Try again")
             retry
                 .click
-                .sink {
-                    cloud
-                        .browse(error.url, browse: browse) {
-                            tabber.browse(id, browse)
-                            session.load.send((id: id, access: $1))
-                        }
+                .sink { [weak self] in
+                    self?.tryAgain()
                 }
                 .store(in: &subs)
             content.addSubview(retry)
@@ -48,16 +51,8 @@ extension Window {
             let cancel = Option(icon: "xmark.circle.fill", title: "Cancel")
             cancel
                 .click
-                .sink {
-                    guard let web = tabber.items.value[web: id] as? Web else { return }
-                    if let url = web.url {
-                        cloud.update(browse, url: url)
-                        cloud.update(browse, title: web.title ?? "")
-                        tabber.dismiss(id)
-                    } else {
-                        NSApp.newTab()
-                        session.close.send(id)
-                    }
+                .sink { [weak self] in
+                    self?.cancel()
                 }
                 .store(in: &subs)
             content.addSubview(cancel)
@@ -85,10 +80,38 @@ extension Window {
             cancel.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
         }
         
+        override func cancelOperation(_: Any?) {
+            cancel()
+        }
+        
         override func mouseDown(with: NSEvent) {
             super.mouseDown(with: with)
             if with.clickCount == 1 {
                 window?.makeFirstResponder(self)
+            }
+        }
+        
+        @objc func tryAgain() {
+            cloud
+                .browse(error.url, browse: browse) { [weak self] in
+                    guard
+                        let id = self?.id,
+                        let browse = self?.browse
+                    else { return }
+                    tabber.browse(id, browse)
+                    session.load.send((id: id, access: $1))
+                }
+        }
+        
+        private func cancel() {
+            guard let web = tabber.items.value[web: id] as? Web else { return }
+            if let url = web.url {
+                cloud.update(browse, url: url)
+                cloud.update(browse, title: web.title ?? "")
+                tabber.dismiss(id)
+            } else {
+                NSApp.newTab()
+                session.close.send(id)
             }
         }
     }

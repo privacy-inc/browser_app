@@ -17,7 +17,7 @@ extension Search.Autocomplete {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             wantsLayer = true
-            layer!.cornerRadius = 4
+            layer!.cornerRadius = 6
             
             let text = Text()
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
@@ -32,18 +32,18 @@ extension Search.Autocomplete {
                         $0.linebreak()
                     }
                     $0.append(.make(filtered.url,
-                                    font: .preferredFont(forTextStyle: .footnote),
-                                    color: .secondaryLabelColor,
-                                    lineBreak: .byCharWrapping))
+                                    font: .preferredFont(forTextStyle: .callout),
+                                    color: .tertiaryLabelColor,
+                                    lineBreak: .byTruncatingTail))
                 }
             }
             addSubview(text)
             
-            bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 5).isActive = true
+            bottomAnchor.constraint(equalTo: text.bottomAnchor, constant: 10).isActive = true
             
-            text.topAnchor.constraint(equalTo: topAnchor, constant: 5).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
-            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -5).isActive = true
+            text.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            text.rightAnchor.constraint(lessThanOrEqualTo: rightAnchor, constant: -10).isActive = true
         }
     }
 }

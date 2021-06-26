@@ -27,9 +27,10 @@ extension Search {
             
             let content = NSVisualEffectView()
             content.translatesAutoresizingMaskIntoConstraints = false
+            content.material = .hudWindow
             content.state = .active
             content.wantsLayer = true
-            content.layer!.cornerRadius = 4
+            content.layer!.cornerRadius = 10
             content.addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInActiveApp, .inVisibleRect], owner: self))
             content.postsFrameChangedNotifications = true
             contentView!.addSubview(content)
@@ -112,17 +113,17 @@ extension Search {
                     if !bookmarks.isEmpty {
                         self.content.addSubview(titleBookmarks)
                         
-                        titleBookmarks.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
-                        titleBookmarks.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                        titleBookmarks.topAnchor.constraint(equalTo: top, constant: 20).isActive = true
+                        titleBookmarks.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 25).isActive = true
                         top = titleBookmarks.bottomAnchor
                         
                         bookmarks
                             .map(Cell.init(filtered:))
                             .forEach {
                                 self.content.addSubview($0)
-                                $0.topAnchor.constraint(equalTo: top, constant: 2).isActive = true
-                                $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 10).isActive = true
-                                $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -10).isActive = true
+                                $0.topAnchor.constraint(equalTo: top, constant: 5).isActive = true
+                                $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                                $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -15).isActive = true
                                 top = $0.bottomAnchor
                                 
                                 list.append($0)
@@ -134,24 +135,24 @@ extension Search {
                             self.content.addSubview(separator)
                             
                             separator.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
-                            separator.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
-                            separator.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -15).isActive = true
+                            separator.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 20).isActive = true
+                            separator.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -20).isActive = true
                             top = separator.bottomAnchor
                         }
                         
                         self.content.addSubview(titleHistory)
 
-                        titleHistory.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
-                        titleHistory.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                        titleHistory.topAnchor.constraint(equalTo: top, constant: bookmarks.isEmpty ? 15 : 10).isActive = true
+                        titleHistory.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 25).isActive = true
                         top = titleHistory.bottomAnchor
                         
                         history
                             .map(Cell.init(filtered:))
                             .forEach {
                                 self.content.addSubview($0)
-                                $0.topAnchor.constraint(equalTo: top, constant: 2).isActive = true
-                                $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 10).isActive = true
-                                $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -10).isActive = true
+                                $0.topAnchor.constraint(equalTo: top, constant: 5).isActive = true
+                                $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
+                                $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -15).isActive = true
                                 top = $0.bottomAnchor
 
                                 list.append($0)
@@ -161,7 +162,7 @@ extension Search {
                     if list.isEmpty {
                         self.end()
                     } else {
-                        self.content.bottomAnchor.constraint(equalTo: top, constant: 10).isActive = true
+                        self.content.bottomAnchor.constraint(equalTo: top, constant: 20).isActive = true
                         cells.send(list)
                     }
                 }
