@@ -1,6 +1,8 @@
 import AppKit
 
 class CollectionCell: CALayer {
+    var first = false
+    
     var insets: CGFloat {
         0
     }

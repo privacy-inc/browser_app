@@ -7,6 +7,7 @@ class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell
     final let height = PassthroughSubject<CGFloat, Never>()
     final let selected = PassthroughSubject<Int, Never>()
     final let highlighted = CurrentValueSubject<Int?, Never>(nil)
+    final let first = PassthroughSubject<Int?, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let press = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
@@ -45,13 +46,15 @@ class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell
 
         items
             .combineLatest(clip) { items, clip in
-            items
-                .filter {
-                    clip.intersects($0.rect)
-                }
+                items
+                    .filter {
+                        clip.intersects($0.rect)
+                    }
             }
             .removeDuplicates()
-            .sink { items in
+            .combineLatest(first
+                            .removeDuplicates())
+            .sink { (items: Set<CollectionItem>, first: Int?) in
                 cells
                     .filter {
                         $0.item != nil
@@ -81,7 +84,9 @@ class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell
                                 return $0
                             } (Cell())
                         cell.item = item
+                        cell.first = item.info.id == first
                         content.layer!.addSublayer(cell)
+                        
                     }
             }
             .store(in: &subs)

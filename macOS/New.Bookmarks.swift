@@ -3,7 +3,7 @@ import Combine
 import Sleuth
 
 extension New {
-    final class Bookmarks: Collection<New.Bookmarks.Cell> {
+    final class Bookmarks: Collection<New.Cell> {
         private static let insets = CGFloat(6)
         private static let insets2 = insets + insets
         
@@ -74,8 +74,9 @@ extension New {
                                                     y: $0.y,
                                                     width: width,
                                                     height: height)))
-                            $0.y += height + Self.insets
+                            $0.y += height
                         }
+                    self?.first.send(info.first?.id)
                     self?.items.send(result.items)
                     self?.height.send(result.y)
                 }
