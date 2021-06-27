@@ -50,8 +50,7 @@ extension New {
                                         }
                                         $0.append(.make(page.access.domain,
                                                         font: .preferredFont(forTextStyle: .callout),
-                                                        color: .secondaryLabelColor,
-                                                        lineBreak: .byTruncatingTail))
+                                                        color: .secondaryLabelColor))
                                     }
                                 })
                         }

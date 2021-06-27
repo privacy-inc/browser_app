@@ -46,8 +46,7 @@ extension New {
                                     if !browse.page.access.domain.isEmpty {
                                         $0.append(.make(browse.page.access.domain,
                                                         font: .preferredFont(forTextStyle: .callout),
-                                                        color: .secondaryLabelColor,
-                                                        lineBreak: .byTruncatingTail))
+                                                        color: .secondaryLabelColor))
                                         $0.linebreak()
                                     }
                                     $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),

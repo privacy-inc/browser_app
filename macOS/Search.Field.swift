@@ -84,7 +84,7 @@ extension Search {
                 autocomplete.start()
                 
                 ;{
-                    autocomplete.adjust.send((position: .init(x: $0.x, y: $0.y - 3), width: bounds.width))
+                    autocomplete.adjust.send((position: .init(x: $0.x + 4, y: $0.y - 2), width: bounds.width - 8))
                 } (window!.convertPoint(toScreen: superview!.convert(frame.origin, to: nil)))
             }
             autocomplete

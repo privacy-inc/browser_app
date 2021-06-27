@@ -31,6 +31,7 @@ extension Search {
             content.state = .active
             content.wantsLayer = true
             content.layer!.cornerRadius = 10
+            content.layer!.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
             content.addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInActiveApp, .inVisibleRect], owner: self))
             content.postsFrameChangedNotifications = true
             contentView!.addSubview(content)
