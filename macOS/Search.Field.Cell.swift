@@ -15,20 +15,17 @@ extension Search.Field {
         }
         
         override func drawInterior(withFrame: NSRect, in: NSView) { }
-        
-        override func drawingRect(forBounds: NSRect) -> NSRect {
-            var rect = forBounds
-            rect.origin.x += 20
-            rect.size.width -= 40
-            return super.drawingRect(forBounds: rect)
-        }
-        
+
         override func fieldEditor(for: NSView) -> NSTextView? {
             editor
         }
         
+        override func focusRingMaskBounds(forFrame: NSRect, in: NSView) -> NSRect {
+            forFrame.insetBy(dx: -19, dy: 1)
+        }
+        
         override func drawFocusRingMask(withFrame: NSRect, in: NSView) {
-            NSBezierPath(roundedRect: withFrame.insetBy(dx: 1, dy: 1), xRadius: 3, yRadius: 3).fill()
+            NSBezierPath(roundedRect: withFrame.insetBy(dx: -19, dy: 1), xRadius: 3, yRadius: 3).fill()
             editor.selectedTextAttributes = [.backgroundColor : NSColor.secondaryLabelColor,
                                              .foregroundColor : NSColor.windowBackgroundColor]
         }

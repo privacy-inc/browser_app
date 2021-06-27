@@ -181,17 +181,17 @@ final class Search: NSView {
                 $0.heightAnchor.constraint(equalToConstant: 26).isActive = true
             }
         
-        field.leftAnchor.constraint(equalTo: bookmark.rightAnchor, constant: 12).isActive = true
-        field.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
+        field.leftAnchor.constraint(equalTo: bar.leftAnchor, constant: 20).isActive = true
+        field.rightAnchor.constraint(equalTo: bar.rightAnchor, constant: -20).isActive = true
         
-        engine.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
-        reload.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
-        stop.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+        engine.leftAnchor.constraint(equalTo: bar.leftAnchor).isActive = true
+        reload.rightAnchor.constraint(equalTo: bar.rightAnchor).isActive = true
+        stop.rightAnchor.constraint(equalTo: bar.rightAnchor).isActive = true
         
         bar.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
         bar.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: 1).isActive = true
-        bar.leftAnchor.constraint(equalTo: field.leftAnchor).isActive = true
-        bar.rightAnchor.constraint(equalTo: field.rightAnchor).isActive = true
+        bar.leftAnchor.constraint(equalTo: bookmark.rightAnchor, constant: 12).isActive = true
+        bar.rightAnchor.constraint(equalTo: safeAreaLayoutGuide.rightAnchor, constant: -10).isActive = true
     }
     
     override func mouseUp(with: NSEvent) {
