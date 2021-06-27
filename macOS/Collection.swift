@@ -86,7 +86,6 @@ class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell
                         cell.item = item
                         cell.first = item.info.id == first
                         content.layer!.addSublayer(cell)
-                        
                     }
             }
             .store(in: &subs)

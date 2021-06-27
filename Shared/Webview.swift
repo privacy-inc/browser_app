@@ -169,6 +169,13 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
             external(decidePolicyFor.request.url!)
         case .ignore:
             decisionHandler(.cancel, preferences)
+            decidePolicyFor
+                .targetFrame
+                .map(\.isMainFrame)
+                .map {
+                    guard $0 else { return }
+                    tabber.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "There was an error"))
+                }
         case .block:
             decisionHandler(.cancel, preferences)
             decidePolicyFor
