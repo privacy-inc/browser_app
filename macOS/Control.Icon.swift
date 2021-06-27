@@ -28,5 +28,9 @@ extension Control {
                 icon.contentTintColor = .tertiaryLabelColor
             }
         }
+        
+        override var allowsVibrancy: Bool {
+            true
+        }
     }
 }
