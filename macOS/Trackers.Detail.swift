@@ -8,7 +8,7 @@ extension Trackers {
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)
-            let segmented = NSSegmentedControl(labels: ["Attemps", "Recent"], trackingMode: .selectOne, target: nil, action: nil)
+            let segmented = NSSegmentedControl(labels: ["Attempts", "Recent"], trackingMode: .selectOne, target: nil, action: nil)
             segmented.selectedSegment = 0
             segmented.segmentStyle = .separated
             segmented.translatesAutoresizingMaskIntoConstraints = false
@@ -34,7 +34,7 @@ extension Trackers {
                 .archive
                 .map(\.trackers)
                 .removeDuplicates {
-                    $0.flatMap(\.count) == $1.flatMap(\.count)
+                    $0.attempts == $1.attempts && $0.count == $1.count
                 }
                 .sink { trackers in
                     domains.attributedStringValue = .make {
@@ -45,9 +45,7 @@ extension Trackers {
                     }
                     
                     incidences.attributedStringValue = .make {
-                        $0.append(.make(session.decimal.string(from: NSNumber(value: trackers
-                                                                                .map(\.1.count)
-                                                                                .reduce(0, +))) ?? "",
+                        $0.append(.make(session.decimal.string(from: NSNumber(value: trackers.attempts)) ?? "",
                                         font: .monoDigit(style: .title1, weight: .regular)))
                         $0.linebreak()
                         $0.append(.make("Attempts blocked", font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
