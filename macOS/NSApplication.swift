@@ -10,7 +10,8 @@ extension NSApplication {
     }
     
     @objc func newWindow() {
-        newWindow(id: tabber.new(), closing: true)
+        closeNew()
+        window(id: tabber.new())
     }
     
     func window(id: UUID) {
@@ -32,7 +33,7 @@ extension NSApplication {
         cloud
             .navigate(url) { browse, _ in
                 tabber.browse(id, browse)
-                self.newWindow(id: id, closing: false)
+                self.window(id: id)
             }
     }
     
@@ -118,13 +119,6 @@ extension NSApplication {
                 current.makeFirstResponder(current.search.field)
             }
         }
-    }
-    
-    private func newWindow(id: UUID, closing: Bool) {
-        if closing {
-            closeNew()
-        }
-        window(id: id)
     }
     
     private func closeNew() {
