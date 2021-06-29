@@ -119,12 +119,15 @@ final class Menu: NSMenu, NSMenuDelegate {
                 .separator()]
                 + (0 ..< NSApp.windows.count)
                 .compactMap {
-                    if let window = NSApp.windows[$0] as? Window {
-                        guard window.tabGroup == nil || window == window.tabGroup?.selectedWindow else { return nil }
-                        return (index: $0, title: window.tab.title)
+                    switch NSApp.windows[$0] {
+                    case is Window:
+                        guard NSApp.windows[$0].tabGroup == nil || NSApp.windows[$0] == NSApp.windows[$0].tabGroup?.selectedWindow else { return nil }
+                        return (index: $0, title: NSApp.windows[$0].tab.title)
+                    case is Trackers, is Activity, is Settings:
+                        return (index: $0, title: NSApp.windows[$0].title)
+                    default:
+                        return nil
                     }
-                    guard !NSApp.windows[$0].title.isEmpty else { return nil }
-                    return (index: $0, title: NSApp.windows[$0].title)
                 }
                 .map { (index: Int, title: String) in
                     .child(title, #selector(triggerFocus)) {
