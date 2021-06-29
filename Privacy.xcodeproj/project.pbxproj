@@ -37,6 +37,7 @@
 		CE11EF19267A414200A4D3D6 /* Webview.Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11EF18267A414200A4D3D6 /* Webview.Download.swift */; };
 		CE11EF1A267A417A00A4D3D6 /* Webview.Download.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE11EF18267A414200A4D3D6 /* Webview.Download.swift */; };
 		CE12B21B265E6C2F000EA487 /* New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE12B21A265E6C2F000EA487 /* New.swift */; };
+		CE1C2F65268B407200DC0B41 /* Trackers.Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE1C2F64268B407200DC0B41 /* Trackers.Detail.swift */; };
 		CE2930F22670D2B7003E60F0 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2930F12670D2B7003E60F0 /* Separator.swift */; };
 		CE2E9883265136D400844E8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E9882265136D400844E8B /* Toast.swift */; };
 		CE2E98852651374700844E8B /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
@@ -311,6 +312,7 @@
 		CE0D6C01265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Field.Cell.Editor.swift; sourceTree = "<group>"; };
 		CE11EF18267A414200A4D3D6 /* Webview.Download.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.Download.swift; sourceTree = "<group>"; };
 		CE12B21A265E6C2F000EA487 /* New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.swift; sourceTree = "<group>"; };
+		CE1C2F64268B407200DC0B41 /* Trackers.Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Detail.swift; sourceTree = "<group>"; };
 		CE2930F12670D2B7003E60F0 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		CE2E9882265136D400844E8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CE2E98842651374700844E8B /* Toast.Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.Message.swift; sourceTree = "<group>"; };
@@ -803,6 +805,7 @@
 				CE805559266789E10096D1A5 /* Toast.swift */,
 				CEF97E70266A685700550E10 /* Trackers.Item.swift */,
 				CEF97E6C266A631700550E10 /* Trackers.swift */,
+				CE1C2F64268B407200DC0B41 /* Trackers.Detail.swift */,
 				CEF97E72266A759300550E10 /* Trackers.Title.swift */,
 				CE9E175C2661051900E8BF24 /* Web.swift */,
 				CE81AC4226692798004B5B63 /* Window.Error.Option.swift */,
@@ -1192,6 +1195,7 @@
 				CECE1F97265E91C000ACBB0B /* New.Bookmarks.swift in Sources */,
 				CE676A6B265E64EE0042EDC2 /* Menu.swift in Sources */,
 				CE0D6C00265FF14A000B3FF1 /* Search.Field.Cell.swift in Sources */,
+				CE1C2F65268B407200DC0B41 /* Trackers.Detail.swift in Sources */,
 				CEF001A6266BD65300993CDD /* Settings.Option.swift in Sources */,
 				CECDA7D92664FF1700F87546 /* Array.Search.Autocomplete.Cell.swift in Sources */,
 				CEF001B4266BF4F400993CDD /* Settings.Title.swift in Sources */,
