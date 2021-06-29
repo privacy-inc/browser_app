@@ -185,8 +185,6 @@
 		CEF0019A266BC6FF00993CDD /* Info.Why.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF00199266BC6FF00993CDD /* Info.Why.swift */; };
 		CEF0019C266BC76B00993CDD /* Info.Alternatives.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0019B266BC76B00993CDD /* Info.Alternatives.swift */; };
 		CEF0019E266BC93C00993CDD /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0019D266BC93C00993CDD /* Settings.swift */; };
-		CEF001A0266BC96400993CDD /* Segmented.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF0019F266BC96400993CDD /* Segmented.swift */; };
-		CEF001A2266BC97B00993CDD /* Segmented.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001A1266BC97B00993CDD /* Segmented.Item.swift */; };
 		CEF001A4266BCE3600993CDD /* Settings.General.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001A3266BCE3600993CDD /* Settings.General.swift */; };
 		CEF001A6266BD65300993CDD /* Settings.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001A5266BD65300993CDD /* Settings.Option.swift */; };
 		CEF001A8266BE65F00993CDD /* Settings.Features.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF001A7266BE65F00993CDD /* Settings.Features.swift */; };
@@ -458,8 +456,6 @@
 		CEF00199266BC6FF00993CDD /* Info.Why.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Why.swift; sourceTree = "<group>"; };
 		CEF0019B266BC76B00993CDD /* Info.Alternatives.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Info.Alternatives.swift; sourceTree = "<group>"; };
 		CEF0019D266BC93C00993CDD /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
-		CEF0019F266BC96400993CDD /* Segmented.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segmented.swift; sourceTree = "<group>"; };
-		CEF001A1266BC97B00993CDD /* Segmented.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Segmented.Item.swift; sourceTree = "<group>"; };
 		CEF001A3266BCE3600993CDD /* Settings.General.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.General.swift; sourceTree = "<group>"; };
 		CEF001A5266BD65300993CDD /* Settings.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Option.swift; sourceTree = "<group>"; };
 		CEF001A7266BE65F00993CDD /* Settings.Features.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Features.swift; sourceTree = "<group>"; };
@@ -780,8 +776,6 @@
 				CE0D6BFF265FF14A000B3FF1 /* Search.Field.Cell.swift */,
 				CE0D6BFD265FEBD5000B3FF1 /* Search.Field.swift */,
 				CE0D6BF3265FDAE9000B3FF1 /* Search.swift */,
-				CEF001A1266BC97B00993CDD /* Segmented.Item.swift */,
-				CEF0019F266BC96400993CDD /* Segmented.swift */,
 				CEAB2F49266F8AEA003AEC08 /* Selectable.swift */,
 				CE2930F12670D2B7003E60F0 /* Separator.swift */,
 				CE676A64265E5FCD0042EDC2 /* Session.swift */,
@@ -1188,7 +1182,6 @@
 				CE8E4D462677623B0023839A /* Forget.Option.Destructive.swift in Sources */,
 				CEF00196266BB8D900993CDD /* Store.Item.swift in Sources */,
 				CEF97E60266A312A00550E10 /* NSMenu.swift in Sources */,
-				CEF001A2266BC97B00993CDD /* Segmented.Item.swift in Sources */,
 				CE676A66265E60C60042EDC2 /* Purchases.swift in Sources */,
 				CE0D6BF6265FDF29000B3FF1 /* Control.swift in Sources */,
 				CEF97E6F266A642D00550E10 /* Scroll.swift in Sources */,
@@ -1261,7 +1254,6 @@
 				CEF97E66266A507F00550E10 /* Activity.swift in Sources */,
 				CE7F6512266E30C300E889A9 /* Settings.Location.swift in Sources */,
 				CEAB2F4C266F8C2A003AEC08 /* NSFont.swift in Sources */,
-				CEF001A0266BC96400993CDD /* Segmented.swift in Sources */,
 				CEE845F326663D7E00D0A9DC /* Search.Bar.swift in Sources */,
 				CE0D6C02265FF16B000B3FF1 /* Search.Field.Cell.Editor.swift in Sources */,
 				CECE1F95265E90A100ACBB0B /* Text.swift in Sources */,

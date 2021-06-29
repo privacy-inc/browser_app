@@ -17,24 +17,15 @@ extension Settings {
             engineTitle.stringValue = "Search engine"
             view!.addSubview(engineTitle)
             
-            let engine = Segmented(items: ["Google", "Ecosia"])
+            let engine = NSSegmentedControl(labels: ["Google", "Ecosia"], trackingMode: .selectOne, target: self, action: #selector(self.engine))
+            engine.segmentStyle = .texturedRounded
+            engine.translatesAutoresizingMaskIntoConstraints = false
             switch cloud.archive.value.settings.engine {
             case .google:
-                engine.select.send(0)
+                engine.selectedSegment = 0
             case .ecosia:
-                engine.select.send(1)
+                engine.selectedSegment = 1
             }
-            engine
-                .select
-                .sink {
-                    switch $0 {
-                    case 0:
-                        cloud.engine(.google)
-                    default:
-                        cloud.engine(.ecosia)
-                    }
-                }
-                .store(in: &subs)
             view!.addSubview(engine)
             
             let browserTitle = Text()
@@ -99,6 +90,15 @@ You can make this app your default browser and all websites will open automatica
                     $0.lastPathComponent == Bundle.main.bundleURL.lastPathComponent
                 }
                 ?? false
+        }
+        
+        @objc private func engine(_ segmented: NSSegmentedControl) {
+            switch segmented.selectedSegment {
+            case 0:
+                cloud.engine(.google)
+            default:
+                cloud.engine(.ecosia)
+            }
         }
     }
 }
