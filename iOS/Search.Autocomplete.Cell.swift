@@ -15,7 +15,7 @@ extension Search.Autocomplete {
                             .padding(.top, 4)
                     }
                     if !item.url.isEmpty {
-                        Text(verbatim: item.url)
+                        Text(verbatim: item.domain)
                             .foregroundColor(.secondary)
                             .padding(.bottom, 4)
                     }
