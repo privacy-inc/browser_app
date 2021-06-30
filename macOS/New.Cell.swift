@@ -4,7 +4,8 @@ extension New {
     final class Cell: CollectionCell {
         static let insets = CGFloat(12)
         static let insets2 = insets * 2
-        private(set) weak var separator: CAShapeLayer!
+        private weak var text: CollectionCellText!
+        private weak var separator: CAShapeLayer!
         
         override var first: Bool {
             didSet {
@@ -30,11 +31,31 @@ extension New {
             }
         }
         
+        override var item: CollectionItem? {
+            didSet {
+                state = .none
+                if let item = item {
+                    frame = item.rect
+                    text.frame = .init(
+                        x: insets,
+                        y: insets,
+                        width: item.rect.width - insets2,
+                        height: item.rect.height - insets2)
+                    text.string = item.info.string
+                } else {
+                    text.string = nil
+                }
+            }
+        }
+        
         required init?(coder: NSCoder) { nil }
-        override init(layer: Any) { super.init(layer: layer) }
         required init() {
             super.init()
             cornerRadius = 8
+            
+            let text = CollectionCellText()
+            addSublayer(text)
+            self.text = text
             
             let separator = CAShapeLayer()
             separator.fillColor = .clear
