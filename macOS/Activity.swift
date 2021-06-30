@@ -46,7 +46,7 @@ final class Activity: NSWindow {
         
         cloud
             .archive
-            .compactMap(\.since)
+            .compactMap(\.activity.first)
             .map {
                 RelativeDateTimeFormatter().string(from: $0)
             }
@@ -58,7 +58,7 @@ final class Activity: NSWindow {
         
         cloud
             .archive
-            .map(\.plotter)
+            .map(\.activity.plotter)
             .removeDuplicates()
             .sink {
                 viewer

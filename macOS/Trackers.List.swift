@@ -9,11 +9,11 @@ extension Trackers {
         private static let insets = CGFloat(10)
         
         required init?(coder: NSCoder) { nil }
-        init(sorted: CurrentValueSubject<Sleuth.Trackers, Never>) {
+        init(sorted: CurrentValueSubject<Sleuth.Trackers, Never>, show: PassthroughSubject<[Date]?, Never>) {
             super.init()
             translatesAutoresizingMaskIntoConstraints = false
             
-            let info = PassthroughSubject<[Info], Never>()
+            let info = CurrentValueSubject<[Info], Never>([])
             
             cloud
                 .archive
@@ -59,6 +59,14 @@ extension Trackers {
             
             info
                 .removeDuplicates()
+                .map { _ in
+                    nil
+                }
+                .subscribe(show)
+                .store(in: &subs)
+            
+            info
+                .removeDuplicates()
                 .sink { [weak self] in
                     let result = $0
                         .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets)) {
@@ -79,10 +87,10 @@ extension Trackers {
                 .store(in: &subs)
             
             selected
-                .sink {
-                    cloud.revisit($0)
-//                    tabber.browse(id, $0)
+                .map {
+                    info.value[$0].dates
                 }
+                .subscribe(show)
                 .store(in: &subs)
         }
         
