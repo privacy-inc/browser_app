@@ -1,11 +1,7 @@
-import AppKit
+import QuartzCore
 
 class CollectionCell<I>: CALayer where I : CollectionItemInfo {
     var first = false
-    
-    var insets: CGFloat {
-        0
-    }
     
     var none: CGColor {
         .clear
@@ -17,10 +13,6 @@ class CollectionCell<I>: CALayer where I : CollectionItemInfo {
     
     var pressed: CGColor {
         .clear
-    }
-    
-    var insets2: CGFloat {
-        insets + insets
     }
     
     var item: CollectionItem<I>?

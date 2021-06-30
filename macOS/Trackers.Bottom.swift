@@ -20,17 +20,18 @@ extension Trackers {
             addSubview(domains)
             
             let incidences = Text()
+            incidences.alignment = .right
             addSubview(incidences)
             
-            segmented.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -20).isActive = true
+            segmented.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             segmented.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-            segmented.widthAnchor.constraint(equalToConstant: 200).isActive = true
+            segmented.widthAnchor.constraint(equalToConstant: List.width - 20).isActive = true
             
-            domains.topAnchor.constraint(equalTo: topAnchor, constant: 20).isActive = true
-            domains.leftAnchor.constraint(equalTo: segmented.rightAnchor, constant: 60).isActive = true
+            domains.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
+            domains.rightAnchor.constraint(equalTo: incidences.leftAnchor, constant: -20).isActive = true
             
             incidences.topAnchor.constraint(equalTo: domains.topAnchor).isActive = true
-            incidences.leftAnchor.constraint(equalTo: domains.rightAnchor, constant: 30).isActive = true
+            incidences.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
             
             sub = cloud
                 .archive
@@ -41,16 +42,23 @@ extension Trackers {
                 .sink { trackers in
                     domains.attributedStringValue = .make {
                         $0.append(.make(session.decimal.string(from: NSNumber(value: trackers.count)) ?? "",
-                                        font: .monoDigit(style: .title1, weight: .regular)))
+                                        font: .monoDigit(style: .title1, weight: .regular),
+                                        alignment: .right))
                         $0.linebreak()
-                        $0.append(.make("Trackers", font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
+                        $0.append(.make("Trackers", font: .preferredFont(forTextStyle: .callout),
+                                        color: .secondaryLabelColor,
+                                        alignment: .right))
                     }
                     
                     incidences.attributedStringValue = .make {
                         $0.append(.make(session.decimal.string(from: NSNumber(value: trackers.attempts)) ?? "",
-                                        font: .monoDigit(style: .title1, weight: .regular)))
+                                        font: .monoDigit(style: .title1, weight: .regular),
+                                        alignment: .right))
                         $0.linebreak()
-                        $0.append(.make("Attempts blocked", font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
+                        $0.append(.make("Attempts blocked",
+                                        font: .preferredFont(forTextStyle: .callout),
+                                        color: .secondaryLabelColor,
+                                        alignment: .right))
                     }
                 }
         }

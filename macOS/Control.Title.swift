@@ -1,4 +1,4 @@
-import AppKit
+import Foundation
 
 extension Control {
     final class Title: Control {

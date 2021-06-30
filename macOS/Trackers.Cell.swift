@@ -1,10 +1,12 @@
 import AppKit
 
-extension New {
+extension Trackers {
     final class Cell: CollectionCell<Info> {
         static let insets = CGFloat(12)
         static let insets2 = insets * 2
-        private weak var text: CollectionCellText!
+        static let titleWidth = CGFloat(150)
+        private weak var title: CollectionCellText!
+        private weak var counter: CollectionCellText!
         private weak var separator: CAShapeLayer!
         
         override var first: Bool {
@@ -32,14 +34,14 @@ extension New {
                 state = .none
                 if let item = item {
                     frame = item.rect
-                    text.frame = .init(
-                        x: Self.insets,
-                        y: Self.insets,
-                        width: item.rect.width - Self.insets2,
-                        height: item.rect.height - Self.insets2)
-                    text.string = item.info.string
+                    title.frame.size.height = item.rect.height - Self.insets2
+                    counter.frame.size.height = item.info.counter.height(for: List.width)
+                    counter.frame.origin.y = (item.rect.height - counter.frame.size.height) / 2
+                    title.string = item.info.title
+                    counter.string = item.info.counter
                 } else {
-                    text.string = nil
+                    title.string = nil
+                    counter.string = nil
                 }
             }
         }
@@ -49,9 +51,24 @@ extension New {
             super.init()
             cornerRadius = 8
             
-            let text = CollectionCellText()
-            addSublayer(text)
-            self.text = text
+            let title = CollectionCellText()
+            title.frame = .init(
+                x: Self.insets,
+                y: Self.insets,
+                width: Self.titleWidth,
+                height: 0)
+            addSublayer(title)
+            self.title = title
+            
+            let counter = CollectionCellText()
+            counter.alignmentMode = .right
+            counter.frame = .init(
+                x: 0,
+                y: 0,
+                width: List.width - Self.insets,
+                height: 0)
+            addSublayer(counter)
+            self.counter = counter
             
             let separator = CAShapeLayer()
             separator.fillColor = .clear

@@ -5,7 +5,7 @@ final class Trackers: NSWindow {
     private var subscription: AnyCancellable?
     
     init() {
-        super.init(contentRect: .init(x: 0, y: 0, width: 640, height: 400),
+        super.init(contentRect: .init(x: 0, y: 0, width: 800, height: 500),
                    styleMask: [.closable, .miniaturizable, .titled, .fullSizeContentView], backing: .buffered, defer: true)
         toolbar = .init()
         isReleasedWhenClosed = false
@@ -21,11 +21,11 @@ final class Trackers: NSWindow {
         let bottom = Bottom()
         let barBottom = NSTitlebarAccessoryViewController()
         barBottom.view = bottom
-        barBottom.view.frame.size.height = 80
+        barBottom.view.frame.size.height = 60
         barBottom.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(barBottom)
         
-        let content = NSVisualEffectView()
+        let content = NSView()
         contentView = content
         
         let side = NSVisualEffectView()
@@ -34,7 +34,7 @@ final class Trackers: NSWindow {
         content.addSubview(side)
         
         let list = List(sorted: bottom.sorted)
-        side.addSubview(list)
+        content.addSubview(list)
         
         side.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
         side.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true

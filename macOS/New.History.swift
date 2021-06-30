@@ -77,7 +77,7 @@ extension New {
                         }
                     self?.first.send(info.first?.id)
                     self?.items.send(result.items)
-                    self?.height.send(result.y)
+                    self?.height.send(result.y + Self.insets)
                 }
                 .store(in: &subs)
             

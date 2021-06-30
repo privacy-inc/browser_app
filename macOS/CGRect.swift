@@ -1,4 +1,4 @@
-import CoreGraphics
+import Foundation
 
 extension CGRect: Hashable {
     public func hash(into: inout Hasher) {

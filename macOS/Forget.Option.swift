@@ -1,4 +1,4 @@
-import AppKit
+import Foundation
 
 extension Forget {
     class Option: Control {

@@ -1,4 +1,4 @@
-import AppKit
+import Foundation
 
 extension Store.Item {
     final class Option: Control {

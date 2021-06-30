@@ -1,4 +1,4 @@
-import AppKit
+import Foundation
 
 struct CollectionItem<I>: Hashable where I : CollectionItemInfo {
     let info: I

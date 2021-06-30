@@ -88,7 +88,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     private var help: NSMenuItem {
         .parent("Help", [
                     .separator(),
-                    .child("Privacy website", #selector(triggerWebsite)) {
+                    .child("Privacy Website", #selector(triggerWebsite)) {
                         $0.target = self
                     }])
     }
