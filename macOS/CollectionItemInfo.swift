@@ -1,6 +1,5 @@
 import AppKit
 
-struct CollectionItemInfo: Hashable {
-    let id: Int
-    let string: NSAttributedString
+protocol CollectionItemInfo: Hashable {
+    var id: Int { get }
 }

@@ -2,7 +2,7 @@ import AppKit
 import Combine
 
 extension New {
-    final class History: Collection<New.Cell> {
+    final class History: Collection<Cell, Info> {
         private static let insets = CGFloat(6)
         private static let insets2 = insets + insets
         
@@ -12,7 +12,7 @@ extension New {
             translatesAutoresizingMaskIntoConstraints = false
             
             let width = PassthroughSubject<CGFloat, Never>()
-            let info = PassthroughSubject<[CollectionItemInfo], Never>()
+            let info = PassthroughSubject<[Info], Never>()
             
             NotificationCenter
                 .default
@@ -62,9 +62,9 @@ extension New {
                 .removeDuplicates()
                 .combineLatest(width
                                 .removeDuplicates())
-                .sink { [weak self] (info: [CollectionItemInfo], width: CGFloat) in
+                .sink { [weak self] (info: [Info], width: CGFloat) in
                     let result = info
-                        .reduce(into: (items: Set<CollectionItem>(), y: Self.insets)) {
+                        .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets)) {
                             let height = ceil($1.string.height(for: width - Cell.insets2) + Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,

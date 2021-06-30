@@ -1,9 +1,9 @@
 import AppKit
 import Combine
 
-class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell {
+class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I> {
     final var subs = Set<AnyCancellable>()
-    final let items = PassthroughSubject<Set<CollectionItem>, Never>()
+    final let items = PassthroughSubject<Set<CollectionItem<I>>, Never>()
     final let height = PassthroughSubject<CGFloat, Never>()
     final let selected = PassthroughSubject<Int, Never>()
     final let highlighted = CurrentValueSubject<Int?, Never>(nil)
@@ -31,7 +31,7 @@ class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell
         menu = NSMenu()
         menu!.delegate = self
         
-        var cells = Set<Cell>()
+        var cells = Set<C>()
         let clip = PassthroughSubject<CGRect, Never>()
             
         clip
@@ -82,7 +82,7 @@ class Collection<Cell>: NSScrollView, NSMenuDelegate where Cell : CollectionCell
                             ?? {
                                 cells.insert($0)
                                 return $0
-                            } (Cell())
+                            } (C())
                         cell.item = item
                         cell.first = item.info.id == first
                         content.layer!.addSublayer(cell)

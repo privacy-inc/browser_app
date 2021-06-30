@@ -1,7 +1,7 @@
 import AppKit
 
 extension New {
-    final class Cell: CollectionCell {
+    final class Cell: CollectionCell<Info> {
         static let insets = CGFloat(12)
         static let insets2 = insets * 2
         private weak var text: CollectionCellText!
@@ -31,7 +31,7 @@ extension New {
             }
         }
         
-        override var item: CollectionItem? {
+        override var item: CollectionItem<Info>? {
             didSet {
                 state = .none
                 if let item = item {

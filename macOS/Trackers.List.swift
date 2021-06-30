@@ -1,9 +1,8 @@
 import AppKit
 import Combine
-import Sleuth
 
-extension New {
-    final class Bookmarks: Collection<Cell, Info> {
+extension Trackers {
+    final class List: Collection<New.Cell, New.Info> {
         private static let insets = CGFloat(6)
         private static let insets2 = insets + insets
         
@@ -13,7 +12,7 @@ extension New {
             translatesAutoresizingMaskIntoConstraints = false
             
             let width = PassthroughSubject<CGFloat, Never>()
-            let info = PassthroughSubject<[Info], Never>()
+            let info = PassthroughSubject<[New.Info], Never>()
             
             NotificationCenter
                 .default
@@ -30,28 +29,29 @@ extension New {
             
             cloud
                 .archive
-                .map(\.bookmarks)
+                .map(\.browses)
                 .removeDuplicates()
                 .map {
                     $0
-                        .enumerated()
-                        .map { (index: Int, page: Page) in
+                        .map { browse in
                             .init(
-                                id: index,
+                                id: browse.id,
                                 string: .make {
-                                    if !page.title.isEmpty {
-                                        $0.append(.make(page.title,
+                                    if !browse.page.title.isEmpty {
+                                        $0.append(.make(browse.page.title,
                                                         font: .preferredFont(forTextStyle: .body),
                                                         color: .labelColor))
+                                        $0.linebreak()
                                     }
-                                    if !page.access.domain.isEmpty {
-                                        if !page.title.isEmpty {
-                                            $0.linebreak()
-                                        }
-                                        $0.append(.make(page.access.domain,
+                                    if !browse.page.access.domain.isEmpty {
+                                        $0.append(.make(browse.page.access.domain,
                                                         font: .preferredFont(forTextStyle: .callout),
                                                         color: .secondaryLabelColor))
+                                        $0.linebreak()
                                     }
+                                    $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),
+                                                    font: .preferredFont(forTextStyle: .callout),
+                                                    color: .secondaryLabelColor))
                                 })
                         }
                 }
@@ -62,10 +62,10 @@ extension New {
                 .removeDuplicates()
                 .combineLatest(width
                                 .removeDuplicates())
-                .sink { [weak self] (info: [Info], width: CGFloat) in
+                .sink { [weak self] (info: [New.Info], width: CGFloat) in
                     let result = info
-                        .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets)) {
-                            let height = ceil($1.string.height(for: width - Cell.insets2) + Cell.insets2)
+                        .reduce(into: (items: Set<CollectionItem<New.Info>>(), y: Self.insets)) {
+                            let height = ceil($1.string.height(for: width - New.Cell.insets2) + New.Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(
@@ -83,10 +83,8 @@ extension New {
             
             selected
                 .sink {
-                    cloud
-                        .open($0) {
-                            tabber.browse(id, $0)
-                        }
+                    cloud.revisit($0)
+                    tabber.browse(id, $0)
                 }
                 .store(in: &subs)
         }
@@ -98,7 +96,7 @@ extension New {
         override func delete() {
             highlighted
                 .value
-                .map(cloud.remove(bookmark:))
+                .map(cloud.remove(browse:))
         }
     }
 }

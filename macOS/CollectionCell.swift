@@ -1,6 +1,6 @@
 import AppKit
 
-class CollectionCell: CALayer {
+class CollectionCell<I>: CALayer where I : CollectionItemInfo {
     var first = false
     
     var insets: CGFloat {
@@ -23,7 +23,7 @@ class CollectionCell: CALayer {
         insets + insets
     }
     
-    var item: CollectionItem?
+    var item: CollectionItem<I>?
     
     required init?(coder: NSCoder) { nil }
     override init(layer: Any) { super.init(layer: layer) }
