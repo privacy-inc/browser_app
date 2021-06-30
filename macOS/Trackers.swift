@@ -13,6 +13,18 @@ final class Trackers: NSWindow {
         center()
         setFrameAutosaveName("Trackers")
         
+        let barTop = NSTitlebarAccessoryViewController()
+        barTop.view = Top()
+        barTop.layoutAttribute = .top
+        addTitlebarAccessoryViewController(barTop)
+        
+        let bottom = Bottom()
+        let barBottom = NSTitlebarAccessoryViewController()
+        barBottom.view = bottom
+        barBottom.view.frame.size.height = 80
+        barBottom.layoutAttribute = .bottom
+        addTitlebarAccessoryViewController(barBottom)
+        
         let content = NSVisualEffectView()
         contentView = content
         
@@ -21,23 +33,18 @@ final class Trackers: NSWindow {
         side.material = .menu
         content.addSubview(side)
         
-        let barTop = NSTitlebarAccessoryViewController()
-        barTop.view = Title()
-        barTop.layoutAttribute = .top
-        addTitlebarAccessoryViewController(barTop)
-        
-        let barBottom = NSTitlebarAccessoryViewController()
-        barBottom.view = Detail()
-        barBottom.view.frame.size.height = 80
-        barBottom.layoutAttribute = .bottom
-        addTitlebarAccessoryViewController(barBottom)
+        let list = List(sorted: bottom.sorted)
+        side.addSubview(list)
         
         side.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
         side.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
         side.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
-        side.widthAnchor.constraint(equalToConstant: 240).isActive = true
+        side.widthAnchor.constraint(equalToConstant: List.width + List.insets2).isActive = true
         
-        
+        list.topAnchor.constraint(equalTo: side.topAnchor).isActive = true
+        list.bottomAnchor.constraint(equalTo: side.bottomAnchor).isActive = true
+        list.leftAnchor.constraint(equalTo: side.leftAnchor).isActive = true
+        list.rightAnchor.constraint(equalTo: side.rightAnchor).isActive = true
         
 //        let separator = Separator()
 //        contentView!.addSubview(separator)

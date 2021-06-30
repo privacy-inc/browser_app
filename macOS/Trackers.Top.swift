@@ -1,7 +1,7 @@
 import AppKit
 
 extension Trackers {
-    final class Title: NSView {
+    final class Top: NSView {
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)

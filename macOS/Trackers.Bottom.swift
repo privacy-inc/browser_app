@@ -1,9 +1,11 @@
 import AppKit
 import Combine
+import Sleuth
 
 extension Trackers {
-    final class Detail: NSView {
-        private var subs = Set<AnyCancellable>()
+    final class Bottom: NSView {
+        let sorted = CurrentValueSubject<Sleuth.Trackers, Never>(.attempts)
+        private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
         init() {
@@ -30,7 +32,7 @@ extension Trackers {
             incidences.topAnchor.constraint(equalTo: domains.topAnchor).isActive = true
             incidences.leftAnchor.constraint(equalTo: domains.rightAnchor, constant: 30).isActive = true
             
-            cloud
+            sub = cloud
                 .archive
                 .map(\.trackers)
                 .removeDuplicates {
@@ -51,7 +53,6 @@ extension Trackers {
                         $0.append(.make("Attempts blocked", font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
                     }
                 }
-                .store(in: &subs)
         }
     }
 }
