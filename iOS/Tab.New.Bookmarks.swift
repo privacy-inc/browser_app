@@ -15,20 +15,21 @@ extension Tab.New {
                         }
                 } label: {
                     HStack {
+                        Text(verbatim: list[index].title)
+                            .font(.footnote)
+                            .foregroundColor(.primary)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .padding(.trailing)
+                        Spacer()
                         ZStack {
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(Color(.tertiarySystemBackground))
                             Text(verbatim: list[index].access.domain)
                                 .font(.footnote)
-                                .foregroundColor(.primary)
+                                .foregroundColor(.secondary)
                                 .padding(10)
                         }
                         .fixedSize()
-                        Text(verbatim: list[index].title)
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .padding(.trailing)
                     }
                     .padding(.horizontal)
                     .contentShape(Rectangle())
