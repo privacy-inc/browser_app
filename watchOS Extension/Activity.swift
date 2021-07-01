@@ -9,12 +9,13 @@ struct Activity: View {
                 .font(.footnote)
                 .padding([.leading, .top])
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-            Chart(values: session.archive.plotter)
+            Chart(values: session.archive.activity.plotter)
                 .padding()
             HStack {
                 session
                     .archive
-                    .since
+                    .activity
+                    .first
                     .map {
                         Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
                     }

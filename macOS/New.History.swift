@@ -82,6 +82,9 @@ extension New {
                 .store(in: &subs)
             
             selected
+                .compactMap {
+                    $0
+                }
                 .sink {
                     cloud.revisit($0)
                     tabber.browse(id, $0)

@@ -6,13 +6,14 @@ struct Activity: View {
     var body: some View {
         Popup(title: "Activity", leading: { }) {
             VStack(spacing: 0) {
-                Chart(values: session.archive.plotter)
+                Chart(values: session.archive.activity.plotter)
                     .frame(height: 220)
                     .padding()
                 HStack {
                     session
                         .archive
-                        .since
+                        .activity
+                        .first
                         .map {
                             Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
                         }

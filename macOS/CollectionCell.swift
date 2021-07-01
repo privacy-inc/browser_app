@@ -1,4 +1,4 @@
-import QuartzCore
+import AppKit
 
 class CollectionCell<I>: CALayer where I : CollectionItemInfo {
     var first = false
@@ -8,11 +8,11 @@ class CollectionCell<I>: CALayer where I : CollectionItemInfo {
     }
     
     var highlighted: CGColor {
-        .clear
+        NSColor.controlBackgroundColor.cgColor
     }
     
     var pressed: CGColor {
-        .clear
+        NSColor.selectedContentBackgroundColor.cgColor
     }
     
     var item: CollectionItem<I>?

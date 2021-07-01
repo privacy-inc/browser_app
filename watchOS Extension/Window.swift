@@ -6,7 +6,7 @@ struct Window: View {
     var body: some View {
         TabView {
             Activity(session: $session)
-            Trackers(session: $session, trackers: session.archive.trackers)
+            Trackers(session: $session, trackers: session.archive.trackers(.attempts))
             Forget()
         }
         .tabViewStyle(PageTabViewStyle())

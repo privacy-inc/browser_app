@@ -5,7 +5,7 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
     final var subs = Set<AnyCancellable>()
     final let items = PassthroughSubject<Set<CollectionItem<I>>, Never>()
     final let height = PassthroughSubject<CGFloat, Never>()
-    final let selected = PassthroughSubject<Int, Never>()
+    final let selected = CurrentValueSubject<Int?, Never>(nil)
     final let highlighted = CurrentValueSubject<Int?, Never>(nil)
     final let first = PassthroughSubject<Int?, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
@@ -53,8 +53,10 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
             }
             .removeDuplicates()
             .combineLatest(first
-                            .removeDuplicates())
-            .sink { (items: Set<CollectionItem>, first: Int?) in
+                            .removeDuplicates(),
+                           selected
+                                .removeDuplicates())
+            .sink { (items: Set<CollectionItem>, first: Int?, selected: Int?) in
                 cells
                     .filter {
                         $0.item != nil
@@ -83,6 +85,7 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
                                 cells.insert($0)
                                 return $0
                             } (C())
+                        cell.state = item.info.id == selected ? .pressed : .none
                         cell.item = item
                         cell.first = item.info.id == first
                         content.layer!.addSublayer(cell)
@@ -105,6 +108,9 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
         highlight
             .sink { point in
                 cells
+                    .filter {
+                        $0.state != .pressed
+                    }
                     .forEach {
                         $0.state = $0.frame.contains(point)
                             ? .highlighted
@@ -129,6 +135,18 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
             .subscribe(highlighted)
             .store(in: &subs)
         
+        selected
+            .removeDuplicates()
+            .sink { id in
+                cells
+                    .forEach {
+                        $0.state = $0.item?.info.id == id
+                            ? .pressed
+                            : .none
+                    }
+            }
+            .store(in: &subs)
+        
         press
             .map { point in
                 cells
@@ -137,11 +155,10 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
                     }
             }
             .compactMap {
-                $0
+                $0?.item?.info.id
             }
-            .sink {
-                $0.state = .pressed
-            }
+            .removeDuplicates()
+            .subscribe(selected)
             .store(in: &subs)
         
         select
@@ -162,7 +179,7 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
             .sink {
                 cells
                     .filter{
-                        $0.state != .none
+                        $0.state == .highlighted
                     }
                     .forEach {
                         $0.state = .none

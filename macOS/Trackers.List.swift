@@ -87,6 +87,9 @@ extension Trackers {
                 .store(in: &subs)
             
             selected
+                .compactMap {
+                    $0
+                }
                 .map {
                     info.value[$0].dates
                 }

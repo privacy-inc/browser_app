@@ -15,14 +15,6 @@ extension Trackers {
             }
         }
         
-        override var highlighted: CGColor {
-            NSColor.controlBackgroundColor.cgColor
-        }
-        
-        override var pressed: CGColor {
-            NSColor.selectedTextBackgroundColor.cgColor
-        }
-        
         override var frame: CGRect {
             didSet {
                 separator.path = .init(rect: .init(x: Self.insets, y: 0, width: frame.width - Self.insets2, height: 0), transform: nil)
@@ -31,7 +23,6 @@ extension Trackers {
         
         override var item: CollectionItem<Info>? {
             didSet {
-                state = .none
                 if let item = item {
                     frame = item.rect
                     title.frame.size.height = item.rect.height - Self.insets2

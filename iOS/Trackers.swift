@@ -40,7 +40,7 @@ struct Trackers: View {
             .listStyle(InsetGroupedListStyle())
         }
         .onAppear {
-            trackers = session.archive.trackers
+            trackers = session.archive.trackers(.attempts)
         }
     }
 }
