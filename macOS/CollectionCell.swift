@@ -2,19 +2,6 @@ import AppKit
 
 class CollectionCell<I>: CALayer where I : CollectionItemInfo {
     var first = false
-    
-    var none: CGColor {
-        .clear
-    }
-    
-    var highlighted: CGColor {
-        NSColor.controlBackgroundColor.cgColor
-    }
-    
-    var pressed: CGColor {
-        NSColor.selectedContentBackgroundColor.cgColor
-    }
-    
     var item: CollectionItem<I>?
     
     required init?(coder: NSCoder) { nil }
@@ -27,11 +14,11 @@ class CollectionCell<I>: CALayer where I : CollectionItemInfo {
         didSet {
             switch state {
             case .none:
-                backgroundColor = none
+                backgroundColor = .clear
             case .highlighted:
-                backgroundColor = highlighted
+                backgroundColor = NSColor.controlBackgroundColor.cgColor
             case .pressed:
-                backgroundColor = pressed
+                backgroundColor = NSColor.selectedContentBackgroundColor.cgColor
             }
         }
     }
