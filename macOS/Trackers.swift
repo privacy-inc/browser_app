@@ -36,6 +36,7 @@ final class Trackers: NSWindow {
         
         let display = NSVisualEffectView()
         display.translatesAutoresizingMaskIntoConstraints = false
+        display.state = .active
         display.wantsLayer = true
         content.addSubview(display)
         
@@ -43,6 +44,16 @@ final class Trackers: NSWindow {
         
         let list = List(sorted: bottom.sorted, show: show)
         content.addSubview(list)
+        
+        let since = Text()
+        since.font = .preferredFont(forTextStyle: .callout)
+        since.textColor = .secondaryLabelColor
+        display.addSubview(since)
+        
+        let now = Text()
+        now.font = .preferredFont(forTextStyle: .callout)
+        now.textColor = .secondaryLabelColor
+        display.addSubview(now)
         
         side.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
         side.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
@@ -59,6 +70,12 @@ final class Trackers: NSWindow {
         list.leftAnchor.constraint(equalTo: side.leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo: side.rightAnchor).isActive = true
         
+        since.bottomAnchor.constraint(equalTo: display.bottomAnchor, constant: -50).isActive = true
+        since.leftAnchor.constraint(equalTo: display.leftAnchor, constant: 70).isActive = true
+        
+        now.bottomAnchor.constraint(equalTo: display.bottomAnchor, constant: -50).isActive = true
+        now.rightAnchor.constraint(equalTo: display.rightAnchor, constant: -70).isActive = true
+        
         subscription = show
             .removeDuplicates()
             .sink {
@@ -66,13 +83,22 @@ final class Trackers: NSWindow {
                     .layer!
                     .sublayers
                     .map {
-                        $0.forEach {
-                            $0.removeFromSuperlayer()
-                        }
+                        $0
+                            .filter {
+                                $0 is Chart
+                            }
+                            .forEach {
+                                $0.removeFromSuperlayer()
+                            }
                     }
+                since.stringValue = ""
+                now.stringValue = ""
                 
                 guard let dates = $0 else { return }
-                display.layer!.addSublayer(Activity.Chart(frame: display.layer!.bounds.insetBy(dx: 40, dy: 40), values: dates.plotter))
+                display.layer!.addSublayer(Chart(frame: display.layer!.bounds.insetBy(dx: 80, dy: 100), values: dates.plotter))
+                
+                since.stringValue = RelativeDateTimeFormatter().string(from: dates.first ?? .init())
+                now.stringValue = NSLocalizedString("Now", comment: "")
             }
     }
 }

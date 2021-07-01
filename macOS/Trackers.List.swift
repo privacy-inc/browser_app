@@ -57,6 +57,14 @@ extension Trackers {
                 .subscribe(info)
                 .store(in: &subs)
             
+            sorted
+                .removeDuplicates()
+                .map { _ in
+                    nil
+                }
+                .subscribe(selected)
+                .store(in: &subs)
+            
             info
                 .removeDuplicates()
                 .map { _ in

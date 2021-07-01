@@ -10,7 +10,7 @@ extension Trackers {
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)
-            let segmented = NSSegmentedControl(labels: ["Attempts", "Recent"], trackingMode: .selectOne, target: nil, action: nil)
+            let segmented = NSSegmentedControl(labels: ["Attempts", "Recent"], trackingMode: .selectOne, target: self, action: #selector(change))
             segmented.selectedSegment = 0
             segmented.segmentStyle = .separated
             segmented.translatesAutoresizingMaskIntoConstraints = false
@@ -61,6 +61,15 @@ extension Trackers {
                                         alignment: .right))
                     }
                 }
+        }
+        
+        @objc private func change(_ segmented: NSSegmentedControl) {
+            switch segmented.selectedSegment {
+            case 0:
+                sorted.send(.attempts)
+            default:
+                sorted.send(.recent)
+            }
         }
     }
 }
