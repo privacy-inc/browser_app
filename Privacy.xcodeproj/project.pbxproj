@@ -42,6 +42,8 @@
 		CE2E9883265136D400844E8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E9882265136D400844E8B /* Toast.swift */; };
 		CE2E98852651374700844E8B /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
 		CE3E858B268DF37500929775 /* Trackers.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858A268DF37500929775 /* Trackers.Chart.swift */; };
+		CE3E858D268E01E700929775 /* Trackers.Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858C268E01E700929775 /* Trackers.Detail.swift */; };
+		CE3E858F268E043200929775 /* Trackers.Detail.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858E268E043200929775 /* Trackers.Detail.Chart.swift */; };
 		CE3F46EE267232F7002BFB82 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F46ED267232F7002BFB82 /* Browser.swift */; };
 		CE4D59D4267DE4B800687A2D /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE4D59D3267DE4B800687A2D /* Blur.swift */; };
 		CE55EDE72667BB9400386C5B /* Window.Info.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE55EDE62667BB9400386C5B /* Window.Info.swift */; };
@@ -320,6 +322,8 @@
 		CE2E9882265136D400844E8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CE2E98842651374700844E8B /* Toast.Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.Message.swift; sourceTree = "<group>"; };
 		CE3E858A268DF37500929775 /* Trackers.Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Chart.swift; sourceTree = "<group>"; };
+		CE3E858C268E01E700929775 /* Trackers.Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Detail.swift; sourceTree = "<group>"; };
+		CE3E858E268E043200929775 /* Trackers.Detail.Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Detail.Chart.swift; sourceTree = "<group>"; };
 		CE3F46ED267232F7002BFB82 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		CE4D59D3267DE4B800687A2D /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		CE55EDE62667BB9400386C5B /* Window.Info.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Info.swift; sourceTree = "<group>"; };
@@ -661,6 +665,8 @@
 				CE91FA8D264ACBA5009A1F88 /* Tabs.Item.swift */,
 				CE91FA81264AB79C009A1F88 /* Tabs.swift */,
 				CE2E9882265136D400844E8B /* Toast.swift */,
+				CE3E858E268E043200929775 /* Trackers.Detail.Chart.swift */,
+				CE3E858C268E01E700929775 /* Trackers.Detail.swift */,
 				CE616C4D265965E600E02ABF /* Trackers.Item.swift */,
 				CE616C4B2659614700E02ABF /* Trackers.swift */,
 				CE78111E264BFCBE0097FAC2 /* UIApplication.swift */,
@@ -1083,6 +1089,7 @@
 				CEF09FFA265BD30400E83BAE /* Info.Why.swift in Sources */,
 				CE751C26265AB2EC00F8589D /* Purchases.Item.swift in Sources */,
 				CE919A8D264D575A0051EE27 /* Web.swift in Sources */,
+				CE3E858F268E043200929775 /* Trackers.Detail.Chart.swift in Sources */,
 				CE56789F265AB9D40087B8F8 /* Store.swift in Sources */,
 				CEED0F18265414F00030B4A2 /* Tab.Options.Control.swift in Sources */,
 				CE78111B264BF9AC0097FAC2 /* Search.Bar.swift in Sources */,
@@ -1117,6 +1124,7 @@
 				CEBACCAB265693DB00A8F6F9 /* Tab.Loading.Indicator.swift in Sources */,
 				CE91FA88264ABEDD009A1F88 /* Tab.Bar.swift in Sources */,
 				CE56789D265AB8B40087B8F8 /* Info.Froob.swift in Sources */,
+				CE3E858D268E01E700929775 /* Trackers.Detail.swift in Sources */,
 				CE08AB51264EB6B8008E631F /* Tab.New.History.swift in Sources */,
 				CEF09FFE265BFCD800E83BAE /* Info.swift in Sources */,
 				CE616C4C2659614700E02ABF /* Trackers.swift in Sources */,

@@ -21,14 +21,10 @@ extension Trackers {
                         }
                 }
                 Spacer()
-                ZStack {
-                    Circle()
-                        .fill(Color(.secondarySystemFill))
-                    Text(NSNumber(value: count.count), formatter: session.decimal)
-                        .font(.footnote)
-                        .foregroundColor(.primary)
-                }
-                .frame(width: 38, height: 38)
+                Text(NSNumber(value: count.count), formatter: session.decimal)
+                    .font(.title3.monospacedDigit())
+                    .foregroundColor(.primary)
+                    .padding(.leading)
             }
             .padding(.vertical, 6)
         }

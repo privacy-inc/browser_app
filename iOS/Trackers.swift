@@ -32,8 +32,10 @@ struct Trackers: View {
                             }
                             .textCase(.none)
                             .padding(.vertical, 20)) {
-                    ForEach(0 ..< trackers.count, id: \.self) {
-                        Item(session: $session, name: trackers[$0].name, count: trackers[$0].count)
+                    ForEach(0 ..< trackers.count, id: \.self) { index in
+                        NavigationLink(destination: Detail(title: trackers[index].name, dates: trackers[index].count)) {
+                            Item(session: $session, name: trackers[index].name, count: trackers[index].count)
+                        }
                     }
                 }
             }
