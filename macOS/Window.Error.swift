@@ -7,10 +7,10 @@ extension Window {
         private var subs = Set<AnyCancellable>()
         private let id: UUID
         private let browse: Int
-        private let error: Tab.Error
+        private let error: Sleuth.Tab.Error
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID, browse: Int, error: Tab.Error) {
+        init(id: UUID, browse: Int, error: Sleuth.Tab.Error) {
             self.id = id
             self.browse = browse
             self.error = error

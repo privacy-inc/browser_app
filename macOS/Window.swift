@@ -21,6 +21,7 @@ final class Window: NSWindow {
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         tab.title = NSLocalizedString("Privacy", comment: "")
+        tab.accessoryView = Tab(id: id)
         tabbingMode = .preferred
         toggleTabBar(nil)
         
@@ -84,6 +85,33 @@ final class Window: NSWindow {
             .removeDuplicates()
             .sink { [weak self] in
                 self?.tab.title = $0
+            }
+            .store(in: &subs)
+        
+        cloud
+            .archive
+            .combineLatest(tabber
+                            .items
+                            .map {
+                                $0[state: id]
+                                    .browse
+                            }
+                            .compactMap {
+                                $0
+                            }
+                            .removeDuplicates())
+            .map {
+                $0.0
+                    .page($0.1)
+                    .access
+                    .string
+            }
+            .filter {
+                !$0.isEmpty
+            }
+            .removeDuplicates()
+            .sink { [weak self] in
+                self?.tab.toolTip = $0
             }
             .store(in: &subs)
         
