@@ -9,21 +9,20 @@ final class Web: Webview {
     init(id: UUID, browse: Int) {
         var settings = cloud.archive.value.settings
         
-        let background = !settings.dark && NSApp.dark
-        if !NSApp.dark {
-            settings.dark = false
-        }
-        
         let configuration = WKWebViewConfiguration()
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
         
+        if !NSApp.dark {
+            if settings.dark {
+                configuration.setValue(false, forKey: "drawsBackground")
+            }
+            settings.dark = false
+        }
+        
         super.init(configuration: configuration, id: id, browse: browse, settings: settings)
         translatesAutoresizingMaskIntoConstraints = false
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
-        if !background {
-            setValue(false, forKey: "drawsBackground")
-        }
         
         session
             .load
