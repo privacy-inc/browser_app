@@ -21,7 +21,6 @@ final class Window: NSWindow {
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
         tab.title = NSLocalizedString("Privacy", comment: "")
-        tab.accessoryView = Tab(id: id)
         tabbingMode = .preferred
         toggleTabBar(nil)
         

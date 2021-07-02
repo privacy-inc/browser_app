@@ -183,7 +183,6 @@
 		CEED0F18265414F00030B4A2 /* Tab.Options.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEED0F17265414F00030B4A2 /* Tab.Options.Control.swift */; };
 		CEED57DF268F30C700A0048C /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEED57DE268F30C700A0048C /* Icons.xcassets */; };
 		CEED57E0268F30C700A0048C /* Icons.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEED57DE268F30C700A0048C /* Icons.xcassets */; };
-		CEED57E2268F411600A0048C /* Window.Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEED57E1268F411600A0048C /* Window.Tab.swift */; };
 		CEF00192266BB4E900993CDD /* Store.Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF00191266BB4E900993CDD /* Store.Loading.swift */; };
 		CEF00194266BB84E00993CDD /* Store.Error.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF00193266BB84E00993CDD /* Store.Error.swift */; };
 		CEF00196266BB8D900993CDD /* Store.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF00195266BB8D900993CDD /* Store.Item.swift */; };
@@ -463,7 +462,6 @@
 		CEED0F1526540D2B0030B4A2 /* Tab.Options.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Options.swift; sourceTree = "<group>"; };
 		CEED0F17265414F00030B4A2 /* Tab.Options.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Options.Control.swift; sourceTree = "<group>"; };
 		CEED57DE268F30C700A0048C /* Icons.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Icons.xcassets; sourceTree = "<group>"; };
-		CEED57E1268F411600A0048C /* Window.Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Tab.swift; sourceTree = "<group>"; };
 		CEF00191266BB4E900993CDD /* Store.Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Loading.swift; sourceTree = "<group>"; };
 		CEF00193266BB84E00993CDD /* Store.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Error.swift; sourceTree = "<group>"; };
 		CEF00195266BB8D900993CDD /* Store.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.Item.swift; sourceTree = "<group>"; };
@@ -835,7 +833,6 @@
 				CEA002802668E10D0098B04D /* Window.Share.Option.swift */,
 				CEA0027E2668DE970098B04D /* Window.Share.swift */,
 				CE676A62265E52B10042EDC2 /* Window.swift */,
-				CEED57E1268F411600A0048C /* Window.Tab.swift */,
 				CEF5862F265E468D00D9A6F1 /* Assets.xcassets */,
 			);
 			path = macOS;
@@ -1271,7 +1268,6 @@
 				CE0D423A266B8AC600386433 /* Info.Froob.swift in Sources */,
 				CE8E4D442677621E0023839A /* Forget.Option.Basic.swift in Sources */,
 				CE55EDE72667BB9400386C5B /* Window.Info.swift in Sources */,
-				CEED57E2268F411600A0048C /* Window.Tab.swift in Sources */,
 				CE0D6BF8265FDF51000B3FF1 /* Control.State.swift in Sources */,
 				CE80555B26678B100096D1A5 /* Toast.Message.swift in Sources */,
 				CE847B19265EA0C000A045B3 /* CollectionCellState.swift in Sources */,
