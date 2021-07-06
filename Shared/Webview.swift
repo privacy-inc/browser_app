@@ -21,7 +21,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         configuration.websiteDataStore = .nonPersistent()
         configuration.userContentController.addUserScript(.init(source: settings.start, injectionTime: .atDocumentStart, forMainFrameOnly: true))
         configuration.userContentController.addUserScript(.init(source: settings.end, injectionTime: .atDocumentEnd, forMainFrameOnly: true))
-//        configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+        
+    #if DEBUG
+        configuration.preferences.setValue(true, forKey: "developerExtrasEnabled")
+    #endif
 
         WKContentRuleListStore
             .default()!
@@ -33,7 +36,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
-        configuration.userContentController.add(self, name: "handler")
+        configuration.userContentController.add(self, name: "location")
+        configuration.userContentController.add(self, name: "favicon")
         
         publisher(for: \.estimatedProgress, options: .new)
             .removeDuplicates()
@@ -99,7 +103,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     final func clear() {
         stopLoading()
-        configuration.userContentController.removeScriptMessageHandler(forName: "handler")
+        configuration.userContentController.removeAllScriptMessageHandlers()
         uiDelegate = nil
         navigationDelegate = nil
     }
