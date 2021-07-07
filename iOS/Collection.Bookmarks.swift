@@ -23,7 +23,7 @@ extension Collection {
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        Text(verbatim: bookmarks[index].access.domain)
+                        Text(verbatim: bookmarks[index].access.short)
                             .foregroundColor(.secondary)
                     }
                     .font(.footnote)

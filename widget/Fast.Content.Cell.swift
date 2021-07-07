@@ -15,7 +15,7 @@ extension Fast.Content {
                                 .lineLimit(3)
                                 .foregroundColor(.primary)
                         }
-                        Text(verbatim: item.domain)
+                        Text(verbatim: item.short)
                             .lineLimit(item.title.isEmpty ? 3 : 1)
                             .foregroundColor(.secondary)
                     }

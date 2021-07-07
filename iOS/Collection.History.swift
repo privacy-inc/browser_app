@@ -22,7 +22,7 @@ extension Collection {
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        Text(verbatim: browses[index].page.access.domain)
+                        Text(verbatim: browses[index].page.access.short)
                             .foregroundColor(.secondary)
                         Text(verbatim: RelativeDateTimeFormatter().string(from: browses[index].date))
                             .foregroundColor(.secondary)

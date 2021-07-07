@@ -10,37 +10,66 @@ extension Tab {
         var body: some View {
             Popup(title: "Info", leading: { }) {
                 List {
-                    Section {
-                        Label(secure ? "Secure Connection" : "Site Not Secure",
-                              systemImage: secure ? "lock.fill" : "exclamationmark.triangle.fill")
-                            .font(.footnote)
-                            .accentColor(secure ? .accentColor : .pink)
-                        Text(secure ? "Using an encrypted connection to \(domain)" : "Connection to \(domain) is NOT encrypted")
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                    }
-                    Section(
-                        footer: Button {
-                            visible.wrappedValue.dismiss()
-                            session.toast = .init(title: "URL copied", icon: "doc.on.doc.fill")
-                            UIPasteboard.general.string = url
-                        } label: {
-                            HStack {
-                                Spacer()
-                                Image(systemName: "doc.on.doc.fill")
-                                    .foregroundColor(.primary)
-                                    .frame(width: 30, height: 30)
-                                    .padding(.leading, 50)
-                                    .padding(.bottom, 10)
-                            }
-                        }) {
-                        Text(verbatim: title)
-                            .font(.footnote)
-                            .fixedSize(horizontal: false, vertical: true)
-                        Text(verbatim: url)
-                            .font(.footnote)
-                            .foregroundColor(.secondary)
-                            .fixedSize(horizontal: false, vertical: true)
+                    switch page?.access {
+                    case let .remote(remote):
+                        Section {
+                            Label(remote.secure ? "Secure Connection" : "Site Not Secure",
+                                  systemImage: remote.secure ? "lock.fill" : "exclamationmark.triangle.fill")
+                                .font(.footnote)
+                                .accentColor(remote.secure ? .accentColor : .pink)
+                            Text(remote.secure ? "Using an encrypted connection to \(short)" : "Connection to \(short) is NOT encrypted")
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                        }
+                        Section(
+                            footer: Button {
+                                visible.wrappedValue.dismiss()
+                                session.toast = .init(title: "URL copied", icon: "doc.on.doc.fill")
+                                UIPasteboard.general.string = url
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "doc.on.doc.fill")
+                                        .foregroundColor(.primary)
+                                        .frame(width: 30, height: 30)
+                                        .padding(.leading, 50)
+                                        .padding(.bottom, 10)
+                                }
+                            }) {
+                            Text(verbatim: title)
+                                .font(.footnote)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text(verbatim: url)
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    case let .local(local):
+                        Section(
+                            footer: Button {
+                                visible.wrappedValue.dismiss()
+                                session.toast = .init(title: "URL copied", icon: "doc.on.doc.fill")
+                                UIPasteboard.general.string = url
+                            } label: {
+                                HStack {
+                                    Spacer()
+                                    Image(systemName: "doc.on.doc.fill")
+                                        .foregroundColor(.primary)
+                                        .frame(width: 30, height: 30)
+                                        .padding(.leading, 50)
+                                        .padding(.bottom, 10)
+                                }
+                            }) {
+                            Text(verbatim: title)
+                                .font(.footnote)
+                                .fixedSize(horizontal: false, vertical: true)
+                            Text(verbatim: local.path)
+                                .font(.footnote)
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
+                    default:
+                        EmptyView()
                     }
                 }
                 .listStyle(GroupedListStyle())
@@ -55,18 +84,14 @@ extension Tab {
         
         private var url: String {
             page
-                .map(\.access.string)
+                .map(\.access.value)
                 ?? ""
         }
         
-        private var domain: String {
+        private var short: String {
             page
-                .map(\.access.domain)
+                .map(\.access.short)
                 ?? ""
-        }
-        
-        private var secure: Bool {
-            page?.secure ?? false
         }
         
         private var page: Page? {

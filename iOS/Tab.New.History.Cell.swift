@@ -18,7 +18,7 @@ extension Tab.New.History {
                                 .fixedSize(horizontal: false, vertical: true)
                                 .foregroundColor(.primary)
                         }
-                        Text(verbatim: browse.page.access.domain)
+                        Text(verbatim: browse.page.access.short)
                             .font(.caption2)
                             .fixedSize(horizontal: false, vertical: true)
                             .foregroundColor(.secondary)

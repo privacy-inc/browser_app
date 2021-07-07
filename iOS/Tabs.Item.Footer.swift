@@ -34,7 +34,7 @@ extension Tabs.Item {
                 .tab[state: id]
                 .browse
                 .map(session.archive.page)
-                .map(\.access.domain)
+                .map(\.access.short)
             ?? ""
         }
     }

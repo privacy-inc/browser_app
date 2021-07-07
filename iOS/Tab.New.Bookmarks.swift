@@ -24,7 +24,7 @@ extension Tab.New {
                         ZStack {
                             RoundedRectangle(cornerRadius: 6)
                                 .fill(Color(.tertiarySystemBackground))
-                            Text(verbatim: list[index].access.domain)
+                            Text(verbatim: list[index].access.short)
                                 .font(.footnote)
                                 .foregroundColor(.secondary)
                                 .padding(10)

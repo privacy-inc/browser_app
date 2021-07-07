@@ -5,6 +5,6 @@ extension Fast.Entry {
         let id: Int
         let sites: Sites
         let title: String
-        let domain: String
+        let short: String
     }
 }

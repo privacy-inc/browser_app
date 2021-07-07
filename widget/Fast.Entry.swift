@@ -6,15 +6,15 @@ extension Fast {
                                         [.init(id: 0,
                                                sites: .history,
                                                title: "Google Search",
-                                               domain: "google.com"),
+                                               short: "google"),
                                          .init(id: 0,
                                                sites: .history,
                                                title: "Ecosia Search",
-                                               domain: "ecosia.org")],
+                                               short: "ecosia")],
                                         [.init(id: 0,
                                                sites: .history,
                                                title: "Wikipedia",
-                                               domain: "wikipedia.org")]], date: .init())
+                                               short: "wikipedia")]], date: .init())
         
         let sites: [[Item]]
         let date: Date

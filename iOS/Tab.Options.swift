@@ -74,16 +74,12 @@ extension Tab {
                 .tab[state: id]
                 .browse
                 .map(session.archive.page)
-                .map(\.access.string)
+                .map(\.access.value)
             ?? ""
         }
         
         private var url: URL? {
-            session
-                .tab[state: id]
-                .browse
-                .map(session.archive.page)
-                .flatMap(\.access.url)
+            .init(string: string)
         }
         
         private var download: URL? {
