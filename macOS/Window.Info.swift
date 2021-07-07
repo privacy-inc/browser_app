@@ -18,50 +18,80 @@ extension Window {
                 .value[state: id]
                 .browse
                 .map(cloud.archive.value.page)
-            let secure = page?.secure ?? false
-            let domain = page?.access.domain ?? ""
-            
-            let image = Image(icon: secure ? "lock.fill" : "exclamationmark.triangle.fill")
-            image.symbolConfiguration = .init(textStyle: .largeTitle)
-            image.contentTintColor = .labelColor
-            contentViewController!.view.addSubview(image)
             
             let text = Selectable()
-            text.attributedStringValue = .make { string in
-                string.append(.make(secure ? "Secure Connection" : "Site Not Secure",
-                                    font: .font(style: .body, weight: .bold),
-                                    alignment: .center))
-                string.linebreak()
-                string.append(.make(secure ? "Using an encrypted connection to \(domain)" : "Connection to \(domain) is NOT encrypted",
-                                    font: .preferredFont(forTextStyle: .callout),
-                                    color: .secondaryLabelColor))
-                string.linebreak()
-                page
-                    .map(\.title)
-                    .map {
-                        string.linebreak()
-                        string.append(.make($0, font: .preferredFont(forTextStyle: .callout)))
-                    }
-                
-                page
-                    .map(\.access.string)
-                    .map {
-                        string.linebreak()
-                        string.append(.make($0,
-                                            font: .preferredFont(forTextStyle: .callout),
-                                            color: .secondaryLabelColor,
-                                            lineBreak: .byCharWrapping))
-                    }
-            }
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             contentViewController!.view.addSubview(text)
+            
+            switch page?.access {
+            case let .remote(remote):
+                let image = Image(icon: remote.secure ? "lock.fill" : "exclamationmark.triangle.fill")
+                image.symbolConfiguration = .init(textStyle: .largeTitle)
+                image.contentTintColor = .labelColor
+                contentViewController!.view.addSubview(image)
+                
+                text.attributedStringValue = .make { string in
+                    string.append(.make(remote.secure ? "Secure Connection" : "Site Not Secure",
+                                        font: .font(style: .body, weight: .bold),
+                                        alignment: .center))
+                    string.linebreak()
+                    page
+                        .map(\.access.short)
+                        .map {
+                            string.append(.make(remote.secure ? "Using an encrypted connection to \($0)" : "Connection to \($0) is NOT encrypted",
+                                                font: .preferredFont(forTextStyle: .callout),
+                                                color: .secondaryLabelColor))
+                        }
+
+                    string.linebreak()
+                    page
+                        .map(\.title)
+                        .map {
+                            string.linebreak()
+                            string.append(.make($0, font: .preferredFont(forTextStyle: .callout)))
+                        }
+                    
+                    page
+                        .map(\.access.value)
+                        .map {
+                            string.linebreak()
+                            string.append(.make($0,
+                                                font: .preferredFont(forTextStyle: .callout),
+                                                color: .secondaryLabelColor,
+                                                lineBreak: .byCharWrapping))
+                        }
+                }
+                
+                image.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
+                image.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
+                
+                text.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
+            case let .local(local):
+                text.attributedStringValue = .make { string in
+                    page
+                        .map(\.title)
+                        .map {
+                            string.append(.make($0, font: .preferredFont(forTextStyle: .callout)))
+                            string.linebreak()
+                        }
+                    
+                    string.append(.make(local.path,
+                                        font: .preferredFont(forTextStyle: .callout),
+                                        color: .secondaryLabelColor,
+                                        lineBreak: .byCharWrapping))
+                }
+                
+                text.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
+            default:
+                break
+            }
             
             let copy = Control.Squircle(icon: "doc.on.doc")
             subscription = copy
                 .click
                 .sink { [weak self] in
                     page
-                        .map(\.access.string)
+                        .map(\.access.value)
                         .map {
                             NSPasteboard.general.clearContents()
                             NSPasteboard.general.setString($0, forType: .string)
@@ -71,10 +101,6 @@ extension Window {
                 }
             contentViewController!.view.addSubview(copy)
             
-            image.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
-            image.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
-            
-            text.topAnchor.constraint(equalTo: image.bottomAnchor, constant: 10).isActive = true
             text.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
             text.rightAnchor.constraint(equalTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
             

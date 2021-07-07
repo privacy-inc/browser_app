@@ -220,7 +220,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .archive
                     .value
                     .page)
-            .flatMap(\.access.url)
+            .map(\.access.value)
+            .flatMap(URL.init(string:))
             ?? URL(string: "https://privacy-inc.github.io/about")!
     }
     

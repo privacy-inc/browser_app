@@ -103,7 +103,7 @@ final class Window: NSWindow {
                 $0.0
                     .page($0.1)
                     .access
-                    .string
+                    .value
             }
             .filter {
                 !$0.isEmpty

@@ -34,7 +34,7 @@ extension Window {
                                 .archive
                                 .value
                                 .page)
-                        .map(\.access.string)
+                        .map(\.access.value)
                         .map { [weak self] in
                             NSSharingServicePicker(items: [$0])
                                 .show(relativeTo: urlShare.bounds, of: urlShare, preferredEdge: .minY)
@@ -55,7 +55,8 @@ extension Window {
                                 .archive
                                 .value
                                 .page)
-                        .flatMap(\.access.url)
+                        .map(\.access.value)
+                        .flatMap(URL.init(string:))
                         .map { [weak self] in
                             NSSharingServicePicker(items: [$0])
                                 .show(relativeTo: pageShare.bounds, of: pageShare, preferredEdge: .minY)
@@ -76,7 +77,9 @@ extension Window {
                                 .archive
                                 .value
                                 .page)
-                        .flatMap(\.access.url?.download)
+                        .map(\.access.value)
+                        .flatMap(URL.init(string:))
+                        .flatMap(\.download)
                         .map { [weak self] downloaded in
                             self?.close()
                             (try? Data(contentsOf: downloaded))

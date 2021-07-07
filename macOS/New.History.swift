@@ -43,8 +43,8 @@ extension New {
                                                         color: .labelColor))
                                         $0.linebreak()
                                     }
-                                    if !browse.page.access.domain.isEmpty {
-                                        $0.append(.make(browse.page.access.domain,
+                                    if !browse.page.access.short.isEmpty {
+                                        $0.append(.make(browse.page.access.short,
                                                         font: .preferredFont(forTextStyle: .callout),
                                                         color: .secondaryLabelColor))
                                         $0.linebreak()

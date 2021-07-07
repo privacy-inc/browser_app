@@ -40,7 +40,7 @@ extension Search {
                     $0.0
                         .page($0.1)
                         .access
-                        .string
+                        .value
                 }
                 .filter {
                     !$0.isEmpty
@@ -56,7 +56,7 @@ extension Search {
                 .value[state: id]
                 .browse
                 .map(cloud.archive.value.page)
-                .map(\.access.string)
+                .map(\.access.value)
                 .map {
                     stringValue = $0
                 }
@@ -108,7 +108,7 @@ extension Search {
                         .value[state: id]
                         .browse
                         .map(cloud.archive.value.page)
-                        .map(\.access.string)
+                        .map(\.access.value)
                         .map {
                             stringValue = $0
                         }

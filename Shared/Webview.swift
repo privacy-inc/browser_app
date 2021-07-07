@@ -110,14 +110,19 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     final func load(_ access: Page.Access) {
         switch access {
-        case .remote:
-            _ = access
+        case let .remote(remote):
+            remote
                 .url
                 .map(load)
-        case .local:
-            if let url = access.url, let directory = access.directory {
-                loadFileURL(url, allowingReadAccessTo: directory)
-            }
+        case let .local(local):
+            local
+                .open {
+                    loadFileURL($0, allowingReadAccessTo: $1)
+                }
+        case let .deeplink(deeplink):
+            deeplink
+                .url
+                .map(load)
         }
     }
     

@@ -44,11 +44,11 @@ extension New {
                                                         font: .preferredFont(forTextStyle: .body),
                                                         color: .labelColor))
                                     }
-                                    if !page.access.domain.isEmpty {
+                                    if !page.access.short.isEmpty {
                                         if !page.title.isEmpty {
                                             $0.linebreak()
                                         }
-                                        $0.append(.make(page.access.domain,
+                                        $0.append(.make(page.access.short,
                                                         font: .preferredFont(forTextStyle: .callout),
                                                         color: .secondaryLabelColor))
                                     }

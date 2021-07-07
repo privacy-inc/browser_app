@@ -31,7 +31,7 @@ extension Search.Autocomplete {
                     if !filtered.title.isEmpty {
                         $0.linebreak()
                     }
-                    $0.append(.make(filtered.domain,
+                    $0.append(.make(filtered.short,
                                     font: .preferredFont(forTextStyle: .callout),
                                     color: .tertiaryLabelColor,
                                     lineBreak: .byTruncatingTail))
