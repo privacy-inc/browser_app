@@ -7,6 +7,7 @@ final class New: NSView {
     required init?(coder: NSCoder) { nil }
     init(id: UUID) {
         super.init(frame: .zero)
+        registerForDraggedTypes([.fileURL])
         
         let backgroundBookmarks = NSVisualEffectView()
         backgroundBookmarks.material = .menu
@@ -91,6 +92,33 @@ final class New: NSView {
         super.mouseDown(with: with)
         if with.clickCount == 1 {
             window?.makeFirstResponder(self)
+        }
+    }
+    
+    override func draggingEntered(_ sender: NSDraggingInfo) -> NSDragOperation {
+        NSCursor.dragCopy.set()
+        return super.draggingEntered(sender)
+    }
+    
+    override func draggingExited(_: NSDraggingInfo?) {
+        NSCursor.arrow.set()
+    }
+    
+    override func draggingEnded(_ sender: NSDraggingInfo) {
+        if frame.contains(sender.draggingLocation) {
+            sender
+                .draggingPasteboard
+                .propertyList(forType: NSPasteboard.PasteboardType(rawValue: "NSFilenamesPboardType"))
+                .flatMap {
+                    $0 as? NSArray
+                }
+                .flatMap {
+                    $0.count > 0 ? $0[0] as? String : nil
+                }
+                .map(URL.init(fileURLWithPath:))
+                .map {
+                    NSApp.open(tab: $0, change: false)
+                }
         }
     }
 }
