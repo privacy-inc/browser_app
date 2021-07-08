@@ -9,7 +9,6 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
     final let highlighted = CurrentValueSubject<Int?, Never>(nil)
     final let first = PassthroughSubject<Int?, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
-    private let press = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
     
@@ -147,20 +146,6 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
             }
             .store(in: &subs)
         
-        press
-            .map { point in
-                cells
-                    .first {
-                        $0.frame.contains(point)
-                    }
-            }
-            .compactMap {
-                $0?.item?.info.id
-            }
-            .removeDuplicates()
-            .subscribe(selected)
-            .store(in: &subs)
-        
         select
             .map { point in
                 cells
@@ -212,7 +197,6 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
     final override func mouseDown(with: NSEvent) {
         guard with.clickCount == 1 else { return }
         window?.makeFirstResponder(self)
-        press.send(point(with: with))
     }
     
     final override func mouseUp(with: NSEvent) {
