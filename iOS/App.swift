@@ -106,18 +106,25 @@ let purchases = Purchases()
                     }
                 default:
                     UIApplication.shared.resign()
-                    cloud
-                        .navigate(url) { browse, access in
-                            switch session.section {
-                            case let .tab(id):
-                                tabber.browse(id, browse)
-                                session.load.send((id: id, access: access))
-                            default:
+                    let complete = {
+                        cloud
+                            .navigate(url) { browse, _ in
                                 let id = tabber.new()
                                 tabber.browse(id, browse)
                                 session.section = .tab(id)
                             }
+                    }
+                    
+                    switch session.section {
+                    case let .tab(id):
+                        if session.tab[state: id].isBrowse {
+                            session.newTab.send(url)
+                        } else {
+                            complete()
                         }
+                    default:
+                        complete()
+                    }
             }
         }
     }
