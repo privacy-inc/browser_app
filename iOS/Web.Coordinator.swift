@@ -27,6 +27,7 @@ extension Web {
             scrollView.clipsToBounds = false
             isOpaque = !settings.dark
             scrollView.backgroundColor = .secondarySystemBackground
+            scrollView.indicatorStyle = settings.dark ? .white : .default
 
             wrapper
                 .session
