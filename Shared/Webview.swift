@@ -148,7 +148,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     final func webView(_: WKWebView, didFailProvisionalNavigation: WKNavigation!, withError: Error) {
-        guard (withError as NSError).code != frame_load_interrupted else { return }
+        guard
+            (withError as NSError).code != NSURLErrorCancelled,
+            (withError as NSError).code != frame_load_interrupted
+        else { return }
+        
         error(url: (withError as? URLError)
                 .flatMap(\.failingURL)
                 ?? url
