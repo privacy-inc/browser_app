@@ -3,7 +3,7 @@ import Combine
 
 extension New {
     final class History: Collection<Cell, Info> {
-        private static let insets = CGFloat(6)
+        private static let insets = CGFloat(20)
         private static let insets2 = insets + insets
         
         required init?(coder: NSCoder) { nil }

@@ -10,14 +10,19 @@ final class New: NSView {
         registerForDraggedTypes([.fileURL])
         
         let backgroundBookmarks = NSVisualEffectView()
-        backgroundBookmarks.material = .menu
+        backgroundBookmarks.material = .sidebar
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundBookmarks)
         
         let backgroundHistory = NSVisualEffectView()
-        backgroundHistory.material = .sidebar
+        backgroundHistory.material = .menu
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundHistory)
+        
+        let backgroundOptions = NSVisualEffectView()
+        backgroundOptions.material = .sidebar
+        backgroundOptions.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(backgroundOptions)
         
         let bookmarks = Bookmarks(id: id)
         addSubview(bookmarks)
@@ -54,19 +59,19 @@ final class New: NSView {
         backgroundBookmarks.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundBookmarks.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         backgroundBookmarks.widthAnchor.constraint(greaterThanOrEqualToConstant: 140).isActive = true
-        backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualToConstant: 200).isActive = true
-        let bookmarksWidth = backgroundBookmarks.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.15)
-        bookmarksWidth.priority = .defaultLow
-        bookmarksWidth.isActive = true
+        backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualToConstant: 280).isActive = true
+        backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualTo: backgroundHistory.widthAnchor).isActive = true
         
         backgroundHistory.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
+        backgroundHistory.rightAnchor.constraint(equalTo: backgroundOptions.leftAnchor).isActive = true
         backgroundHistory.widthAnchor.constraint(greaterThanOrEqualToConstant: 140).isActive = true
-        backgroundHistory.widthAnchor.constraint(lessThanOrEqualToConstant: 300).isActive = true
-        let historyWidth = backgroundHistory.widthAnchor.constraint(equalTo: widthAnchor, multiplier: 0.3)
-        historyWidth.priority = .defaultLow
-        historyWidth.isActive = true
+        
+        backgroundOptions.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        backgroundOptions.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        backgroundOptions.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        backgroundOptions.widthAnchor.constraint(equalToConstant: 80).isActive = true
         
         bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor).isActive = true
         bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor).isActive = true

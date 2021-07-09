@@ -2,7 +2,7 @@ import AppKit
 
 extension New {
     final class Cell: CollectionCell<Info> {
-        static let insets = CGFloat(12)
+        static let insets = CGFloat(14)
         static let insets2 = insets * 2
         private weak var text: CollectionCellText!
         private weak var separator: CAShapeLayer!
