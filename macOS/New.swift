@@ -70,7 +70,7 @@ final class New: NSView {
         
         bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor).isActive = true
         bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor).isActive = true
-        bookmarks.leftAnchor.constraint(equalTo: backgroundBookmarks.leftAnchor).isActive = true
+        bookmarks.leftAnchor.constraint(equalTo: backgroundBookmarks.leftAnchor, constant: 10).isActive = true
         bookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
         
         history.topAnchor.constraint(equalTo: backgroundHistory.topAnchor).isActive = true
