@@ -20,7 +20,6 @@ final class Window: NSWindow {
         toolbar = .init()
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
-        tab.title = NSLocalizedString("Privacy", comment: "")
         tabbingMode = .preferred
         toggleTabBar(nil)
         
@@ -76,14 +75,15 @@ final class Window: NSWindow {
             .map {
                 $0.0
                     .page($0.1)
-                    .title
             }
-            .filter {
-                !$0.isEmpty
+            .map {
+                (title: $0.title, short: $0.access.short)
             }
-            .removeDuplicates()
+            .removeDuplicates { (previous: (title: String, short: String), new: (title: String, short: String)) in
+                previous.title == new.title && previous.short == new.short
+            }
             .sink { [weak self] in
-                self?.tab.title = $0
+                self?.tab.title = $0.title.isEmpty ? $0.short : $0.title
             }
             .store(in: &subs)
         
@@ -104,9 +104,6 @@ final class Window: NSWindow {
                     .page($0.1)
                     .access
                     .value
-            }
-            .filter {
-                !$0.isEmpty
             }
             .removeDuplicates()
             .sink { [weak self] in

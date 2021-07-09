@@ -130,7 +130,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                     }
                 }
                 .map { (index: Int, title: String) in
-                    .child(title, #selector(triggerFocus)) {
+                    .child(title.isEmpty ? "Privacy" : title, #selector(triggerFocus)) {
                         $0.target = self
                         $0.tag = index
                         $0.state = NSApp.mainWindow == NSApp.windows[index] ? .on : .off
