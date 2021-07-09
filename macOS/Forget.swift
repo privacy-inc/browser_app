@@ -14,8 +14,8 @@ final class Forget: NSPopover {
         
         let title = Text()
         title.stringValue = NSLocalizedString("FORGET", comment: "")
-        title.font = .preferredFont(forTextStyle: .footnote)
-        title.textColor = .secondaryLabelColor
+        title.font = .preferredFont(forTextStyle: .body)
+        title.textColor = .tertiaryLabelColor
 
         let cache = Option.Basic(title: "Cache", image: "trash")
         cache
@@ -88,6 +88,6 @@ final class Forget: NSPopover {
                 $0.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
             }
         
-        title.leftAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor, constant: -60).isActive = true
+        title.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
     }
 }
