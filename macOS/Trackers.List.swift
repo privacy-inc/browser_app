@@ -104,9 +104,5 @@ extension Trackers {
                 .subscribe(show)
                 .store(in: &subs)
         }
-        
-        override var allowsVibrancy: Bool {
-            true
-        }
     }
 }

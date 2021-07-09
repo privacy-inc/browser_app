@@ -7,9 +7,7 @@ extension Forget.Option {
             
             switch state {
             case .pressed:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.underPageBackgroundColor.cgColor
+                layer!.backgroundColor = NSColor.selectedContentBackgroundColor.cgColor
             default:
                 layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
             }

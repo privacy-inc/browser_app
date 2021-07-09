@@ -217,6 +217,10 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
         true
     }
     
+    final override var allowsVibrancy: Bool {
+        true
+    }
+    
     private func point(with: NSEvent) -> CGPoint {
         documentView!.convert(with.locationInWindow, from: nil)
     }
