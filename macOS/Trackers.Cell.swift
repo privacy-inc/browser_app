@@ -2,11 +2,10 @@ import AppKit
 
 extension Trackers {
     final class Cell: CollectionCell<Info> {
-        static let insets = CGFloat(20)
+        static let insets = CGFloat(16)
         static let insets2 = insets * 2
-        static let titleWidth = CGFloat(130)
-        private weak var title: CollectionCellText!
-        private weak var counter: CollectionCellText!
+        static let width = List.width - insets2
+        private weak var text: CollectionCellText!
         private weak var separator: CAShapeLayer!
         
         override var first: Bool {
@@ -15,24 +14,14 @@ extension Trackers {
             }
         }
         
-        override var frame: CGRect {
-            didSet {
-                separator.path = .init(rect: .init(x: Self.insets, y: 0, width: frame.width - Self.insets2, height: 0), transform: nil)
-            }
-        }
-        
         override var item: CollectionItem<Info>? {
             didSet {
                 if let item = item {
                     frame = item.rect
-                    title.frame.size.height = item.rect.height - Self.insets2
-                    counter.frame.size.height = item.info.counter.height(for: List.width)
-                    counter.frame.origin.y = (item.rect.height - counter.frame.size.height) / 2
-                    title.string = item.info.title
-                    counter.string = item.info.counter
+                    text.frame.size.height = item.rect.height - Self.insets2
+                    text.string = item.info.text
                 } else {
-                    title.string = nil
-                    counter.string = nil
+                    text.string = nil
                 }
             }
         }
@@ -42,29 +31,21 @@ extension Trackers {
             super.init()
             cornerRadius = 8
             
-            let title = CollectionCellText()
-            title.frame = .init(
+            let text = CollectionCellText()
+            text.frame = .init(
                 x: Self.insets,
                 y: Self.insets,
-                width: Self.titleWidth,
+                width: Self.width,
                 height: 0)
-            addSublayer(title)
-            self.title = title
-            
-            let counter = CollectionCellText()
-            counter.alignmentMode = .right
-            counter.frame = .init(
-                x: 0,
-                y: 0,
-                width: List.width - Self.insets,
-                height: 0)
-            addSublayer(counter)
-            self.counter = counter
+            text.alignmentMode = .right
+            addSublayer(text)
+            self.text = text
             
             let separator = CAShapeLayer()
             separator.fillColor = .clear
             separator.lineWidth = 1
             separator.strokeColor = NSColor.separatorColor.cgColor
+            separator.path = .init(rect: .init(x: Self.insets, y: 0, width: Self.width, height: 0), transform: nil)
             addSublayer(separator)
             self.separator = separator
         }

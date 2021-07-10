@@ -4,9 +4,9 @@ import Sleuth
 
 extension Trackers {
     final class List: Collection<Cell, Info> {
-        static let width = CGFloat(240)
+        static let width = CGFloat(200)
         static let insets2 = insets + insets
-        static let insets = CGFloat(14)
+        static let insets = CGFloat(20)
         
         required init?(coder: NSCoder) { nil }
         init(sorted: CurrentValueSubject<Sleuth.Trackers, Never>, show: PassthroughSubject<[Date]?, Never>) {
@@ -20,35 +20,35 @@ extension Trackers {
                 .combineLatest(sorted
                                 .removeDuplicates())
                 .map {
-                    $0.0.trackers($0.1)
+                    ($0.0.trackers($0.1), $0.1)
                 }
-                .removeDuplicates {
-                    $0.flatMap(\.count) == $1.flatMap(\.count)
-                }
-                .map {
-                    $0
+                .map { (list: [(String, [Date])], sorted: Sleuth.Trackers) in
+                    list
                         .enumerated()
                         .map { (index: Int, blocked: (String, [Date])) in
                             .init(
                                 id: index,
-                                title: .make {
-                                    $0.append(.make(blocked.0,
-                                                    font: .preferredFont(forTextStyle: .body),
-                                                    color: .labelColor))
+                                text: .make {
+                                    switch sorted {
+                                    case .attempts:
+                                        $0.append(.make(session.decimal.string(from: .init(value: blocked.1.count)) ?? "",
+                                                        font: .monoDigit(style: .title2, weight: .regular),
+                                                        color: .labelColor))
+                                    case .recent:
+                                        $0.append(.make(blocked
+                                                            .1
+                                                            .last
+                                                            .map {
+                                                                RelativeDateTimeFormatter().string(from: $0)
+                                                            }
+                                                            ?? "",
+                                                            font: .preferredFont(forTextStyle: .callout),
+                                                            color: .labelColor))
+                                    }
+                                    
                                     $0.linebreak()
-                                    $0.append(.make(blocked
-                                                        .1
-                                                        .last
-                                                        .map {
-                                                            RelativeDateTimeFormatter().string(from: $0)
-                                                        }
-                                                        ?? "",
-                                                        font: .preferredFont(forTextStyle: .callout),
-                                                        color: .secondaryLabelColor))
-                                },
-                                counter: .make {
-                                    $0.append(.make(session.decimal.string(from: .init(value: blocked.1.count)) ?? "",
-                                                    font: .monoDigit(style: .title2, weight: .regular),
+                                    $0.append(.make(blocked.0,
+                                                    font: .preferredFont(forTextStyle: .callout),
                                                     color: .secondaryLabelColor))
                                 },
                                 dates: blocked.1)
@@ -78,7 +78,7 @@ extension Trackers {
                 .sink { [weak self] in
                     let result = $0
                         .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets)) {
-                            let height = ceil($1.title.height(for: Cell.titleWidth) + Cell.insets2)
+                            let height = ceil($1.text.height(for: Cell.width) + Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(

@@ -23,11 +23,7 @@ extension New {
             didSet {
                 if let item = item {
                     frame = item.rect
-                    text.frame = .init(
-                        x: Self.insets,
-                        y: Self.insets,
-                        width: item.rect.width - Self.insets2,
-                        height: item.rect.height - Self.insets2)
+                    text.frame.size = .init(width: item.rect.width - Self.insets2, height: item.rect.height - Self.insets2)
                     text.string = item.info.string
                 } else {
                     text.string = nil
@@ -41,6 +37,11 @@ extension New {
             cornerRadius = 10
             
             let text = CollectionCellText()
+            text.frame = .init(
+                x: Self.insets,
+                y: Self.insets,
+                width: 0,
+                height: 0)
             addSublayer(text)
             self.text = text
             

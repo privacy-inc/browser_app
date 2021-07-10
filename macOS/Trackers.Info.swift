@@ -3,8 +3,7 @@ import Foundation
 extension Trackers {
     struct Info: CollectionItemInfo {
         let id: Int
-        let title: NSAttributedString
-        let counter: NSAttributedString
+        let text: NSAttributedString
         let dates: [Date]
     }
 }
