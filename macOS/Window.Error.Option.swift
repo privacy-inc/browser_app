@@ -2,23 +2,19 @@ import AppKit
 
 extension Window.Error {
     final class Option: Control {
-        private weak var image: Image!
-        private weak var text: Text!
-        
         required init?(coder: NSCoder) { nil }
         init(icon: String, title: String) {
             let image = Image(icon: icon)
             image.symbolConfiguration = .init(textStyle: .body)
-            self.image = image
+            image.contentTintColor = .labelColor
             
             let text = Text()
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .body)
-            self.text = text
+            text.textColor = .labelColor
             
             super.init(layer: true)
             layer!.cornerRadius = 4
-            layer!.borderWidth = 1
             addSubview(image)
             addSubview(text)
             
@@ -34,20 +30,11 @@ extension Window.Error {
         
         override func update() {
             super.update()
-            
             switch state {
-            case .pressed:
-                image.contentTintColor = .controlAccentColor
-                text.textColor = .controlAccentColor
-                layer!.borderColor = NSColor.controlAccentColor.cgColor
-            case .highlighted:
-                image.contentTintColor = .labelColor
-                text.textColor = .labelColor
-                layer!.borderColor = NSColor.labelColor.cgColor
+            case .pressed, .highlighted:
+                layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             default:
-                image.contentTintColor = .tertiaryLabelColor
-                text.textColor = .secondaryLabelColor
-                layer!.borderColor = NSColor.tertiaryLabelColor.cgColor
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             }
         }
         

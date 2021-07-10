@@ -16,6 +16,8 @@ extension Window {
             self.error = error
             
             super.init(frame: .zero)
+            material = .popover
+            
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false
             addSubview(content)
@@ -23,21 +25,17 @@ extension Window {
             let icon = Image(icon: "exclamationmark.triangle.fill")
             icon.symbolConfiguration = .init(pointSize: 50, weight: .regular)
             icon.imageScaling = .scaleNone
-            icon.contentTintColor = .tertiaryLabelColor
+            icon.contentTintColor = .quaternaryLabelColor
             content.addSubview(icon)
             
-            let domain = Text()
-            domain.stringValue = error.domain
-            domain.font = .preferredFont(forTextStyle: .title3)
-            domain.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            content.addSubview(domain)
-            
-            let description = Text()
-            description.stringValue = error.description
-            description.font = .preferredFont(forTextStyle: .body)
-            description.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
-            description.textColor = .secondaryLabelColor
-            content.addSubview(description)
+            let text = Selectable()
+            text.attributedStringValue = .make {
+                $0.append(.make(error.domain, font: .preferredFont(forTextStyle: .title3), color: .tertiaryLabelColor))
+                $0.linebreak()
+                $0.append(.make(error.description, font: .preferredFont(forTextStyle: .body), color: .secondaryLabelColor))
+            }
+            text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
+            content.addSubview(text)
             
             let retry = Option(icon: "gobackward", title: "Try again")
             retry
@@ -65,15 +63,11 @@ extension Window {
             icon.topAnchor.constraint(equalTo: content.topAnchor, constant: 50).isActive = true
             icon.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
             
-            domain.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 20).isActive = true
-            domain.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
-            domain.rightAnchor.constraint(lessThanOrEqualTo: content.rightAnchor).isActive = true
+            text.topAnchor.constraint(equalTo: icon.bottomAnchor, constant: 20).isActive = true
+            text.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
+            text.rightAnchor.constraint(lessThanOrEqualTo: content.rightAnchor).isActive = true
             
-            description.topAnchor.constraint(equalTo: domain.bottomAnchor, constant: 5).isActive = true
-            description.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
-            description.rightAnchor.constraint(lessThanOrEqualTo: content.rightAnchor).isActive = true
-            
-            retry.topAnchor.constraint(equalTo: description.bottomAnchor, constant: 50).isActive = true
+            retry.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 50).isActive = true
             retry.centerXAnchor.constraint(equalTo: content.centerXAnchor).isActive = true
             
             cancel.topAnchor.constraint(equalTo: retry.bottomAnchor, constant: 5).isActive = true

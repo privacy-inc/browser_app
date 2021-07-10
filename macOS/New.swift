@@ -25,10 +25,10 @@ final class New: NSView {
         addSubview(backgroundOptions)
         
         let bookmarks = Bookmarks(id: id)
-        addSubview(bookmarks)
+        backgroundBookmarks.addSubview(bookmarks)
         
         let history = History(id: id)
-        addSubview(history)
+        backgroundHistory.addSubview(history)
          
         let activity = Option(icon: "chart.bar.xaxis")
         activity
@@ -55,20 +55,20 @@ final class New: NSView {
             }
             .store(in: &subs)
         
-        backgroundBookmarks.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        backgroundBookmarks.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backgroundBookmarks.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundBookmarks.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         backgroundBookmarks.widthAnchor.constraint(greaterThanOrEqualToConstant: 140).isActive = true
         backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualToConstant: 280).isActive = true
         backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualTo: backgroundHistory.widthAnchor).isActive = true
         
-        backgroundHistory.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        backgroundHistory.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
         backgroundHistory.rightAnchor.constraint(equalTo: backgroundOptions.leftAnchor).isActive = true
         backgroundHistory.widthAnchor.constraint(greaterThanOrEqualToConstant: 140).isActive = true
         
-        backgroundOptions.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        backgroundOptions.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backgroundOptions.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundOptions.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         backgroundOptions.widthAnchor.constraint(equalToConstant: 80).isActive = true

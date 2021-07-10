@@ -34,7 +34,7 @@ extension New {
         required init?(coder: NSCoder) { nil }
         required init() {
             super.init()
-            cornerRadius = 6
+            cornerRadius = 8
             
             let text = CollectionCellText()
             text.frame = .init(

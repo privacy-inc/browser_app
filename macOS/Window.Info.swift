@@ -27,12 +27,13 @@ extension Window {
             case let .remote(remote):
                 let image = Image(icon: remote.secure ? "lock.fill" : "exclamationmark.triangle.fill")
                 image.symbolConfiguration = .init(textStyle: .largeTitle)
-                image.contentTintColor = .labelColor
+                image.contentTintColor = .tertiaryLabelColor
                 contentViewController!.view.addSubview(image)
                 
                 text.attributedStringValue = .make { string in
                     string.append(.make(remote.secure ? "Secure Connection" : "Site Not Secure",
                                         font: .font(style: .body, weight: .bold),
+                                        color: .secondaryLabelColor,
                                         alignment: .center))
                     string.linebreak()
                     page
@@ -40,7 +41,7 @@ extension Window {
                         .map {
                             string.append(.make(remote.secure ? "Using an encrypted connection to \($0)" : "Connection to \($0) is NOT encrypted",
                                                 font: .preferredFont(forTextStyle: .callout),
-                                                color: .secondaryLabelColor))
+                                                color: .tertiaryLabelColor))
                         }
 
                     string.linebreak()
@@ -48,7 +49,7 @@ extension Window {
                         .map(\.title)
                         .map {
                             string.linebreak()
-                            string.append(.make($0, font: .preferredFont(forTextStyle: .callout)))
+                            string.append(.make($0, font: .preferredFont(forTextStyle: .callout), color: .secondaryLabelColor))
                         }
                     
                     page
@@ -57,7 +58,7 @@ extension Window {
                             string.linebreak()
                             string.append(.make($0,
                                                 font: .preferredFont(forTextStyle: .callout),
-                                                color: .secondaryLabelColor,
+                                                color: .tertiaryLabelColor,
                                                 lineBreak: .byCharWrapping))
                         }
                 }

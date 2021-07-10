@@ -39,9 +39,9 @@ extension Window.Share {
             
             switch state {
             case .pressed:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
+                layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             case .highlighted:
-                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             default:
                 layer!.backgroundColor = .clear
             }
