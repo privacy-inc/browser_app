@@ -35,7 +35,7 @@
 			<string>Owner</string>
 			<key>LSItemContentTypes</key>
 			<array>
-				<string>privacy.md</string>
+				<string>net.daringfireball.markdown</string>
 			</array>
 		</dict>
 	</array>
@@ -147,7 +147,7 @@
 			<key>UTTypeIconFiles</key>
 			<array/>
 			<key>UTTypeIdentifier</key>
-			<string>privacy.md</string>
+			<string>net.daringfireball.markdown</string>
 			<key>UTTypeTagSpecification</key>
 			<dict>
 				<key>public.filename-extension</key>

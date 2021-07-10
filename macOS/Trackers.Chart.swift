@@ -5,8 +5,9 @@ extension Trackers {
         required init?(coder: NSCoder) { nil }
         init(frame: CGRect, values: [Double]) {
             super.init(frame: frame)
+            layer = Layer(values: values)
             wantsLayer = true
-            layer?.addSublayer(Layer(frame: frame.insetBy(dx: 80, dy: 100), values: values))
+            layer!.setNeedsDisplay()
         }
         
         override var allowsVibrancy: Bool {
@@ -15,23 +16,24 @@ extension Trackers {
     }
     
     private final class Layer: CALayer {
+        private let values: [Double]
+        
         required init?(coder: NSCoder) { nil }
         override init(layer: Any) {
+            values = []
             super.init(layer: layer)
         }
         
-        init(frame: CGRect, values: [Double]) {
+        init(values: [Double]) {
+            self.values = values
             super.init()
-            self.frame = frame
-            
-            let road = CAShapeLayer()
-            road.strokeColor = NSColor.tertiaryLabelColor.cgColor
-            road.fillColor = .clear
-            road.lineWidth = 2
-            road.lineCap = .round
-            road.lineJoin = .round
-            road.path = {
-                $0.move(to: .zero)
+        }
+        
+        override func draw(in context: CGContext) {
+            context.setStrokeColor(NSColor.secondaryLabelColor.cgColor)
+            context.setFillColor(NSColor.labelColor.cgColor)
+            context.setLineWidth(1)
+            context.addPath({
                 if !values.isEmpty {
                     $0.addLines(
                         between:
@@ -39,34 +41,45 @@ extension Trackers {
                                 .enumerated()
                                 .map {
                                     .init(
-                                        x: .init(bounds.maxX) / .init(values.count - 1) * .init($0.0),
-                                        y: .init(bounds.maxY) * $0.1)
+                                        x: (Double(frame.maxX - 160) / .init(values.count - 1) * .init($0.0)) + 80,
+                                        y: (Double(frame.maxY - 200) * $0.1) + 100)
                                 })
                 } else {
-                    $0.addLine(to: .init(x: bounds.maxX, y: 0))
+                    $0.addLine(to: .init(x: frame.maxX, y: 0))
                 }
                 return $0
-            } (CGMutablePath())
-            addSublayer(road)
+            } (CGMutablePath()))
+            context.strokePath()
+            context.setStrokeColor(NSColor.tertiaryLabelColor.cgColor)
             
             (0 ..< values.count)
                 .forEach { index in
-                    let dot = CAShapeLayer()
-                    dot.lineWidth = 3
-                    dot.fillColor = .clear
-                    dot.strokeColor = index == values.count - 1 ? NSColor.labelColor.cgColor : NSColor.quaternaryLabelColor.cgColor
-                    dot.path = {
-                        $0.addArc(
-                            center: .init(
-                                x: .init(bounds.maxX) / .init(values.count - 1) * .init(index),
-                                y: .init(bounds.maxY) * .init(values[index])),
-                            radius: index == values.count - 1 ? 10 : 6,
-                            startAngle: .zero,
-                            endAngle: .pi * 2,
-                            clockwise: true)
-                        return $0
-                    } (CGMutablePath())
-                    addSublayer(dot)
+                    let point = CGPoint(
+                        x: (Double(frame.maxX - 160) / .init(values.count - 1) * .init(index)) + 80,
+                        y: (Double(frame.maxY - 200) * .init(values[index])) + 100)
+                    context.addArc(
+                        center: point,
+                        radius: index == values.count - 1 ? 12 : 8,
+                        startAngle: .zero,
+                        endAngle: .pi * 2,
+                        clockwise: false)
+                    context.setBlendMode(.clear)
+                    context.fillPath()
+                    
+                    context.addArc(
+                        center: point,
+                        radius: index == values.count - 1 ? 8 : 4,
+                        startAngle: .zero,
+                        endAngle: .pi * 2,
+                        clockwise: false)
+                    
+                    context.setBlendMode(.normal)
+                    
+                    if index == values.count - 1 {
+                        context.fillPath()
+                    } else {
+                        context.strokePath()
+                    }
                 }
         }
     }

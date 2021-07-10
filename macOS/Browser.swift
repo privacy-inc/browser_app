@@ -11,7 +11,7 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
     required init?(coder: NSCoder) { nil }
     init(web: Web) {
         super.init(frame: .zero)
-        material = .underWindowBackground
+        material = .menu
         addSubview(web)
         
         let separator = Separator()
