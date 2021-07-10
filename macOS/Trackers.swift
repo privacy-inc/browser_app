@@ -25,26 +25,22 @@ final class Trackers: NSWindow {
         barBottom.layoutAttribute = .bottom
         addTitlebarAccessoryViewController(barBottom)
         
-        let content = NSView()
-        contentView = content
-        
         let side = NSVisualEffectView()
         side.state = .active
         side.translatesAutoresizingMaskIntoConstraints = false
         side.material = .menu
-        content.addSubview(side)
+        contentView!.addSubview(side)
         
         let display = NSVisualEffectView()
         display.translatesAutoresizingMaskIntoConstraints = false
         display.state = .active
         display.material = .popover
-        display.wantsLayer = true
-        content.addSubview(display)
+        contentView!.addSubview(display)
         
         let show = PassthroughSubject<[Date]?, Never>()
         
         let list = List(sorted: bottom.sorted, show: show)
-        content.addSubview(list)
+        side.addSubview(list)
         
         let since = Text()
         since.font = .preferredFont(forTextStyle: .callout)
@@ -56,14 +52,14 @@ final class Trackers: NSWindow {
         now.textColor = .secondaryLabelColor
         display.addSubview(now)
         
-        side.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
-        side.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
-        side.leftAnchor.constraint(equalTo: content.leftAnchor).isActive = true
+        side.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        side.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
+        side.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
         side.widthAnchor.constraint(equalToConstant: List.width + List.insets2).isActive = true
         
-        display.topAnchor.constraint(equalTo: content.safeAreaLayoutGuide.topAnchor).isActive = true
-        display.bottomAnchor.constraint(equalTo: content.bottomAnchor).isActive = true
-        display.rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
+        display.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
+        display.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
+        display.rightAnchor.constraint(equalTo: contentView!.rightAnchor).isActive = true
         display.leftAnchor.constraint(equalTo: side.rightAnchor).isActive = true
         
         list.topAnchor.constraint(equalTo: side.topAnchor).isActive = true
@@ -81,23 +77,18 @@ final class Trackers: NSWindow {
             .removeDuplicates()
             .sink {
                 display
-                    .layer!
-                    .sublayers
-                    .map {
-                        $0
-                            .filter {
-                                $0 is Chart
-                            }
-                            .forEach {
-                                $0.removeFromSuperlayer()
-                            }
+                    .subviews
+                    .filter {
+                        $0 is Chart
+                    }
+                    .forEach {
+                        $0.removeFromSuperview()
                     }
                 since.stringValue = ""
                 now.stringValue = ""
                 
                 guard let dates = $0 else { return }
-                display.layer!.addSublayer(Chart(frame: display.layer!.bounds.insetBy(dx: 80, dy: 100), values: dates.plotter))
-                
+                display.addSubview(Chart(frame: display.bounds, values: dates.plotter))
                 since.stringValue = RelativeDateTimeFormatter().string(from: dates.first ?? .init())
                 now.stringValue = NSLocalizedString("Now", comment: "")
             }
