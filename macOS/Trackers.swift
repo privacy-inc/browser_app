@@ -42,16 +42,6 @@ final class Trackers: NSWindow {
         let list = List(sorted: bottom.sorted, show: show)
         side.addSubview(list)
         
-        let since = Text()
-        since.font = .preferredFont(forTextStyle: .callout)
-        since.textColor = .secondaryLabelColor
-        display.addSubview(since)
-        
-        let now = Text()
-        now.font = .preferredFont(forTextStyle: .callout)
-        now.textColor = .secondaryLabelColor
-        display.addSubview(now)
-        
         side.topAnchor.constraint(equalTo: contentView!.safeAreaLayoutGuide.topAnchor).isActive = true
         side.bottomAnchor.constraint(equalTo: contentView!.bottomAnchor).isActive = true
         side.leftAnchor.constraint(equalTo: contentView!.leftAnchor).isActive = true
@@ -67,30 +57,17 @@ final class Trackers: NSWindow {
         list.leftAnchor.constraint(equalTo: side.leftAnchor).isActive = true
         list.rightAnchor.constraint(equalTo: side.rightAnchor).isActive = true
         
-        since.bottomAnchor.constraint(equalTo: display.bottomAnchor, constant: -50).isActive = true
-        since.leftAnchor.constraint(equalTo: display.leftAnchor, constant: 70).isActive = true
-        
-        now.bottomAnchor.constraint(equalTo: display.bottomAnchor, constant: -50).isActive = true
-        now.rightAnchor.constraint(equalTo: display.rightAnchor, constant: -70).isActive = true
-        
         subscription = show
             .removeDuplicates()
             .sink {
                 display
                     .subviews
-                    .filter {
-                        $0 is Chart
-                    }
                     .forEach {
                         $0.removeFromSuperview()
                     }
-                since.stringValue = ""
-                now.stringValue = ""
                 
                 guard let dates = $0 else { return }
-                display.addSubview(Chart(frame: display.bounds, values: dates.plotter))
-                since.stringValue = RelativeDateTimeFormatter().string(from: dates.first ?? .init())
-                now.stringValue = NSLocalizedString("Now", comment: "")
+                display.addSubview(Chart(frame: display.bounds, first: dates.first ?? .init(), values: dates.plotter))
             }
     }
 }

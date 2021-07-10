@@ -104,6 +104,14 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
             .subscribe(clip)
             .store(in: &subs)
         
+        items
+            .removeDuplicates()
+            .map { _ in
+                nil
+            }
+            .subscribe(selected)
+            .store(in: &subs)
+        
         highlight
             .sink { point in
                 cells

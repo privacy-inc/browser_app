@@ -15,7 +15,7 @@ extension New {
         
         override var frame: CGRect {
             didSet {
-                separator.path = .init(rect: .init(x: Self.insets, y: 0, width: frame.width - Self.insets2, height: 0), transform: nil)
+                separator.path = .init(rect: .init(x: Self.insets, y: -1, width: frame.width - Self.insets2, height: 0), transform: nil)
             }
         }
         
@@ -34,7 +34,7 @@ extension New {
         required init?(coder: NSCoder) { nil }
         required init() {
             super.init()
-            cornerRadius = 10
+            cornerRadius = 6
             
             let text = CollectionCellText()
             text.frame = .init(

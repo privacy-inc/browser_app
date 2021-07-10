@@ -86,7 +86,7 @@ extension Trackers {
                                                     y: $0.y,
                                                     width: Self.width,
                                                     height: height)))
-                            $0.y += height
+                            $0.y += height + 2
                         }
                     self?.first.send($0.first?.id)
                     self?.items.send(result.items)

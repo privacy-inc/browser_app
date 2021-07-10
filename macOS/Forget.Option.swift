@@ -1,21 +1,19 @@
-import Foundation
+import AppKit
 
 extension Forget {
     class Option: Control {
-        private weak var image: Image!
-        private weak var text: Text!
+        private(set) weak var text: Text!
+        private(set) weak var image: Image!
         
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {
             let image = Image(icon: image)
             image.symbolConfiguration = .init(textStyle: .title3)
-            image.contentTintColor = .labelColor
             self.image = image
             
             let text = Text()
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .callout)
-            text.textColor = .labelColor
             self.text = text
             
             super.init(layer: true)
@@ -34,7 +32,18 @@ extension Forget {
             text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
         }
         
-        override var allowsVibrancy: Bool {
+        final override func update() {
+            super.update()
+            
+            switch state {
+            case .pressed, .highlighted:
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
+            default:
+                layer!.backgroundColor = .clear
+            }
+        }
+        
+        final override var allowsVibrancy: Bool {
             true
         }
     }

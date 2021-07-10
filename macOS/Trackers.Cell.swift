@@ -29,7 +29,7 @@ extension Trackers {
         required init?(coder: NSCoder) { nil }
         required init() {
             super.init()
-            cornerRadius = 8
+            cornerRadius = 6
             
             let text = CollectionCellText()
             text.frame = .init(
@@ -45,7 +45,7 @@ extension Trackers {
             separator.fillColor = .clear
             separator.lineWidth = 1
             separator.strokeColor = NSColor.separatorColor.cgColor
-            separator.path = .init(rect: .init(x: Self.insets, y: 0, width: Self.width, height: 0), transform: nil)
+            separator.path = .init(rect: .init(x: Self.insets, y: -1, width: Self.width, height: 0), transform: nil)
             addSublayer(separator)
             self.separator = separator
         }

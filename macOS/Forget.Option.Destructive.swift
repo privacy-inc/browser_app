@@ -2,15 +2,11 @@ import AppKit
 
 extension Forget.Option {
     final class Destructive: Forget.Option {
-        override func update() {
-            super.update()
-            
-            switch state {
-            case .pressed:
-                layer!.backgroundColor = NSColor.selectedContentBackgroundColor.cgColor
-            default:
-                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
-            }
+        required init?(coder: NSCoder) { nil }
+        override init(title: String, image: String) {
+            super.init(title: title, image: image)
+            text.textColor = .labelColor
+            self.image.contentTintColor = .labelColor
         }
     }
 }

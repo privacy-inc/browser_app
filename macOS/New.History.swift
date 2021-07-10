@@ -73,7 +73,7 @@ extension New {
                                                     y: $0.y,
                                                     width: width,
                                                     height: height)))
-                            $0.y += height
+                            $0.y += height + 2
                         }
                     self?.first.send(info.first?.id)
                     self?.items.send(result.items)

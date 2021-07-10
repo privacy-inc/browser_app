@@ -41,7 +41,7 @@
 		CE2930F22670D2B7003E60F0 /* Separator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2930F12670D2B7003E60F0 /* Separator.swift */; };
 		CE2E9883265136D400844E8B /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E9882265136D400844E8B /* Toast.swift */; };
 		CE2E98852651374700844E8B /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
-		CE3E858B268DF37500929775 /* Trackers.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858A268DF37500929775 /* Trackers.Chart.swift */; };
+		CE3E858B268DF37500929775 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858A268DF37500929775 /* Chart.swift */; };
 		CE3E858D268E01E700929775 /* Trackers.Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858C268E01E700929775 /* Trackers.Detail.swift */; };
 		CE3E858F268E043200929775 /* Trackers.Detail.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858E268E043200929775 /* Trackers.Detail.Chart.swift */; };
 		CE3F46EE267232F7002BFB82 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F46ED267232F7002BFB82 /* Browser.swift */; };
@@ -210,7 +210,6 @@
 		CEF97E62266A3A8400550E10 /* NSSavePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E61266A3A8400550E10 /* NSSavePanel.swift */; };
 		CEF97E64266A4CFA00550E10 /* New.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E63266A4CFA00550E10 /* New.Option.swift */; };
 		CEF97E66266A507F00550E10 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E65266A507F00550E10 /* Activity.swift */; };
-		CEF97E68266A5ACD00550E10 /* Activity.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E67266A5ACD00550E10 /* Activity.Chart.swift */; };
 		CEF97E69266A5B6400550E10 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
 		CEF97E6D266A631700550E10 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E6C266A631700550E10 /* Trackers.swift */; };
 		CEF97E6F266A642D00550E10 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E6E266A642D00550E10 /* Scroll.swift */; };
@@ -323,7 +322,7 @@
 		CE2930F12670D2B7003E60F0 /* Separator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Separator.swift; sourceTree = "<group>"; };
 		CE2E9882265136D400844E8B /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CE2E98842651374700844E8B /* Toast.Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.Message.swift; sourceTree = "<group>"; };
-		CE3E858A268DF37500929775 /* Trackers.Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Chart.swift; sourceTree = "<group>"; };
+		CE3E858A268DF37500929775 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		CE3E858C268E01E700929775 /* Trackers.Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Detail.swift; sourceTree = "<group>"; };
 		CE3E858E268E043200929775 /* Trackers.Detail.Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Detail.Chart.swift; sourceTree = "<group>"; };
 		CE3F46ED267232F7002BFB82 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
@@ -491,7 +490,6 @@
 		CEF97E61266A3A8400550E10 /* NSSavePanel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSSavePanel.swift; sourceTree = "<group>"; };
 		CEF97E63266A4CFA00550E10 /* New.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.Option.swift; sourceTree = "<group>"; };
 		CEF97E65266A507F00550E10 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
-		CEF97E67266A5ACD00550E10 /* Activity.Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.Chart.swift; sourceTree = "<group>"; };
 		CEF97E6C266A631700550E10 /* Trackers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.swift; sourceTree = "<group>"; };
 		CEF97E6E266A642D00550E10 /* Scroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Scroll.swift; sourceTree = "<group>"; };
 		CEF97E70266A685700550E10 /* Trackers.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Item.swift; sourceTree = "<group>"; };
@@ -746,12 +744,12 @@
 			children = (
 				CEF58635265E468D00D9A6F1 /* macOS.entitlements */,
 				CEF58634265E468D00D9A6F1 /* Info.plist */,
-				CEF97E67266A5ACD00550E10 /* Activity.Chart.swift */,
 				CEF97E65266A507F00550E10 /* Activity.swift */,
 				CEF5862B265E468C00D9A6F1 /* App.swift */,
 				CECDA7D82664FF1700F87546 /* Array.Search.Autocomplete.Cell.swift */,
 				CE3F46ED267232F7002BFB82 /* Browser.swift */,
 				CE0D6BF1265FC8B0000B3FF1 /* CGRect.swift */,
+				CE3E858A268DF37500929775 /* Chart.swift */,
 				CECE1F9C265E9E5100ACBB0B /* Collection.swift */,
 				CE847B16265EA0AC00A045B3 /* CollectionCell.swift */,
 				CE847B18265EA0C000A045B3 /* CollectionCellState.swift */,
@@ -820,7 +818,6 @@
 				CE805559266789E10096D1A5 /* Toast.swift */,
 				CE1C2F64268B407200DC0B41 /* Trackers.Bottom.swift */,
 				CEFF2BF8268C9D9500EBA5D3 /* Trackers.Cell.swift */,
-				CE3E858A268DF37500929775 /* Trackers.Chart.swift */,
 				CEFF2BFA268C9DB400EBA5D3 /* Trackers.Info.swift */,
 				CEF97E70266A685700550E10 /* Trackers.Item.swift */,
 				CEFF2BF4268C7A9A00EBA5D3 /* Trackers.List.swift */,
@@ -1233,7 +1230,6 @@
 				CEF001A8266BE65F00993CDD /* Settings.Features.swift in Sources */,
 				CE0D6BF0265FB8A0000B3FF1 /* New.Cell.swift in Sources */,
 				CEF97E64266A4CFA00550E10 /* New.Option.swift in Sources */,
-				CEF97E68266A5ACD00550E10 /* Activity.Chart.swift in Sources */,
 				CEF00194266BB84E00993CDD /* Store.Error.swift in Sources */,
 				CE847B15265EA08A00A045B3 /* CollectionItem.swift in Sources */,
 				CEF0019C266BC76B00993CDD /* Info.Alternatives.swift in Sources */,
@@ -1248,7 +1244,7 @@
 				CEC9859626637821001DA288 /* Search.Autocomplete.swift in Sources */,
 				CEF001AC266BEB9E00993CDD /* Settings.Security.swift in Sources */,
 				CE6F0D7726669AAA00538D9A /* NSApplication.swift in Sources */,
-				CE3E858B268DF37500929775 /* Trackers.Chart.swift in Sources */,
+				CE3E858B268DF37500929775 /* Chart.swift in Sources */,
 				CEFF2BF9268C9D9500EBA5D3 /* Trackers.Cell.swift in Sources */,
 				CE676A67265E60C80042EDC2 /* Purchases.Item.swift in Sources */,
 				CEF001AE266BED8000993CDD /* Settings.Privacy.swift in Sources */,
