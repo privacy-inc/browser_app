@@ -20,7 +20,7 @@ final class New: NSView {
         addSubview(backgroundHistory)
         
         let backgroundOptions = NSVisualEffectView()
-        backgroundOptions.material = .sidebar
+        backgroundOptions.material = .popover
         backgroundOptions.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundOptions)
         
@@ -86,8 +86,8 @@ final class New: NSView {
         var bottom = bottomAnchor
         [activity, trackers, forget]
             .forEach {
-                addSubview($0)
-                $0.bottomAnchor.constraint(equalTo: bottom, constant: bottom == bottomAnchor ? -16 : -10).isActive = true
+                backgroundOptions.addSubview($0)
+                $0.bottomAnchor.constraint(equalTo: bottom, constant: bottom == bottomAnchor ? -20 : -10).isActive = true
                 $0.rightAnchor.constraint(equalTo: rightAnchor, constant: -20).isActive = true
                 bottom = $0.topAnchor
             }

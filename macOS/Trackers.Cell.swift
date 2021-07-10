@@ -2,9 +2,9 @@ import AppKit
 
 extension Trackers {
     final class Cell: CollectionCell<Info> {
-        static let insets = CGFloat(12)
+        static let insets = CGFloat(20)
         static let insets2 = insets * 2
-        static let titleWidth = CGFloat(150)
+        static let titleWidth = CGFloat(130)
         private weak var title: CollectionCellText!
         private weak var counter: CollectionCellText!
         private weak var separator: CAShapeLayer!

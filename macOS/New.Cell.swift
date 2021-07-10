@@ -2,7 +2,7 @@ import AppKit
 
 extension New {
     final class Cell: CollectionCell<Info> {
-        static let insets = CGFloat(14)
+        static let insets = CGFloat(20)
         static let insets2 = insets * 2
         private weak var text: CollectionCellText!
         private weak var separator: CAShapeLayer!
@@ -38,7 +38,7 @@ extension New {
         required init?(coder: NSCoder) { nil }
         required init() {
             super.init()
-            cornerRadius = 8
+            cornerRadius = 10
             
             let text = CollectionCellText()
             addSublayer(text)

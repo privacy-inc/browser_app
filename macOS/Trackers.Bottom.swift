@@ -3,16 +3,18 @@ import Combine
 import Sleuth
 
 extension Trackers {
-    final class Bottom: NSView {
+    final class Bottom: NSVisualEffectView {
         let sorted = CurrentValueSubject<Sleuth.Trackers, Never>(.attempts)
         private var sub: AnyCancellable?
         
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)
+            state = .active
+            material = .menu
+            
             let segmented = NSSegmentedControl(labels: ["Attempts", "Recent"], trackingMode: .selectOne, target: self, action: #selector(change))
             segmented.selectedSegment = 0
-            segmented.segmentStyle = .separated
             segmented.translatesAutoresizingMaskIntoConstraints = false
             addSubview(segmented)
             
@@ -24,8 +26,8 @@ extension Trackers {
             addSubview(incidences)
             
             segmented.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            segmented.leftAnchor.constraint(equalTo: leftAnchor, constant: 20).isActive = true
-            segmented.widthAnchor.constraint(equalToConstant: List.width - 20).isActive = true
+            segmented.leftAnchor.constraint(equalTo: leftAnchor, constant: List.insets).isActive = true
+            segmented.widthAnchor.constraint(equalToConstant: List.width).isActive = true
             
             domains.topAnchor.constraint(equalTo: topAnchor, constant: 10).isActive = true
             domains.rightAnchor.constraint(equalTo: incidences.leftAnchor, constant: -20).isActive = true
@@ -46,7 +48,7 @@ extension Trackers {
                                         alignment: .right))
                         $0.linebreak()
                         $0.append(.make("Trackers", font: .preferredFont(forTextStyle: .callout),
-                                        color: .secondaryLabelColor,
+                                        color: .tertiaryLabelColor,
                                         alignment: .right))
                     }
                     
@@ -57,7 +59,7 @@ extension Trackers {
                         $0.linebreak()
                         $0.append(.make("Attempts blocked",
                                         font: .preferredFont(forTextStyle: .callout),
-                                        color: .secondaryLabelColor,
+                                        color: .tertiaryLabelColor,
                                         alignment: .right))
                     }
                 }

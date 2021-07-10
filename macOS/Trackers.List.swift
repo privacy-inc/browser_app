@@ -6,7 +6,7 @@ extension Trackers {
     final class List: Collection<Cell, Info> {
         static let width = CGFloat(240)
         static let insets2 = insets + insets
-        private static let insets = CGFloat(10)
+        static let insets = CGFloat(14)
         
         required init?(coder: NSCoder) { nil }
         init(sorted: CurrentValueSubject<Sleuth.Trackers, Never>, show: PassthroughSubject<[Date]?, Never>) {
@@ -78,7 +78,7 @@ extension Trackers {
                 .sink { [weak self] in
                     let result = $0
                         .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets)) {
-                            let height = ceil($1.title.height(for: Cell.titleWidth) + New.Cell.insets2)
+                            let height = ceil($1.title.height(for: Cell.titleWidth) + Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(

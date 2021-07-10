@@ -2,13 +2,11 @@ import AppKit
 
 extension New {
     final class Option: Control {
-        private weak var image: Image!
-        
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
             let image = Image(icon: icon)
             image.symbolConfiguration = .init(textStyle: .title2)
-            self.image = image
+            image.contentTintColor = .secondaryLabelColor
             
             super.init(layer: true)
             layer!.cornerRadius = 9
@@ -25,15 +23,16 @@ extension New {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .white
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.5).cgColor
+                layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             case .highlighted:
-                image.contentTintColor = .white
-                layer!.backgroundColor = NSColor.controlAccentColor.cgColor
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             default:
                 layer!.backgroundColor = .clear
-                image.contentTintColor = .labelColor
             }
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

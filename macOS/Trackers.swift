@@ -37,6 +37,7 @@ final class Trackers: NSWindow {
         let display = NSVisualEffectView()
         display.translatesAutoresizingMaskIntoConstraints = false
         display.state = .active
+        display.material = .popover
         display.wantsLayer = true
         content.addSubview(display)
         

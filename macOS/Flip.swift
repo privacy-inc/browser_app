@@ -12,8 +12,4 @@ final class Flip: NSView {
     override func shouldDelayWindowOrdering(for: NSEvent) -> Bool {
         true
     }
-    
-    override var allowsVibrancy: Bool {
-        true
-    }
 }
