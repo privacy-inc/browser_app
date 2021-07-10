@@ -10,7 +10,7 @@ final class New: NSView {
         registerForDraggedTypes([.fileURL])
         
         let backgroundBookmarks = NSVisualEffectView()
-        backgroundBookmarks.material = .sidebar
+        backgroundBookmarks.material = .popover
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundBookmarks)
         

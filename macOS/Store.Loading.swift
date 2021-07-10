@@ -1,7 +1,7 @@
 import AppKit
 
 extension Store {
-    final class Loading: NSView {
+    final class Loading: NSVisualEffectView {
         required init?(coder: NSCoder) { nil }
         init() {
             super.init(frame: .zero)

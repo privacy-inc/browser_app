@@ -1,7 +1,7 @@
 import AppKit
 
 extension Store {
-    final class Error: NSView {
+    final class Error: NSVisualEffectView {
         required init?(coder: NSCoder) { nil }
         init(message: String) {
             super.init(frame: .zero)

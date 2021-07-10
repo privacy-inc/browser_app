@@ -43,13 +43,7 @@ extension New {
                                                         color: .labelColor))
                                         $0.linebreak()
                                     }
-                                    if !browse.page.access.short.isEmpty {
-                                        $0.append(.make(browse.page.access.short,
-                                                        font: .preferredFont(forTextStyle: .callout),
-                                                        color: .secondaryLabelColor))
-                                        $0.linebreak()
-                                    }
-                                    $0.append(.make(RelativeDateTimeFormatter().string(from: browse.date),
+                                    $0.append(.make(browse.page.access.short + " - " + RelativeDateTimeFormatter().string(from: browse.date),
                                                     font: .preferredFont(forTextStyle: .callout),
                                                     color: .secondaryLabelColor))
                                 })

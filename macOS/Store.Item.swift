@@ -4,7 +4,7 @@ import Combine
 import Sleuth
 
 extension Store {
-    final class Item: NSView {
+    final class Item: NSVisualEffectView {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
@@ -88,7 +88,7 @@ extension Store {
                 value.topAnchor.constraint(equalTo: subtitle.bottomAnchor, constant: 30).isActive = true
                 value.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
                 
-                purchase.topAnchor.constraint(equalTo: value.bottomAnchor, constant: 5).isActive = true
+                purchase.topAnchor.constraint(equalTo: value.bottomAnchor, constant: 8).isActive = true
                 purchase.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
                 
                 why.bottomAnchor.constraint(equalTo: alternatives.topAnchor).isActive = true

@@ -9,6 +9,7 @@ extension Control {
             let text = Text()
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .callout)
+            text.textColor = .labelColor
             self.text = text
             
             super.init(layer: true)
@@ -16,11 +17,11 @@ extension Control {
             
             addSubview(text)
             
-            heightAnchor.constraint(equalToConstant: 32).isActive = true
-            rightAnchor.constraint(equalTo: text.rightAnchor, constant: 22).isActive = true
+            heightAnchor.constraint(equalToConstant: 30).isActive = true
+            rightAnchor.constraint(equalTo: text.rightAnchor, constant: 28).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 22).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 28).isActive = true
         }
         
         override func update() {
@@ -28,11 +29,14 @@ extension Control {
             
             switch state {
             case .pressed:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.8).cgColor
+                layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             default:
-                layer!.backgroundColor = NSColor.controlAccentColor.cgColor
-                text.textColor = .white
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             }
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

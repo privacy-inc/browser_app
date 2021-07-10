@@ -7,6 +7,7 @@ class Info: NSWindow {
         toolbar = .init()
         isReleasedWhenClosed = false
         titlebarAppearsTransparent = true
+        contentView = NSVisualEffectView()
         self.title = title
         center()
         

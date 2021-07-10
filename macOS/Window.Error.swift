@@ -30,7 +30,7 @@ extension Window {
             
             let text = Selectable()
             text.attributedStringValue = .make {
-                $0.append(.make(error.domain, font: .preferredFont(forTextStyle: .title3), color: .tertiaryLabelColor))
+                $0.append(.make(error.domain, font: .preferredFont(forTextStyle: .title3), color: .secondaryLabelColor))
                 $0.linebreak()
                 $0.append(.make(error.description, font: .preferredFont(forTextStyle: .body), color: .secondaryLabelColor))
             }
