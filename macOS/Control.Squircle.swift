@@ -14,7 +14,7 @@ extension Control {
             layer!.cornerRadius = 8
             
             addSubview(image)
-            widthAnchor.constraint(equalToConstant: 30).isActive = true
+            widthAnchor.constraint(equalToConstant: 26).isActive = true
             heightAnchor.constraint(equalTo: widthAnchor).isActive = true
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true

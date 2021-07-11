@@ -39,7 +39,7 @@ extension Window {
                     page
                         .map(\.access.short)
                         .map {
-                            string.append(.make(remote.secure ? "Using an encrypted connection to \($0)" : "Connection to \($0) is NOT encrypted",
+                            string.append(.make(remote.secure ? "Using an encrypted\nconnection to \($0)" : "Connection to \($0)\nis NOT encrypted",
                                                 font: .preferredFont(forTextStyle: .callout),
                                                 color: .secondaryLabelColor,
                                                 alignment: .center))
