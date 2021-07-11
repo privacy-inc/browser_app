@@ -1,8 +1,7 @@
 import AppKit
 
-final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
+final class Browser: NSView, NSTextFinderBarContainer {
     private weak var top: NSLayoutConstraint!
-    private weak var separator: Separator!
     
     deinit {
         print("browser gone")
@@ -11,23 +10,36 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
     required init?(coder: NSCoder) { nil }
     init(web: Web) {
         super.init(frame: .zero)
-        material = .menu
+        let first = NSVisualEffectView()
+        first.translatesAutoresizingMaskIntoConstraints = false
+        first.material = .popover
+        first.state = .active
+        first.isEmphasized = true
+        addSubview(first)
+        
+        let second = NSVisualEffectView()
+        second.translatesAutoresizingMaskIntoConstraints = false
+        second.material = .menu
+        second.state = .active
+        addSubview(second)
+        
         addSubview(web)
         
-        let separator = Separator()
-        separator.isHidden = true
-        addSubview(separator)
-        self.separator = separator
+        first.topAnchor.constraint(equalTo: topAnchor).isActive = true
+        first.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        first.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        first.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
         
-        top = web.topAnchor.constraint(equalTo: topAnchor)
+        second.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor).isActive = true
+        second.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+        second.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        second.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+        
+        top = web.topAnchor.constraint(equalTo: second.topAnchor)
         top.isActive = true
-        web.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        web.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-        web.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-        
-        separator.bottomAnchor.constraint(equalTo: web.topAnchor).isActive = true
-        separator.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-        separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+        web.leftAnchor.constraint(equalTo: second.leftAnchor).isActive = true
+        web.rightAnchor.constraint(equalTo: second.rightAnchor).isActive = true
+        web.bottomAnchor.constraint(equalTo: second.bottomAnchor).isActive = true
     }
     
     var findBarView: NSView? {
@@ -57,16 +69,11 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
                     $0.removeFromSuperview()
                 }
             findBarView?.isHidden = !isFindBarVisible
-            separator.isHidden = !isFindBarVisible
             top.constant = isFindBarVisible ? 40 + safeAreaInsets.top : 0
         }
     }
     
     func findBarViewDidChangeHeight() {
         
-    }
-    
-    override var allowsVibrancy: Bool {
-        true
     }
 }

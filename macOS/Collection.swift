@@ -99,7 +99,13 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
                     .default
                     .publisher(for: NSView.frameDidChangeNotification, object: contentView))
             .compactMap {
-                ($0.object as? NSClipView)?.documentVisibleRect
+                ($0.object as? NSClipView)
+                    .map {
+                        var rect = $0.documentVisibleRect
+                        rect.origin.y += $0.safeAreaInsets.top
+                        rect.size.height -= $0.safeAreaInsets.top
+                        return rect
+                    }
             }
             .subscribe(clip)
             .store(in: &subs)

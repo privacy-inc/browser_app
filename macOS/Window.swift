@@ -16,12 +16,12 @@ final class Window: NSWindow {
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView],
                    backing: .buffered,
                    defer: false)
-        minSize = .init(width: 400, height: 200)
+        minSize = .init(width: 600, height: 200)
         toolbar = .init()
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
-        tabbingMode = .preferred
-        toggleTabBar(nil)
+        tabbingMode = .disallowed
+        titlebarAppearsTransparent = true
         
         let search = Search(id: id)
         let bar = NSTitlebarAccessoryViewController()
@@ -136,20 +136,6 @@ final class Window: NSWindow {
             }
     }
     
-    override func becomeMain() {
-        super.becomeMain()
-        dim(opacity: 1)
-    }
-    
-    override func resignMain() {
-        super.resignMain()
-        dim(opacity: 0.7)
-    }
-    
-    override func newWindowForTab(_: Any?) {
-        NSApp.newTab()
-    }
-    
     override func performTextFinderAction(_ sender: Any?) {
         (sender as? NSMenuItem)
             .flatMap {
@@ -178,9 +164,5 @@ final class Window: NSWindow {
         } else {
             close()
         }
-    }
-    
-    private func dim(opacity: CGFloat) {
-        search.alphaValue = opacity
     }
 }

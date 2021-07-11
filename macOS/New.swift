@@ -10,17 +10,23 @@ final class New: NSView {
         registerForDraggedTypes([.fileURL])
         
         let backgroundBookmarks = NSVisualEffectView()
+        backgroundBookmarks.state = .active
+        backgroundBookmarks.isEmphasized = true
         backgroundBookmarks.material = .popover
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundBookmarks)
         
         let backgroundHistory = NSVisualEffectView()
         backgroundHistory.material = .menu
+        backgroundHistory.state = .active
+        backgroundHistory.isEmphasized = true
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundHistory)
         
         let backgroundOptions = NSVisualEffectView()
         backgroundOptions.material = .popover
+        backgroundOptions.state = .active
+        backgroundOptions.isEmphasized = true
         backgroundOptions.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundOptions)
         
