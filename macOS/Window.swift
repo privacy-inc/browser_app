@@ -23,6 +23,9 @@ final class Window: NSWindow {
         tabbingMode = .disallowed
         titlebarAppearsTransparent = true
         
+        let content = Content()
+        contentView = content
+        
         let search = Search(id: id)
         let bar = NSTitlebarAccessoryViewController()
         bar.view = search
@@ -40,7 +43,7 @@ final class Window: NSWindow {
             .sink { [weak self] in
                 switch $0 {
                 case .new:
-                    self?.contentView = New(id: id)
+                    content.display = New(id: id)
                 case let .browse(browse):
                     let web = (tabber.items.value[web: id] as? Web) ?? Web(id: id, browse: browse)
                     if tabber.items.value[web: id] == nil {
@@ -49,12 +52,12 @@ final class Window: NSWindow {
                     let browser = Browser(web: web)
                     self?.finder.client = web
                     self?.finder.findBarContainer = browser
-                    self?.contentView = browser
+                    content.display = browser
                     self?.makeFirstResponder(web)
                 case let .error(browse, error):
                     self?.finder.client = nil
                     self?.finder.findBarContainer = nil
-                    self?.contentView = Error(id: id, browse: browse, error: error)
+                    content.display = Error(id: id, browse: browse, error: error)
                     self?.makeFirstResponder(self?.contentView)
                 }
             }

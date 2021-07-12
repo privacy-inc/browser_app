@@ -20,11 +20,18 @@ final class Chart: NSView {
         now.stringValue = NSLocalizedString("Now", comment: "")
         addSubview(now)
         
+        let separator = Separator(mode: .horizontal)
+        addSubview(separator)
+        
         since.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50).isActive = true
         since.leftAnchor.constraint(equalTo: leftAnchor, constant: 70).isActive = true
         
-        now.bottomAnchor.constraint(equalTo: bottomAnchor, constant: -50).isActive = true
+        now.centerYAnchor.constraint(equalTo: since.centerYAnchor).isActive = true
         now.rightAnchor.constraint(equalTo: rightAnchor, constant: -70).isActive = true
+        
+        separator.centerYAnchor.constraint(equalTo: since.centerYAnchor).isActive = true
+        separator.leftAnchor.constraint(equalTo: since.rightAnchor, constant: 5).isActive = true
+        separator.rightAnchor.constraint(equalTo: now.leftAnchor, constant: -5).isActive = true
     }
     
     override var allowsVibrancy: Bool {
@@ -58,11 +65,11 @@ private final class Layer: CALayer {
                             .enumerated()
                             .map {
                                 .init(
-                                    x: (Double(frame.maxX - 160) / .init(values.count - 1) * .init($0.0)) + 80,
-                                    y: (Double(frame.maxY - 200) * $0.1) + 100)
+                                    x: (Double(bounds.maxX - 160) / .init(values.count - 1) * .init($0.0)) + 80,
+                                    y: (Double(bounds.maxY - 200) * $0.1) + 100)
                             })
             } else {
-                $0.addLine(to: .init(x: frame.maxX, y: 0))
+                $0.addLine(to: .init(x: bounds.maxX, y: 0))
             }
             return $0
         } (CGMutablePath()))
@@ -72,8 +79,8 @@ private final class Layer: CALayer {
         (0 ..< values.count)
             .forEach { index in
                 let point = CGPoint(
-                    x: (Double(frame.maxX - 160) / .init(values.count - 1) * .init(index)) + 80,
-                    y: (Double(frame.maxY - 200) * .init(values[index])) + 100)
+                    x: (Double(bounds.maxX - 160) / .init(values.count - 1) * .init(index)) + 80,
+                    y: (Double(bounds.maxY - 200) * .init(values[index])) + 100)
                 context.addArc(
                     center: point,
                     radius: index == values.count - 1 ? 12 : 8,

@@ -55,7 +55,7 @@ extension Search {
             titleBookmarks.textColor = .tertiaryLabelColor
             titleBookmarks.stringValue = NSLocalizedString("BOOKMARKS", comment: "")
             
-            let separator = Separator()
+            let separator = Separator(mode: .horizontal)
             
             let titleHistory = Text()
             titleHistory.font = titleBookmarks.font!

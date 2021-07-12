@@ -190,7 +190,10 @@ final class Menu: NSMenu, NSMenuDelegate {
                     $0
                         .contentView
                         .flatMap {
-                            $0 as? Browser
+                            $0 as? Window.Content
+                        }
+                        .flatMap {
+                            $0.display as? Browser
                         }
                 }
             menu

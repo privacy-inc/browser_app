@@ -28,7 +28,6 @@ final class Activity: NSWindow {
                     .forEach {
                         $0.removeFromSuperview()
                     }
-                print("draw")
                 content.addSubview(Chart(frame: content.bounds, first: $0.first ?? .init(), values: $0.plotter))
             }
             .store(in: &subs)

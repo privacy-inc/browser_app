@@ -4,9 +4,6 @@ import Sleuth
 
 extension New {
     final class Bookmarks: Collection<Cell, Info> {
-        private static let insets = CGFloat(20)
-        private static let insets2 = insets + insets
-        
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
             super.init()
@@ -22,7 +19,7 @@ extension New {
                     ($0.object as? NSView)?.bounds.width
                 }
                 .map {
-                    $0 - Self.insets2
+                    $0 - New.insets2
                 }
                 .removeDuplicates()
                 .subscribe(width)
@@ -64,12 +61,12 @@ extension New {
                                 .removeDuplicates())
                 .sink { [weak self] (info: [Info], width: CGFloat) in
                     let result = info
-                        .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets)) {
+                        .reduce(into: (items: Set<CollectionItem<Info>>(), y: New.insets_2)) {
                             let height = ceil($1.string.height(for: width - Cell.insets2) + Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(
-                                                    x: Self.insets,
+                                                    x: New.insets,
                                                     y: $0.y,
                                                     width: width,
                                                     height: height)))
@@ -77,7 +74,7 @@ extension New {
                         }
                     self?.first.send(info.first?.id)
                     self?.items.send(result.items)
-                    self?.height.send(result.y + Self.insets)
+                    self?.height.send(result.y + New.insets_2)
                 }
                 .store(in: &subs)
             

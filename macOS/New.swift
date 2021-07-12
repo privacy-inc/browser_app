@@ -2,11 +2,15 @@ import AppKit
 import Combine
 
 final class New: NSView {
+    static let insets_2 = CGFloat(10)
+    static let insets = insets_2 + insets_2
+    static let insets2 = insets + insets
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }
     init(id: UUID) {
         super.init(frame: .zero)
+        translatesAutoresizingMaskIntoConstraints = false
         registerForDraggedTypes([.fileURL])
         
         let backgroundBookmarks = NSVisualEffectView()
@@ -16,8 +20,11 @@ final class New: NSView {
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundBookmarks)
         
+        let separatorBookmarks = Separator(mode: .vertical)
+        backgroundBookmarks.addSubview(separatorBookmarks)
+        
         let backgroundHistory = NSVisualEffectView()
-        backgroundHistory.material = .menu
+        backgroundHistory.material = .hudWindow
         backgroundHistory.state = .active
         backgroundHistory.isEmphasized = true
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
@@ -29,6 +36,9 @@ final class New: NSView {
         backgroundOptions.isEmphasized = true
         backgroundOptions.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundOptions)
+        
+        let separatorOptions = Separator(mode: .vertical)
+        backgroundOptions.addSubview(separatorOptions)
         
         let bookmarks = Bookmarks(id: id)
         backgroundBookmarks.addSubview(bookmarks)
@@ -68,6 +78,10 @@ final class New: NSView {
         backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualToConstant: 280).isActive = true
         backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualTo: backgroundHistory.widthAnchor).isActive = true
         
+        separatorBookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
+        separatorBookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor).isActive = true
+        separatorBookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor).isActive = true
+        
         backgroundHistory.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backgroundHistory.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundHistory.leftAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
@@ -78,6 +92,10 @@ final class New: NSView {
         backgroundOptions.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundOptions.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         backgroundOptions.widthAnchor.constraint(equalToConstant: 80).isActive = true
+        
+        separatorOptions.leftAnchor.constraint(equalTo: backgroundOptions.leftAnchor).isActive = true
+        separatorOptions.topAnchor.constraint(equalTo: backgroundOptions.topAnchor).isActive = true
+        separatorOptions.bottomAnchor.constraint(equalTo: backgroundOptions.bottomAnchor).isActive = true
         
         bookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor).isActive = true
         bookmarks.bottomAnchor.constraint(equalTo: backgroundBookmarks.bottomAnchor).isActive = true

@@ -16,7 +16,9 @@ extension Window {
             self.error = error
             
             super.init(frame: .zero)
+            translatesAutoresizingMaskIntoConstraints = false
             material = .popover
+            state = .active
             
             let content = NSView()
             content.translatesAutoresizingMaskIntoConstraints = false
