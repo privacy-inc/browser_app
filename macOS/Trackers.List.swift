@@ -14,6 +14,7 @@ extension Trackers {
             translatesAutoresizingMaskIntoConstraints = false
             
             let info = CurrentValueSubject<[Info], Never>([])
+            let reference = PassthroughSubject<String, Never>()
             
             cloud
                 .archive
@@ -28,6 +29,7 @@ extension Trackers {
                         .map { (index: Int, blocked: (String, [Date])) in
                             .init(
                                 id: index,
+                                reference: blocked.0,
                                 text: .make {
                                     switch sorted {
                                     case .attempts:
@@ -59,16 +61,26 @@ extension Trackers {
             
             sorted
                 .removeDuplicates()
-                .map { _ in
-                    nil
+                .combineLatest(reference, info
+                                .removeDuplicates())
+                .map { sorted, reference, info in
+                    info
+                        .first {
+                            $0.reference == reference
+                        }?.id
                 }
                 .subscribe(selected)
                 .store(in: &subs)
             
-            info
+            sorted
                 .removeDuplicates()
-                .map { _ in
-                    nil
+                .combineLatest(reference, info
+                                .removeDuplicates())
+                .map { sorted, reference, info in
+                    info
+                        .first {
+                            $0.reference == reference
+                        }?.dates
                 }
                 .subscribe(show)
                 .store(in: &subs)
@@ -102,6 +114,17 @@ extension Trackers {
                     info.value[$0].dates
                 }
                 .subscribe(show)
+                .store(in: &subs)
+            
+            selected
+                .compactMap {
+                    $0
+                }
+                .map {
+                    info.value[$0].reference
+                }
+                .removeDuplicates()
+                .subscribe(reference)
                 .store(in: &subs)
         }
     }
