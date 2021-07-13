@@ -14,7 +14,6 @@ extension Trackers {
             translatesAutoresizingMaskIntoConstraints = false
             
             let info = CurrentValueSubject<[Info], Never>([])
-            let reference = PassthroughSubject<String, Never>()
             
             cloud
                 .archive
@@ -25,11 +24,9 @@ extension Trackers {
                 }
                 .map { (list: [(String, [Date])], sorted: Sleuth.Trackers) in
                     list
-                        .enumerated()
-                        .map { (index: Int, blocked: (String, [Date])) in
+                        .map { blocked in
                             .init(
-                                id: index,
-                                reference: blocked.0,
+                                id: blocked.0,
                                 text: .make {
                                     switch sorted {
                                     case .attempts:
@@ -59,27 +56,33 @@ extension Trackers {
                 .subscribe(info)
                 .store(in: &subs)
             
-            sorted
+            info
                 .removeDuplicates()
-                .combineLatest(reference, info
+                .combineLatest(selected
+                                .compactMap {
+                                    $0
+                                }
                                 .removeDuplicates())
-                .map { sorted, reference, info in
+                .map { info, selected in
                     info
-                        .first {
-                            $0.reference == reference
-                        }?.id
+                        .contains {
+                            $0.id == selected
+                        } ? selected : nil
                 }
                 .subscribe(selected)
                 .store(in: &subs)
             
-            sorted
+            info
                 .removeDuplicates()
-                .combineLatest(reference, info
+                .combineLatest(selected
+                                .compactMap {
+                                    $0
+                                }
                                 .removeDuplicates())
-                .map { sorted, reference, info in
+                .map { info, selected in
                     info
                         .first {
-                            $0.reference == reference
+                            $0.id == selected
                         }?.dates
                 }
                 .subscribe(show)
@@ -104,27 +107,6 @@ extension Trackers {
                     self?.items.send(result.items)
                     self?.height.send(result.y + Self.insets)
                 }
-                .store(in: &subs)
-            
-            selected
-                .compactMap {
-                    $0
-                }
-                .map {
-                    info.value[$0].dates
-                }
-                .subscribe(show)
-                .store(in: &subs)
-            
-            selected
-                .compactMap {
-                    $0
-                }
-                .map {
-                    info.value[$0].reference
-                }
-                .removeDuplicates()
-                .subscribe(reference)
                 .store(in: &subs)
         }
     }

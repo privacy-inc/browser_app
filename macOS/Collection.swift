@@ -5,9 +5,9 @@ class Collection<Cell, Info>: NSScrollView, NSMenuDelegate where Cell : Collecti
     final var subs = Set<AnyCancellable>()
     final let items = PassthroughSubject<Set<CollectionItem<Info>>, Never>()
     final let height = PassthroughSubject<CGFloat, Never>()
-    final let selected = CurrentValueSubject<Info.Id?, Never>(nil)
-    final let highlighted = CurrentValueSubject<Info.Id?, Never>(nil)
-    final let first = PassthroughSubject<Info.Id?, Never>()
+    final let selected = CurrentValueSubject<Info.ID?, Never>(nil)
+    final let highlighted = CurrentValueSubject<Info.ID?, Never>(nil)
+    final let first = PassthroughSubject<Info.ID?, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
@@ -55,7 +55,7 @@ class Collection<Cell, Info>: NSScrollView, NSMenuDelegate where Cell : Collecti
                             .removeDuplicates(),
                            selected
                                 .removeDuplicates())
-            .sink { (items: Set<CollectionItem>, first: Info.Id?, selected: Info.Id?) in
+            .sink { (items: Set<CollectionItem>, first: Info.ID?, selected: Info.ID?) in
                 cells
                     .filter {
                         $0.item != nil
