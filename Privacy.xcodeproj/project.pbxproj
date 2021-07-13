@@ -63,6 +63,11 @@
 		CE676A6B265E64EE0042EDC2 /* Menu.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A6A265E64EE0042EDC2 /* Menu.swift */; };
 		CE676A6D265E65A30042EDC2 /* NSMenuItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */; };
 		CE6F0D7726669AAA00538D9A /* NSApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE6F0D7626669AAA00538D9A /* NSApplication.swift */; };
+		CE7082CC269DAB9200BC7323 /* Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7082CB269DAB9200BC7323 /* Bar.swift */; };
+		CE7082CE269DAD8100BC7323 /* Bar.Tab.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7082CD269DAD8100BC7323 /* Bar.Tab.swift */; };
+		CE7082D0269DB2BC00BC7323 /* Bar.Tab.Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7082CF269DB2BC00BC7323 /* Bar.Tab.Search.swift */; };
+		CE7082D2269DB2E800BC7323 /* Bar.Tab.Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7082D1269DB2E800BC7323 /* Bar.Tab.Thumbnail.swift */; };
+		CE7082D4269DB66800BC7323 /* Bar.Tab.Search.Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7082D3269DB66800BC7323 /* Bar.Tab.Search.Background.swift */; };
 		CE70B43A265FA3A800A357BC /* CollectionItemInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE70B439265FA3A800A357BC /* CollectionItemInfo.swift */; };
 		CE70B43B265FA85700A357BC /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */; };
 		CE70B43D265FA92C00A357BC /* NSAttributedString.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE70B43C265FA92C00A357BC /* NSAttributedString.swift */; };
@@ -343,6 +348,11 @@
 		CE676A6A265E64EE0042EDC2 /* Menu.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Menu.swift; sourceTree = "<group>"; };
 		CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSMenuItem.swift; sourceTree = "<group>"; };
 		CE6F0D7626669AAA00538D9A /* NSApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSApplication.swift; sourceTree = "<group>"; };
+		CE7082CB269DAB9200BC7323 /* Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.swift; sourceTree = "<group>"; };
+		CE7082CD269DAD8100BC7323 /* Bar.Tab.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.swift; sourceTree = "<group>"; };
+		CE7082CF269DB2BC00BC7323 /* Bar.Tab.Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Search.swift; sourceTree = "<group>"; };
+		CE7082D1269DB2E800BC7323 /* Bar.Tab.Thumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Thumbnail.swift; sourceTree = "<group>"; };
+		CE7082D3269DB66800BC7323 /* Bar.Tab.Search.Background.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bar.Tab.Search.Background.swift; sourceTree = "<group>"; };
 		CE70B439265FA3A800A357BC /* CollectionItemInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionItemInfo.swift; sourceTree = "<group>"; };
 		CE70B43C265FA92C00A357BC /* NSAttributedString.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSAttributedString.swift; sourceTree = "<group>"; };
 		CE71B7182653C495002B8748 /* Collection.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.History.swift; sourceTree = "<group>"; };
@@ -747,6 +757,11 @@
 				CEF97E65266A507F00550E10 /* Activity.swift */,
 				CEF5862B265E468C00D9A6F1 /* App.swift */,
 				CECDA7D82664FF1700F87546 /* Array.Search.Autocomplete.Cell.swift */,
+				CE7082CB269DAB9200BC7323 /* Bar.swift */,
+				CE7082D3269DB66800BC7323 /* Bar.Tab.Search.Background.swift */,
+				CE7082CF269DB2BC00BC7323 /* Bar.Tab.Search.swift */,
+				CE7082CD269DAD8100BC7323 /* Bar.Tab.swift */,
+				CE7082D1269DB2E800BC7323 /* Bar.Tab.Thumbnail.swift */,
 				CE3F46ED267232F7002BFB82 /* Browser.swift */,
 				CE0D6BF1265FC8B0000B3FF1 /* CGRect.swift */,
 				CE3E858A268DF37500929775 /* Chart.swift */,
@@ -1230,20 +1245,24 @@
 				CE0D6BF0265FB8A0000B3FF1 /* New.Cell.swift in Sources */,
 				CEF97E64266A4CFA00550E10 /* New.Option.swift in Sources */,
 				CEF00194266BB84E00993CDD /* Store.Error.swift in Sources */,
+				CE7082CE269DAD8100BC7323 /* Bar.Tab.swift in Sources */,
 				CE847B15265EA08A00A045B3 /* CollectionItem.swift in Sources */,
 				CEF0019C266BC76B00993CDD /* Info.Alternatives.swift in Sources */,
 				CEF001AA266BE71600993CDD /* Settings.Switch.swift in Sources */,
 				CE70B43A265FA3A800A357BC /* CollectionItemInfo.swift in Sources */,
 				CEF97E6D266A631700550E10 /* Trackers.swift in Sources */,
 				CE8E4D42267760450023839A /* Forget.Option.swift in Sources */,
+				CE7082D4269DB66800BC7323 /* Bar.Tab.Search.Background.swift in Sources */,
 				CEAB2F4A266F8AEA003AEC08 /* Selectable.swift in Sources */,
 				CE0D6BF4265FDAE9000B3FF1 /* Search.swift in Sources */,
 				CEFF2BFB268C9DB400EBA5D3 /* Trackers.Info.swift in Sources */,
 				CE80555A266789E10096D1A5 /* Toast.swift in Sources */,
 				CEC9859626637821001DA288 /* Search.Autocomplete.swift in Sources */,
+				CE7082D0269DB2BC00BC7323 /* Bar.Tab.Search.swift in Sources */,
 				CEF001AC266BEB9E00993CDD /* Settings.Security.swift in Sources */,
 				CE6F0D7726669AAA00538D9A /* NSApplication.swift in Sources */,
 				CE3E858B268DF37500929775 /* Chart.swift in Sources */,
+				CE7082CC269DAB9200BC7323 /* Bar.swift in Sources */,
 				CEFF2BF9268C9D9500EBA5D3 /* Trackers.Cell.swift in Sources */,
 				CE676A67265E60C80042EDC2 /* Purchases.Item.swift in Sources */,
 				CEF001AE266BED8000993CDD /* Settings.Privacy.swift in Sources */,
@@ -1264,6 +1283,7 @@
 				CE8E4D442677621E0023839A /* Forget.Option.Basic.swift in Sources */,
 				CE55EDE72667BB9400386C5B /* Window.Info.swift in Sources */,
 				CE0D6BF8265FDF51000B3FF1 /* Control.State.swift in Sources */,
+				CE7082D2269DB2E800BC7323 /* Bar.Tab.Thumbnail.swift in Sources */,
 				CE80555B26678B100096D1A5 /* Toast.Message.swift in Sources */,
 				CE847B19265EA0C000A045B3 /* CollectionCellState.swift in Sources */,
 				CEF97E73266A759300550E10 /* Trackers.Bar.swift in Sources */,

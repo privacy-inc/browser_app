@@ -1,14 +1,15 @@
 import AppKit
 import Combine
+import Sleuth
 
 final class Window: NSWindow {
-    let id: UUID
-    private(set) weak var search: Search!
     private var subs = Set<AnyCancellable>()
     private let finder = NSTextFinder()
+    private let current: CurrentValueSubject<UUID, Never>
     
     init(id: UUID) {
-        self.id = id
+        current = .init(id)
+        
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,
@@ -26,13 +27,10 @@ final class Window: NSWindow {
         let content = Content()
         contentView = content
         
-        let search = Search(id: id)
         let bar = NSTitlebarAccessoryViewController()
-        bar.view = search
+        bar.view = Bar(current: current)
         bar.layoutAttribute = .top
         addTitlebarAccessoryViewController(bar)
-        initialFirstResponder = search.field
-        self.search = search
         
         tabber
             .items
@@ -125,11 +123,11 @@ final class Window: NSWindow {
             .store(in: &subs)
     }
     
-    override func close() {
-        (tabber.items.value[web: id] as? Web)?.clear()
-        tabber.close(id)
-        super.close()
-    }
+//    override func close() {
+//        (tabber.items.value[web: id] as? Web)?.clear()
+//        tabber.close(id)
+//        super.close()
+//    }
     
     override func resignKey() {
         super.resignKey()
@@ -156,7 +154,7 @@ final class Window: NSWindow {
     }
     
     @objc func location() {
-        search.field.selectText(nil)
+//        search.field.selectText(nil)
     }
     
     @objc func shut() {

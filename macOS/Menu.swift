@@ -137,53 +137,54 @@ final class Menu: NSMenu, NSMenuDelegate {
                     }
                 }
         case "Page":
-            let id = (NSApp.keyWindow as? Window)?.id
-            
-            let browse = id
-                .map {
-                    tabber
-                        .items
-                        .value[state: $0].isBrowse
-                }
-                ?? false
-            
-            let error = id
-                .map {
-                    tabber
-                        .items
-                        .value[state: $0].isError
-                }
-                ?? false
-            
-            menu.items = [
-                .child("Stop", #selector(triggerStop), ".") {
-                    $0.isEnabled = browse
-                    $0.target = self
-                    $0.representedObject = id
-                },
-                error
-                ? .child("Try Again", #selector(Window.Error.tryAgain), "r")
-                : .child("Reload", #selector(triggerReload), "r") {
-                    $0.isEnabled = browse
-                    $0.target = self
-                    $0.representedObject = id
-                },
-                .separator(),
-                .child("Actual Size", #selector(triggerActualSize), "0") {
-                    $0.isEnabled = browse
-                    $0.target = self
-                    $0.representedObject = id
-                },
-                .child("Zoom In", #selector(triggerZoomIn), "+") {
-                    $0.isEnabled = browse
-                    $0.target = self
-                    $0.representedObject = id
-                },
-                .child("Zoom Out", #selector(triggerZoomOut), "-") {
-                    $0.isEnabled = browse
-                    $0.target = self
-                    $0.representedObject = id
-                }]
+            break
+//            let id = (NSApp.keyWindow as? Window)?.id
+//
+//            let browse = id
+//                .map {
+//                    tabber
+//                        .items
+//                        .value[state: $0].isBrowse
+//                }
+//                ?? false
+//
+//            let error = id
+//                .map {
+//                    tabber
+//                        .items
+//                        .value[state: $0].isError
+//                }
+//                ?? false
+//
+//            menu.items = [
+//                .child("Stop", #selector(triggerStop), ".") {
+//                    $0.isEnabled = browse
+//                    $0.target = self
+//                    $0.representedObject = id
+//                },
+//                error
+//                ? .child("Try Again", #selector(Window.Error.tryAgain), "r")
+//                : .child("Reload", #selector(triggerReload), "r") {
+//                    $0.isEnabled = browse
+//                    $0.target = self
+//                    $0.representedObject = id
+//                },
+//                .separator(),
+//                .child("Actual Size", #selector(triggerActualSize), "0") {
+//                    $0.isEnabled = browse
+//                    $0.target = self
+//                    $0.representedObject = id
+//                },
+//                .child("Zoom In", #selector(triggerZoomIn), "+") {
+//                    $0.isEnabled = browse
+//                    $0.target = self
+//                    $0.representedObject = id
+//                },
+//                .child("Zoom Out", #selector(triggerZoomOut), "-") {
+//                    $0.isEnabled = browse
+//                    $0.target = self
+//                    $0.representedObject = id
+//                }]
         case "Find":
             let browser = (NSApp.keyWindow as? Window)
                 .flatMap {
@@ -211,21 +212,22 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var url: URL {
-        (NSApp.keyWindow as? Window)
-            .map(\.id)
-            .flatMap {
-                tabber
-                    .items
-                    .value[state: $0]
-                    .browse
-            }
-            .map(cloud
-                    .archive
-                    .value
-                    .page)
-            .map(\.access.value)
-            .flatMap(URL.init(string:))
-            ?? URL(string: "https://privacy-inc.github.io/about")!
+//        (NSApp.keyWindow as? Window)
+//            .map(\.id)
+//            .flatMap {
+//                tabber
+//                    .items
+//                    .value[state: $0]
+//                    .browse
+//            }
+//            .map(cloud
+//                    .archive
+//                    .value
+//                    .page)
+//            .map(\.access.value)
+//            .flatMap(URL.init(string:))
+//            ?? URL(string: "https://privacy-inc.github.io/about")!
+        URL(string: "https://privacy-inc.github.io/about")!
     }
     
     @objc private func triggerStatus(_ button: NSStatusBarButton) {

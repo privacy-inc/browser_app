@@ -68,19 +68,19 @@ extension NSApplication {
     }
     
     func clear() {
-        windows
-            .compactMap {
-                $0 as? Window
-            }
-            .filter {
-                tabber
-                    .items
-                    .value[state: $0.id]
-                    .browse != nil
-            }
-            .forEach {
-                $0.close()
-            }
+//        windows
+//            .compactMap {
+//                $0 as? Window
+//            }
+//            .filter {
+//                tabber
+//                    .items
+//                    .value[state: $0.id]
+//                    .browse != nil
+//            }
+//            .forEach {
+//                $0.close()
+//            }
     }
     
     @objc func preferences() {
@@ -116,7 +116,7 @@ extension NSApplication {
         if change {
             current.makeKeyAndOrderFront(nil)
             if search {
-                current.makeFirstResponder(current.search.field)
+//                current.makeFirstResponder(current.search.field)
             }
         }
     }
@@ -127,12 +127,13 @@ extension NSApplication {
     }
     
     private subscript(_ id: UUID) -> Window? {
-        windows
-            .compactMap {
-                $0 as? Window
-            }
-            .first {
-                $0.id == id
-            }
+//        windows
+//            .compactMap {
+//                $0 as? Window
+//            }
+//            .first {
+//                $0.id == id
+//            }
+        nil
     }
 }
