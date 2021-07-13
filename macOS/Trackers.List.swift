@@ -6,7 +6,8 @@ extension Trackers {
     final class List: Collection<Cell, Info> {
         static let width = CGFloat(200)
         static let insets2 = insets + insets
-        static let insets = CGFloat(20)
+        private static let insets = insets_2 + insets_2
+        private static let insets_2 = CGFloat(10)
         
         required init?(coder: NSCoder) { nil }
         init(sorted: CurrentValueSubject<Sleuth.Trackers, Never>, show: PassthroughSubject<[Date]?, Never>) {
@@ -92,7 +93,7 @@ extension Trackers {
                 .removeDuplicates()
                 .sink { [weak self] in
                     let result = $0
-                        .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets)) {
+                        .reduce(into: (items: Set<CollectionItem<Info>>(), y: Self.insets_2)) {
                             let height = ceil($1.text.height(for: Cell.width) + Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,
@@ -105,7 +106,7 @@ extension Trackers {
                         }
                     self?.first.send($0.first?.id)
                     self?.items.send(result.items)
-                    self?.height.send(result.y + Self.insets)
+                    self?.height.send(result.y + Self.insets_2)
                 }
                 .store(in: &subs)
         }
