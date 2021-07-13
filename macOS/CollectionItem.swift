@@ -1,6 +1,6 @@
 import Foundation
 
-struct CollectionItem<I>: Hashable where I : CollectionItemInfo {
-    let info: I
+struct CollectionItem<Info>: Hashable where Info : CollectionItemInfo {
+    let info: Info
     let rect: CGRect
 }

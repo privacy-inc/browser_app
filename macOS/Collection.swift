@@ -1,13 +1,13 @@
 import AppKit
 import Combine
 
-class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I> {
+class Collection<Cell, Info>: NSScrollView, NSMenuDelegate where Cell : CollectionCell<Info> {
     final var subs = Set<AnyCancellable>()
-    final let items = PassthroughSubject<Set<CollectionItem<I>>, Never>()
+    final let items = PassthroughSubject<Set<CollectionItem<Info>>, Never>()
     final let height = PassthroughSubject<CGFloat, Never>()
-    final let selected = CurrentValueSubject<Int?, Never>(nil)
-    final let highlighted = CurrentValueSubject<Int?, Never>(nil)
-    final let first = PassthroughSubject<Int?, Never>()
+    final let selected = CurrentValueSubject<Info.Id?, Never>(nil)
+    final let highlighted = CurrentValueSubject<Info.Id?, Never>(nil)
+    final let first = PassthroughSubject<Info.Id?, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
@@ -30,7 +30,7 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
         menu = NSMenu()
         menu!.delegate = self
         
-        var cells = Set<C>()
+        var cells = Set<Cell>()
         let clip = PassthroughSubject<CGRect, Never>()
             
         clip
@@ -55,7 +55,7 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
                             .removeDuplicates(),
                            selected
                                 .removeDuplicates())
-            .sink { (items: Set<CollectionItem>, first: Int?, selected: Int?) in
+            .sink { (items: Set<CollectionItem>, first: Info.Id?, selected: Info.Id?) in
                 cells
                     .filter {
                         $0.item != nil
@@ -83,7 +83,7 @@ class Collection<C, I>: NSScrollView, NSMenuDelegate where C : CollectionCell<I>
                             ?? {
                                 cells.insert($0)
                                 return $0
-                            } (C())
+                            } (Cell())
                         cell.state = item.info.id == selected ? .pressed : .none
                         cell.item = item
                         cell.first = item.info.id == first

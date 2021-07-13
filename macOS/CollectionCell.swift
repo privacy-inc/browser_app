@@ -1,8 +1,8 @@
 import AppKit
 
-class CollectionCell<I>: CALayer where I : CollectionItemInfo {
+class CollectionCell<Info>: CALayer where Info : CollectionItemInfo {
     var first = false
-    var item: CollectionItem<I>?
+    var item: CollectionItem<Info>?
     
     required init?(coder: NSCoder) { nil }
     override init(layer: Any) { super.init(layer: layer) }
