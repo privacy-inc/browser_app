@@ -26,8 +26,6 @@ extension Search.Field {
         
         override func drawFocusRingMask(withFrame: NSRect, in: NSView) {
             NSBezierPath(roundedRect: withFrame.insetBy(dx: -19, dy: 1), xRadius: 3, yRadius: 3).fill()
-//            editor.selectedTextAttributes = [.backgroundColor : NSColor.tertiaryLabelColor,
-//                                             .foregroundColor : NSColor.windowBackgroundColor]
         }
     }
 }

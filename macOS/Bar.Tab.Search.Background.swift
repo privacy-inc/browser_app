@@ -66,5 +66,9 @@ extension Bar.Tab.Search {
                 } (CABasicAnimation(keyPath: "strokeStart")), forKey: "strokeStart")
             }
         }
+        
+        override var allowsVibrancy: Bool {
+            true
+        }
     }
 }

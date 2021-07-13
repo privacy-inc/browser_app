@@ -114,8 +114,9 @@ extension Search {
                         } else {
                             tabber.browse(id, $0)
                         }
-                        self?.window!.makeFirstResponder(self?.window!.contentView)
                     }
+                window!.makeFirstResponder(window!.contentView)
+                
             case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
                 if autocomplete.isVisible {
                     autocomplete.end()
