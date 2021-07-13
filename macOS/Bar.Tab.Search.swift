@@ -34,11 +34,10 @@ extension Bar.Tab {
                     $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
                 }
             
-            let leftAnchor = self.leftAnchor
-            var left = background.leftAnchor.constraint(equalTo: leftAnchor, constant: 5)
-            var right = rightAnchor.constraint(equalTo: background.rightAnchor, constant: 5)
-            left.isActive = true
-            right.isActive = true
+            let backOff = background.leftAnchor.constraint(equalTo: leftAnchor, constant: 5)
+            let backOn = background.leftAnchor.constraint(equalTo: back.rightAnchor, constant: 5)
+            let forwardOff = rightAnchor.constraint(equalTo: background.rightAnchor, constant: 5)
+            let forwardOn = rightAnchor.constraint(equalTo: forward.rightAnchor, constant: 5)
             
             tabber
                 .items
@@ -46,14 +45,18 @@ extension Bar.Tab {
                     $0[state: id].isBrowse && $0[back: id]
                 }
                 .removeDuplicates()
-                .sink {
+                .sink { [weak self] in
                     back.state = $0 ? .on : .off
                     back.isHidden = !$0
-                    left.isActive = false
-                    left = $0
-                        ? background.leftAnchor.constraint(equalTo: back.rightAnchor, constant: 5)
-                        : background.leftAnchor.constraint(equalTo: leftAnchor, constant: 5)
-                    left.isActive = true
+                    if $0 {
+                        backOff.isActive = false
+                        backOn.isActive = true
+                    } else {
+                        backOn.isActive = false
+                        backOff.isActive = true
+                    }
+                    
+                    self?.animate()
                 }
                 .store(in: &subs)
             
@@ -63,22 +66,35 @@ extension Bar.Tab {
                     $0[state: id].isBrowse && $0[forward: id]
                 }
                 .removeDuplicates()
-                .sink {
+                .sink { [weak self] in
                     forward.state = $0 ? .on : .off
                     forward.isHidden = !$0
+                    
+                    if $0 {
+                        forwardOff.isActive = false
+                        forwardOn.isActive = true
+                    } else {
+                        forwardOn.isActive = false
+                        forwardOff.isActive = true
+                    }
+                    
+                    self?.animate()
                 }
                 .store(in: &subs)
-            
-            
-            
-            rightAnchor.constraint(equalTo: forward.rightAnchor, constant: 5).isActive = true
 
             background.topAnchor.constraint(equalTo: topAnchor).isActive = true
             background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
 
             back.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
-//            background.leftAnchor.constraint(equalTo: back.rightAnchor, constant: 5).isActive = true
-//            forward.leftAnchor.constraint(equalTo: background.rightAnchor, constant: 5).isActive = true
+            forward.leftAnchor.constraint(equalTo: background.rightAnchor, constant: 5).isActive = true
+        }
+        
+        private func animate() {
+            NSAnimationContext.runAnimationGroup {
+                $0.duration = 0.3
+                $0.allowsImplicitAnimation = true
+                layoutSubtreeIfNeeded()
+            }
         }
     }
 }
