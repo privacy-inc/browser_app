@@ -1,7 +1,10 @@
 import AppKit
+import Combine
 
 extension Search.Field.Cell {
     final class Editor: NSTextView {
+        let responder = PassthroughSubject<Bool, Never>()
+        
         override init(frame: NSRect, textContainer: NSTextContainer?) {
             super.init(frame: frame, textContainer: textContainer)
         }
@@ -46,6 +49,16 @@ extension Search.Field.Cell {
         
         override func performTextFinderAction(_ sender: Any?) {
             window?.performTextFinderAction(sender)
+        }
+        
+        override func becomeFirstResponder() -> Bool {
+            responder.send(true)
+            return super.becomeFirstResponder()
+        }
+        
+        override func resignFirstResponder() -> Bool {
+            responder.send(false)
+            return super.resignFirstResponder()
         }
     }
 }

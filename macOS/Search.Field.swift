@@ -3,8 +3,8 @@ import Combine
 
 extension Search {
     final class Field: NSTextField, NSTextFieldDelegate {
-        private let autocomplete: Autocomplete
         private var subs = Set<AnyCancellable>()
+        private let autocomplete: Autocomplete
         private let id: UUID
         
         required init?(coder: NSCoder) { nil }
@@ -19,10 +19,10 @@ extension Search {
             controlSize = .large
             delegate = self
             lineBreakMode = .byTruncatingMiddle
-            target = self
-            action = #selector(search)
             textColor = .labelColor
             isAutomaticTextCompletionEnabled = false
+            
+            let responder = (cell!.fieldEditor(for: self) as! Cell.Editor).responder
             
             cloud
                 .archive
@@ -34,16 +34,22 @@ extension Search {
                                 }
                                 .compactMap {
                                     $0
-                                }
-                                .removeDuplicates())
+                                })
                 .map {
                     $0.0
                         .page($0.1)
                         .access
-                        .value
                 }
-                .filter {
-                    !$0.isEmpty
+                .combineLatest(responder)
+                .map {
+                    $0.1 ? $0.0.value : {
+                        switch $0 {
+                        case let .remote(remote):
+                            return remote.domain + remote.suffix
+                        default:
+                            return $0.short
+                        }
+                    } ($0.0)
                 }
                 .removeDuplicates()
                 .sink { [weak self] in
@@ -73,11 +79,6 @@ extension Search {
             true
         }
         
-        override func resignFirstResponder() -> Bool {
-            autocomplete.end()
-            return super.resignFirstResponder()
-        }
-        
         override func textDidChange(_: Notification) {
             if !autocomplete.isVisible {
                 window!.addChildWindow(autocomplete, ordered: .above)
@@ -98,20 +99,28 @@ extension Search {
         
         func control(_: NSControl, textView: NSTextView, doCommandBy: Selector) -> Bool {
             switch doCommandBy {
+            case #selector(insertNewline):
+                autocomplete.end()
+                
+                let state = tabber.items.value[state: id]
+                cloud
+                    .browse(stringValue, browse: state.browse) { [weak self] in
+                        guard let id = self?.id else { return }
+                        if state.browse == $0 {
+                            if state.isError {
+                                tabber.browse(id, $0)
+                            }
+                            session.load.send((id: id, access: $1))
+                        } else {
+                            tabber.browse(id, $0)
+                        }
+                        self?.window!.makeFirstResponder(self?.window!.contentView)
+                    }
             case #selector(cancelOperation), #selector(complete), #selector(NSSavePanel.cancel):
                 if autocomplete.isVisible {
                     autocomplete.end()
                 } else {
                     window!.makeFirstResponder(superview!)
-                    tabber
-                        .items
-                        .value[state: id]
-                        .browse
-                        .map(cloud.archive.value.page)
-                        .map(\.access.value)
-                        .map {
-                            stringValue = $0
-                        }
                 }
             case #selector(moveUp):
                 autocomplete.up.send(.init())
@@ -121,25 +130,6 @@ extension Search {
                 return false
             }
             return true
-        }
-        
-        @objc private func search() {
-            autocomplete.end()
-            window!.makeFirstResponder(window!.contentView)
-            
-            let state = tabber.items.value[state: id]
-            cloud
-                .browse(stringValue, browse: state.browse) { [weak self] in
-                    guard let id = self?.id else { return }
-                    if state.browse == $0 {
-                        if state.isError {
-                            tabber.browse(id, $0)
-                        }
-                        session.load.send((id: id, access: $1))
-                    } else {
-                        tabber.browse(id, $0)
-                    }
-                }
         }
     }
 }

@@ -27,8 +27,11 @@ extension Bar.Tab {
                 .store(in: &subs)
             
             let background = Background(id: id)
+            addSubview(background)
             
-            [back, background, forward]
+            let field = Privacy.Search.Field(id: id)
+            
+            [back, field, forward]
                 .forEach {
                     addSubview($0)
                     $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -81,10 +84,15 @@ extension Bar.Tab {
                     self?.animate()
                 }
                 .store(in: &subs)
+            
+            widthAnchor.constraint(equalToConstant: 340).isActive = true
 
-            background.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            background.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
+            background.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: 1).isActive = true
 
+            field.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 20).isActive = true
+            field.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20).isActive = true
+            
             back.leftAnchor.constraint(equalTo: leftAnchor, constant: 5).isActive = true
             forward.leftAnchor.constraint(equalTo: background.rightAnchor, constant: 5).isActive = true
         }

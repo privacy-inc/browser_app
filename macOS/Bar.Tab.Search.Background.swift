@@ -5,7 +5,19 @@ extension Bar.Tab.Search {
     final class Background: NSView, CAAnimationDelegate {
         private weak var shape: CAShapeLayer?
         private var subscription: AnyCancellable?
-        private static let width = CGFloat(220)
+        
+        override var frame: NSRect {
+            didSet {
+                shape
+                    .map {
+                        $0.path = {
+                            $0.move(to: .init(x: 0, y: 1))
+                            $0.addLine(to: .init(x: frame.width, y: 1))
+                            return $0
+                        } (CGMutablePath())
+                    }
+            }
+        }
         
         required init?(coder: NSCoder) { nil }
         init(id: UUID) {
@@ -22,11 +34,6 @@ extension Bar.Tab.Search {
             shape.lineCap = .round
             shape.lineJoin = .round
             shape.strokeEnd = 0
-            shape.path = {
-                $0.move(to: .init(x: 0, y: 1))
-                $0.addLine(to: .init(x: Self.width, y: 1))
-                return $0
-            } (CGMutablePath())
             layer!.addSublayer(shape)
             self.shape = shape
             
@@ -47,8 +54,6 @@ extension Bar.Tab.Search {
                         return $0
                     } (CABasicAnimation(keyPath: "strokeEnd")), forKey: "strokeEnd")
                 }
-            
-            widthAnchor.constraint(equalToConstant: Self.width).isActive = true
         }
         
         func animationDidStop(_: CAAnimation, finished: Bool) {
