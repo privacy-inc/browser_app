@@ -132,5 +132,9 @@ extension Search {
             }
             return true
         }
+        
+        override func viewDidMoveToWindow() {
+            window?.initialFirstResponder = self
+        }
     }
 }

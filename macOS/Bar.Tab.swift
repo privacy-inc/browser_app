@@ -12,13 +12,15 @@ extension Bar {
             
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
+            let icon = Icon(id: id)
+            
             current
                 .map {
                     $0 == id
                 }
                 .removeDuplicates()
                 .sink { [weak self] in
-                    self?.view($0 ? Search(id: id) : Thumbnail(id: id))
+                    self?.view($0 ? Search(id: id, icon: icon) : Thumbnail(id: id, icon: icon))
                 }
                 .store(in: &subs)
         }

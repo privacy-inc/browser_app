@@ -6,7 +6,7 @@ extension Bar.Tab {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID) {
+        init(id: UUID, icon: Icon) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
@@ -31,7 +31,7 @@ extension Bar.Tab {
             
             let field = Privacy.Search.Field(id: id)
             
-            [back, field, forward]
+            [back, icon, field, forward]
                 .forEach {
                     addSubview($0)
                     $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -90,6 +90,8 @@ extension Bar.Tab {
             background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
             background.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: 1).isActive = true
 
+            icon.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 5).isActive = true
+            
             field.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 20).isActive = true
             field.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20).isActive = true
             

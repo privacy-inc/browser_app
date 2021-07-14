@@ -67,6 +67,10 @@ extension Bar.Tab.Search {
             }
         }
         
+        override func hitTest(_: NSPoint) -> NSView? {
+            nil
+        }
+        
         override var allowsVibrancy: Bool {
             true
         }
