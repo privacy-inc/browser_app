@@ -88,27 +88,27 @@ extension Window {
                 break
             }
             
-            let copy = Control.Squircle(icon: "doc.on.doc")
-            subscription = copy
-                .click
-                .sink { [weak self] in
-                    page
-                        .map(\.access.value)
-                        .map {
-                            NSPasteboard.general.clearContents()
-                            NSPasteboard.general.setString($0, forType: .string)
-                            Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
-                        }
-                    self?.close()
-                }
-            contentViewController!.view.addSubview(copy)
+//            let copy = Control.Squircle(icon: "doc.on.doc")
+//            subscription = copy
+//                .click
+//                .sink { [weak self] in
+//                    page
+//                        .map(\.access.value)
+//                        .map {
+//                            NSPasteboard.general.clearContents()
+//                            NSPasteboard.general.setString($0, forType: .string)
+//                            Toast.show(message: .init(title: "URL copied", icon: "doc.on.doc.fill"))
+//                        }
+//                    self?.close()
+//                }
+//            contentViewController!.view.addSubview(copy)
             
             text.leftAnchor.constraint(equalTo: contentViewController!.view.leftAnchor, constant: 30).isActive = true
             text.rightAnchor.constraint(equalTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
             
-            copy.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 10).isActive = true
-            copy.rightAnchor.constraint(equalTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
-            copy.bottomAnchor.constraint(equalTo: contentViewController!.view.bottomAnchor, constant: -30).isActive = true
+//            copy.topAnchor.constraint(equalTo: text.bottomAnchor, constant: 10).isActive = true
+//            copy.rightAnchor.constraint(equalTo: contentViewController!.view.rightAnchor, constant: -30).isActive = true
+//            copy.bottomAnchor.constraint(equalTo: contentViewController!.view.bottomAnchor, constant: -30).isActive = true
         }
     }
 }

@@ -1,6 +1,6 @@
 import AppKit
 
-extension Control {
+extension Bar {
     final class Squircle: Control {
         private weak var image: Image!
         

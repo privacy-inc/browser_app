@@ -1,6 +1,6 @@
 import AppKit
 
-extension Search.Field {
+extension Field {
     final class Cell: NSTextFieldCell {
         private let editor = Editor()
         

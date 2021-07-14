@@ -1,7 +1,7 @@
 import AppKit
 import Combine
 
-extension Bar.Tab.Search {
+extension Bar {
     final class Background: NSView, CAAnimationDelegate {
         private weak var shape: CAShapeLayer?
         private var subscription: AnyCancellable?

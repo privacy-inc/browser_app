@@ -1,6 +1,6 @@
 import Foundation
 
-extension Array where Element == Search.Autocomplete.Cell {
+extension Array where Element == Autocomplete.Cell {
     var up: String? {
         guard !isEmpty else { return nil }
         let highlighted = self.highlighted

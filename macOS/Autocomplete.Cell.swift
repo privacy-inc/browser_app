@@ -1,7 +1,7 @@
 import AppKit
 import Sleuth
 
-extension Search.Autocomplete {
+extension Autocomplete {
     final class Cell: NSView {
         var highlighted = false {
             didSet {

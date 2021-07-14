@@ -12,7 +12,7 @@ extension Bar {
             
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
-            let icon = Icon(id: id)
+            let icon = Favicon(id: id)
             
             current
                 .map {

@@ -1,7 +1,7 @@
 import AppKit
 import Combine
 
-extension Search.Field.Cell {
+extension Field.Cell {
     final class Editor: NSTextView {
         let responder = PassthroughSubject<Bool, Never>()
         

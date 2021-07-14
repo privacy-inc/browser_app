@@ -1,16 +1,16 @@
 import AppKit
 import Combine
 
-extension Bar.Tab {
+extension Bar {
     final class Search: NSView {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID, icon: Icon) {
+        init(id: UUID, icon: Favicon) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
-            let back = Control.Squircle(icon: "chevron.left")
+            let back = Squircle(icon: "chevron.left")
             back
                 .click
                 .sink {
@@ -18,7 +18,7 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
-            let forward = Control.Squircle(icon: "chevron.right")
+            let forward = Squircle(icon: "chevron.right")
             forward
                 .click
                 .sink {
@@ -26,12 +26,14 @@ extension Bar.Tab {
                 }
                 .store(in: &subs)
             
+            let ellipsis = Button(icon: "ellipsis.circle.fill")
+            
             let background = Background(id: id)
             addSubview(background)
             
-            let field = Privacy.Search.Field(id: id)
+            let field = Field(id: id)
             
-            [back, icon, field, forward]
+            [back, icon, field, forward, ellipsis]
                 .forEach {
                     addSubview($0)
                     $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -91,6 +93,8 @@ extension Bar.Tab {
             background.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: 1).isActive = true
 
             icon.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 5).isActive = true
+            
+            ellipsis.rightAnchor.constraint(equalTo: background.rightAnchor).isActive = true
             
             field.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 20).isActive = true
             field.rightAnchor.constraint(equalTo: background.rightAnchor, constant: -20).isActive = true
