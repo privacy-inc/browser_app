@@ -5,16 +5,16 @@ extension Bar {
         private weak var image: Image!
         
         required init?(coder: NSCoder) { nil }
-        init(icon: String) {
+        init(icon: String, size: CGFloat) {
             let image = Image(icon: icon)
-            image.symbolConfiguration = .init(textStyle: .title3)
+            image.symbolConfiguration = .init(pointSize: size, weight: .regular)
             self.image = image
             
             super.init(layer: true)
-            layer!.cornerRadius = 8
+            layer!.cornerRadius = 6
             
             addSubview(image)
-            widthAnchor.constraint(equalToConstant: 26).isActive = true
+            widthAnchor.constraint(equalToConstant: 28).isActive = true
             heightAnchor.constraint(equalTo: widthAnchor).isActive = true
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
@@ -33,6 +33,10 @@ extension Bar {
                 layer!.backgroundColor = .clear
                 image.contentTintColor = .secondaryLabelColor
             }
+        }
+        
+        override var allowsVibrancy: Bool {
+            true
         }
     }
 }

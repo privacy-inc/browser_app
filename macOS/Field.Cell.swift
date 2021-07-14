@@ -21,11 +21,18 @@ extension Field {
         }
         
         override func focusRingMaskBounds(forFrame: NSRect, in: NSView) -> NSRect {
-            forFrame.insetBy(dx: -19, dy: 1)
+            forFrame.ring
         }
         
         override func drawFocusRingMask(withFrame: NSRect, in: NSView) {
-            NSBezierPath(roundedRect: withFrame.insetBy(dx: -19, dy: 1), xRadius: 3, yRadius: 3).fill()
+            NSBezierPath(roundedRect: withFrame.ring, xRadius: 5, yRadius: 5).fill()
         }
+    }
+}
+
+private extension NSRect {
+    var ring: Self {
+        insetBy(dx: -19.5, dy: 1)
+            .offsetBy(dx: 0, dy: -0.5)
     }
 }

@@ -10,7 +10,7 @@ extension Bar {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
-            let back = Squircle(icon: "chevron.left")
+            let back = Squircle(icon: "chevron.left", size: 15)
             back
                 .click
                 .sink {
@@ -18,7 +18,7 @@ extension Bar {
                 }
                 .store(in: &subs)
             
-            let forward = Squircle(icon: "chevron.right")
+            let forward = Squircle(icon: "chevron.right", size: 15)
             forward
                 .click
                 .sink {
@@ -27,13 +27,10 @@ extension Bar {
                 .store(in: &subs)
             
             let ellipsis = Button(icon: "ellipsis.circle.fill")
-            
             let background = Background(id: id)
-            addSubview(background)
-            
             let field = Field(id: id)
             
-            [back, icon, field, forward, ellipsis]
+            [background, back, icon, field, forward, ellipsis]
                 .forEach {
                     addSubview($0)
                     $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
@@ -89,8 +86,7 @@ extension Bar {
             
             widthAnchor.constraint(equalToConstant: 340).isActive = true
 
-            background.topAnchor.constraint(equalTo: field.topAnchor).isActive = true
-            background.bottomAnchor.constraint(equalTo: field.bottomAnchor, constant: 1).isActive = true
+            background.heightAnchor.constraint(equalTo: field.heightAnchor).isActive = true
 
             icon.leftAnchor.constraint(equalTo: background.leftAnchor, constant: 5).isActive = true
             

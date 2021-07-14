@@ -24,13 +24,13 @@ extension Bar {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             wantsLayer = true
-            layer!.cornerRadius = 4
+            layer!.cornerRadius = 5
             layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             
             let shape = CAShapeLayer()
             shape.strokeColor = NSColor.controlAccentColor.cgColor
             shape.fillColor = .clear
-            shape.lineWidth = 3
+            shape.lineWidth = 2
             shape.lineCap = .round
             shape.lineJoin = .round
             shape.strokeEnd = 0

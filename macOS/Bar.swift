@@ -12,7 +12,13 @@ final class Bar: NSVisualEffectView {
         let tab = Tab(id: current.value, current: current)
         addSubview(tab)
         
+        let plus = Squircle(icon: "plus", size: 18)
+        addSubview(plus)
+        
         tab.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         tab.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor).isActive = true
+        
+        plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+        plus.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
     }
 }
