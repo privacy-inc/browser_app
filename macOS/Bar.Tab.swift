@@ -12,6 +12,7 @@ extension Bar {
             
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
+            let background = Background(id: id)
             let icon = Favicon(id: id)
             
             current
@@ -20,7 +21,9 @@ extension Bar {
                 }
                 .removeDuplicates()
                 .sink { [weak self] in
-                    self?.view($0 ? Search(id: id, icon: icon) : Thumbnail(id: id, icon: icon))
+                    self?.view($0
+                                ? Search(id: id, background: background, icon: icon)
+                                : Thumbnail(id: id, icon: icon, current: current))
                 }
                 .store(in: &subs)
         }
@@ -34,8 +37,7 @@ extension Bar {
             
             rightAnchor.constraint(equalTo: content.rightAnchor).isActive = true
             
-            content.topAnchor.constraint(equalTo: topAnchor).isActive = true
-            content.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            content.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             content.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
         }
     }

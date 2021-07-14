@@ -8,7 +8,7 @@ final class Favicon: NSImageView {
         translatesAutoresizingMaskIntoConstraints = false
         imageScaling = .scaleProportionallyDown
         
-        widthAnchor.constraint(equalToConstant: 20).isActive = true
+        widthAnchor.constraint(equalToConstant: 18).isActive = true
         heightAnchor.constraint(equalTo: widthAnchor).isActive = true
     }
     

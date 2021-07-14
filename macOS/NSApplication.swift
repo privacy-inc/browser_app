@@ -38,32 +38,32 @@ extension NSApplication {
     }
     
     func activity() {
-        (window() ?? Activity())
+        (anyWindow() ?? Activity())
             .makeKeyAndOrderFront(nil)
     }
     
     func trackers() {
-        (window() ?? Trackers())
+        (anyWindow() ?? Trackers())
             .makeKeyAndOrderFront(nil)
     }
     
     func froob() {
-        (window() ?? Info.Froob())
+        (anyWindow() ?? Info.Froob())
             .makeKeyAndOrderFront(nil)
     }
     
     func why() {
-        (window() ?? Info.Why())
+        (anyWindow() ?? Info.Why())
             .makeKeyAndOrderFront(nil)
     }
     
     func alternatives() {
-        (window() ?? Info.Alternatives())
+        (anyWindow() ?? Info.Alternatives())
             .makeKeyAndOrderFront(nil)
     }
     
     func store() {
-        (window() ?? Store())
+        (anyWindow() ?? Store())
             .makeKeyAndOrderFront(nil)
     }
     
@@ -84,15 +84,15 @@ extension NSApplication {
     }
     
     @objc func preferences() {
-        (window() ?? Settings())
+        (anyWindow() ?? Settings())
             .makeKeyAndOrderFront(nil)
     }
     
     private var active: Window? {
-        keyWindow as? Window ?? window()
+        keyWindow as? Window ?? anyWindow()
     }
     
-    private func window<T>() -> T? {
+    private func anyWindow<T>() -> T? {
         windows
             .compactMap {
                 $0 as? T
@@ -106,11 +106,7 @@ extension NSApplication {
                 window(id: id)
                 return
             }
-            let new = Window(id: id)
-            window.addTabbedWindow(new, ordered: .above)
-            if change {
-                window.tabGroup!.selectedWindow = new
-            }
+            window.bar.add()
             return
         }
         if change {

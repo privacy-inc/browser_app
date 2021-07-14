@@ -16,6 +16,8 @@ extension Bar {
                             return $0
                         } (CGMutablePath())
                     }
+                shape?.strokeStart = 0
+                shape?.strokeEnd = 0
             }
         }
         
@@ -23,6 +25,7 @@ extension Bar {
         init(id: UUID) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
+            layer = Layer()
             wantsLayer = true
             layer!.cornerRadius = 5
             layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
@@ -74,5 +77,11 @@ extension Bar {
         override var allowsVibrancy: Bool {
             true
         }
+    }
+}
+
+private final class Layer: CAShapeLayer {
+    override class func defaultAction(forKey: String) -> CAAction? {
+        NSNull()
     }
 }

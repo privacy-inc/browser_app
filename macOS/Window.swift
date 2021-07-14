@@ -3,13 +3,11 @@ import Combine
 import Sleuth
 
 final class Window: NSWindow {
+    private(set) weak var bar: Bar!
     private var subs = Set<AnyCancellable>()
     private let finder = NSTextFinder()
-    private let current: CurrentValueSubject<UUID, Never>
     
     init(id: UUID) {
-        current = .init(id)
-        
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,
@@ -27,10 +25,12 @@ final class Window: NSWindow {
         let content = Content()
         contentView = content
         
-        let bar = NSTitlebarAccessoryViewController()
-        bar.view = Bar(current: current)
-        bar.layoutAttribute = .top
-        addTitlebarAccessoryViewController(bar)
+        let bar = Bar(id: id)
+        self.bar = bar
+        let accessory = NSTitlebarAccessoryViewController()
+        accessory.view = bar
+        accessory.layoutAttribute = .top
+        addTitlebarAccessoryViewController(accessory)
         
         tabber
             .items

@@ -6,7 +6,7 @@ extension Bar {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID, icon: Favicon) {
+        init(id: UUID, background: Background, icon: Favicon) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
@@ -27,7 +27,6 @@ extension Bar {
                 .store(in: &subs)
             
             let ellipsis = Button(icon: "ellipsis.circle.fill")
-            let background = Background(id: id)
             let field = Field(id: id)
             
             [background, back, icon, field, forward, ellipsis]
@@ -84,6 +83,8 @@ extension Bar {
                 }
                 .store(in: &subs)
             
+            topAnchor.constraint(equalTo: field.topAnchor).isActive = true
+            bottomAnchor.constraint(equalTo: field.bottomAnchor).isActive = true
             widthAnchor.constraint(equalToConstant: 340).isActive = true
 
             background.heightAnchor.constraint(equalTo: field.heightAnchor).isActive = true

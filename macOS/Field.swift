@@ -1,5 +1,6 @@
 import AppKit
 import Combine
+import Sleuth
 
 final class Field: NSTextField, NSTextFieldDelegate {
     private var subs = Set<AnyCancellable>()
@@ -40,19 +41,11 @@ final class Field: NSTextField, NSTextFieldDelegate {
                     .access
             }
             .combineLatest(responder)
-            .map {
-                $0.1 ? $0.0.value : {
-                    switch $0 {
-                    case let .remote(remote):
-                        return remote.domain + remote.suffix
-                    default:
-                        return $0.short
-                    }
-                } ($0.0)
+            .removeDuplicates {
+                $0.0 == $1.0 && $0.1 == $1.1
             }
-            .removeDuplicates()
             .sink { [weak self] in
-                self?.stringValue = $0
+                self?.show(access: $0.0, responder: $0.1)
             }
             .store(in: &subs)
         
@@ -61,9 +54,9 @@ final class Field: NSTextField, NSTextFieldDelegate {
             .value[state: id]
             .browse
             .map(cloud.archive.value.page)
-            .map(\.access.value)
+            .map(\.access)
             .map {
-                stringValue = $0
+                show(access: $0, responder: false)
             }
         
         autocomplete
@@ -134,5 +127,16 @@ final class Field: NSTextField, NSTextFieldDelegate {
     
     override func viewDidMoveToWindow() {
         window?.initialFirstResponder = self
+    }
+    
+    private func show(access: Page.Access, responder: Bool) {
+        stringValue = responder ? access.value : {
+            switch access {
+            case let .remote(remote):
+                return remote.domain + remote.suffix
+            default:
+                return access.short
+            }
+        } ()
     }
 }
