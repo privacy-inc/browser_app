@@ -7,7 +7,7 @@ extension NSApplication {
     
     func newWindow() {
         let window = Window()
-        window.session.open.send((url: URL, change: Bool))
+        window.session.plus.send()
         window.makeKeyAndOrderFront(nil)
     }
     

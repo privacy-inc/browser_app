@@ -28,7 +28,7 @@ let location = Location()
     
     func applicationWillFinishLaunching(_: Notification) {
         mainMenu = Menu()
-        window(id: tabber.items.value.ids.first!)
+        newWindow()
     }
     
     func applicationDidFinishLaunching(_: Notification) {
