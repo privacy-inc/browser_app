@@ -3,7 +3,7 @@ import Combine
 
 extension Field.Cell {
     final class Editor: NSTextView {
-        let responder = PassthroughSubject<Bool, Never>()
+        let responder = CurrentValueSubject<Bool, Never>(false)
         
         override init(frame: NSRect, textContainer: NSTextContainer?) {
             super.init(frame: frame, textContainer: textContainer)

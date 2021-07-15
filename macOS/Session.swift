@@ -2,9 +2,11 @@ import Foundation
 import Combine
 import Sleuth
 
-struct Session {
-    let decimal = NumberFormatter()
+final class Session {
+    let tab = Tab()
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()
+    let open = PassthroughSubject<(url: URL, change: Bool), Never>()
+    let current = PassthroughSubject<UUID, Never>()
     let search = PassthroughSubject<UUID, Never>()
     let reload = PassthroughSubject<UUID, Never>()
     let stop = PassthroughSubject<UUID, Never>()
@@ -18,8 +20,4 @@ struct Session {
     let zoomIn = PassthroughSubject<UUID, Never>()
     let zoomOut = PassthroughSubject<UUID, Never>()
     let close = PassthroughSubject<UUID, Never>()
-    
-    init() {
-        decimal.numberStyle = .decimal
-    }
 }

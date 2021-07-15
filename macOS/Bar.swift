@@ -2,9 +2,8 @@ import AppKit
 import Combine
 
 final class Bar: NSVisualEffectView {
-    private(set) var tabs: [UUID]
+    private var tabs: [UUID]
     private var subs = Set<AnyCancellable>()
-    private let current: CurrentValueSubject<UUID, Never>
     
     required init?(coder: NSCoder) { nil }
     init(id: UUID) {
@@ -33,8 +32,10 @@ final class Bar: NSVisualEffectView {
     
     func add() {
         current.value = tabber.new()
+        guard !tabs.contains(current.value) else { return }
         tabs.append(current.value)
         render()
+        session.search.send(current.value)
     }
     
     private func render() {

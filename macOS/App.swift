@@ -4,13 +4,17 @@ import Combine
 import Archivable
 import Sleuth
 
-let session = Session()
 let cloud = Cloud.new
-let tabber = Tab()
 let purchases = Purchases()
 let location = Location()
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
+    static let decimal: NumberFormatter = {
+        let decimal = NumberFormatter()
+        decimal.numberStyle = .decimal
+        return decimal
+    } ()
+    
     private var subs = Set<AnyCancellable>()
     
     required init?(coder: NSCoder) { nil }

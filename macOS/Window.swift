@@ -3,11 +3,11 @@ import Combine
 import Sleuth
 
 final class Window: NSWindow {
-    private(set) weak var bar: Bar!
     private var subs = Set<AnyCancellable>()
+    private let session = Session()
     private let finder = NSTextFinder()
     
-    init(id: UUID) {
+    init(tab: UUID) {
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,
@@ -25,27 +25,31 @@ final class Window: NSWindow {
         let content = Content()
         contentView = content
         
-        let bar = Bar(id: id)
-        self.bar = bar
         let accessory = NSTitlebarAccessoryViewController()
-        accessory.view = bar
+        accessory.view = Bar(session: session, id: tab)
         accessory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accessory)
         
-        tabber
+        session
+            .tabber
             .items
+            .combineLatest(session
+                            .current
+                            .removeDuplicates())
             .map {
-                $0[state: id]
+                (state: $0[state: $1], id: $1)
             }
-            .removeDuplicates()
+            .removeDuplicates {
+                $0.state == $1.state && $0.id == $1.id
+            }
             .sink { [weak self] in
-                switch $0 {
+                switch $0.state {
                 case .new:
-                    content.display = New(id: id)
+                    content.display = New(id: $0.id)
                 case let .browse(browse):
-                    let web = (tabber.items.value[web: id] as? Web) ?? Web(id: id, browse: browse)
-                    if tabber.items.value[web: id] == nil {
-                        tabber.update(id, web: web)
+                    let web = (tabber.items.value[web: $0.id] as? Web) ?? Web(id: $0.id, browse: browse)
+                    if tabber.items.value[web: $0.id] == nil {
+                        tabber.update($0.id, web: web)
                     }
                     let browser = Browser(web: web)
                     self?.finder.client = web
@@ -55,70 +59,9 @@ final class Window: NSWindow {
                 case let .error(browse, error):
                     self?.finder.client = nil
                     self?.finder.findBarContainer = nil
-                    content.display = Error(id: id, browse: browse, error: error)
+                    content.display = Error(id: $0.id, browse: browse, error: error)
                     self?.makeFirstResponder(self?.contentView)
                 }
-            }
-            .store(in: &subs)
-        
-        cloud
-            .archive
-            .combineLatest(tabber
-                            .items
-                            .map {
-                                $0[state: id]
-                                    .browse
-                            }
-                            .compactMap {
-                                $0
-                            }
-                            .removeDuplicates())
-            .map {
-                $0.0
-                    .page($0.1)
-            }
-            .map {
-                (title: $0.title, short: $0.access.short)
-            }
-            .removeDuplicates { (previous: (title: String, short: String), new: (title: String, short: String)) in
-                previous.title == new.title && previous.short == new.short
-            }
-            .sink { [weak self] in
-                self?.tab.title = $0.title.isEmpty ? $0.short : $0.title
-            }
-            .store(in: &subs)
-        
-        cloud
-            .archive
-            .combineLatest(tabber
-                            .items
-                            .map {
-                                $0[state: id]
-                                    .browse
-                            }
-                            .compactMap {
-                                $0
-                            }
-                            .removeDuplicates())
-            .map {
-                $0.0
-                    .page($0.1)
-                    .access
-                    .value
-            }
-            .removeDuplicates()
-            .sink { [weak self] in
-                self?.tab.toolTip = $0
-            }
-            .store(in: &subs)
-        
-        session
-            .close
-            .filter {
-                $0 == id
-            }
-            .sink { [weak self] _ in
-                self?.close()
             }
             .store(in: &subs)
     }
@@ -158,12 +101,12 @@ final class Window: NSWindow {
     }
     
     @objc func shut() {
-        if let tabs = tabbedWindows {
-            tabs.forEach {
-                $0.close()
-            }
-        } else {
-            close()
-        }
+//        if let tabs = tabbedWindows {
+//            tabs.forEach {
+//                $0.close()
+//            }
+//        } else {
+//            close()
+//        }
     }
 }

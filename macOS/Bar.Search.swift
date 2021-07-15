@@ -26,7 +26,7 @@ extension Bar {
                 }
                 .store(in: &subs)
             
-            let ellipsis = Button(icon: "ellipsis.circle.fill")
+            let ellipsis = Button(icon: "ellipsis")
             let field = Field(id: id)
             
             [background, back, icon, field, forward, ellipsis]

@@ -15,7 +15,12 @@ extension Field {
         }
         
         override func drawInterior(withFrame: NSRect, in: NSView) { }
-
+        
+        override func drawingRect(forBounds: NSRect) -> NSRect {
+            super.drawingRect(forBounds: forBounds
+                                .offsetBy(dx: 0, dy: -1))
+        }
+        
         override func fieldEditor(for: NSView) -> NSTextView? {
             editor
         }

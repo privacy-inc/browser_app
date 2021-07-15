@@ -218,7 +218,7 @@ final class Web: Webview {
                 .request
                 .url
                 .map {
-                    NSApp.open(tab: $0, change: true)
+                    session.tab.send((url: $0, change: true))
                 }
         case .other:
             if action.targetFrame == nil {

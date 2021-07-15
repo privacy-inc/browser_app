@@ -25,7 +25,7 @@ extension Bar {
             
             switch state {
             case .pressed, .highlighted:
-                icon.contentTintColor = .tertiaryLabelColor
+                icon.contentTintColor = .labelColor
             default:
                 icon.contentTintColor = .secondaryLabelColor
             }

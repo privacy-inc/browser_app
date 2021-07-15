@@ -4,7 +4,7 @@ extension NSApplication {
     var dark: Bool {
         effectiveAppearance.name != .aqua
     }
-    
+    /*
     @objc func newTab() {
         newTab(id: tabber.new(), search: true, change: true)
     }
@@ -15,7 +15,7 @@ extension NSApplication {
     }
     
     func window(id: UUID) {
-        Window(id: id).makeKeyAndOrderFront(nil)
+        Window(tab: id).makeKeyAndOrderFront(nil)
     }
     
     func open(tab url: URL, change: Bool) {
@@ -132,4 +132,5 @@ extension NSApplication {
 //            }
         nil
     }
+    */
 }

@@ -41,23 +41,34 @@ final class Field: NSTextField, NSTextFieldDelegate {
                     .access
             }
             .combineLatest(responder)
-            .removeDuplicates {
-                $0.0 == $1.0 && $0.1 == $1.1
+            .map {
+                $1 ? $0.value : {
+                    switch $0 {
+                    case let .remote(remote):
+                        return remote.domain + remote.suffix
+                    default:
+                        return $0.short
+                    }
+                } ($0)
             }
+            .removeDuplicates()
             .sink { [weak self] in
-                self?.show(access: $0.0, responder: $0.1)
+                self?.stringValue = $0
             }
             .store(in: &subs)
         
-        tabber
-            .items
-            .value[state: id]
-            .browse
-            .map(cloud.archive.value.page)
-            .map(\.access)
-            .map {
-                show(access: $0, responder: false)
+        session
+            .search
+            .filter {
+                $0 == id
             }
+            .map { _ in
+                
+            }
+            .sink { [weak self] in
+                self?.window?.makeFirstResponder(self)
+            }
+            .store(in: &subs)
         
         autocomplete
             .complete
@@ -127,16 +138,5 @@ final class Field: NSTextField, NSTextFieldDelegate {
     
     override func viewDidMoveToWindow() {
         window?.initialFirstResponder = self
-    }
-    
-    private func show(access: Page.Access, responder: Bool) {
-        stringValue = responder ? access.value : {
-            switch access {
-            case let .remote(remote):
-                return remote.domain + remote.suffix
-            default:
-                return access.short
-            }
-        } ()
     }
 }
