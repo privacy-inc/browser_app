@@ -6,7 +6,7 @@ extension Bar {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID, background: Background, icon: Favicon) {
+        init(session: Session, id: UUID, background: Background, icon: Favicon) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             

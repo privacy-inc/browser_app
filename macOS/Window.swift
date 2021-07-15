@@ -3,11 +3,11 @@ import Combine
 import Sleuth
 
 final class Window: NSWindow {
+    let session = Session()
     private var subs = Set<AnyCancellable>()
-    private let session = Session()
     private let finder = NSTextFinder()
     
-    init(tab: UUID) {
+    init() {
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,
@@ -26,7 +26,7 @@ final class Window: NSWindow {
         contentView = content
         
         let accessory = NSTitlebarAccessoryViewController()
-        accessory.view = Bar(session: session, id: tab)
+        accessory.view = Bar(session: session)
         accessory.layoutAttribute = .top
         addTitlebarAccessoryViewController(accessory)
         

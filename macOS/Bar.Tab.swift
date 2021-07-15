@@ -6,7 +6,7 @@ extension Bar {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID, current: CurrentValueSubject<UUID, Never>) {
+        init(session: Session, id: UUID) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
@@ -15,15 +15,16 @@ extension Bar {
             let background = Background(id: id)
             let icon = Favicon(id: id)
             
-            current
+            session
+                .current
                 .map {
                     $0 == id
                 }
                 .removeDuplicates()
                 .sink { [weak self] in
                     self?.view($0
-                                ? Search(id: id, background: background, icon: icon)
-                                : Thumbnail(id: id, icon: icon, current: current))
+                                ? Search(session: session, id: id, background: background, icon: icon)
+                                : Thumbnail(session: session, id: id, icon: icon))
                 }
                 .store(in: &subs)
         }

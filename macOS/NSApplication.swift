@@ -4,6 +4,51 @@ extension NSApplication {
     var dark: Bool {
         effectiveAppearance.name != .aqua
     }
+    
+    func newWindow() {
+        let window = Window()
+        window.session.open.send((url: URL, change: Bool))
+        window.makeKeyAndOrderFront(nil)
+    }
+    
+    func activity() {
+        (anyWindow() ?? Activity())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func trackers() {
+        (anyWindow() ?? Trackers())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func froob() {
+        (anyWindow() ?? Info.Froob())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func why() {
+        (anyWindow() ?? Info.Why())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func alternatives() {
+        (anyWindow() ?? Info.Alternatives())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    func store() {
+        (anyWindow() ?? Store())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    private func anyWindow<T>() -> T? {
+        windows
+            .compactMap {
+                $0 as? T
+            }
+            .first
+    }
+    
     /*
     @objc func newTab() {
         newTab(id: tabber.new(), search: true, change: true)
@@ -37,35 +82,7 @@ extension NSApplication {
             }
     }
     
-    func activity() {
-        (anyWindow() ?? Activity())
-            .makeKeyAndOrderFront(nil)
-    }
     
-    func trackers() {
-        (anyWindow() ?? Trackers())
-            .makeKeyAndOrderFront(nil)
-    }
-    
-    func froob() {
-        (anyWindow() ?? Info.Froob())
-            .makeKeyAndOrderFront(nil)
-    }
-    
-    func why() {
-        (anyWindow() ?? Info.Why())
-            .makeKeyAndOrderFront(nil)
-    }
-    
-    func alternatives() {
-        (anyWindow() ?? Info.Alternatives())
-            .makeKeyAndOrderFront(nil)
-    }
-    
-    func store() {
-        (anyWindow() ?? Store())
-            .makeKeyAndOrderFront(nil)
-    }
     
     func clear() {
 //        windows
@@ -92,13 +109,7 @@ extension NSApplication {
         keyWindow as? Window ?? anyWindow()
     }
     
-    private func anyWindow<T>() -> T? {
-        windows
-            .compactMap {
-                $0 as? T
-            }
-            .first
-    }
+    
     
     private func newTab(id: UUID, search: Bool, change: Bool) {
         guard let current = self[id] else {

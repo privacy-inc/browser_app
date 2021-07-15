@@ -2,13 +2,12 @@ import AppKit
 import Combine
 
 final class Bar: NSVisualEffectView {
-    private var tabs: [UUID]
     private var subs = Set<AnyCancellable>()
+    private weak var session: Session!
     
     required init?(coder: NSCoder) { nil }
-    init(id: UUID) {
-        tabs = [id]
-        current = .init(id)
+    init(session: Session) {
+        self.session = session
         
         super.init(frame: .zero)
         material = .popover
@@ -18,24 +17,23 @@ final class Bar: NSVisualEffectView {
         let plus = Squircle(icon: "plus", size: 18)
         plus
             .click
-            .sink { [weak self] in
-                self?.add()
-            }
+            .subscribe(session
+                        .plus)
             .store(in: &subs)
         addSubview(plus)
         
+        session
+            .plus
+            .sink { [weak self, weak session] in
+                guard let tab = session?.tab.new() else { return }
+                session?.current.send(tab)
+                session?.search.send(tab)
+                self?.render()
+            }
+            .store(in: &subs)
+        
         plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         plus.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
-        
-        render()
-    }
-    
-    func add() {
-        current.value = tabber.new()
-        guard !tabs.contains(current.value) else { return }
-        tabs.append(current.value)
-        render()
-        session.search.send(current.value)
     }
     
     private func render() {
@@ -47,9 +45,12 @@ final class Bar: NSVisualEffectView {
                 $0.removeFromSuperview()
             }
         
-        tabs
+        session
+            .tab
+            .items
+            .value
             .map {
-                Tab(id: $0, current: current)
+                Tab(session: session, id: $0)
             }
             .reduce(safeAreaLayoutGuide.leftAnchor) {
                 addSubview($1)

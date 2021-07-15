@@ -6,7 +6,7 @@ extension Bar {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID, icon: Favicon, current: CurrentValueSubject<UUID, Never>) {
+        init(session: Session, id: UUID, icon: Favicon) {
             super.init(layer: true)
             layer!.cornerRadius = 5
             addSubview(icon)
