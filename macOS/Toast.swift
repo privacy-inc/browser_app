@@ -25,6 +25,7 @@ final class Toast: NSPanel {
         content.translatesAutoresizingMaskIntoConstraints = false
         content.material = .menu
         content.state = .active
+        content.layer = Layer()
         content.wantsLayer = true
         content.layer!.cornerRadius = 12
         contentView!.addSubview(content)

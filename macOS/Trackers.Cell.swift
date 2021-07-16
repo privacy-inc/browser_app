@@ -6,7 +6,7 @@ extension Trackers {
         static let insets2 = insets * 2
         static let width = List.width - insets2
         private weak var text: CollectionCellText!
-        private weak var separator: CAShapeLayer!
+        private weak var separator: Shape!
         
         override var first: Bool {
             didSet {
@@ -41,7 +41,7 @@ extension Trackers {
             addSublayer(text)
             self.text = text
             
-            let separator = CAShapeLayer()
+            let separator = Shape()
             separator.fillColor = .clear
             separator.lineWidth = 1
             separator.strokeColor = NSColor.separatorColor.cgColor

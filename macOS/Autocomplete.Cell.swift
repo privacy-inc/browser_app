@@ -16,6 +16,7 @@ extension Autocomplete {
             self.filtered = filtered
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
+            layer = Layer()
             wantsLayer = true
             layer!.cornerRadius = 6
             

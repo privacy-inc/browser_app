@@ -3,7 +3,7 @@ import Combine
 
 extension Bar {
     final class Background: NSView, CAAnimationDelegate {
-        private weak var shape: CAShapeLayer?
+        private weak var shape: Shape?
         private var subscription: AnyCancellable?
         
         override var frame: NSRect {
@@ -30,7 +30,7 @@ extension Bar {
             layer!.cornerRadius = 5
             layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             
-            let shape = CAShapeLayer()
+            let shape = Shape()
             shape.strokeColor = NSColor.controlAccentColor.cgColor
             shape.fillColor = .clear
             shape.lineWidth = 2
@@ -78,11 +78,5 @@ extension Bar {
         override var allowsVibrancy: Bool {
             true
         }
-    }
-}
-
-private final class Layer: CAShapeLayer {
-    override class func defaultAction(forKey: String) -> CAAction? {
-        NSNull()
     }
 }

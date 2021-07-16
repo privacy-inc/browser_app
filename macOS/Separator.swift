@@ -11,6 +11,7 @@ final class Separator: NSView {
     init(mode: Mode) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
+        layer = Layer()
         wantsLayer = true
         layer!.backgroundColor = NSColor.separatorColor.cgColor
         

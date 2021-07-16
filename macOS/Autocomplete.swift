@@ -30,6 +30,7 @@ final class Autocomplete: NSPanel {
         content.translatesAutoresizingMaskIntoConstraints = false
         content.material = .hudWindow
         content.state = .active
+        content.layer = Layer()
         content.wantsLayer = true
         content.layer!.cornerRadius = 10
         content.layer!.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]

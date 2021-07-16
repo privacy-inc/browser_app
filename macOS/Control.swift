@@ -14,10 +14,15 @@ class Control: NSView {
     init(layer: Bool) {
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
-        wantsLayer = layer
         setAccessibilityElement(true)
         setAccessibilityRole(.button)
         addTrackingArea(.init(rect: bounds, options: [.mouseEnteredAndExited, .activeAlways, .inVisibleRect], owner: self))
+        
+        if layer {
+            self.layer = Layer()
+            wantsLayer = layer
+        }
+        
         update()
     }
     

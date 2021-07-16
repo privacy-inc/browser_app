@@ -2,6 +2,13 @@ import AppKit
 import Combine
 
 final class Bar: NSVisualEffectView {
+    private var right: NSLayoutConstraint? {
+        didSet {
+            oldValue?.isActive = false
+            right?.isActive = true
+        }
+    }
+    
     private var subs = Set<AnyCancellable>()
     private let session: Session
     
@@ -33,8 +40,16 @@ final class Bar: NSVisualEffectView {
         
         session
             .close
-            .sink { [weak self] in
-                session.tab.close($0)
+            .sink { [weak self] id in
+                session.tab.close(id)
+                self?
+                    .tabs
+                    .filter {
+                        $0.id == id
+                    }
+                    .forEach {
+                        $0.removeFromSuperview()
+                    }
                 self?.render()
             }
             .store(in: &subs)
@@ -44,28 +59,40 @@ final class Bar: NSVisualEffectView {
     }
     
     private func render() {
-        subviews
-            .filter {
-                $0 is Tab
-            }
-            .forEach {
-                $0.removeFromSuperview()
-            }
-        
-        session
+        let current = tabs
+        right = session
             .tab
             .items
             .value
             .ids
-            .map {
-                Tab(session: session, id: $0)
+            .map { id in
+                current
+                    .first {
+                        $0.id == id
+                    } ?? {
+                        addSubview($0)
+                        $0.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
+                        
+                        return $0
+                    } (Tab(session: session, id: id))
             }
             .reduce(safeAreaLayoutGuide.leftAnchor) {
-                addSubview($1)
-                $1.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-                $1.leftAnchor.constraint(equalTo: $0, constant: 10).isActive = true
+                $1.left = $1.leftAnchor.constraint(equalTo: $0, constant: 10)
                 return $1.rightAnchor
             }
-            .constraint(lessThanOrEqualTo: rightAnchor, constant: -50).isActive = true
+            .constraint(lessThanOrEqualTo: rightAnchor, constant: -50)
+        NSAnimationContext
+            .runAnimationGroup {
+                $0.allowsImplicitAnimation = true
+                $0.duration = 0.5
+                layoutSubtreeIfNeeded()
+            }
+    }
+    
+    private var tabs: [Tab] {
+        subviews
+            .compactMap {
+                $0 as? Tab
+            }
     }
 }

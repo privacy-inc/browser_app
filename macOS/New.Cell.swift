@@ -5,7 +5,7 @@ extension New {
         static let insets = CGFloat(20)
         static let insets2 = insets * 2
         private weak var text: CollectionCellText!
-        private weak var separator: CAShapeLayer!
+        private weak var separator: Shape!
         
         override var first: Bool {
             didSet {
@@ -45,7 +45,7 @@ extension New {
             addSublayer(text)
             self.text = text
             
-            let separator = CAShapeLayer()
+            let separator = Shape()
             separator.fillColor = .clear
             separator.lineWidth = 1
             separator.strokeColor = NSColor.separatorColor.cgColor

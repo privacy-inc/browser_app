@@ -4,7 +4,7 @@ final class Chart: NSView {
     required init?(coder: NSCoder) { nil }
     init(frame: CGRect, first: Date, values: [Double]) {
         super.init(frame: frame)
-        layer = Layer(values: values)
+        layer = Item(values: values)
         wantsLayer = true
         layer!.setNeedsDisplay()
         
@@ -39,7 +39,7 @@ final class Chart: NSView {
     }
 }
 
-private final class Layer: CALayer {
+private final class Item: CALayer {
     private let values: [Double]
     
     required init?(coder: NSCoder) { nil }

@@ -3,10 +3,19 @@ import Combine
 
 extension Bar {
     final class Tab: NSView {
+        var left: NSLayoutConstraint? {
+            didSet {
+                oldValue?.isActive = false
+                left?.isActive = true
+            }
+        }
+        
+        let id: UUID
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
         init(session: Session, id: UUID) {
+            self.id = id
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             
@@ -25,6 +34,13 @@ extension Bar {
                     self?.view($0
                                 ? Search(session: session, id: id, background: background, icon: icon)
                                 : Thumbnail(session: session, id: id, icon: icon))
+                    
+                    NSAnimationContext
+                        .runAnimationGroup {
+                            $0.allowsImplicitAnimation = true
+                            $0.duration = 0.5
+                            self?.layoutSubtreeIfNeeded()
+                        }
                 }
                 .store(in: &subs)
             

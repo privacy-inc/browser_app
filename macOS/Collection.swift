@@ -18,6 +18,7 @@ class Collection<Cell, Info>: NSScrollView, NSMenuDelegate where Cell : Collecti
         translatesAutoresizingMaskIntoConstraints = false
         
         let content = Flip()
+        content.layer = Layer()
         content.wantsLayer = true
         documentView = content
         hasVerticalScroller = true

@@ -119,6 +119,8 @@
 		CE91FA8E264ACBA5009A1F88 /* Tabs.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA8D264ACBA5009A1F88 /* Tabs.Item.swift */; };
 		CE91FA90264ACE5A009A1F88 /* Tabs.Bar.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */; };
 		CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */; };
+		CE96187226A1C15D00888F5E /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96187126A1C15D00888F5E /* Shape.swift */; };
+		CE96187426A1C1EF00888F5E /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96187326A1C1EF00888F5E /* Layer.swift */; };
 		CE9C2002264821E0001504A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C2001264821E0001504A2 /* App.swift */; };
 		CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9C2005264821E1001504A2 /* Assets.xcassets */; };
 		CE9CF61B266E4BE700B277DF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CF61A266E4BE700B277DF /* Location.swift */; };
@@ -402,6 +404,8 @@
 		CE91FA8D264ACBA5009A1F88 /* Tabs.Item.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.swift; sourceTree = "<group>"; };
 		CE91FA8F264ACE5A009A1F88 /* Tabs.Bar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Bar.swift; sourceTree = "<group>"; };
 		CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Bar.Control.swift; sourceTree = "<group>"; };
+		CE96187126A1C15D00888F5E /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
+		CE96187326A1C1EF00888F5E /* Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
 		CE9C1FFE264821E0001504A2 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9C2001264821E0001504A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE9C2005264821E1001504A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -796,6 +800,7 @@
 				CE0D4239266B8AC600386433 /* Info.Froob.swift */,
 				CE0D4235266B86CD00386433 /* Info.swift */,
 				CEF00199266BC6FF00993CDD /* Info.Why.swift */,
+				CE96187326A1C1EF00888F5E /* Layer.swift */,
 				CE9CF61A266E4BE700B277DF /* Location.swift */,
 				CE676A6A265E64EE0042EDC2 /* Menu.swift */,
 				CECE1F96265E91C000ACBB0B /* New.Bookmarks.swift */,
@@ -825,6 +830,7 @@
 				CEF001A9266BE71600993CDD /* Settings.Switch.swift */,
 				CED418B8266CD2FF006155C5 /* Settings.Title.Option.swift */,
 				CEF001B3266BF4F400993CDD /* Settings.Title.swift */,
+				CE96187126A1C15D00888F5E /* Shape.swift */,
 				CEF00193266BB84E00993CDD /* Store.Error.swift */,
 				CEF00197266BC2DB00993CDD /* Store.Item.Option.swift */,
 				CEF00195266BB8D900993CDD /* Store.Item.swift */,
@@ -1283,8 +1289,10 @@
 				CEFF2BF7268C7B2100EBA5D3 /* New.Info.swift in Sources */,
 				CE0D423C266B8CB200386433 /* Purchases.Info.swift in Sources */,
 				CE0D6BFA265FDF6B000B3FF1 /* Bar.Squircle.swift in Sources */,
+				CE96187426A1C1EF00888F5E /* Layer.swift in Sources */,
 				CEF00192266BB4E900993CDD /* Store.Loading.swift in Sources */,
 				CE0D423A266B8AC600386433 /* Info.Froob.swift in Sources */,
+				CE96187226A1C15D00888F5E /* Shape.swift in Sources */,
 				CE8E4D442677621E0023839A /* Forget.Option.Basic.swift in Sources */,
 				CE55EDE72667BB9400386C5B /* Window.Info.swift in Sources */,
 				CE0D6BF8265FDF51000B3FF1 /* Control.State.swift in Sources */,
