@@ -27,7 +27,7 @@ extension Bar {
                 .store(in: &subs)
             
             let ellipsis = Button(icon: "ellipsis")
-            let field = Field(id: id)
+            let field = Field(session: session, id: id)
             
             [background, back, icon, field, forward, ellipsis]
                 .forEach {
@@ -40,7 +40,8 @@ extension Bar {
             let forwardOff = rightAnchor.constraint(equalTo: background.rightAnchor, constant: 5)
             let forwardOn = rightAnchor.constraint(equalTo: forward.rightAnchor, constant: 5)
             
-            tabber
+            session
+                .tab
                 .items
                 .map {
                     $0[state: id].isBrowse && $0[back: id]
@@ -61,7 +62,8 @@ extension Bar {
                 }
                 .store(in: &subs)
             
-            tabber
+            session
+                .tab
                 .items
                 .map {
                     $0[state: id].isBrowse && $0[forward: id]

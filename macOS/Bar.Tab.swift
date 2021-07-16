@@ -12,7 +12,7 @@ extension Bar {
             
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
-            let background = Background(id: id)
+            let background = Background(session: session, id: id)
             let icon = Favicon(id: id)
             
             session

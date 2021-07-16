@@ -5,7 +5,7 @@ import Sleuth
 extension New {
     final class Bookmarks: Collection<Cell, Info> {
         required init?(coder: NSCoder) { nil }
-        init(id: UUID) {
+        init(session: Session, id: UUID) {
             super.init()
             translatesAutoresizingMaskIntoConstraints = false
             
@@ -85,7 +85,7 @@ extension New {
                 .sink {
                     cloud
                         .open($0) {
-                            tabber.browse(id, $0)
+                            session.tab.browse(id, $0)
                         }
                 }
                 .store(in: &subs)

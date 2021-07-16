@@ -7,12 +7,15 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     final let id: UUID
     final let browse: Int
     final let settings: Sleuth.Settings
+    final let session: Session
     
     required init?(coder: NSCoder) { nil }
-    init(configuration: WKWebViewConfiguration, id: UUID, browse: Int, settings: Sleuth.Settings) {
+    init(configuration: WKWebViewConfiguration, session: Session, id: UUID, browse: Int, settings: Sleuth.Settings) {
+        self.session = session
         self.id = id
         self.browse = browse
         self.settings = settings
+        
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
@@ -42,28 +45,28 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         publisher(for: \.estimatedProgress, options: .new)
             .removeDuplicates()
             .sink {
-                tabber.update(id, progress: $0)
+                session.tab.update(id, progress: $0)
             }
             .store(in: &subs)
 
         publisher(for: \.isLoading, options: .new)
             .removeDuplicates()
             .sink {
-                tabber.update(id, loading: $0)
+                session.tab.update(id, loading: $0)
             }
             .store(in: &subs)
 
         publisher(for: \.canGoForward, options: .new)
             .removeDuplicates()
             .sink {
-                tabber.update(id, forward: $0)
+                session.tab.update(id, forward: $0)
             }
             .store(in: &subs)
 
         publisher(for: \.canGoBack, options: .new)
             .removeDuplicates()
             .sink {
-                tabber.update(id, back: $0)
+                session.tab.update(id, back: $0)
             }
             .store(in: &subs)
         
@@ -135,8 +138,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         cloud.update(browse, url: url)
         cloud.update(browse, title: description)
         cloud.activity()
-        tabber.error(id, .init(url: url.absoluteString, description: description))
-        tabber.update(id, progress: 1)
+        session.tab.error(id, .init(url: url.absoluteString, description: description))
+        session.tab.update(id, progress: 1)
     }
     
     final func webView(_: WKWebView, didReceive: URLAuthenticationChallenge, completionHandler: @escaping (URLSession.AuthChallengeDisposition, URLCredential?) -> Void) {
@@ -162,7 +165,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     final func webView(_: WKWebView, didFinish: WKNavigation!) {
-        tabber.update(id, progress: 1)
+        session.tab.update(id, progress: 1)
         cloud.activity()
     }
     
@@ -188,7 +191,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
                 .map(\.isMainFrame)
                 .map {
                     guard $0 else { return }
-                    tabber.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "There was an error"))
+                    session.tab.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "There was an error"))
                 }
         case .block:
             decisionHandler(.cancel, preferences)
@@ -197,7 +200,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
                 .map(\.isMainFrame)
                 .map {
                     guard $0 else { return }
-                    tabber.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "Blocked"))
+                    session.tab.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "Blocked"))
                 }
         }
     }

@@ -4,7 +4,7 @@ import Combine
 extension New {
     final class History: Collection<Cell, Info> {
         required init?(coder: NSCoder) { nil }
-        init(id: UUID) {
+        init(session: Session, id: UUID) {
             super.init()
             translatesAutoresizingMaskIntoConstraints = false
             
@@ -78,7 +78,7 @@ extension New {
                 }
                 .sink {
                     cloud.revisit($0)
-                    tabber.browse(id, $0)
+                    session.tab.browse(id, $0)
                 }
                 .store(in: &subs)
         }

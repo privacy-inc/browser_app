@@ -13,6 +13,8 @@ extension Window {
             contentViewController = .init()
             contentViewController!.view = .init(frame: .init(origin: .zero, size: contentSize))
             
+            
+            /*
             let url = Text()
             url.stringValue = NSLocalizedString("URL", comment: "")
             
@@ -152,6 +154,8 @@ extension Window {
                 .forEach {
                     $0.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
                 }
+            
+            */
         }
     }
 }

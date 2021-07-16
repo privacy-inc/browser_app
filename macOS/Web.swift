@@ -6,7 +6,7 @@ final class Web: Webview {
     private var destination = Destination.window
     
     required init?(coder: NSCoder) { nil }
-    init(id: UUID, browse: Int) {
+    init(session: Session, id: UUID, browse: Int) {
         var settings = cloud.archive.value.settings
         
         let configuration = WKWebViewConfiguration()
@@ -20,7 +20,7 @@ final class Web: Webview {
             settings.dark = false
         }
         
-        super.init(configuration: configuration, id: id, browse: browse, settings: settings)
+        super.init(configuration: configuration, session: session, id: id, browse: browse, settings: settings)
         translatesAutoresizingMaskIntoConstraints = false
         customUserAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Safari/605.1.15"
         
@@ -218,7 +218,7 @@ final class Web: Webview {
                 .request
                 .url
                 .map {
-                    session.tab.send((url: $0, change: true))
+                    session.open.send((url: $0, change: true))
                 }
         case .other:
             if action.targetFrame == nil {
@@ -228,9 +228,9 @@ final class Web: Webview {
                     .map { url in
                         switch destination {
                         case let .tab(change):
-                            NSApp.open(tab: url, change: change)
+                            session.open.send((url: url, change: change))
                         case .window:
-                            NSApp.open(window: url)
+                            NSApp.newWindowWith(url: url)
                         case .download:
                             URLSession
                                 .shared

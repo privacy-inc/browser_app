@@ -6,12 +6,14 @@ final class Field: NSTextField, NSTextFieldDelegate {
     private var subs = Set<AnyCancellable>()
     private let autocomplete: Autocomplete
     private let id: UUID
+    private let session: Session
     
     required init?(coder: NSCoder) { nil }
-    init(id: UUID) {
+    init(session: Session, id: UUID) {
         Self.cellClass = Cell.self
         self.id = id
-        autocomplete = .init(id: id)
+        self.session = session
+        autocomplete = .init(session: session, id: id)
         super.init(frame: .zero)
         bezelStyle = .roundedBezel
         translatesAutoresizingMaskIntoConstraints = false
@@ -26,7 +28,8 @@ final class Field: NSTextField, NSTextFieldDelegate {
         
         cloud
             .archive
-            .combineLatest(tabber
+            .combineLatest(session
+                            .tab
                             .items
                             .map {
                                 $0[state: id]
@@ -105,17 +108,17 @@ final class Field: NSTextField, NSTextFieldDelegate {
         case #selector(insertNewline):
             autocomplete.end()
             
-            let state = tabber.items.value[state: id]
+            let state = session.tab.items.value[state: id]
             cloud
                 .browse(stringValue, browse: state.browse) { [weak self] in
                     guard let id = self?.id else { return }
                     if state.browse == $0 {
                         if state.isError {
-                            tabber.browse(id, $0)
+                            self?.session.tab.browse(id, $0)
                         }
-                        session.load.send((id: id, access: $1))
+                        self?.session.load.send((id: id, access: $1))
                     } else {
-                        tabber.browse(id, $0)
+                        self?.session.tab.browse(id, $0)
                     }
                 }
             window!.makeFirstResponder(window!.contentView)

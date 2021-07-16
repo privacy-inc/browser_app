@@ -6,9 +6,13 @@ final class New: NSView {
     static let insets = insets_2 + insets_2
     static let insets2 = insets + insets
     private var subs = Set<AnyCancellable>()
+    private let id: UUID
+    private let session: Session
     
     required init?(coder: NSCoder) { nil }
-    init(id: UUID) {
+    init(session: Session, id: UUID) {
+        self.id = id
+        self.session = session
         super.init(frame: .zero)
         translatesAutoresizingMaskIntoConstraints = false
         registerForDraggedTypes([.fileURL])
@@ -40,10 +44,10 @@ final class New: NSView {
         let separatorOptions = Separator(mode: .vertical)
         backgroundOptions.addSubview(separatorOptions)
         
-        let bookmarks = Bookmarks(id: id)
+        let bookmarks = Bookmarks(session: session, id: id)
         backgroundBookmarks.addSubview(bookmarks)
         
-        let history = History(id: id)
+        let history = History(session: session, id: id)
         backgroundHistory.addSubview(history)
          
         let activity = Option(icon: "chart.bar.xaxis")
@@ -146,7 +150,12 @@ final class New: NSView {
                 }
                 .map(URL.init(fileURLWithPath:))
                 .map {
-                    NSApp.open(tab: $0, change: false)
+                    #warning("validate it works")
+                    cloud
+                        .navigate($0) { [weak self] browse, _ in
+                            guard let id = self?.id else { return }
+                            self?.session.tab.browse(id, browse)
+                        }
                 }
         }
     }

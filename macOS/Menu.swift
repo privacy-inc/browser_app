@@ -16,7 +16,7 @@ final class Menu: NSMenu, NSMenuDelegate {
         .parent("Privacy", [
                     .child("About", #selector(NSApplication.orderFrontStandardAboutPanel(_:))),
                     .separator(),
-                    .child("Preferences...", #selector(App.preferences), ","),
+                    .child("Preferences...", #selector(NSApplication.showPreferencesWindow), ","),
                     .separator(),
                     .child("Hide", #selector(NSApplication.hide), "h"),
                     .child("Hide Others", #selector(NSApplication.hideOtherApplications), "h") {
@@ -29,8 +29,8 @@ final class Menu: NSMenu, NSMenuDelegate {
     
     private var file: NSMenuItem {
         .parent("File", [
-                    .child("New Window", #selector(App.newWindow), "n"),
-                    .child("New Tab", #selector(App.newTab), "t"),
+                    .child("New Window", #selector(NSApplication.newWindow), "n"),
+                    .child("New Tab", #selector(NSApplication.newTab), "t"),
                     .child("Open Location", #selector(Window.location), "l"),
                     .separator(),
                     .child("Close Window", #selector(Window.shut), "W"),
@@ -186,27 +186,28 @@ final class Menu: NSMenu, NSMenuDelegate {
 //                    $0.representedObject = id
 //                }]
         case "Find":
-            let browser = (NSApp.keyWindow as? Window)
-                .flatMap {
-                    $0
-                        .contentView
-                        .flatMap {
-                            $0 as? Window.Content
-                        }
-                        .flatMap {
-                            $0.display as? Browser
-                        }
-                }
-            menu
-                .items
-                .forEach {
-                    switch NSTextFinder.Action(rawValue: $0.tag) {
-                    case .hideFindInterface:
-                        $0.isEnabled = browser != nil && browser!.isFindBarVisible
-                    default:
-                        $0.isEnabled = browser != nil
-                    }
-                }
+//            let browser = (NSApp.keyWindow as? Window)
+//                .flatMap {
+//                    $0
+//                        .contentView
+//                        .flatMap {
+//                            $0 as? Window.Content
+//                        }
+//                        .flatMap {
+//                            $0.display as? Browser
+//                        }
+//                }
+//            menu
+//                .items
+//                .forEach {
+//                    switch NSTextFinder.Action(rawValue: $0.tag) {
+//                    case .hideFindInterface:
+//                        $0.isEnabled = browser != nil && browser!.isFindBarVisible
+//                    default:
+//                        $0.isEnabled = browser != nil
+//                    }
+//                }
+            #warning("revisit find")
         default: break
         }
     }
@@ -249,55 +250,57 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     @objc private func triggerWebsite() {
-        NSApp.open(tab: URL(string: "https://privacy-inc.github.io/about")!, change: true)
+        NSApp.newTabWith(url: URL(string: "https://privacy-inc.github.io/about")!)
     }
     
     @objc private func triggerFocus(_ item: NSMenuItem) {
         NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
     }
     
-    @objc private func triggerStop(_ item: NSMenuItem) {
-        item
-            .representedObject
-            .flatMap {
-                $0 as? UUID
-            }
-            .map(session.stop.send)
-    }
+    #warning("revisit browser")
     
-    @objc private func triggerReload(_ item: NSMenuItem) {
-        item
-            .representedObject
-            .flatMap {
-                $0 as? UUID
-            }
-            .map(session.reload.send)
-    }
-    
-    @objc private func triggerActualSize(_ item: NSMenuItem) {
-        item
-            .representedObject
-            .flatMap {
-                $0 as? UUID
-            }
-            .map(session.actualSize.send)
-    }
-    
-    @objc private func triggerZoomIn(_ item: NSMenuItem) {
-        item
-            .representedObject
-            .flatMap {
-                $0 as? UUID
-            }
-            .map(session.zoomIn.send)
-    }
-    
-    @objc private func triggerZoomOut(_ item: NSMenuItem) {
-        item
-            .representedObject
-            .flatMap {
-                $0 as? UUID
-            }
-            .map(session.zoomOut.send)
-    }
+//    @objc private func triggerStop(_ item: NSMenuItem) {
+//        item
+//            .representedObject
+//            .flatMap {
+//                $0 as? UUID
+//            }
+//            .map(session.stop.send)
+//    }
+//
+//    @objc private func triggerReload(_ item: NSMenuItem) {
+//        item
+//            .representedObject
+//            .flatMap {
+//                $0 as? UUID
+//            }
+//            .map(session.reload.send)
+//    }
+//
+//    @objc private func triggerActualSize(_ item: NSMenuItem) {
+//        item
+//            .representedObject
+//            .flatMap {
+//                $0 as? UUID
+//            }
+//            .map(session.actualSize.send)
+//    }
+//
+//    @objc private func triggerZoomIn(_ item: NSMenuItem) {
+//        item
+//            .representedObject
+//            .flatMap {
+//                $0 as? UUID
+//            }
+//            .map(session.zoomIn.send)
+//    }
+//
+//    @objc private func triggerZoomOut(_ item: NSMenuItem) {
+//        item
+//            .representedObject
+//            .flatMap {
+//                $0 as? UUID
+//            }
+//            .map(session.zoomOut.send)
+//    }
 }

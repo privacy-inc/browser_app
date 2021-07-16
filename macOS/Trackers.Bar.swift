@@ -48,7 +48,9 @@ extension Trackers {
                 }
                 .sink { trackers in
                     domains.attributedStringValue = .make {
-                        $0.append(.make(session.decimal.string(from: NSNumber(value: trackers.count)) ?? "",
+                        $0.append(.make(NumberFormatter
+                                            .decimal
+                                            .string(from: NSNumber(value: trackers.count)) ?? "",
                                         font: .monoDigit(style: .title2, weight: .regular),
                                         alignment: .right))
                         $0.linebreak()
@@ -58,7 +60,9 @@ extension Trackers {
                     }
                     
                     incidences.attributedStringValue = .make {
-                        $0.append(.make(session.decimal.string(from: NSNumber(value: trackers.attempts)) ?? "",
+                        $0.append(.make(NumberFormatter
+                                            .decimal
+                                            .string(from: NSNumber(value: trackers.attempts)) ?? "",
                                         font: .monoDigit(style: .title2, weight: .regular),
                                         alignment: .right))
                         $0.linebreak()

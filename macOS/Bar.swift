@@ -3,12 +3,11 @@ import Combine
 
 final class Bar: NSVisualEffectView {
     private var subs = Set<AnyCancellable>()
-    private weak var session: Session!
+    private let session: Session
     
     required init?(coder: NSCoder) { nil }
     init(session: Session) {
         self.session = session
-        
         super.init(frame: .zero)
         material = .popover
         state = .active
@@ -24,10 +23,10 @@ final class Bar: NSVisualEffectView {
         
         session
             .plus
-            .sink { [weak self, weak session] in
-                guard let tab = session?.tab.new() else { return }
-                session?.current.send(tab)
-                session?.search.send(tab)
+            .sink { [weak self] in
+                let tab = session.tab.new()
+                session.current.send(tab)
+                session.search.send(tab)
                 self?.render()
             }
             .store(in: &subs)
@@ -49,6 +48,7 @@ final class Bar: NSVisualEffectView {
             .tab
             .items
             .value
+            .ids
             .map {
                 Tab(session: session, id: $0)
             }

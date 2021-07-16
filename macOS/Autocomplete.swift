@@ -15,9 +15,11 @@ final class Autocomplete: NSPanel {
     private let select = PassthroughSubject<(y: CGFloat, date: Date), Never>()
     private let clear = PassthroughSubject<Date, Never>()
     private let id: UUID
+    private let session: Session
     
-    init(id: UUID) {
+    init(session: Session, id: UUID) {
         self.id = id
+        self.session = session
         super.init(contentRect: .zero, styleMask: [.borderless], backing: .buffered, defer: true)
         isMovable = false
         isOpaque = false
@@ -237,12 +239,12 @@ final class Autocomplete: NSPanel {
             .sink { [weak self] in
                 guard let id = self?.id else { return }
                 self?.parent?.makeFirstResponder(self?.parent?.contentView)
-                let browse = tabber.items.value[state: id].browse
+                let browse = self?.session.tab.items.value[state: id].browse
                 cloud
                     .browse($0.filtered.url, browse: browse) {
-                        tabber.browse(id, $0)
+                        self?.session.tab.browse(id, $0)
                         if browse == $0 {
-                            session.load.send((id: id, access: $1))
+                            self?.session.load.send((id: id, access: $1))
                         }
                     }
                 self?.end()

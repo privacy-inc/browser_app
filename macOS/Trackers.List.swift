@@ -31,7 +31,9 @@ extension Trackers {
                                 text: .make {
                                     switch sorted {
                                     case .attempts:
-                                        $0.append(.make(session.decimal.string(from: .init(value: blocked.1.count)) ?? "",
+                                        $0.append(.make(NumberFormatter
+                                                            .decimal
+                                                            .string(from: .init(value: blocked.1.count)) ?? "",
                                                         font: .monoDigit(style: .title2, weight: .regular),
                                                         color: .labelColor))
                                     case .recent:

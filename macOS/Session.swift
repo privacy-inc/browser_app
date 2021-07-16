@@ -2,10 +2,9 @@ import Foundation
 import Combine
 import Sleuth
 
-final class Session {
+struct Session {
     let tab = Tab()
     let plus = PassthroughSubject<Void, Never>()
-    
     
     
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()

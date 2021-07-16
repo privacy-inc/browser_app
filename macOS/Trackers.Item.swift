@@ -21,7 +21,9 @@ extension Trackers {
             addSubview(text)
             
             let counter = Text()
-            counter.stringValue = session.decimal.string(from: .init(value: count.count)) ?? ""
+            counter.stringValue = NumberFormatter
+                .decimal
+                .string(from: .init(value: count.count)) ?? ""
             counter.font = .monoDigit(style: .title2, weight: .regular)
             counter.textColor = .secondaryLabelColor
             addSubview(counter)

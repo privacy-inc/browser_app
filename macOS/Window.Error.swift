@@ -8,12 +8,14 @@ extension Window {
         private let id: UUID
         private let browse: Int
         private let error: Sleuth.Tab.Error
+        private let session: Session
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID, browse: Int, error: Sleuth.Tab.Error) {
+        init(session: Session, id: UUID, browse: Int, error: Sleuth.Tab.Error) {
             self.id = id
             self.browse = browse
             self.error = error
+            self.session = session
             
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
@@ -94,20 +96,34 @@ extension Window {
                         let id = self?.id,
                         let browse = self?.browse
                     else { return }
-                    tabber.browse(id, browse)
-                    session.load.send((id: id, access: $1))
+                    self?
+                        .session
+                        .tab
+                        .browse(id, browse)
+                    self?
+                        .session
+                        .load
+                        .send((id: id, access: $1))
                 }
         }
         
         private func cancel() {
-            guard let web = tabber.items.value[web: id] as? Web else { return }
+            guard let web = session.tab.items.value[web: id] as? Web else { return }
             if let url = web.url {
-                cloud.update(browse, url: url)
-                cloud.update(browse, title: web.title ?? "")
-                tabber.dismiss(id)
+                cloud
+                    .update(browse, url: url)
+                cloud
+                    .update(browse, title: web.title ?? "")
+                session
+                    .tab
+                    .dismiss(id)
             } else {
-                NSApp.newTab()
-                session.close.send(id)
+                session
+                    .close
+                    .send(id)
+                session
+                    .plus
+                    .send()
             }
         }
     }

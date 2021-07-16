@@ -5,10 +5,28 @@ extension NSApplication {
         effectiveAppearance.name != .aqua
     }
     
-    func newWindow() {
+    func newTabWith(url: URL) {
+        guard let window = activeWindow else {
+            newWindowWith(url: url)
+            return
+        }
+        window.open(url: url, change: true)
+    }
+    
+    func newWindowWith(url: URL) {
         let window = Window()
-        window.session.plus.send()
+        window.open(url: url, change: false)
         window.makeKeyAndOrderFront(nil)
+    }
+    
+    func closeAll() {
+        windows
+            .compactMap {
+                $0 as? Window
+            }
+            .forEach {
+                $0.close()
+            }
     }
     
     func activity() {
@@ -39,6 +57,30 @@ extension NSApplication {
     func store() {
         (anyWindow() ?? Store())
             .makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func newTab() {
+        guard let window = activeWindow else {
+            newWindow()
+            return
+        }
+        window.plus()
+    }
+    
+    @objc func newWindow() {
+        let window = Window()
+        window.plus()
+        window.makeKeyAndOrderFront(nil)
+    }
+    
+    @objc func showPreferencesWindow(_ sender: Any) {
+        #warning("validate that it works")
+        (anyWindow() ?? Settings())
+            .makeKeyAndOrderFront(nil)
+    }
+    
+    private var activeWindow: Window? {
+        keyWindow as? Window ?? anyWindow()
     }
     
     private func anyWindow<T>() -> T? {
@@ -84,21 +126,7 @@ extension NSApplication {
     
     
     
-    func clear() {
-//        windows
-//            .compactMap {
-//                $0 as? Window
-//            }
-//            .filter {
-//                tabber
-//                    .items
-//                    .value[state: $0.id]
-//                    .browse != nil
-//            }
-//            .forEach {
-//                $0.close()
-//            }
-    }
+    
     
     @objc func preferences() {
         (anyWindow() ?? Settings())

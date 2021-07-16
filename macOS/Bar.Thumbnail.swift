@@ -18,7 +18,8 @@ extension Bar {
             
             cloud
                 .archive
-                .combineLatest(tabber
+                .combineLatest(session
+                                .tab
                                 .items
                                 .map {
                                     $0[state: id]
@@ -41,7 +42,9 @@ extension Bar {
             
             click
                 .sink {
-                    current.send(id)
+                    session
+                        .current
+                        .send(id)
                 }
                 .store(in: &subs)
             

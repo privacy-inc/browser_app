@@ -22,7 +22,7 @@ extension Bar {
         }
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID) {
+        init(session: Session, id: UUID) {
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
             layer = Layer()
@@ -40,7 +40,8 @@ extension Bar {
             layer!.addSublayer(shape)
             self.shape = shape
             
-            subscription = tabber
+            subscription = session
+                .tab
                 .items
                 .map {
                     $0[progress: id]

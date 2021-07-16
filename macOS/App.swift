@@ -72,9 +72,7 @@ let location = Location()
     
     func application(_: NSApplication, open: [URL]) {
         open
-            .forEach {
-                self.open(tab: $0, change: true)
-            }
+            .forEach(newTabWith(url:))
     }
 
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
@@ -82,8 +80,6 @@ let location = Location()
             .paramDescriptor(forKeyword: keyDirectObject)
             .flatMap(\.stringValue?.removingPercentEncoding)
             .flatMap(URL.init(string:))
-            .map {
-                open(tab: $0, change: true)
-            }
+            .map(newTabWith(url:))
     }
 }
