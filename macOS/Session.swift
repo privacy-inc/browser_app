@@ -5,11 +5,14 @@ import Sleuth
 struct Session {
     let tab = Tab()
     let plus = PassthroughSubject<Void, Never>()
+    let close = PassthroughSubject<UUID, Never>()
+    let current: CurrentValueSubject<UUID, Never>
+    
+    
     
     
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()
     let open = PassthroughSubject<(url: URL, change: Bool), Never>()
-    let current = PassthroughSubject<UUID, Never>()
     let search = PassthroughSubject<UUID, Never>()
     let reload = PassthroughSubject<UUID, Never>()
     let stop = PassthroughSubject<UUID, Never>()
@@ -22,5 +25,12 @@ struct Session {
     let actualSize = PassthroughSubject<UUID, Never>()
     let zoomIn = PassthroughSubject<UUID, Never>()
     let zoomOut = PassthroughSubject<UUID, Never>()
-    let close = PassthroughSubject<UUID, Never>()
+    
+    init() {
+        current = .init(tab
+                            .items
+                            .value
+                            .ids
+                            .first!)
+    }
 }

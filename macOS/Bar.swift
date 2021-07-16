@@ -31,6 +31,14 @@ final class Bar: NSVisualEffectView {
             }
             .store(in: &subs)
         
+        session
+            .close
+            .sink { [weak self] in
+                session.tab.close($0)
+                self?.render()
+            }
+            .store(in: &subs)
+        
         plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         plus.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
     }

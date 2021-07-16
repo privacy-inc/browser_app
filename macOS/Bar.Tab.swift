@@ -27,6 +27,22 @@ extension Bar {
                                 : Thumbnail(session: session, id: id, icon: icon))
                 }
                 .store(in: &subs)
+            
+            session
+                .current
+                .filter {
+                    $0 != id
+                }
+                .map { _ in
+                    
+                }
+                .filter {
+                    session.tab.items.value[state: id].isNew
+                }
+                .sink {
+                    session.close.send(id)
+                }
+                .store(in: &subs)
         }
         
         private func view(_ content: NSView) {
