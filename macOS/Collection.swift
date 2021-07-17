@@ -1,7 +1,7 @@
 import AppKit
 import Combine
 
-class Collection<Cell, Info>: NSScrollView, NSMenuDelegate where Cell : CollectionCell<Info> {
+class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     final var subs = Set<AnyCancellable>()
     final let items = PassthroughSubject<Set<CollectionItem<Info>>, Never>()
     final let height = PassthroughSubject<CGFloat, Never>()
@@ -27,9 +27,6 @@ class Collection<Cell, Info>: NSScrollView, NSMenuDelegate where Cell : Collecti
         contentView.postsFrameChangedNotifications = true
         drawsBackground = false
         addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInActiveApp, .inVisibleRect], owner: self))
-        
-        menu = NSMenu()
-        menu!.delegate = self
         
         var cells = Set<Cell>()
         let clip = PassthroughSubject<CGRect, Never>()
@@ -180,19 +177,6 @@ class Collection<Cell, Info>: NSScrollView, NSMenuDelegate where Cell : Collecti
                     }
             }
             .store(in: &subs)
-    }
-    
-    @objc func delete() {
-        
-    }
-    
-    final func menuNeedsUpdate(_ menu: NSMenu) {
-        menu.items = highlighted.value == nil
-            ? []
-            : [.child("Delete", #selector(delete)) {
-                $0.target = self
-                $0.image = .init(systemSymbolName: "trash", accessibilityDescription: nil)
-            }]
     }
     
     final override func mouseExited(with: NSEvent) {
