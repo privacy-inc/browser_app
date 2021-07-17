@@ -7,13 +7,14 @@ struct Session {
     let plus = PassthroughSubject<Void, Never>()
     let close = PassthroughSubject<UUID, Never>()
     let current: CurrentValueSubject<UUID, Never>
+    let search = PassthroughSubject<UUID, Never>()
+    
     
     
     
     
     let load = PassthroughSubject<(id: UUID, access: Page.Access), Never>()
     let open = PassthroughSubject<(url: URL, change: Bool), Never>()
-    let search = PassthroughSubject<UUID, Never>()
     let reload = PassthroughSubject<UUID, Never>()
     let stop = PassthroughSubject<UUID, Never>()
     let forward = PassthroughSubject<UUID, Never>()

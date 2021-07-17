@@ -33,8 +33,8 @@ final class Bar: NSVisualEffectView {
             .sink { [weak self] in
                 let tab = session.tab.new()
                 session.current.send(tab)
-                session.search.send(tab)
                 self?.render()
+                session.search.send(tab)
             }
             .store(in: &subs)
         
