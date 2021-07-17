@@ -1,32 +1,29 @@
 import AppKit
 
-extension Window.Share {
-    final class Option: Control {
+extension Bar.Menu {
+    final class Item: Control {
+        private weak var image: Image!
+        
+        deinit {
+            print("item gone")
+        }
+        
         required init?(coder: NSCoder) { nil }
-        init(title: String, image: String) {
+        init(image: String) {
             let image = Image(icon: image)
-            image.symbolConfiguration = .init(textStyle: .title3)
+            image.symbolConfiguration = .init(pointSize: 14, weight: .regular)
             image.contentTintColor = .labelColor
-            
-            let text = Text()
-            text.stringValue = title
-            text.font = .preferredFont(forTextStyle: .callout)
-            text.textColor = .labelColor
             
             super.init(layer: true)
             layer!.cornerRadius = 4
             
             addSubview(image)
-            addSubview(text)
             
-            widthAnchor.constraint(equalToConstant: 140).isActive = true
-            heightAnchor.constraint(equalToConstant: 32).isActive = true
+            widthAnchor.constraint(equalToConstant: 26).isActive = true
+            heightAnchor.constraint(equalTo: widthAnchor).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.centerXAnchor.constraint(equalTo: rightAnchor, constant: -22).isActive = true
-            
-            text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            image.centerXAnchor.constraint(equalTo: centerXAnchor).isActive = true
         }
         
         override func update() {

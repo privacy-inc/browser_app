@@ -5,6 +5,10 @@ extension Bar {
     final class Search: NSView {
         private var subs = Set<AnyCancellable>()
         
+        deinit {
+            print("search gone")
+        }
+        
         required init?(coder: NSCoder) { nil }
         init(session: Session, id: UUID, background: Background, icon: Favicon) {
             super.init(frame: .zero)
@@ -27,6 +31,14 @@ extension Bar {
                 .store(in: &subs)
             
             let ellipsis = Button(icon: "ellipsis")
+            ellipsis
+                .click
+                .sink {
+                    Menu(session: session, id: id)
+                        .show(relativeTo: ellipsis.bounds, of: ellipsis, preferredEdge: .minY)
+                }
+                .store(in: &subs)
+            
             let field = Field(session: session, id: id)
             
             [background, back, icon, field, forward, ellipsis]
@@ -39,6 +51,19 @@ extension Bar {
             let backOn = background.leftAnchor.constraint(equalTo: back.rightAnchor, constant: 5)
             let forwardOff = rightAnchor.constraint(equalTo: background.rightAnchor, constant: 5)
             let forwardOn = rightAnchor.constraint(equalTo: forward.rightAnchor, constant: 5)
+            
+            session
+                .tab
+                .items
+                .map {
+                    $0[state: id].isNew
+                }
+                .removeDuplicates()
+                .sink {
+                    ellipsis.state = $0 ? .off : .on
+                    ellipsis.isHidden = $0
+                }
+                .store(in: &subs)
             
             session
                 .tab

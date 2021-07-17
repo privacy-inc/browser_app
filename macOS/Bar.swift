@@ -41,7 +41,9 @@ final class Bar: NSVisualEffectView {
         session
             .close
             .sink { [weak self] id in
-                session.tab.close(id)
+                session
+                    .tab
+                    .close(id)
                 self?
                     .tabs
                     .filter {
@@ -50,7 +52,26 @@ final class Bar: NSVisualEffectView {
                     .forEach {
                         $0.removeFromSuperview()
                     }
+                
                 self?.render()
+                
+                if id == session.current.value {
+                    session
+                        .tab
+                        .items
+                        .value
+                        .ids
+                        .last
+                        .map {
+                            session
+                                .current
+                                .send($0)
+                            
+                            session
+                                .search
+                                .send($0)
+                        }
+                }
             }
             .store(in: &subs)
         

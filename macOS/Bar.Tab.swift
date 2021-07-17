@@ -53,7 +53,18 @@ extension Bar {
                     
                 }
                 .filter {
-                    session.tab.items.value[state: id].isNew
+                    session
+                        .tab
+                        .items
+                        .value[state: id]
+                        .isNew
+                }
+                .filter {
+                    session
+                        .tab
+                        .items
+                        .value
+                        .count > 1
                 }
                 .sink {
                     session.close.send(id)
