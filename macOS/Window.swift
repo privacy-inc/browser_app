@@ -3,7 +3,7 @@ import Sleuth
 
 final class Window: NSWindow {
 //    private let finder = NSTextFinder()
-    private let session = Session()
+    let session = Session()
     
     init() {
         super.init(contentRect: .init(x: 0,
@@ -29,10 +29,6 @@ final class Window: NSWindow {
         addTitlebarAccessoryViewController(accessory)
     }
     
-    func open(url: URL, change: Bool) {
-        #warning("complete")
-    }
-    
     @objc func plus() {
         session
             .plus
@@ -42,21 +38,7 @@ final class Window: NSWindow {
     
     
     
-
-    
-    
-    
-    
-//    override func resignKey() {
-//        #warning("investigate if still necessary")
-        
-//        childWindows?
-//            .forEach {
-//                removeChildWindow($0)
-//                $0.close()
-//            }
-//        super.resignKey()
-//    }
+    #warning("finder")
     
 //    override func performTextFinderAction(_ sender: Any?) {
 //        (sender as? NSMenuItem)
@@ -76,15 +58,5 @@ final class Window: NSWindow {
     
     @objc func location() {
 //        search.field.selectText(nil)
-    }
-    
-    @objc func shut() {
-//        if let tabs = tabbedWindows {
-//            tabs.forEach {
-//                $0.close()
-//            }
-//        } else {
-//            close()
-//        }
     }
 }

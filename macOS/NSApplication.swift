@@ -10,12 +10,13 @@ extension NSApplication {
             newWindowWith(url: url)
             return
         }
-        window.open(url: url, change: true)
+        window.session.open.send((url: url, change: true))
     }
     
     func newWindowWith(url: URL) {
+        let session = Session()
         let window = Window()
-        window.open(url: url, change: false)
+        window.session.open.send((url: url, change: true))
         window.makeKeyAndOrderFront(nil)
     }
     

@@ -27,13 +27,14 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .child("Quit", #selector(NSApplication.terminate), "q")])
     }
     
+    #warning("close tab")
     private var file: NSMenuItem {
         .parent("File", [
                     .child("New Window", #selector(NSApplication.newWindow), "n"),
                     .child("New Tab", #selector(NSApplication.newTab), "t"),
                     .child("Open Location", #selector(Window.location), "l"),
                     .separator(),
-                    .child("Close Window", #selector(Window.shut), "W"),
+                    .child("Close Window", #selector(Window.close), "W"),
                     .child("Close Tab", #selector(Window.close), "w"),
                     .separator(),
                     .parent("Share") {
