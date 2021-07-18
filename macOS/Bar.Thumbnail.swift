@@ -15,6 +15,11 @@ extension Bar {
             super.init(layer: true)
             layer!.cornerRadius = 5
             addSubview(icon)
+            menu = NSMenu()
+            menu!.items = [.child("Close", #selector(close)) {
+                $0.target = self
+                $0.image = .init(systemSymbolName: "xmark", accessibilityDescription: nil)
+            }]
             
             let text = Text()
             text.textColor = .tertiaryLabelColor
@@ -83,14 +88,14 @@ extension Bar {
             }
         }
         
-        override func rightMouseUp(with: NSEvent) {
-            guard with.clickCount == 1 else { return }
-            Menu(session: session, id: id)
-                .show(relativeTo: bounds, of: self, preferredEdge: .minY)
-        }
-        
         override var allowsVibrancy: Bool {
             true
+        }
+        
+        @objc private func close() {
+            session
+                .close
+                .send(id)
         }
     }
 }
