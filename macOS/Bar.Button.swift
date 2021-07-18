@@ -4,10 +4,6 @@ extension Bar {
     final class Button: Control {
         private(set) weak var icon: Image!
         
-        deinit {
-            print("button gone")
-        }
-        
         required init?(coder: NSCoder) { nil }
         init(icon: String) {
             let icon = Image(icon: icon)

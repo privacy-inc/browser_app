@@ -4,10 +4,6 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
     private weak var top: NSLayoutConstraint!
     private weak var separator: Separator!
     
-    deinit {
-        print("browser gone")
-    }
-    
     required init?(coder: NSCoder) { nil }
     init(web: Web) {
         super.init(frame: .zero)

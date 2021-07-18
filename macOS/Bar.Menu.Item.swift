@@ -4,10 +4,6 @@ extension Bar.Menu {
     final class Item: Control {
         private weak var image: Image!
         
-        deinit {
-            print("item gone")
-        }
-        
         required init?(coder: NSCoder) { nil }
         init(image: String) {
             let image = Image(icon: image)

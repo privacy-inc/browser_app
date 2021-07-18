@@ -81,6 +81,9 @@ final class New: NSView {
         backgroundBookmarks.widthAnchor.constraint(greaterThanOrEqualToConstant: 140).isActive = true
         backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualToConstant: 280).isActive = true
         backgroundBookmarks.widthAnchor.constraint(lessThanOrEqualTo: backgroundHistory.widthAnchor).isActive = true
+        let bookmarksWidth = backgroundBookmarks.widthAnchor.constraint(equalTo: backgroundHistory.widthAnchor, multiplier: 0.7)
+        bookmarksWidth.priority = .defaultLow
+        bookmarksWidth.isActive = true
         
         separatorBookmarks.rightAnchor.constraint(equalTo: backgroundBookmarks.rightAnchor).isActive = true
         separatorBookmarks.topAnchor.constraint(equalTo: backgroundBookmarks.topAnchor).isActive = true

@@ -177,10 +177,6 @@ final class Web: Webview {
             .store(in: &subs)
     }
     
-    deinit {
-        print("gone")
-    }
-    
     override func external(_ url: URL) {
         NSWorkspace.shared.open(url)
     }

@@ -175,7 +175,6 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
             print("allow \(decidePolicyFor.request.url!)")
             preferences.allowsContentJavaScript = settings.javascript
             if #available(macOS 11.3, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
-                print("download")
                 decisionHandler(.download, preferences)
             } else {
                 decisionHandler(.allow, preferences)

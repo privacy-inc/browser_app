@@ -5,10 +5,6 @@ extension Bar {
     final class Search: NSView {
         private var subs = Set<AnyCancellable>()
         
-        deinit {
-            print("search gone")
-        }
-        
         required init?(coder: NSCoder) { nil }
         init(session: Session, id: UUID, background: Background, icon: Favicon) {
             super.init(frame: .zero)
@@ -112,7 +108,7 @@ extension Bar {
             
             topAnchor.constraint(equalTo: field.topAnchor).isActive = true
             bottomAnchor.constraint(equalTo: field.bottomAnchor).isActive = true
-            widthAnchor.constraint(equalToConstant: 340).isActive = true
+            widthAnchor.constraint(equalToConstant: 280).isActive = true
 
             background.heightAnchor.constraint(equalTo: field.heightAnchor).isActive = true
 

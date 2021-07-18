@@ -4,9 +4,14 @@ import Combine
 extension Bar {
     final class Thumbnail: Control {
         private var subs = Set<AnyCancellable>()
+        private let id: UUID
+        private let session: Session
         
         required init?(coder: NSCoder) { nil }
         init(session: Session, id: UUID, icon: Favicon) {
+            self.id = id
+            self.session = session
+            
             super.init(layer: true)
             layer!.cornerRadius = 5
             addSubview(icon)
@@ -76,6 +81,12 @@ extension Bar {
             default:
                 layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
             }
+        }
+        
+        override func rightMouseUp(with: NSEvent) {
+            guard with.clickCount == 1 else { return }
+            Menu(session: session, id: id)
+                .show(relativeTo: bounds, of: self, preferredEdge: .minY)
         }
         
         override var allowsVibrancy: Bool {

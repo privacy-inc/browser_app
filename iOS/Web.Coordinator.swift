@@ -174,7 +174,6 @@ extension Web {
         }
         
         deinit {
-            print("gone")
             scrollView.delegate = nil
         }
         
