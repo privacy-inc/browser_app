@@ -39,6 +39,25 @@ final class Bar: NSVisualEffectView {
             .store(in: &subs)
         
         session
+            .open
+            .sink { [weak self] (url: URL, change: Bool) in
+                let tab = session.tab.new()
+                cloud
+                    .navigate(url) { browse, _ in
+                        session
+                            .tab
+                            .browse(tab, browse)
+                        if change {
+                            session
+                                .current
+                                .send(tab)
+                        }
+                        self?.render()
+                    }
+            }
+            .store(in: &subs)
+        
+        session
             .close
             .sink { [weak self] id in
                 session
