@@ -13,7 +13,7 @@ final class Window: NSWindow {
                    styleMask: [.closable, .miniaturizable, .resizable, .titled, .fullSizeContentView],
                    backing: .buffered,
                    defer: false)
-        minSize = .init(width: 600, height: 200)
+        minSize = .init(width: 600, height: 300)
         toolbar = .init()
         isReleasedWhenClosed = false
         setFrameAutosaveName("Window")
@@ -47,15 +47,16 @@ final class Window: NSWindow {
     
     
     
-    override func resignKey() {
-        #warning("investigate if still necessary")
-        super.resignKey()
-        childWindows?
-            .forEach {
-                removeChildWindow($0)
-                $0.orderOut(nil)
-            }
-    }
+//    override func resignKey() {
+//        #warning("investigate if still necessary")
+        
+//        childWindows?
+//            .forEach {
+//                removeChildWindow($0)
+//                $0.close()
+//            }
+//        super.resignKey()
+//    }
     
 //    override func performTextFinderAction(_ sender: Any?) {
 //        (sender as? NSMenuItem)

@@ -75,6 +75,14 @@ final class New: NSView {
             }
             .store(in: &subs)
         
+        let preferences = Option(icon: "gearshape.fill")
+        preferences
+            .click
+            .sink {
+                NSApp.showPreferencesWindow(nil)
+            }
+            .store(in: &subs)
+        
         backgroundBookmarks.topAnchor.constraint(equalTo: topAnchor).isActive = true
         backgroundBookmarks.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
         backgroundBookmarks.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
@@ -115,7 +123,7 @@ final class New: NSView {
         history.rightAnchor.constraint(equalTo: backgroundHistory.rightAnchor).isActive = true
         
         var bottom = bottomAnchor
-        [activity, trackers, forget]
+        [preferences, activity, trackers, forget]
             .forEach {
                 backgroundOptions.addSubview($0)
                 $0.bottomAnchor.constraint(equalTo: bottom, constant: bottom == bottomAnchor ? -20 : -10).isActive = true

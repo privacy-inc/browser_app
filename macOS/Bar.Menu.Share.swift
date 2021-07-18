@@ -1,20 +1,18 @@
 import AppKit
 import Combine
 
-extension Window {
+extension Bar.Menu {
     final class Share: NSPopover {
         private var subs = Set<AnyCancellable>()
         
         required init?(coder: NSCoder) { nil }
-        init(id: UUID) {
+        init(session: Session, id: UUID) {
             super.init()
             behavior = .semitransient
-            contentSize = .init(width: 200, height: 390)
+            contentSize = .init(width: 200, height: 420)
             contentViewController = .init()
             contentViewController!.view = .init(frame: .init(origin: .zero, size: contentSize))
             
-            
-            /*
             let url = Text()
             url.stringValue = NSLocalizedString("URL", comment: "")
             
@@ -28,7 +26,8 @@ extension Window {
             urlShare
                 .click
                 .sink {
-                    tabber
+                    session
+                        .tab
                         .items
                         .value[state: id]
                         .browse
@@ -49,7 +48,8 @@ extension Window {
             pageShare
                 .click
                 .sink {
-                    tabber
+                    session
+                        .tab
                         .items
                         .value[state: id]
                         .browse
@@ -71,7 +71,8 @@ extension Window {
             pageDownload
                 .click
                 .sink {
-                    tabber
+                    session
+                        .tab
                         .items
                         .value[state: id]
                         .browse
@@ -136,26 +137,24 @@ extension Window {
                                                 top == contentViewController!.view
                                                 ? 30
                                                 : top is Text
-                                                    ? 5
+                                                    ? 10
                                                     : $0 is Text
-                                                        ? 20
+                                                        ? 25
                                                         : 3).isActive = true
                     top = $0
                 }
             
             [url, page, export]
                 .forEach {
-                    $0.font = .preferredFont(forTextStyle: .footnote)
-                    $0.textColor = .secondaryLabelColor
-                    $0.leftAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor, constant: -60).isActive = true
+                    $0.font = .preferredFont(forTextStyle: .body)
+                    $0.textColor = .tertiaryLabelColor
+                    $0.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
                 }
             
             [urlShare, pageShare, pageDownload, pagePrint, pageSnapshot, exportPdf, exportWebarchive]
                 .forEach {
                     $0.centerXAnchor.constraint(equalTo: contentViewController!.view.centerXAnchor).isActive = true
                 }
-            
-            */
         }
     }
 }

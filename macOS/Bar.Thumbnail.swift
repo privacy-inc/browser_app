@@ -22,7 +22,7 @@ extension Bar {
             }]
             
             let text = Text()
-            text.textColor = .tertiaryLabelColor
+            text.textColor = .secondaryLabelColor
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             addSubview(text)
             

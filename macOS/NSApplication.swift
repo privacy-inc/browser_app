@@ -73,7 +73,7 @@ extension NSApplication {
         window.makeKeyAndOrderFront(nil)
     }
     
-    @objc func showPreferencesWindow(_ sender: Any) {
+    @objc func showPreferencesWindow(_ sender: Any?) {
         #warning("validate that it works")
         (anyWindow() ?? Settings())
             .makeKeyAndOrderFront(nil)

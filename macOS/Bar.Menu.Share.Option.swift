@@ -1,6 +1,6 @@
 import AppKit
 
-extension Window.Share {
+extension Bar.Menu.Share {
     final class Option: Control {
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {

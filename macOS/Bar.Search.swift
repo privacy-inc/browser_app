@@ -30,7 +30,7 @@ extension Bar {
             ellipsis
                 .click
                 .sink {
-                    Menu(session: session, id: id)
+                    Menu(session: session, id: id, origin: ellipsis)
                         .show(relativeTo: ellipsis.bounds, of: ellipsis, preferredEdge: .minY)
                 }
                 .store(in: &subs)
