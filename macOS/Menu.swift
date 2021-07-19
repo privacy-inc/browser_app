@@ -88,7 +88,7 @@ final class Menu: NSMenu, NSMenuDelegate {
     private var help: NSMenuItem {
         .parent("Help", [
                     .separator(),
-                    .child("Privacy Website", #selector(triggerWebsite)) {
+                    .child("goprivacy.app", #selector(triggerWebsite)) {
                         $0.target = self
                     }])
     }
@@ -221,22 +221,27 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     private var url: URL {
-//        (NSApp.keyWindow as? Window)
-//            .map(\.id)
-//            .flatMap {
-//                tabber
-//                    .items
-//                    .value[state: $0]
-//                    .browse
-//            }
-//            .map(cloud
-//                    .archive
-//                    .value
-//                    .page)
-//            .map(\.access.value)
-//            .flatMap(URL.init(string:))
-//            ?? URL(string: "https://privacy-inc.github.io/about")!
-        URL(string: "https://privacy-inc.github.io/about")!
+        (NSApp.keyWindow as? Window)
+            .flatMap {
+                $0
+                    .session
+                    .tab
+                    .items
+                    .value[state: $0
+                            .session
+                            .current
+                            .value]
+                    .browse
+                    .map {
+                        cloud
+                            .archive
+                            .value
+                            .page($0)
+                            .access
+                            .value
+                    }
+                    .flatMap(URL.init(string:))
+            } ?? URL(string: "https://goprivacy.app")!
     }
     
     @objc private func triggerStatus(_ button: NSStatusBarButton) {
@@ -258,12 +263,10 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     @objc private func triggerWebsite() {
-        NSApp.newTabWith(url: URL(string: "https://privacy-inc.github.io/about")!)
+        NSApp.newTabWith(url: URL(string: "https://goprivacy.app")!)
     }
     
     @objc private func triggerFocus(_ item: NSMenuItem) {
         NSApp.windows[item.tag].makeKeyAndOrderFront(nil)
     }
-    
-    #warning("revisit browser")
 }
