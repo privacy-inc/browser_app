@@ -194,28 +194,26 @@ final class Menu: NSMenu, NSMenuDelegate {
                     $0.isEnabled = browse
                 }]
         case "Find":
-//            let browser = (NSApp.keyWindow as? Window)
-//                .flatMap {
-//                    $0
-//                        .contentView
-//                        .flatMap {
-//                            $0 as? Window.Content
-//                        }
-//                        .flatMap {
-//                            $0.display as? Browser
-//                        }
-//                }
-//            menu
-//                .items
-//                .forEach {
-//                    switch NSTextFinder.Action(rawValue: $0.tag) {
-//                    case .hideFindInterface:
-//                        $0.isEnabled = browser != nil && browser!.isFindBarVisible
-//                    default:
-//                        $0.isEnabled = browser != nil
-//                    }
-//                }
-            #warning("revisit find")
+            let browser = (NSApp.keyWindow as? Window)
+                .flatMap {
+                    $0
+                        .contentView?
+                        .subviews
+                        .compactMap {
+                            $0 as? Browser
+                        }
+                        .first
+                }
+            menu
+                .items
+                .forEach {
+                    switch NSTextFinder.Action(rawValue: $0.tag) {
+                    case .hideFindInterface:
+                        $0.isEnabled = browser != nil && browser?.finder.findBarContainer?.isFindBarVisible == true
+                    default:
+                        $0.isEnabled = browser != nil
+                    }
+                }
         default: break
         }
     }

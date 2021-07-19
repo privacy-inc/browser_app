@@ -1,6 +1,7 @@
 import AppKit
 
 final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
+    let finder = NSTextFinder()
     private weak var top: NSLayoutConstraint!
     private weak var separator: Separator!
     
@@ -11,6 +12,9 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
         material = .menu
         state = .active
         addSubview(web)
+        
+        finder.client = web
+        finder.findBarContainer = self
         
         let separator = Separator(mode: .horizontal)
         separator.isHidden = true
@@ -62,5 +66,21 @@ final class Browser: NSVisualEffectView, NSTextFinderBarContainer {
     
     func findBarViewDidChangeHeight() {
         
+    }
+    
+    override func performTextFinderAction(_ sender: Any?) {
+        (sender as? NSMenuItem)
+            .flatMap {
+                NSTextFinder.Action(rawValue: $0.tag)
+            }
+            .map {
+                finder.performAction($0)
+
+                switch $0 {
+                case .showFindInterface:
+                    finder.findBarContainer?.isFindBarVisible = true
+                default: break
+                }
+            }
     }
 }

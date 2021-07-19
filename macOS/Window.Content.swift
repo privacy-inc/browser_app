@@ -41,14 +41,9 @@ extension Window {
                             session.tab.update($0.id, web: web)
                         }
                         let browser = Browser(web: web)
-                        #warning("move finder to browse")
-//                        self?.finder.client = web
-//                        self?.finder.findBarContainer = browser
                         self?.display = browser
                         self?.window?.makeFirstResponder(web)
                     case let .error(browse, error):
-//                        self?.finder.client = nil
-//                        self?.finder.findBarContainer = nil
                         let display = Error(session: session, id: $0.id, browse: browse, error: error)
                         self?.display = display
                         self?.window?.makeFirstResponder(display)

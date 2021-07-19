@@ -2,7 +2,6 @@ import AppKit
 import Sleuth
 
 final class Window: NSWindow {
-//    private let finder = NSTextFinder()
     let session: Session
     
     init(tab: Tab) {
@@ -86,25 +85,27 @@ final class Window: NSWindow {
         }
     }
     
-    #warning("finder")
-    
-//    override func performTextFinderAction(_ sender: Any?) {
-//        (sender as? NSMenuItem)
-//            .flatMap {
-//                NSTextFinder.Action(rawValue: $0.tag)
-//            }
-//            .map {
-//                finder.performAction($0)
-//
-//                switch $0 {
-//                case .showFindInterface:
-//                    finder.findBarContainer?.isFindBarVisible = true
-//                default: break
-//                }
-//            }
-//    }
-    
     @objc func location() {
-//        search.field.selectText(nil)
+        session
+            .search
+            .send(session
+                    .current
+                    .value)
+    }
+    
+    override func performTextFinderAction(_ sender: Any?) {
+        (NSApp.keyWindow as? Window)
+            .map {
+                $0
+                    .contentView?
+                    .subviews
+                    .compactMap {
+                        $0 as? Browser
+                    }
+                    .first
+                    .map {
+                        $0.performTextFinderAction(sender)
+                    }
+            }
     }
 }
