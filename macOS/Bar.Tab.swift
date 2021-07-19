@@ -18,7 +18,7 @@ extension Bar {
             self.id = id
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
-
+            
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
             let background = Background(session: session, id: id)

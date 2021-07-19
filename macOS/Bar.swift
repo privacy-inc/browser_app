@@ -79,15 +79,20 @@ final class Bar: NSVisualEffectView {
                         .items
                         .value
                         .ids
-                        .last
+                        .first
                         .map {
                             session
                                 .current
                                 .send($0)
                             
-                            session
-                                .search
-                                .send($0)
+                            if session
+                                .tab
+                                .items
+                                .value[state: $0].isNew {
+                                session
+                                    .search
+                                    .send($0)
+                            }
                         }
                 }
             }

@@ -36,8 +36,13 @@ final class Window: NSWindow {
             .send()
     }
     
-    
-    
+    @objc func closeTab() {
+        session
+            .close
+            .send(session
+                    .current
+                    .value)
+    }
     
     #warning("finder")
     
