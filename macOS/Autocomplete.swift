@@ -52,7 +52,7 @@ final class Autocomplete: NSPanel {
         let cells = PassthroughSubject<[Cell], Never>()
         
         let titleBookmarks = Text()
-        titleBookmarks.font = .preferredFont(forTextStyle: .callout)
+        titleBookmarks.font = .preferredFont(forTextStyle: .body)
         titleBookmarks.textColor = .tertiaryLabelColor
         titleBookmarks.stringValue = NSLocalizedString("BOOKMARKS", comment: "")
         
@@ -116,14 +116,14 @@ final class Autocomplete: NSPanel {
                     self.content.addSubview(titleBookmarks)
                     
                     titleBookmarks.topAnchor.constraint(equalTo: top, constant: 20).isActive = true
-                    titleBookmarks.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 25).isActive = true
+                    titleBookmarks.centerXAnchor.constraint(equalTo: self.content.centerXAnchor).isActive = true
                     top = titleBookmarks.bottomAnchor
                     
                     bookmarks
                         .map(Cell.init(filtered:))
                         .forEach {
                             self.content.addSubview($0)
-                            $0.topAnchor.constraint(equalTo: top, constant: 5).isActive = true
+                            $0.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
                             $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
                             $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -15).isActive = true
                             top = $0.bottomAnchor
@@ -144,15 +144,15 @@ final class Autocomplete: NSPanel {
                     
                     self.content.addSubview(titleHistory)
 
-                    titleHistory.topAnchor.constraint(equalTo: top, constant: bookmarks.isEmpty ? 15 : 10).isActive = true
-                    titleHistory.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 25).isActive = true
+                    titleHistory.topAnchor.constraint(equalTo: top, constant: bookmarks.isEmpty ? 20 : 15).isActive = true
+                    titleHistory.centerXAnchor.constraint(equalTo: self.content.centerXAnchor).isActive = true
                     top = titleHistory.bottomAnchor
                     
                     history
                         .map(Cell.init(filtered:))
                         .forEach {
                             self.content.addSubview($0)
-                            $0.topAnchor.constraint(equalTo: top, constant: 5).isActive = true
+                            $0.topAnchor.constraint(equalTo: top, constant: 10).isActive = true
                             $0.leftAnchor.constraint(equalTo: self.content.leftAnchor, constant: 15).isActive = true
                             $0.rightAnchor.constraint(equalTo: self.content.rightAnchor, constant: -15).isActive = true
                             top = $0.bottomAnchor

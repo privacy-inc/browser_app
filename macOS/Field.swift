@@ -91,7 +91,7 @@ final class Field: NSTextField, NSTextFieldDelegate {
             autocomplete.start()
             
             ;{
-                autocomplete.adjust.send((position: .init(x: $0.x - 16, y: $0.y - 2), width: bounds.width + 32))
+                autocomplete.adjust.send((position: .init(x: $0.x - 14, y: $0.y - 1.5), width: bounds.width + 28))
             } (window!.convertPoint(toScreen: superview!.convert(frame.origin, to: nil)))
         }
         autocomplete

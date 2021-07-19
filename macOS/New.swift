@@ -161,7 +161,7 @@ final class New: NSView {
                 }
                 .map(URL.init(fileURLWithPath:))
                 .map {
-                    #warning("validate it works")
+                    print($0)
                     cloud
                         .navigate($0) { [weak self] browse, _ in
                             guard let id = self?.id else { return }
