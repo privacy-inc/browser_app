@@ -3,7 +3,7 @@ import Combine
 import Sleuth
 
 struct Session {
-    let tab = Tab()
+    let tab: Tab
     let plus = PassthroughSubject<Void, Never>()
     let close = PassthroughSubject<UUID, Never>()
     let current: CurrentValueSubject<UUID, Never>
@@ -29,7 +29,8 @@ struct Session {
     let zoomIn = PassthroughSubject<UUID, Never>()
     let zoomOut = PassthroughSubject<UUID, Never>()
     
-    init() {
+    init(tab: Tab) {
+        self.tab = tab
         current = .init(tab
                             .items
                             .value

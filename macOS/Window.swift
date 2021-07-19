@@ -3,9 +3,10 @@ import Sleuth
 
 final class Window: NSWindow {
 //    private let finder = NSTextFinder()
-    let session = Session()
+    let session: Session
     
-    init() {
+    init(tab: Tab) {
+        self.session = .init(tab: tab)
         super.init(contentRect: .init(x: 0,
                                       y: 0,
                                       width: NSScreen.main!.frame.width * 0.5,

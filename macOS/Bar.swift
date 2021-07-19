@@ -41,12 +41,11 @@ final class Bar: NSVisualEffectView {
         session
             .open
             .sink { [weak self] (url: URL, change: Bool) in
-                let tab = session.tab.new()
                 cloud
                     .navigate(url) { browse, _ in
-                        session
+                        let tab = session
                             .tab
-                            .browse(tab, browse)
+                            .browse(browse)
                         if change {
                             session
                                 .current
@@ -96,6 +95,8 @@ final class Bar: NSVisualEffectView {
         
         plus.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
         plus.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
+        
+        render()
     }
     
     private func render() {

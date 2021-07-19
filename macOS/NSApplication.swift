@@ -14,10 +14,12 @@ extension NSApplication {
     }
     
     func newWindowWith(url: URL) {
-        let session = Session()
-        let window = Window()
-        window.session.open.send((url: url, change: true))
-        window.makeKeyAndOrderFront(nil)
+        cloud
+            .navigate(url) { browse, _ in
+                Window(tab:
+                        .init(browse: browse))
+                    .makeKeyAndOrderFront(nil)
+            }
     }
     
     func closeAll() {
@@ -69,8 +71,7 @@ extension NSApplication {
     }
     
     @objc func newWindow() {
-        let window = Window()
-        window.plus()
+        let window = Window(tab: .init())
         window.makeKeyAndOrderFront(nil)
     }
     
