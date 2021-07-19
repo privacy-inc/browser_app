@@ -44,6 +44,48 @@ final class Window: NSWindow {
                     .value)
     }
     
+    @objc func stop() {
+        session.stop.send(session.current.value)
+    }
+
+    @objc func reload() {
+        session.reload.send(session.current.value)
+    }
+
+    @objc func actualSize() {
+        session.actualSize.send(session.current.value)
+    }
+
+    @objc func zoomIn() {
+        session.zoomIn.send(session.current.value)
+    }
+
+    @objc func zoomOut() {
+        session.zoomOut.send(session.current.value)
+    }
+    
+    @objc func tryAgain() {
+        switch session
+            .tab
+            .items
+            .value[state: session.current.value] {
+        case let .error(browse, error):
+            cloud
+                .browse(error.url, browse: browse) { [weak self] in
+                    guard let id = self?.session.current.value else { return }
+                    self?
+                        .session
+                        .tab
+                        .browse(id, browse)
+                    self?
+                        .session
+                        .load
+                        .send((id: id, access: $1))
+                }
+        default: break
+        }
+    }
+    
     #warning("finder")
     
 //    override func performTextFinderAction(_ sender: Any?) {

@@ -120,9 +120,24 @@ final class Menu: NSMenu, NSMenuDelegate {
                 + (0 ..< NSApp.windows.count)
                 .compactMap {
                     switch NSApp.windows[$0] {
-                    case is Window:
-                        guard NSApp.windows[$0].tabGroup == nil || NSApp.windows[$0] == NSApp.windows[$0].tabGroup?.selectedWindow else { return nil }
-                        return (index: $0, title: NSApp.windows[$0].tab.title)
+                    case let window as Window:
+                        return (index: $0, title: window
+                                    .session
+                                    .tab
+                                    .items
+                                    .value[state: window
+                                            .session
+                                            .current
+                                            .value]
+                                    .browse
+                                    .map {
+                                        cloud
+                                            .archive
+                                            .value
+                                            .page($0)
+                                            .title
+                                    }
+                                    ?? "Privacy")
                     case is Trackers, is Activity, is Settings:
                         return (index: $0, title: NSApp.windows[$0].title)
                     default:
@@ -130,61 +145,54 @@ final class Menu: NSMenu, NSMenuDelegate {
                     }
                 }
                 .map { (index: Int, title: String) in
-                    .child(title.isEmpty ? "Privacy" : title, #selector(triggerFocus)) {
+                    .child(title, #selector(triggerFocus)) {
                         $0.target = self
                         $0.tag = index
                         $0.state = NSApp.mainWindow == NSApp.windows[index] ? .on : .off
                     }
                 }
         case "Page":
-            break
-//            let id = (NSApp.keyWindow as? Window)?.id
-//
-//            let browse = id
-//                .map {
-//                    tabber
-//                        .items
-//                        .value[state: $0].isBrowse
-//                }
-//                ?? false
-//
-//            let error = id
-//                .map {
-//                    tabber
-//                        .items
-//                        .value[state: $0].isError
-//                }
-//                ?? false
-//
-//            menu.items = [
-//                .child("Stop", #selector(triggerStop), ".") {
-//                    $0.isEnabled = browse
-//                    $0.target = self
-//                    $0.representedObject = id
-//                },
-//                error
-//                ? .child("Try Again", #selector(Window.Error.tryAgain), "r")
-//                : .child("Reload", #selector(triggerReload), "r") {
-//                    $0.isEnabled = browse
-//                    $0.target = self
-//                    $0.representedObject = id
-//                },
-//                .separator(),
-//                .child("Actual Size", #selector(triggerActualSize), "0") {
-//                    $0.isEnabled = browse
-//                    $0.target = self
-//                    $0.representedObject = id
-//                },
-//                .child("Zoom In", #selector(triggerZoomIn), "+") {
-//                    $0.isEnabled = browse
-//                    $0.target = self
-//                    $0.representedObject = id
-//                },
-//                .child("Zoom Out", #selector(triggerZoomOut), "-") {
-//                    $0.isEnabled = browse
-//                    $0.target = self
-//                    $0.representedObject = id
-//                }]
+            var browse = false
+            var error = false
+            (NSApp.keyWindow as? Window)
+                .map {
+                    browse = $0
+                        .session
+                        .tab
+                        .items
+                        .value[state: $0
+                                .session
+                                .current
+                                .value].isBrowse
+                    error = $0
+                        .session
+                        .tab
+                        .items
+                        .value[state: $0
+                                .session
+                                .current
+                                .value].isError
+                }
+
+            menu.items = [
+                .child("Stop", #selector(Window.stop), ".") {
+                    $0.isEnabled = browse
+                },
+                error
+                ? .child("Try Again", #selector(Window.tryAgain), "r")
+                : .child("Reload", #selector(Window.reload), "r") {
+                    $0.isEnabled = browse
+                },
+                .separator(),
+                .child("Actual Size", #selector(Window.actualSize), "0") {
+                    $0.isEnabled = browse
+                },
+                .child("Zoom In", #selector(Window.zoomIn), "+") {
+                    $0.isEnabled = browse
+                },
+                .child("Zoom Out", #selector(Window.zoomOut), "-") {
+                    $0.isEnabled = browse
+                }]
         case "Find":
 //            let browser = (NSApp.keyWindow as? Window)
 //                .flatMap {
@@ -258,49 +266,4 @@ final class Menu: NSMenu, NSMenuDelegate {
     }
     
     #warning("revisit browser")
-    
-//    @objc private func triggerStop(_ item: NSMenuItem) {
-//        item
-//            .representedObject
-//            .flatMap {
-//                $0 as? UUID
-//            }
-//            .map(session.stop.send)
-//    }
-//
-//    @objc private func triggerReload(_ item: NSMenuItem) {
-//        item
-//            .representedObject
-//            .flatMap {
-//                $0 as? UUID
-//            }
-//            .map(session.reload.send)
-//    }
-//
-//    @objc private func triggerActualSize(_ item: NSMenuItem) {
-//        item
-//            .representedObject
-//            .flatMap {
-//                $0 as? UUID
-//            }
-//            .map(session.actualSize.send)
-//    }
-//
-//    @objc private func triggerZoomIn(_ item: NSMenuItem) {
-//        item
-//            .representedObject
-//            .flatMap {
-//                $0 as? UUID
-//            }
-//            .map(session.zoomIn.send)
-//    }
-//
-//    @objc private func triggerZoomOut(_ item: NSMenuItem) {
-//        item
-//            .representedObject
-//            .flatMap {
-//                $0 as? UUID
-//            }
-//            .map(session.zoomOut.send)
-//    }
 }

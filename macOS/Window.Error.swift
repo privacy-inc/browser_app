@@ -7,14 +7,12 @@ extension Window {
         private var subs = Set<AnyCancellable>()
         private let id: UUID
         private let browse: Int
-        private let error: Sleuth.Tab.Error
         private let session: Session
         
         required init?(coder: NSCoder) { nil }
         init(session: Session, id: UUID, browse: Int, error: Sleuth.Tab.Error) {
             self.id = id
             self.browse = browse
-            self.error = error
             self.session = session
             
             super.init(frame: .zero)
@@ -45,7 +43,17 @@ extension Window {
             retry
                 .click
                 .sink { [weak self] in
-                    self?.tryAgain()
+                    cloud
+                        .browse(error.url, browse: browse) { [weak self] in
+                            self?
+                                .session
+                                .tab
+                                .browse(id, browse)
+                            self?
+                                .session
+                                .load
+                                .send((id: id, access: $1))
+                        }
                 }
                 .store(in: &subs)
             content.addSubview(retry)
@@ -87,24 +95,6 @@ extension Window {
             if with.clickCount == 1 {
                 window?.makeFirstResponder(self)
             }
-        }
-        
-        @objc func tryAgain() {
-            cloud
-                .browse(error.url, browse: browse) { [weak self] in
-                    guard
-                        let id = self?.id,
-                        let browse = self?.browse
-                    else { return }
-                    self?
-                        .session
-                        .tab
-                        .browse(id, browse)
-                    self?
-                        .session
-                        .load
-                        .send((id: id, access: $1))
-                }
         }
         
         private func cancel() {
