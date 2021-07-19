@@ -18,7 +18,7 @@ extension Bar {
             self.id = id
             super.init(frame: .zero)
             translatesAutoresizingMaskIntoConstraints = false
-            
+
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
             let background = Background(session: session, id: id)
@@ -68,6 +68,30 @@ extension Bar {
                 }
                 .sink {
                     session.close.send(id)
+                }
+                .store(in: &subs)
+            
+            cloud
+                .archive
+                .combineLatest(session
+                                .tab
+                                .items
+                                .map {
+                                    $0[state: id]
+                                        .browse
+                                }
+                                .compactMap {
+                                    $0
+                                }
+                                .removeDuplicates())
+                .map {
+                    $0.0
+                        .page($0.1)
+                        .title
+                }
+                .removeDuplicates()
+                .sink { [weak self] in
+                    self?.toolTip = $0
                 }
                 .store(in: &subs)
         }
