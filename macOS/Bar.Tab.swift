@@ -22,7 +22,7 @@ extension Bar {
             heightAnchor.constraint(equalToConstant: 40).isActive = true
             
             let background = Background(session: session, id: id)
-            let icon = Favicon(id: id)
+            let icon = Icon()
             
             session
                 .current
@@ -93,6 +93,30 @@ extension Bar {
                 .sink { [weak self] in
                     self?.toolTip = $0
                 }
+                .store(in: &subs)
+            
+            cloud
+                .archive
+                .combineLatest(session
+                                .tab
+                                .items
+                                .map {
+                                    $0[state: id]
+                                        .browse
+                                }
+                                .compactMap {
+                                    $0
+                                }
+                                .removeDuplicates())
+                .map {
+                    $0.0
+                        .page($0.1)
+                        .access
+                        .short
+                }
+                .removeDuplicates()
+                .subscribe(icon
+                            .domain)
                 .store(in: &subs)
         }
         

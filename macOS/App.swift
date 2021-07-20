@@ -7,6 +7,7 @@ import Sleuth
 let cloud = Cloud.new
 let purchases = Purchases()
 let location = Location()
+let favicon = Favicon()
 
 @NSApplicationMain final class App: NSApplication, NSApplicationDelegate {
     private var subs = Set<AnyCancellable>()

@@ -109,7 +109,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
         switch Script.Message(rawValue: didReceive.name) {
         case .favicon:
-            print(didReceive.body as? String)
+            (didReceive.body as? String)
+                .map {
+                    favicon
+                        .save(domain: cloud.archive.value.page(browse).access.short, url: $0)
+                }
         default:
             break
         }

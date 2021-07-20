@@ -89,7 +89,7 @@
 		CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111E264BFCBE0097FAC2 /* UIApplication.swift */; };
 		CE781121264C00580097FAC2 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781120264C00580097FAC2 /* Search.swift */; };
 		CE781123264C08990097FAC2 /* Tab.New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781122264C08990097FAC2 /* Tab.New.swift */; };
-		CE7A6B5A269EE5F9002F748C /* Favicon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A6B59269EE5F9002F748C /* Favicon.swift */; };
+		CE7A6B5A269EE5F9002F748C /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A6B59269EE5F9002F748C /* Icon.swift */; };
 		CE7F6512266E30C300E889A9 /* Settings.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F6511266E30C300E889A9 /* Settings.Location.swift */; };
 		CE80555A266789E10096D1A5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE805559266789E10096D1A5 /* Toast.swift */; };
 		CE80555B26678B100096D1A5 /* Toast.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE2E98842651374700844E8B /* Toast.Message.swift */; };
@@ -378,7 +378,7 @@
 		CE78111E264BFCBE0097FAC2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE781120264C00580097FAC2 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE781122264C08990097FAC2 /* Tab.New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.swift; sourceTree = "<group>"; };
-		CE7A6B59269EE5F9002F748C /* Favicon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Favicon.swift; sourceTree = "<group>"; };
+		CE7A6B59269EE5F9002F748C /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		CE7F6511266E30C300E889A9 /* Settings.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Location.swift; sourceTree = "<group>"; };
 		CE805559266789E10096D1A5 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
 		CE81AC4026692008004B5B63 /* Window.Error.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Error.swift; sourceTree = "<group>"; };
@@ -797,7 +797,6 @@
 				CE0D6BF7265FDF51000B3FF1 /* Control.State.swift */,
 				CE0D6BF5265FDF29000B3FF1 /* Control.swift */,
 				CE0D4242266B95F800386433 /* Control.Title.swift */,
-				CE7A6B59269EE5F9002F748C /* Favicon.swift */,
 				CE0D6C01265FF16B000B3FF1 /* Field.Cell.Editor.swift */,
 				CE0D6BFF265FF14A000B3FF1 /* Field.Cell.swift */,
 				CE0D6BFD265FEBD5000B3FF1 /* Field.swift */,
@@ -806,6 +805,7 @@
 				CE8E4D452677623B0023839A /* Forget.Option.Destructive.swift */,
 				CE8E4D41267760450023839A /* Forget.Option.swift */,
 				CE8E4D3F26775F590023839A /* Forget.swift */,
+				CE7A6B59269EE5F9002F748C /* Icon.swift */,
 				CE0D4233266B652700386433 /* Image.swift */,
 				CEF0019B266BC76B00993CDD /* Info.Alternatives.swift */,
 				CE0D4239266B8AC600386433 /* Info.Froob.swift */,
@@ -1283,7 +1283,7 @@
 				CE3E858B268DF37500929775 /* Chart.swift in Sources */,
 				CE7082CC269DAB9200BC7323 /* Bar.swift in Sources */,
 				CEFF2BF9268C9D9500EBA5D3 /* Trackers.Cell.swift in Sources */,
-				CE7A6B5A269EE5F9002F748C /* Favicon.swift in Sources */,
+				CE7A6B5A269EE5F9002F748C /* Icon.swift in Sources */,
 				CE676A67265E60C80042EDC2 /* Purchases.Item.swift in Sources */,
 				CEF001AE266BED8000993CDD /* Settings.Privacy.swift in Sources */,
 				CE0D4236266B86CD00386433 /* Info.swift in Sources */,

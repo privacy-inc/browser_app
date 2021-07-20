@@ -8,7 +8,7 @@ extension Bar {
         private let session: Session
         
         required init?(coder: NSCoder) { nil }
-        init(session: Session, id: UUID, icon: Favicon) {
+        init(session: Session, id: UUID, icon: Icon) {
             self.id = id
             self.session = session
             
