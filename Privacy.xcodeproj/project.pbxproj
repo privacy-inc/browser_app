@@ -45,6 +45,8 @@
 		CE3E858B268DF37500929775 /* Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858A268DF37500929775 /* Chart.swift */; };
 		CE3E858D268E01E700929775 /* Trackers.Detail.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858C268E01E700929775 /* Trackers.Detail.swift */; };
 		CE3E858F268E043200929775 /* Trackers.Detail.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3E858E268E043200929775 /* Trackers.Detail.Chart.swift */; };
+		CE3F2EF526A6E8780029B84D /* Webview.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2EF426A6E8780029B84D /* Webview.Message.swift */; };
+		CE3F2EF626A6E89C0029B84D /* Webview.Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F2EF426A6E8780029B84D /* Webview.Message.swift */; };
 		CE3F46EE267232F7002BFB82 /* Browser.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE3F46ED267232F7002BFB82 /* Browser.swift */; };
 		CE40CFBE26A066F50098A21F /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40CFBD26A066F50098A21F /* NumberFormatter.swift */; };
 		CE40CFBF26A066F50098A21F /* NumberFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE40CFBD26A066F50098A21F /* NumberFormatter.swift */; };
@@ -338,6 +340,7 @@
 		CE3E858A268DF37500929775 /* Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chart.swift; sourceTree = "<group>"; };
 		CE3E858C268E01E700929775 /* Trackers.Detail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Detail.swift; sourceTree = "<group>"; };
 		CE3E858E268E043200929775 /* Trackers.Detail.Chart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trackers.Detail.Chart.swift; sourceTree = "<group>"; };
+		CE3F2EF426A6E8780029B84D /* Webview.Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.Message.swift; sourceTree = "<group>"; };
 		CE3F46ED267232F7002BFB82 /* Browser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Browser.swift; sourceTree = "<group>"; };
 		CE40CFBD26A066F50098A21F /* NumberFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NumberFormatter.swift; sourceTree = "<group>"; };
 		CE4D59D3267DE4B800687A2D /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
@@ -598,6 +601,7 @@
 				CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */,
 				CE2E98842651374700844E8B /* Toast.Message.swift */,
 				CE11EF18267A414200A4D3D6 /* Webview.Download.swift */,
+				CE3F2EF426A6E8780029B84D /* Webview.Message.swift */,
 				CE919A90264D58480051EE27 /* Webview.swift */,
 				CEED57DE268F30C700A0048C /* Icons.xcassets */,
 				CE919A8A264D53A70051EE27 /* Media.xcassets */,
@@ -1142,6 +1146,7 @@
 				CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */,
 				CE616C4E265965E600E02ABF /* Trackers.Item.swift in Sources */,
 				CE919A88264D4CFC0051EE27 /* Tabs.Item.Footer.swift in Sources */,
+				CE3F2EF626A6E89C0029B84D /* Webview.Message.swift in Sources */,
 				CE78111D264BF9DB0097FAC2 /* Search.Bar.Coordinator.swift in Sources */,
 				CEED0F14265404B70030B4A2 /* Tab.Info.swift in Sources */,
 				CE91FA8E264ACBA5009A1F88 /* Tabs.Item.swift in Sources */,
@@ -1240,6 +1245,7 @@
 				CEF0019E266BC93C00993CDD /* Settings.swift in Sources */,
 				CE0D423F266B934700386433 /* Store.swift in Sources */,
 				CE28BB5626A30070008DEE3A /* New.List.swift in Sources */,
+				CE3F2EF526A6E8780029B84D /* Webview.Message.swift in Sources */,
 				CE8E4D462677623B0023839A /* Forget.Option.Destructive.swift in Sources */,
 				CEF00196266BB8D900993CDD /* Store.Item.swift in Sources */,
 				CEF97E60266A312A00550E10 /* NSMenu.swift in Sources */,

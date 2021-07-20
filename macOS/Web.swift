@@ -184,9 +184,9 @@ final class Web: Webview {
     override func userContentController(_ controller: WKUserContentController, didReceive: WKScriptMessage) {
         super.userContentController(controller, didReceive: didReceive)
         
-        switch didReceive.body as? String {
-        case "_privacy_incognit_location_request":
-            guard settings.location else { return }
+        switch Message(rawValue: didReceive.name) {
+        case .location:
+            guard (didReceive.body as? String) == "_privacy_incognit_location_request", settings.location else { return }
             var sub: AnyCancellable?
             sub = location
                 .current
@@ -199,7 +199,8 @@ final class Web: Webview {
                         "_privacy_incognit_location_received(\($0.coordinate.latitude), \($0.coordinate.longitude), \($0.horizontalAccuracy));")
                 }
             location.request()
-        default: break
+        default:
+            break
         }
     }
     

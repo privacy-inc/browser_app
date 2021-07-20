@@ -2,7 +2,7 @@ import WebKit
 import Combine
 import Sleuth
 
-class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
+class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {    
     final var subs = Set<AnyCancellable>()
     final let id: UUID
     final let browse: Int
@@ -101,7 +101,12 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
-
+        switch Message(rawValue: didReceive.name) {
+        case .favicon:
+            print(didReceive.body as? String)
+        default:
+            break
+        }
     }
     
     final func clear() {
