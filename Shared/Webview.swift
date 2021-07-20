@@ -39,8 +39,14 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         navigationDelegate = self
         uiDelegate = self
         allowsBackForwardNavigationGestures = true
-        configuration.userContentController.add(self, name: "location")
-        configuration.userContentController.add(self, name: "favicon")
+        
+        Script
+            .Message
+            .allCases
+            .map(\.rawValue)
+            .forEach {
+                configuration.userContentController.add(self, name: $0)
+            }
         
         publisher(for: \.estimatedProgress, options: .new)
             .removeDuplicates()
@@ -101,7 +107,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     func userContentController(_: WKUserContentController, didReceive: WKScriptMessage) {
-        switch Message(rawValue: didReceive.name) {
+        switch Script.Message(rawValue: didReceive.name) {
         case .favicon:
             print(didReceive.body as? String)
         default:

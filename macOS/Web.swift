@@ -184,7 +184,7 @@ final class Web: Webview {
     override func userContentController(_ controller: WKUserContentController, didReceive: WKScriptMessage) {
         super.userContentController(controller, didReceive: didReceive)
         
-        switch Message(rawValue: didReceive.name) {
+        switch Script.Message(rawValue: didReceive.name) {
         case .location:
             guard (didReceive.body as? String) == "_privacy_incognit_location_request", settings.location else { return }
             var sub: AnyCancellable?
