@@ -141,6 +141,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
             deeplink
                 .url
                 .map(load)
+        case let .embed(embed):
+            embed
+                .url
+                .map(load)
         }
     }
     

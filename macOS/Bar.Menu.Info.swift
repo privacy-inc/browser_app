@@ -74,11 +74,27 @@ extension Bar.Menu {
                     page
                         .map(\.title)
                         .map {
-                            string.append(.make($0, font: .preferredFont(forTextStyle: .callout)))
+                            string.append(.make($0, font: .preferredFont(forTextStyle: .title3)))
                             string.linebreak()
                         }
                     
                     string.append(.make(local.path,
+                                        font: .preferredFont(forTextStyle: .callout),
+                                        color: .secondaryLabelColor,
+                                        lineBreak: .byCharWrapping))
+                }
+                
+                text.topAnchor.constraint(equalTo: contentViewController!.view.topAnchor, constant: 40).isActive = true
+            case let .embed(embed):
+                text.attributedStringValue = .make { string in
+                    page
+                        .map(\.title)
+                        .map {
+                            string.append(.make($0, font: .preferredFont(forTextStyle: .title3)))
+                            string.linebreak()
+                        }
+                    
+                    string.append(.make(embed.value.count > 300 ? embed.value.prefix(300) + "..." : embed.value,
                                         font: .preferredFont(forTextStyle: .callout),
                                         color: .secondaryLabelColor,
                                         lineBreak: .byCharWrapping))
