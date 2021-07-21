@@ -93,6 +93,14 @@ final class Window: NSWindow {
                     .value)
     }
     
+    @objc func nextTab() {
+        print("next")
+    }
+    
+    @objc func previousTab() {
+        print("prev")
+    }
+    
     override func performTextFinderAction(_ sender: Any?) {
         (NSApp.keyWindow as? Window)
             .map {

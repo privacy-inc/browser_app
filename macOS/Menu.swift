@@ -115,6 +115,19 @@ final class Menu: NSMenu, NSMenuDelegate {
                 .child("Minimize", #selector(NSWindow.miniaturize), "m"),
                 .child("Zoom", #selector(NSWindow.zoom), "p"),
                 .separator(),
+                .child("Show Previous Tab", #selector(Window.previousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                    $0.keyEquivalentModifierMask = [.control, .shift]
+                },
+                .child("", #selector(Window.previousTab), "{") {
+                    $0.keyEquivalentModifierMask = [.command]
+                },
+                .child("Show Next Tab", #selector(Window.nextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
+                    $0.keyEquivalentModifierMask = [.control]
+                },
+                .child("", #selector(Window.nextTab), "}") {
+                    $0.keyEquivalentModifierMask = [.command]
+                },
+                .separator(),
                 .child("Bring All to Front", #selector(NSApplication.arrangeInFront)),
                 .separator()]
                 + (0 ..< NSApp.windows.count)
