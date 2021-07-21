@@ -5,14 +5,11 @@ final class Icon: NSImageView {
     let domain = PassthroughSubject<String, Never>()
     private var subs = Set<AnyCancellable>()
     
-    deinit {
-        print("fone icon")
-    }
-    
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .zero)
-        let base = NSImage(named: "favicon")
+        let base = NSImage(systemSymbolName: "app", accessibilityDescription: nil)?
+            .withSymbolConfiguration(NSImage.SymbolConfiguration(pointSize: 18, weight: .medium))
         image = base
         translatesAutoresizingMaskIntoConstraints = false
         imageScaling = .scaleProportionallyDown

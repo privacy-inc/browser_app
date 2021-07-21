@@ -32,6 +32,7 @@ final class Forget: NSPopover {
             .click
             .sink { [weak self] in
                 cloud.forgetBrowse()
+                favicon.clear()
                 Toast.show(message: .init(title: "Forgot history", icon: "clock.fill"))
                 NSApp.closeAll()
                 self?.close()
@@ -64,6 +65,7 @@ final class Forget: NSPopover {
             .sink { [weak self] in
                 Webview.clear()
                 cloud.forget()
+                favicon.clear()
                 Toast.show(message: .init(title: "Forgot everything", icon: "flame.fill"))
                 NSApp.closeAll()
                 self?.close()

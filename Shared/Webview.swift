@@ -186,6 +186,11 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     final func webView(_: WKWebView, didFinish: WKNavigation!) {
         session.tab.update(id, progress: 1)
         cloud.activity()
+        
+        if case let .remote(remote) = cloud.archive.value.page(browse).access,
+           favicon.needs(domain: remote.domain) {
+            evaluateJavaScript("_privacy_incognit_favicon();")
+        }
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
