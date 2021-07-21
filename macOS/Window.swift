@@ -94,11 +94,31 @@ final class Window: NSWindow {
     }
     
     @objc func nextTab() {
-        print("next")
+        session
+            .tab
+            .items
+            .value
+            .ids
+            .firstIndex(of: session.current.value)
+            .map {
+                session
+                    .current
+                    .send($0 < session.tab.items.value.count - 1 ? session.tab.items.value.ids[$0 + 1] : session.tab.items.value.ids.first!)
+            }
     }
     
     @objc func previousTab() {
-        print("prev")
+        session
+            .tab
+            .items
+            .value
+            .ids
+            .firstIndex(of: session.current.value)
+            .map {
+                session
+                    .current
+                    .send($0 > 0 ? session.tab.items.value.ids[$0 - 1] : session.tab.items.value.ids.last!)
+            }
     }
     
     override func performTextFinderAction(_ sender: Any?) {
