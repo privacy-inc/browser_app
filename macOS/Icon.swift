@@ -11,21 +11,12 @@ final class Icon: NSImageView {
         let base = NSImage(systemSymbolName: "app", accessibilityDescription: nil)?
             .withSymbolConfiguration(NSImage.SymbolConfiguration(pointSize: 18, weight: .medium))
         image = base
+        contentTintColor = .quaternaryLabelColor
         translatesAutoresizingMaskIntoConstraints = false
         imageScaling = .scaleProportionallyDown
         
         widthAnchor.constraint(equalToConstant: 18).isActive = true
         heightAnchor.constraint(equalTo: widthAnchor).isActive = true
-        
-        domain
-            .removeDuplicates()
-            .map { _ in
-                
-            }
-            .sink { [weak self] in
-                self?.image = base
-            }
-            .store(in: &subs)
         
         domain
             .removeDuplicates()
@@ -39,12 +30,14 @@ final class Icon: NSImageView {
             .combineLatest(favicon
                             .icons
                             .removeDuplicates())
-            .compactMap {
+            .map {
                 $0.1[$0.0]
             }
             .removeDuplicates()
-            .compactMap {
-                NSImage(data: $0)
+            .map {
+                $0
+                    .flatMap(NSImage.init(data:))
+                    ?? base
             }
             .sink { [weak self] in
                 self?.image = $0
