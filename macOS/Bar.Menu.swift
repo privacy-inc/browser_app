@@ -14,6 +14,7 @@ extension Bar {
             contentViewController!.view = .init(frame: .init(origin: .zero, size: contentSize))
             
             let clockwise = Item(image: "arrow.clockwise")
+            clockwise.toolTip = NSLocalizedString("Reload", comment: "")
             clockwise
                 .click
                 .sink {
@@ -24,6 +25,7 @@ extension Bar {
                 .store(in: &subs)
             
             let nosign = Item(image: "nosign")
+            nosign.toolTip = NSLocalizedString("Stop", comment: "")
             nosign
                 .click
                 .sink {
@@ -34,6 +36,7 @@ extension Bar {
                 .store(in: &subs)
             
             let info = Item(image: "info.circle")
+            info.toolTip = NSLocalizedString("Info", comment: "")
             info
                 .click
                 .sink {
@@ -43,6 +46,7 @@ extension Bar {
                 .store(in: &subs)
             
             let share = Item(image: "square.and.arrow.up")
+            share.toolTip = NSLocalizedString("Share", comment: "")
             share
                 .click
                 .sink {
@@ -52,6 +56,7 @@ extension Bar {
                 .store(in: &subs)
             
             let bookmark = Item(image: "bookmark")
+            bookmark.toolTip = NSLocalizedString("Bookmark", comment: "")
             bookmark
                 .click
                 .sink { [weak self] in
@@ -68,6 +73,7 @@ extension Bar {
                 .store(in: &subs)
             
             let xmark = Item(image: "xmark")
+            xmark.toolTip = NSLocalizedString("Close", comment: "")
             xmark
                 .click
                 .sink { [weak self] in

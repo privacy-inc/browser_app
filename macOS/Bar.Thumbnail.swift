@@ -22,7 +22,7 @@ extension Bar {
             }]
             
             let text = Text()
-            text.textColor = .secondaryLabelColor
+            text.textColor = .tertiaryLabelColor
             text.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
             addSubview(text)
             
@@ -82,9 +82,9 @@ extension Bar {
             
             switch state {
             case .pressed, .highlighted:
-                layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             default:
-                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.05).cgColor
+                layer!.backgroundColor = NSColor.labelColor.withAlphaComponent(0.025).cgColor
             }
         }
         

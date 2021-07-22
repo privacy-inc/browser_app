@@ -118,13 +118,13 @@ final class Menu: NSMenu, NSMenuDelegate {
                 .child("Show Previous Tab", #selector(Window.previousTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
                     $0.keyEquivalentModifierMask = [.control, .shift]
                 },
-                .child("", #selector(Window.previousTab), "{") {
-                    $0.keyEquivalentModifierMask = [.command]
-                },
                 .child("Show Next Tab", #selector(Window.nextTab), .init(utf16CodeUnits: [unichar(NSTabCharacter)], count: 1)) {
                     $0.keyEquivalentModifierMask = [.control]
                 },
-                .child("", #selector(Window.nextTab), "}") {
+                .child("Alternate Previous Tab", #selector(Window.previousTab), "{") {
+                    $0.keyEquivalentModifierMask = [.command]
+                },
+                .child("Alternate Next Tab", #selector(Window.nextTab), "}") {
                     $0.keyEquivalentModifierMask = [.command]
                 },
                 .separator(),
