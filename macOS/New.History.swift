@@ -3,9 +3,14 @@ import Combine
 
 extension New {
     final class History: List {
+        deinit {
+            print("history gone")
+        }
+        
         required init?(coder: NSCoder) { nil }
         override init(session: Session, id: UUID) {
             super.init(session: session, id: id)
+            print("history init")
             cloud
                 .archive
                 .map(\.browses)
@@ -29,7 +34,9 @@ extension New {
                                 })
                         }
                 }
-                .subscribe(info)
+                .sink { [weak self] in
+                    self?.info.send($0)
+                }
                 .store(in: &subs)
             
             selected

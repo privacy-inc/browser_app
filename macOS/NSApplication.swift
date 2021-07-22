@@ -80,15 +80,15 @@ extension NSApplication {
             .makeKeyAndOrderFront(nil)
     }
     
-    private var activeWindow: Window? {
-        keyWindow as? Window ?? anyWindow()
-    }
-    
-    private func anyWindow<T>() -> T? {
+    func anyWindow<T>() -> T? {
         windows
             .compactMap {
                 $0 as? T
             }
             .first
+    }
+    
+    private var activeWindow: Window? {
+        keyWindow as? Window ?? anyWindow()
     }
 }

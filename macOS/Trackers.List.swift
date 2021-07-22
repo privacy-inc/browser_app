@@ -72,7 +72,9 @@ extension Trackers {
                             $0.id == selected
                         } ? selected : nil
                 }
-                .subscribe(selected)
+                .sink { [weak self] in
+                    self?.selected.send($0)
+                }
                 .store(in: &subs)
             
             info

@@ -35,7 +35,9 @@ extension New {
                                 })
                         }
                 }
-                .subscribe(info)
+                .sink { [weak self] in
+                    self?.info.send($0)
+                }
                 .store(in: &subs)
             
             selected

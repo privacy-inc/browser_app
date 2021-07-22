@@ -12,6 +12,10 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     private let clear = PassthroughSubject<Void, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
     
+    deinit {
+        print("collection gone")
+    }
+    
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .zero)
@@ -107,7 +111,9 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
             .map { _ in
                 nil
             }
-            .subscribe(selected)
+            .sink { [weak self] in
+                self?.selected.send($0)
+            }
             .store(in: &subs)
         
         highlight
@@ -137,7 +143,9 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
             .map {
                 $0?.info.id
             }
-            .subscribe(highlighted)
+            .sink { [weak self] in
+                self?.highlighted.send($0)
+            }
             .store(in: &subs)
         
         selected
@@ -163,7 +171,9 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
             .compactMap {
                 $0?.info.id
             }
-            .subscribe(selected)
+            .sink { [weak self] in
+                self?.selected.send($0)
+            }
             .store(in: &subs)
         
         clear

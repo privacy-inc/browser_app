@@ -155,6 +155,8 @@ final class Menu: NSMenu, NSMenuDelegate {
                         return (index: $0, title: NSApp.windows[$0].title)
                     case is Store:
                         return (index: $0, title: NSLocalizedString("In-App Purchases", comment: ""))
+                    case is About:
+                        return (index: $0, title: NSLocalizedString("About", comment: ""))
                     default:
                         return nil
                     }
