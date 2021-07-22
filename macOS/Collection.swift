@@ -12,10 +12,6 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     private let clear = PassthroughSubject<Void, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
     
-    deinit {
-        print("collection gone")
-    }
-    
     required init?(coder: NSCoder) { nil }
     init() {
         super.init(frame: .zero)

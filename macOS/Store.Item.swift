@@ -10,6 +10,7 @@ extension Store {
         required init?(coder: NSCoder) { nil }
         init(product: SKProduct, price: String) {
             super.init(frame: .zero)
+            state = .active
             
             let item = Purchases.Item(rawValue: product.productIdentifier)!
 
