@@ -151,8 +151,10 @@ final class Menu: NSMenu, NSMenuDelegate {
                                             .title
                                     }
                                     ?? "Privacy")
-                    case is Trackers, is Activity, is Settings:
+                    case is Trackers, is Activity, is Settings, is Info:
                         return (index: $0, title: NSApp.windows[$0].title)
+                    case is Store:
+                        return (index: $0, title: NSLocalizedString("In-App Purchases", comment: ""))
                     default:
                         return nil
                     }

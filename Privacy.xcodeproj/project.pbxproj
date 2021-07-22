@@ -222,7 +222,6 @@
 		CEF97E62266A3A8400550E10 /* NSSavePanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E61266A3A8400550E10 /* NSSavePanel.swift */; };
 		CEF97E64266A4CFA00550E10 /* New.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E63266A4CFA00550E10 /* New.Option.swift */; };
 		CEF97E66266A507F00550E10 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E65266A507F00550E10 /* Activity.swift */; };
-		CEF97E69266A5B6400550E10 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
 		CEF97E6D266A631700550E10 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E6C266A631700550E10 /* Trackers.swift */; };
 		CEF97E6F266A642D00550E10 /* Scroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E6E266A642D00550E10 /* Scroll.swift */; };
 		CEF97E71266A685700550E10 /* Trackers.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEF97E70266A685700550E10 /* Trackers.Item.swift */; };
@@ -1093,7 +1092,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEF97E69266A5B6400550E10 /* Media.xcassets in Resources */,
 				CEED57E0268F30C700A0048C /* Icons.xcassets in Resources */,
 				CEF58630265E468D00D9A6F1 /* Assets.xcassets in Resources */,
 			);

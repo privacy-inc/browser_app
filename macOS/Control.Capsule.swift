@@ -28,7 +28,7 @@ extension Control {
             super.update()
             
             switch state {
-            case .pressed:
+            case .highlighted, .pressed:
                 layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             default:
                 layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor

@@ -13,14 +13,14 @@ extension Store.Item {
             
             let text = Text()
             text.stringValue = title
-            text.font = .preferredFont(forTextStyle: .callout)
+            text.font = .preferredFont(forTextStyle: .body)
             self.text = text
             
             super.init(layer: false)
             addSubview(image)
             addSubview(text)
             
-            widthAnchor.constraint(equalToConstant: 220).isActive = true
+            widthAnchor.constraint(equalToConstant: 200).isActive = true
             heightAnchor.constraint(equalToConstant: 34).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
