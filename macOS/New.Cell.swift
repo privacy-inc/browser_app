@@ -5,6 +5,7 @@ extension New {
         static let insets = CGFloat(20)
         static let insets2 = insets * 2
         private weak var text: CollectionCellText!
+        private weak var icon: Icon!
         private weak var separator: Shape!
         
         override var first: Bool {
@@ -21,13 +22,15 @@ extension New {
         
         override var item: CollectionItem<Info>? {
             didSet {
-                if let item = item {
-                    frame = item.rect
-                    text.frame.size = .init(width: item.rect.width - Self.insets2, height: item.rect.height - Self.insets2)
-                    text.string = item.info.string
-                } else {
-                    text.string = nil
-                }
+                guard
+                    item != oldValue,
+                    let item = item
+                else { return }
+                frame = item.rect
+                text.frame.size = .init(width: item.rect.width - Self.insets2, height: item.rect.height - Self.insets2)
+                text.string = item.info.string
+                icon.frame.size.height = item.rect.height
+                icon.domain.send(item.info.domain)
             }
         }
         
@@ -36,9 +39,18 @@ extension New {
             super.init()
             cornerRadius = 8
             
+            let icon = Icon()
+            icon.frame = .init(
+                x: Self.insets,
+                y: 0,
+                width: 18,
+                height: 0)
+            addSublayer(icon)
+            self.icon = icon
+            
             let text = CollectionCellText()
             text.frame = .init(
-                x: Self.insets,
+                x: Self.insets + 28,
                 y: Self.insets,
                 width: 0,
                 height: 0)

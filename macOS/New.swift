@@ -18,9 +18,9 @@ final class New: NSView {
         registerForDraggedTypes([.fileURL])
         
         let backgroundBookmarks = NSVisualEffectView()
+        backgroundBookmarks.material = .menu
         backgroundBookmarks.state = .active
         backgroundBookmarks.isEmphasized = true
-        backgroundBookmarks.material = .popover
         backgroundBookmarks.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundBookmarks)
         
@@ -28,14 +28,14 @@ final class New: NSView {
         backgroundBookmarks.addSubview(separatorBookmarks)
         
         let backgroundHistory = NSVisualEffectView()
-        backgroundHistory.material = .hudWindow
+        backgroundHistory.material = .popover
         backgroundHistory.state = .active
         backgroundHistory.isEmphasized = true
         backgroundHistory.translatesAutoresizingMaskIntoConstraints = false
         addSubview(backgroundHistory)
         
         let backgroundOptions = NSVisualEffectView()
-        backgroundOptions.material = .popover
+        backgroundOptions.material = .menu
         backgroundOptions.state = .active
         backgroundOptions.isEmphasized = true
         backgroundOptions.translatesAutoresizingMaskIntoConstraints = false

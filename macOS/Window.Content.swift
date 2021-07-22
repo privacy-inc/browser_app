@@ -10,7 +10,7 @@ extension Window {
             super.init(frame: .zero)
             let bar = NSVisualEffectView()
             bar.translatesAutoresizingMaskIntoConstraints = false
-            bar.material = .popover
+            bar.material = .menu
             bar.state = .active
             bar.isEmphasized = true
             addSubview(bar)

@@ -16,7 +16,7 @@ final class Bar: NSVisualEffectView {
     init(session: Session) {
         self.session = session
         super.init(frame: .zero)
-        material = .popover
+        material = .menu
         state = .active
         isEmphasized = true
         

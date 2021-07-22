@@ -16,13 +16,13 @@ extension Trackers {
         
         override var item: CollectionItem<Info>? {
             didSet {
-                if let item = item {
-                    frame = item.rect
-                    text.frame.size.height = item.rect.height - Self.insets2
-                    text.string = item.info.text
-                } else {
-                    text.string = nil
-                }
+                guard
+                    item != oldValue,
+                    let item = item
+                else { return }
+                frame = item.rect
+                text.frame.size.height = item.rect.height - Self.insets2
+                text.string = item.info.text
             }
         }
         

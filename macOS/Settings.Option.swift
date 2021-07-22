@@ -24,25 +24,23 @@ extension Settings {
             addSubview(image)
             addSubview(text)
             
-            widthAnchor.constraint(equalToConstant: 210).isActive = true
+            widthAnchor.constraint(equalToConstant: 185).isActive = true
             heightAnchor.constraint(equalToConstant: 34).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
             image.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: image.rightAnchor, constant: 10).isActive = true
+            text.rightAnchor.constraint(equalTo: rightAnchor, constant: -10).isActive = true
         }
         
         override func update() {
             super.update()
             switch state {
-            case .pressed:
-                layer!.backgroundColor = NSColor.unemphasizedSelectedContentBackgroundColor.cgColor
-            case .highlighted:
-                layer!.backgroundColor = NSColor.windowBackgroundColor.cgColor
+            case .pressed, .highlighted:
+                layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             default:
-                layer!.backgroundColor = .clear
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             }
         }
     }

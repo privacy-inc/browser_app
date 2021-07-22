@@ -2,34 +2,31 @@ import AppKit
 
 extension Settings.Title {
     final class Option: Control {
-        private weak var image: Image!
-        private weak var text: Text!
-        
         required init?(coder: NSCoder) { nil }
         init(title: String, image: String) {
             let image = Image(icon: image)
             image.symbolConfiguration = .init(textStyle: .body)
-            self.image = image
+            image.contentTintColor = .labelColor
             
             let text = Text()
             text.stringValue = title
             text.font = .preferredFont(forTextStyle: .callout)
-            self.text = text
+            text.textColor = .labelColor
             
             super.init(layer: true)
-            layer!.cornerRadius = 4
+            layer!.cornerRadius = 5
             
             addSubview(image)
             addSubview(text)
             
             heightAnchor.constraint(equalToConstant: 32).isActive = true
-            rightAnchor.constraint(equalTo: image.rightAnchor, constant: 10).isActive = true
+            rightAnchor.constraint(equalTo: image.rightAnchor, constant: 15).isActive = true
             
             image.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            image.leftAnchor.constraint(equalTo: text.rightAnchor, constant: 10).isActive = true
+            image.leftAnchor.constraint(equalTo: text.rightAnchor, constant: 15).isActive = true
             
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
-            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 10).isActive = true
+            text.leftAnchor.constraint(equalTo: leftAnchor, constant: 15).isActive = true
         }
         
         override func update() {
@@ -37,15 +34,11 @@ extension Settings.Title {
             
             switch state {
             case .pressed:
-                image.contentTintColor = .white
-                text.textColor = .white
-                layer!.backgroundColor = NSColor.controlAccentColor.cgColor
+                layer!.backgroundColor = NSColor.tertiaryLabelColor.cgColor
             case .highlighted:
-                layer!.backgroundColor = NSColor.controlAccentColor.withAlphaComponent(0.2).cgColor
+                layer!.backgroundColor = NSColor.quaternaryLabelColor.cgColor
             default:
                 layer!.backgroundColor = .clear
-                image.contentTintColor = .labelColor
-                text.textColor = .labelColor
             }
         }
     }

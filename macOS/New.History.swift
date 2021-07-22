@@ -15,6 +15,7 @@ extension New {
                         .map { browse in
                             .init(
                                 id: browse.id,
+                                domain: browse.page.access.short,
                                 string: .make {
                                     if !browse.page.title.isEmpty {
                                         $0.append(.make(browse.page.title,

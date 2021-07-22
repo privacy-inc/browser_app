@@ -17,6 +17,7 @@ extension New {
                         .map { (index: Int, page: Page) in
                             .init(
                                 id: index,
+                                domain: page.access.short,
                                 string: .make {
                                     if !page.title.isEmpty {
                                         $0.append(.make(page.title,
