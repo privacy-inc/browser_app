@@ -208,6 +208,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
             decisionHandler(.cancel, preferences)
             external(decidePolicyFor.request.url!)
         case .ignore:
+//            print("ignore \(decidePolicyFor.request.url!)")
             decisionHandler(.cancel, preferences)
             decidePolicyFor
                 .targetFrame
@@ -217,6 +218,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
                     session.tab.error(id, .init(url: decidePolicyFor.request.url!.absoluteString, description: "There was an error"))
                 }
         case .block:
+//            print("block \(decidePolicyFor.request.url!)")
             decisionHandler(.cancel, preferences)
             decidePolicyFor
                 .targetFrame
