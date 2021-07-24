@@ -44,21 +44,41 @@ final class Field: NSTextField, NSTextFieldDelegate {
                     .access
             }
             .combineLatest(responder)
-            .map {
-                $1 ? $0.value : {
-                    switch $0 {
-                    case let .remote(remote):
-                        return remote.domain + remote.suffix
-                    default:
-                        return $0.short
-                    }
-                } ($0)
+            .compactMap {
+                $1
+                    ? nil
+                    : {
+                        switch $0 {
+                        case let .remote(remote):
+                            return remote.domain + remote.suffix
+                        default:
+                            return $0.short
+                        }
+                    } ($0)
             }
-            .removeDuplicates()
             .sink { [weak self] in
                 self?.stringValue = $0
             }
             .store(in: &subs)
+        
+        responder
+            .filter {
+                $0
+            }
+            .compactMap { _ in
+                session
+                    .tab
+                    .items
+                    .value[state: id]
+                    .browse
+                    .flatMap(cloud.archive.value.page)
+                    .map(\.access.value)
+            }
+            .sink { [weak self] in
+                self?.stringValue = $0
+            }
+            .store(in: &subs)
+            
         
         session
             .search
