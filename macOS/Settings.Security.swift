@@ -22,7 +22,7 @@ extension Settings {
             view!.addSubview(http)
             
             let title = Text()
-            title.font = .preferredFont(forTextStyle: .callout)
+            title.font = .preferredFont(forTextStyle: .body)
             title.textColor = .secondaryLabelColor
             title.stringValue = """
 This will force all websites to use an encrypted connection with SSL and over HTTPS.
@@ -36,8 +36,8 @@ But it will fail to open websites that only support insecure connections over HT
             http.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
             title.topAnchor.constraint(equalTo: http.bottomAnchor, constant: 10).isActive = true
-            title.leftAnchor.constraint(equalTo: http.leftAnchor).isActive = true
-            title.rightAnchor.constraint(equalTo: http.rightAnchor).isActive = true
+            title.leftAnchor.constraint(equalTo: http.leftAnchor, constant: -60).isActive = true
+            title.rightAnchor.constraint(equalTo: http.rightAnchor, constant: 60).isActive = true
         }
     }
 }

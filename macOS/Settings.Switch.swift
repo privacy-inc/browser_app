@@ -24,7 +24,7 @@ extension Settings {
             addSubview(toggle)
             
             heightAnchor.constraint(equalToConstant: 38).isActive = true
-            widthAnchor.constraint(equalToConstant: 280).isActive = true
+            widthAnchor.constraint(equalToConstant: 230).isActive = true
             
             text.leftAnchor.constraint(equalTo: toggle.rightAnchor, constant: 10).isActive = true
             text.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true

@@ -23,7 +23,7 @@ extension Settings {
             view!.addSubview(location)
             
             let title = Text()
-            title.font = .preferredFont(forTextStyle: .callout)
+            title.font = .preferredFont(forTextStyle: .body)
             title.textColor = .secondaryLabelColor
             title.stringValue = """
 This app will never access your location, but may ask you to grant access if a website is requesting it.
@@ -37,8 +37,8 @@ You can change this permission on System Preferences.
             location.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             
             title.topAnchor.constraint(equalTo: location.bottomAnchor, constant: 10).isActive = true
-            title.leftAnchor.constraint(equalTo: view!.centerXAnchor, constant: -140).isActive = true
-            title.rightAnchor.constraint(equalTo: view!.centerXAnchor, constant: 140).isActive = true
+            title.leftAnchor.constraint(equalTo: view!.centerXAnchor, constant: -170).isActive = true
+            title.rightAnchor.constraint(equalTo: view!.centerXAnchor, constant: 170).isActive = true
         }
     }
 }

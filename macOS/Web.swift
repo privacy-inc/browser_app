@@ -5,6 +5,10 @@ import Sleuth
 final class Web: Webview {
     private var destination = Destination.window
     
+    deinit {
+        print("gone")
+    }
+    
     required init?(coder: NSCoder) { nil }
     init(session: Session, id: UUID, browse: Int) {
         var settings = cloud.archive.value.settings

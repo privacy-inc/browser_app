@@ -126,6 +126,7 @@
 		CE91FA92264ACE6E009A1F88 /* Tabs.Bar.Control.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */; };
 		CE96187226A1C15D00888F5E /* Shape.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96187126A1C15D00888F5E /* Shape.swift */; };
 		CE96187426A1C1EF00888F5E /* Layer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE96187326A1C1EF00888F5E /* Layer.swift */; };
+		CE9AC37F26AC569E0011530C /* Settings.Javascript.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9AC37E26AC569E0011530C /* Settings.Javascript.swift */; };
 		CE9C2002264821E0001504A2 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9C2001264821E0001504A2 /* App.swift */; };
 		CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE9C2005264821E1001504A2 /* Assets.xcassets */; };
 		CE9CF61B266E4BE700B277DF /* Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE9CF61A266E4BE700B277DF /* Location.swift */; };
@@ -415,6 +416,7 @@
 		CE91FA91264ACE6E009A1F88 /* Tabs.Bar.Control.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Bar.Control.swift; sourceTree = "<group>"; };
 		CE96187126A1C15D00888F5E /* Shape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Shape.swift; sourceTree = "<group>"; };
 		CE96187326A1C1EF00888F5E /* Layer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Layer.swift; sourceTree = "<group>"; };
+		CE9AC37E26AC569E0011530C /* Settings.Javascript.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Javascript.swift; sourceTree = "<group>"; };
 		CE9C1FFE264821E0001504A2 /* Privacy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Privacy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE9C2001264821E0001504A2 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
 		CE9C2005264821E1001504A2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -839,6 +841,7 @@
 				CE676A64265E5FCD0042EDC2 /* Session.swift */,
 				CEF001A7266BE65F00993CDD /* Settings.Features.swift */,
 				CEF001A3266BCE3600993CDD /* Settings.General.swift */,
+				CE9AC37E26AC569E0011530C /* Settings.Javascript.swift */,
 				CE7F6511266E30C300E889A9 /* Settings.Location.swift */,
 				CEF001A5266BD65300993CDD /* Settings.Option.swift */,
 				CEF001AD266BED8000993CDD /* Settings.Privacy.swift */,
@@ -1305,6 +1308,7 @@
 				CE0D423C266B8CB200386433 /* Purchases.Info.swift in Sources */,
 				CE0D6BFA265FDF6B000B3FF1 /* Bar.Squircle.swift in Sources */,
 				CE96187426A1C1EF00888F5E /* Layer.swift in Sources */,
+				CE9AC37F26AC569E0011530C /* Settings.Javascript.swift in Sources */,
 				CE28BB5A26A30468008DEE3A /* Bar.Menu.Item.swift in Sources */,
 				CE28BB5826A302C6008DEE3A /* Bar.Menu.swift in Sources */,
 				CEF00192266BB4E900993CDD /* Store.Loading.swift in Sources */,

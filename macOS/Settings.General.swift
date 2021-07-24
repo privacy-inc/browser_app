@@ -44,7 +44,7 @@ You can make this app your default browser and all websites will open automatica
             engine.centerXAnchor.constraint(equalTo: view!.centerXAnchor).isActive = true
             engine.widthAnchor.constraint(equalToConstant: 280).isActive = true
             
-            browserTitle.topAnchor.constraint(equalTo: engine.bottomAnchor, constant: 100).isActive = true
+            browserTitle.topAnchor.constraint(equalTo: engine.bottomAnchor, constant: 80).isActive = true
             browserTitle.leftAnchor.constraint(equalTo: engine.leftAnchor).isActive = true
             browserTitle.rightAnchor.constraint(equalTo: engine.rightAnchor).isActive = true
             

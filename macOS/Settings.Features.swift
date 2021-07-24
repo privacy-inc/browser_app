@@ -18,13 +18,6 @@ extension Settings {
                 .sink(receiveValue: cloud.dark)
                 .store(in: &subs)
             
-            let javascript = Switch(title: NSLocalizedString("JavaScript", comment: ""))
-            javascript.value.send(cloud.archive.value.settings.javascript)
-            javascript
-                .value
-                .sink(receiveValue: cloud.javascript)
-                .store(in: &subs)
-            
             let popups = Switch(title: NSLocalizedString("Block pop-ups", comment: ""))
             popups.value.send(!cloud.archive.value.settings.popups)
             popups
@@ -52,17 +45,8 @@ extension Settings {
                 }
                 .store(in: &subs)
             
-            let third = Switch(title: NSLocalizedString("Block third-party scripts", comment: ""))
-            third.value.send(!cloud.archive.value.settings.third)
-            third
-                .value
-                .sink {
-                    cloud.third(!$0)
-                }
-                .store(in: &subs)
-            
             var top = view!.topAnchor
-            [dark, javascript, popups, ads, screen, third]
+            [dark, popups, ads, screen]
                 .forEach {
                     view!.addSubview($0)
                     

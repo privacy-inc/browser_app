@@ -79,7 +79,6 @@ final class Field: NSTextField, NSTextFieldDelegate {
             }
             .store(in: &subs)
             
-        
         session
             .search
             .filter {
