@@ -13,7 +13,7 @@ extension Collection {
                 Button {
                     cloud
                         .open(index) {
-                            tabber.browse(id, $0)
+                            session.tab.browse(id, $0)
                         }
                     visible.wrappedValue.dismiss()
                 } label: {

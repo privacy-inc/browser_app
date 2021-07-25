@@ -6,12 +6,12 @@ struct Web: UIViewRepresentable {
     let browse: Int
     
     func makeCoordinator() -> Coordinator {
-        session.tab[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
+        session.items[web: id] as? Coordinator ?? .init(wrapper: self, id: id, browse: browse)
     }
     
     func makeUIView(context: Context) -> Coordinator {
-        if session.tab[web: id] == nil {
-            tabber.update(id, web: context.coordinator)
+        if session.items[web: id] == nil {
+            session.tab.update(id, web: context.coordinator)
         }
         return context.coordinator
     }

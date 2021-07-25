@@ -71,7 +71,7 @@ extension Tab {
         
         private var string: String {
             session
-                .tab[state: id]
+                .items[state: id]
                 .browse
                 .map(session.archive.page)
                 .map(\.access.value)

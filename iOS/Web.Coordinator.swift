@@ -21,7 +21,7 @@ extension Web {
             configuration.allowsInlineMediaPlayback = true
             configuration.ignoresViewportScaleLimits = true
             
-            super.init(configuration: configuration, id: id, browse: browse, settings: settings)
+            super.init(configuration: configuration, session: wrapper.session, id: id, browse: browse, settings: settings)
             scrollView.keyboardDismissMode = .none
             scrollView.contentInsetAdjustmentBehavior = .never
             scrollView.clipsToBounds = false

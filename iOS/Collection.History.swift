@@ -13,7 +13,7 @@ extension Collection {
                 Button {
                     cloud
                         .revisit(browses[index].id)
-                    tabber.browse(id, browses[index].id)
+                    session.tab.browse(id, browses[index].id)
                     visible.wrappedValue.dismiss()
                 } label: {
                     VStack(alignment: .leading) {

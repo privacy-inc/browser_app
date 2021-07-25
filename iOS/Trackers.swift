@@ -17,14 +17,14 @@ struct Trackers: View {
                             VStack {
                                 HStack {
                                     VStack(alignment: .leading) {
-                                        Text(NSNumber(value: trackers.count), formatter: session.decimal)
+                                        Text(NSNumber(value: trackers.count), formatter: NumberFormatter.decimal)
                                             .font(.largeTitle.monospacedDigit())
                                             .foregroundColor(.primary)
                                         Text("Trackers")
                                             .font(.footnote)
                                     }
                                     VStack(alignment: .leading) {
-                                        Text(NSNumber(value: trackers.map(\.1.count).reduce(0, +)), formatter: session.decimal)
+                                        Text(NSNumber(value: trackers.map(\.1.count).reduce(0, +)), formatter: NumberFormatter.decimal)
                                             .font(.largeTitle.monospacedDigit())
                                             .foregroundColor(.primary)
                                         Text("Attempts blocked")

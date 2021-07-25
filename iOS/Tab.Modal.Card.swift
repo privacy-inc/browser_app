@@ -18,7 +18,7 @@ extension Tab.Modal {
                             session.modal = .info(id)
                         }
                         Control(title: "Bookmark", image: "bookmark") {
-                            session.tab[state: id].browse
+                            session.items[state: id].browse
                                 .map(cloud.bookmark)
                             dismiss()
                             withAnimation(.easeInOut(duration: 0.4)) {
@@ -38,11 +38,11 @@ extension Tab.Modal {
                     }
                     HStack {
                         Control(title: "Close", image: "xmark") {
-                            (session.tab[web: id] as? Web.Coordinator)?.clear()
-                            tabber.close(id)
+                            (session.items[web: id] as? Web.Coordinator)?.clear()
+                            session.tab.close(id)
                             session.section = .tabs(id)
                         }
-                        if session.tab[loading: id] {
+                        if session.items[loading: id] {
                             Control(title: "Stop", image: "xmark") {
                                 
                             }

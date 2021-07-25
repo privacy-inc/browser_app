@@ -20,7 +20,7 @@ extension Trackers {
                         }
                 }
                 Spacer()
-                Text(NSNumber(value: count.count), formatter: session.decimal)
+                Text(NSNumber(value: count.count), formatter: NumberFormatter.decimal)
                     .font(.caption2.monospacedDigit())
                     .foregroundColor(.secondary)
             }

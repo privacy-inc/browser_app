@@ -22,7 +22,7 @@ struct Tab: View {
                 VStack(spacing: 0) {
                     Loading(session: $session, id: id)
                         .zIndex(1)
-                    switch session.tab[state: id] {
+                    switch session.items[state: id] {
                     case .new:
                         New(session: $session, id: id)
                             .allowsHitTesting(!modal)
@@ -54,13 +54,13 @@ struct Tab: View {
                 
                 DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                     let id = withAnimation(.easeInOut(duration: 0.4)) {
-                        tabber.new()
+                        session.tab.new()
                     }
                     
                     DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
                         cloud
                             .navigate(url) { browse, _ in
-                                tabber.browse(id, browse)
+                                session.tab.browse(id, browse)
                             }
                         withAnimation(.easeInOut(duration: 0.4)) {
                             session.section = .tab(id)
@@ -73,8 +73,8 @@ struct Tab: View {
     
     private func tabs() {
         UIApplication.shared.resign()
-        if session.tab[state: id].isBrowse {
-            tabber.update(id, progress: 1)
+        if session.items[state: id].isBrowse {
+            session.tab.update(id, progress: 1)
         }
         shot()
 
@@ -101,6 +101,6 @@ struct Tab: View {
             .image { _ in
                 controller.view!.drawHierarchy(in: controller.view.frame, afterScreenUpdates: false)
             }
-        tabber.update(id, snapshot: snapshot)
+        session.tab.update(id, snapshot: snapshot)
     }
 }

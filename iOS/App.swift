@@ -3,8 +3,9 @@ import Archivable
 import Sleuth
 
 let cloud = Cloud.new
-let tabber = Sleuth.Tab()
 let purchases = Purchases()
+let favicon = Favicon()
+
 @main struct App: SwiftUI.App {
     @State private var session = Session()
     @Environment(\.scenePhase) private var phase
@@ -18,8 +19,8 @@ let purchases = Purchases()
                 .onReceive(cloud.archive) {
                     session.archive = $0
                 }
-                .onReceive(tabber.items) {
-                    session.tab = $0
+                .onReceive(session.tab.items) {
+                    session.items = $0
                 }
                 .onReceive(purchases.open) {
                     change(.store)
@@ -49,14 +50,14 @@ let purchases = Purchases()
                         Int(url.lastPathComponent)
                             .map { browse in
                                 let complete = {
-                                    let id = tabber.new()
+                                    let id = session.tab.new()
                                     cloud.revisit(browse)
-                                    tabber.browse(id, browse)
+                                    session.tab.browse(id, browse)
                                     session.section = .tab(id)
                                 }
                                 switch session.section {
                                 case let .tab(id):
-                                    if session.tab[state: id].isBrowse {
+                                    if session.items[state: id].isBrowse {
                                         session.section = .tabs(nil)
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                             complete()
@@ -73,16 +74,16 @@ let purchases = Purchases()
                         Int(url.lastPathComponent)
                             .map { index in
                                 let complete = {
-                                    let id = tabber.new()
+                                    let id = session.tab.new()
                                     cloud
                                         .open(index) {
-                                            tabber.browse(id, $0)
+                                            session.tab.browse(id, $0)
                                         }
                                     session.section = .tab(id)
                                 }
                                 switch session.section {
                                 case let .tab(id):
-                                    if session.tab[state: id].isBrowse {
+                                    if session.items[state: id].isBrowse {
                                         session.section = .tabs(nil)
                                         DispatchQueue.main.asyncAfter(deadline: .now() + 0.3) {
                                             complete()
@@ -99,7 +100,7 @@ let purchases = Purchases()
                         case let .tab(id):
                             session.section = .search(id)
                         case .tabs:
-                            session.section = .search(tabber.new())
+                            session.section = .search(session.tab.new())
                         default:
                             break
                         }
@@ -109,15 +110,15 @@ let purchases = Purchases()
                     let complete = {
                         cloud
                             .navigate(url) { browse, _ in
-                                let id = tabber.new()
-                                tabber.browse(id, browse)
+                                let id = session.tab.new()
+                                session.tab.browse(id, browse)
                                 session.section = .tab(id)
                             }
                     }
                     
                     switch session.section {
                     case let .tab(id):
-                        if session.tab[state: id].isBrowse {
+                        if session.items[state: id].isBrowse {
                             session.newTab.send(url)
                         } else {
                             complete()

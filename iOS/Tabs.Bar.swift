@@ -47,7 +47,7 @@ extension Tabs {
                 Control(image: "plus", font: .title2) {
                     session.modal = nil
                     withAnimation(.spring(blendDuration: 0.4)) {
-                        session.section = .search(tabber.new())
+                        session.section = .search(session.tab.new())
                     }
                     session.search.send()
                 }

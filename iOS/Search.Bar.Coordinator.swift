@@ -37,17 +37,17 @@ extension Search.Bar {
         }
         
         func textFieldShouldReturn(_: UITextField) -> Bool {
-            let state = wrapper.session.tab[state: id]
+            let state = wrapper.session.items[state: id]
             cloud
                 .browse(field.text!, browse: state.browse) { [weak self] in
                     guard let id = self?.id else { return }
                     if state.browse == $0 {
                         if state.isError {
-                            tabber.browse(id, $0)
+                            self?.wrapper.session.tab.browse(id, $0)
                         }
                         self?.wrapper.session.load.send((id: id, access: $1))
                     } else {
-                        tabber.browse(id, $0)
+                        self?.wrapper.session.tab.browse(id, $0)
                     }
                 }
             dismiss()

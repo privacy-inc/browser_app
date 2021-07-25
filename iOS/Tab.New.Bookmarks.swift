@@ -11,7 +11,7 @@ extension Tab.New {
                 Button {
                     cloud
                         .open(index) {
-                            tabber.browse(id, $0)
+                            session.tab.browse(id, $0)
                         }
                 } label: {
                     HStack {

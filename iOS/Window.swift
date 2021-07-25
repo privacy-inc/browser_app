@@ -7,7 +7,7 @@ struct Window: View {
     var body: some View {
         switch session.section {
         case let .tabs(previous):
-            Tabs(session: $session, namespace: namespace, ids: session.tab.ids, previous: previous)
+            Tabs(session: $session, namespace: namespace, ids: session.items.ids, previous: previous)
                 .transition(.identity)
         case let .tab(id):
             Tab(session: $session, id: id, namespace: namespace)

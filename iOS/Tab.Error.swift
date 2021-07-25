@@ -30,23 +30,23 @@ extension Tab {
                     Control(title: "Try again", image: "gobackward") {
                         cloud
                             .browse(error.url, browse: browse) {
-                                tabber.browse(id, $0)
+                                session.tab.browse(id, $0)
                                 session.load.send((id: id, access: $1))
                             }
                     }
                     .frame(maxWidth: 200)
                     Control(title: "Cancel", image: "xmark") {
-                        guard let web = session.tab[web: id] as? Web.Coordinator else { return }
+                        guard let web = session.items[web: id] as? Web.Coordinator else { return }
                         if let url = web.url {
                             cloud.update(browse, url: url)
                             cloud.update(browse, title: web.title ?? "")
-                            tabber.dismiss(id)
+                            session.tab.dismiss(id)
                         } else {
                             withAnimation(.spring(blendDuration: 0.4)) {
-                                session.section = .tab(tabber.new())
+                                session.section = .tab(session.tab.new())
                             }
                             web.clear()
-                            tabber.close(id)
+                            session.tab.close(id)
                         }
                     }
                     .frame(width: 200)

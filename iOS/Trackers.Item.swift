@@ -21,7 +21,7 @@ extension Trackers {
                         }
                 }
                 Spacer()
-                Text(NSNumber(value: count.count), formatter: session.decimal)
+                Text(NSNumber(value: count.count), formatter: NumberFormatter.decimal)
                     .font(.title3.monospacedDigit())
                     .foregroundColor(.primary)
                     .padding(.leading)

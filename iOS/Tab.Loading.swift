@@ -21,7 +21,7 @@ extension Tab {
                     .offset(y: 3)
                     .edgesIgnoringSafeArea(.horizontal)
                     .allowsHitTesting(false)
-                    .onChange(of: session.tab[progress: id]) { value in
+                    .onChange(of: session.items[progress: id]) { value in
                         show.first = 0
                         withAnimation(.easeInOut(duration: 0.3)) {
                             show.second = value

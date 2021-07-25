@@ -18,10 +18,10 @@ extension Tab {
                         .allowsHitTesting(false)
                         .edgesIgnoringSafeArea(.horizontal)
                     HStack(spacing: 0) {
-                        Control(disabled: !session.tab[state: id].isBrowse || !session.tab[back: id], image: "arrow.left") {
+                        Control(disabled: !session.items[state: id].isBrowse || !session.items[back: id], image: "arrow.left") {
                             session.back.send(id)
                         }
-                        Control(disabled: !session.tab[state: id].isBrowse || !session.tab[forward: id], image: "arrow.right") {
+                        Control(disabled: !session.items[state: id].isBrowse || !session.items[forward: id], image: "arrow.right") {
                             session.forward.send(id)
                         }
                         Control(image: "magnifyingglass") {
@@ -30,7 +30,7 @@ extension Tab {
                             }
                             session.search.send()
                         }
-                        Control(disabled: !session.tab[state: id].isBrowse, image: "line.horizontal.3") {
+                        Control(disabled: !session.items[state: id].isBrowse, image: "line.horizontal.3") {
                             UIApplication.shared.resign()
                             withAnimation(.easeInOut(duration: 0.25)) {
                                 modal = true
