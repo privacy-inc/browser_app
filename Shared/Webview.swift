@@ -199,6 +199,10 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
            favicon.needs(domain: remote.domain) {
             evaluateJavaScript("_privacy_incognit_favicon();")
         }
+        
+        if !settings.timers {
+            evaluateJavaScript("Promise = null;")
+        }
     }
     
     final func webView(_: WKWebView, decidePolicyFor: WKNavigationAction, preferences: WKWebpagePreferences, decisionHandler: @escaping (WKNavigationActionPolicy, WKWebpagePreferences) -> Void) {
