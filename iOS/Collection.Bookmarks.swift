@@ -28,7 +28,7 @@ extension Collection {
                     }
                     .font(.footnote)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .padding(.vertical, 5)
+                    .padding(.vertical, 8)
                 }
             }
             .onDelete {

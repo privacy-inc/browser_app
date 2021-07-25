@@ -19,6 +19,7 @@ extension Tab.New {
                             .font(.footnote)
                             .foregroundColor(.primary)
                             .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(2)
                             .padding(.trailing)
                         Spacer()
                         ZStack {

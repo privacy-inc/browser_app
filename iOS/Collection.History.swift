@@ -22,14 +22,12 @@ extension Collection {
                                 .foregroundColor(.primary)
                                 .fixedSize(horizontal: false, vertical: true)
                         }
-                        Text(verbatim: browses[index].page.access.short)
-                            .foregroundColor(.secondary)
-                        Text(verbatim: RelativeDateTimeFormatter().string(from: browses[index].date))
+                        Text(verbatim: browses[index].page.access.short + " - " + RelativeDateTimeFormatter().string(from: browses[index].date))
                             .foregroundColor(.secondary)
                     }
                     .font(.footnote)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                    .padding(.vertical, 3)
+                    .padding(.vertical, 8)
                 }
             }
             .onDelete {
