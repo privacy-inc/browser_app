@@ -29,6 +29,16 @@ final class Window: NSWindow {
         addTitlebarAccessoryViewController(accessory)
     }
     
+    override func close() {
+        session
+            .tab
+            .items
+            .value
+            .ids
+            .forEach(session.close.send)
+        super.close()
+    }
+    
     @objc func plus() {
         session
             .plus

@@ -61,6 +61,16 @@ final class Bar: NSVisualEffectView {
             .sink { [weak self] id in
                 session
                     .tab
+                    .items
+                    .value[web: id]
+                    .flatMap {
+                        $0 as? Web
+                    }
+                    .map {
+                        $0.clear()
+                    }
+                session
+                    .tab
                     .close(id)
                 self?
                     .tabs

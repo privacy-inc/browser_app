@@ -2,7 +2,7 @@ import WebKit
 import Combine
 import Sleuth
 
-class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {    
+class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHandler {
     final var subs = Set<AnyCancellable>()
     final let id: UUID
     final let browse: Int
@@ -121,7 +121,15 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     
     final func clear() {
         stopLoading()
-        configuration.userContentController.removeAllScriptMessageHandlers()
+        
+        Script
+            .Message
+            .allCases
+            .map(\.rawValue)
+            .forEach {
+                configuration.userContentController.removeScriptMessageHandler(forName: $0)
+            }
+        
         uiDelegate = nil
         navigationDelegate = nil
     }

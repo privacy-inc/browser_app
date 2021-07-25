@@ -6,7 +6,7 @@ final class Web: Webview {
     private var destination = Destination.window
     
     deinit {
-        print("gone")
+        print(">>>>>>>>>>>>>>>>  gone")
     }
     
     required init?(coder: NSCoder) { nil }
