@@ -10,7 +10,7 @@ struct Icon: View {
         Image(uiImage: image)
             .resizable()
             .aspectRatio(contentMode: .fit)
-            .frame(width: 36, height: 36)
+            .frame(width: 28, height: 28)
             .foregroundColor(.init(.quaternaryLabel))
             .onAppear {
                 favicon.load(domain: domain)

@@ -19,18 +19,16 @@ extension Tab.New {
                             .fill(Color(.tertiarySystemBackground))
                         HStack {
                             Icon(domain: list[index].access.short)
-                            VStack(alignment: .leading, spacing: 0) {
+                            Group {
                                 Text(verbatim: list[index].title)
-                                    .font(.footnote)
                                     .foregroundColor(.primary)
-                                    .fixedSize(horizontal: false, vertical: true)
-                                    .lineLimit(2)
-                                Text(verbatim: list[index].access.short)
                                     .font(.footnote)
-                                    .foregroundColor(.secondary)
-                                    .padding(.top, 4)
+                                + Text(verbatim: " - " + list[index].access.short)
+                                        .foregroundColor(.secondary)
+                                        .font(.footnote)
                             }
-                            .padding(.leading, 4)
+                            .fixedSize(horizontal: false, vertical: true)
+                            .lineLimit(3)
                             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                         }
                         .padding()

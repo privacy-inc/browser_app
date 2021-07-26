@@ -11,18 +11,20 @@ extension Tab.New.History {
                 RoundedRectangle(cornerRadius: 8)
                     .fill(Color(.systemBackground))
                 Button(action: action) {
-                    VStack(alignment: .leading, spacing: 0) {
+                    VStack(alignment: .leading) {
+                        HStack(alignment: .top) {
+                            Icon(domain: browse.page.access.short)
+                            Text(verbatim: browse.page.access.short + " - " + RelativeDateTimeFormatter().string(from: browse.date))
+                                .font(.caption)
+                                .foregroundColor(.secondary)
+                                .fixedSize(horizontal: false, vertical: true)
+                        }
                         if !browse.page.title.isEmpty {
                             Text(verbatim: browse.page.title)
+                                .foregroundColor(.primary)
                                 .font(.footnote)
                                 .fixedSize(horizontal: false, vertical: true)
-                                .foregroundColor(.primary)
                         }
-                        Text(verbatim: browse.page.access.short + " - " + RelativeDateTimeFormatter().string(from: browse.date))
-                            .font(.caption)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .foregroundColor(.secondary)
-                            .padding(.top, 3)
                     }
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
