@@ -16,17 +16,16 @@ extension Collection {
                     session.tab.browse(id, browses[index].id)
                     visible.wrappedValue.dismiss()
                 } label: {
-                    VStack(alignment: .leading) {
-                        if !browses[index].page.title.isEmpty {
-                            Text(verbatim: browses[index].page.title)
-                                .foregroundColor(.primary)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                        Text(verbatim: browses[index].page.access.short + " - " + RelativeDateTimeFormatter().string(from: browses[index].date))
+                    HStack {
+                        Icon(domain: browses[index].page.access.short)
+                        Text(verbatim: browses[index].page.title)
+                            .foregroundColor(.primary)
+                            .font(.footnote) +
+                        Text(verbatim: " : " + browses[index].page.access.short + " - " + RelativeDateTimeFormatter().string(from: browses[index].date))
                             .foregroundColor(.secondary)
+                            .font(.footnote)
                     }
-                    .font(.footnote)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.vertical, 8)
                 }
             }

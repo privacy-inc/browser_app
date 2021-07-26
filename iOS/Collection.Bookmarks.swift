@@ -17,17 +17,16 @@ extension Collection {
                         }
                     visible.wrappedValue.dismiss()
                 } label: {
-                    VStack(alignment: .leading) {
-                        if !bookmarks[index].title.isEmpty {
-                            Text(verbatim: bookmarks[index].title)
-                                .foregroundColor(.primary)
-                                .fixedSize(horizontal: false, vertical: true)
-                        }
-                        Text(verbatim: bookmarks[index].access.short)
+                    HStack {
+                        Icon(domain: bookmarks[index].access.short)
+                        Text(verbatim: bookmarks[index].title)
+                            .foregroundColor(.primary)
+                            .font(.footnote) +
+                        Text(verbatim: " - " + bookmarks[index].access.short)
                             .foregroundColor(.secondary)
+                            .font(.footnote)
                     }
-                    .font(.footnote)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                    .fixedSize(horizontal: false, vertical: true)
                     .padding(.vertical, 8)
                 }
             }
