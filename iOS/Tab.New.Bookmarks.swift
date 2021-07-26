@@ -14,29 +14,30 @@ extension Tab.New {
                             session.tab.browse(id, $0)
                         }
                 } label: {
-                    HStack {
-                        Text(verbatim: list[index].title)
-                            .font(.footnote)
-                            .foregroundColor(.primary)
-                            .fixedSize(horizontal: false, vertical: true)
-                            .lineLimit(2)
-                            .padding(.trailing)
-                        Spacer()
-                        ZStack {
-                            RoundedRectangle(cornerRadius: 6)
-                                .fill(Color(.tertiarySystemBackground))
-                            Text(verbatim: list[index].access.short)
-                                .font(.footnote)
-                                .foregroundColor(.secondary)
-                                .padding(10)
+                    ZStack {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color(.tertiarySystemBackground))
+                        HStack {
+                            Icon(domain: list[index].access.short)
+                            VStack(alignment: .leading, spacing: 0) {
+                                Text(verbatim: list[index].title)
+                                    .font(.footnote)
+                                    .foregroundColor(.primary)
+                                    .fixedSize(horizontal: false, vertical: true)
+                                    .lineLimit(2)
+                                Text(verbatim: list[index].access.short)
+                                    .font(.footnote)
+                                    .foregroundColor(.secondary)
+                                    .padding(.top, 4)
+                            }
+                            .padding(.leading, 4)
+                            .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                         }
-                        .fixedSize()
+                        .padding()
                     }
                     .padding(.horizontal)
                     .contentShape(Rectangle())
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
-                .padding(.top, 8)
             }
         }
         

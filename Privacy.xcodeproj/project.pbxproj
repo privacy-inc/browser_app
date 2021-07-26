@@ -186,6 +186,7 @@
 		CECE1F97265E91C000ACBB0B /* New.Bookmarks.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE1F96265E91C000ACBB0B /* New.Bookmarks.swift */; };
 		CECE1F99265E94F000ACBB0B /* New.History.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE1F98265E94F000ACBB0B /* New.History.swift */; };
 		CECE1F9D265E9E5100ACBB0B /* Collection.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECE1F9C265E9E5100ACBB0B /* Collection.swift */; };
+		CED411B726AE9FE90009A6C5 /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED411B626AE9FE90009A6C5 /* Icon.swift */; };
 		CED418B9266CD2FF006155C5 /* Settings.Title.Option.swift in Sources */ = {isa = PBXBuildFile; fileRef = CED418B8266CD2FF006155C5 /* Settings.Title.Option.swift */; };
 		CEDE59BF2657C229001B26F0 /* Tab.Find.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */; };
 		CEDE59C12657C25A001B26F0 /* Tab.Find.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEDE59C02657C25A001B26F0 /* Tab.Find.swift */; };
@@ -477,6 +478,7 @@
 		CECE1F96265E91C000ACBB0B /* New.Bookmarks.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.Bookmarks.swift; sourceTree = "<group>"; };
 		CECE1F98265E94F000ACBB0B /* New.History.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = New.History.swift; sourceTree = "<group>"; };
 		CECE1F9C265E9E5100ACBB0B /* Collection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Collection.swift; sourceTree = "<group>"; };
+		CED411B626AE9FE90009A6C5 /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		CED418B8266CD2FF006155C5 /* Settings.Title.Option.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Title.Option.swift; sourceTree = "<group>"; };
 		CEDE59BE2657C229001B26F0 /* Tab.Find.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Find.Coordinator.swift; sourceTree = "<group>"; };
 		CEDE59C02657C25A001B26F0 /* Tab.Find.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.Find.swift; sourceTree = "<group>"; };
@@ -649,6 +651,7 @@
 				CE71B71A2653CE78002B8748 /* Collection.Bookmarks.swift */,
 				CE71B7182653C495002B8748 /* Collection.History.swift */,
 				CEEB872126527F9C00AF4E6A /* Collection.swift */,
+				CED411B626AE9FE90009A6C5 /* Icon.swift */,
 				CEF09FFB265BD31700E83BAE /* Info.Alternatives.swift */,
 				CE56789C265AB8B40087B8F8 /* Info.Froob.swift */,
 				CE56789A265AB8080087B8F8 /* Info.Message.swift */,
@@ -1143,6 +1146,7 @@
 				CEC965F9267F5643003E2C77 /* Widget.intentdefinition in Sources */,
 				CE781123264C08990097FAC2 /* Tab.New.swift in Sources */,
 				CE11EF19267A414200A4D3D6 /* Webview.Download.swift in Sources */,
+				CED411B726AE9FE90009A6C5 /* Icon.swift in Sources */,
 				CEEB872226527F9C00AF4E6A /* Collection.swift in Sources */,
 				CE08AB53264EB6F7008E631F /* Tab.New.Bookmarks.swift in Sources */,
 				CE03EDD9264FEDD90031B649 /* Tab.Modal.Card.swift in Sources */,
