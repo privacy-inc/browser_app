@@ -108,7 +108,6 @@
 		CE8E4D462677623B0023839A /* Forget.Option.Destructive.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE8E4D452677623B0023839A /* Forget.Option.Destructive.swift */; };
 		CE916EBF267B897100B47737 /* Search.Autocomplete.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE916EBE267B897100B47737 /* Search.Autocomplete.swift */; };
 		CE919A88264D4CFC0051EE27 /* Tabs.Item.Footer.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE919A87264D4CFC0051EE27 /* Tabs.Item.Footer.swift */; };
-		CE919A8B264D53A70051EE27 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
 		CE919A8D264D575A0051EE27 /* Web.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE919A8C264D575A0051EE27 /* Web.swift */; };
 		CE919A8F264D577B0051EE27 /* Web.Coordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE919A8E264D577B0051EE27 /* Web.Coordinator.swift */; };
 		CE919A91264D58480051EE27 /* Webview.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE919A90264D58480051EE27 /* Webview.swift */; };
@@ -153,7 +152,6 @@
 		CEA65F4F265D12E500A35436 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F4E265D12E500A35436 /* Activity.swift */; };
 		CEA65F50265D131000A35436 /* Activity.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C1D265A88C500F8589D /* Activity.Chart.swift */; };
 		CEA65F51265D131400A35436 /* RelativeDateTimeFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE03EDD0264FBFC20031B649 /* RelativeDateTimeFormatter.swift */; };
-		CEA65F52265D192100A35436 /* Media.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE919A8A264D53A70051EE27 /* Media.xcassets */; };
 		CEA65F54265D1A6100A35436 /* Trackers.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F53265D1A6100A35436 /* Trackers.swift */; };
 		CEA65F56265D1A9000A35436 /* Trackers.Item.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F55265D1A9000A35436 /* Trackers.Item.swift */; };
 		CEA65F58265D203900A35436 /* Forget.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F57265D203900A35436 /* Forget.swift */; };
@@ -178,7 +176,6 @@
 		CEC9859826639780001DA288 /* Autocomplete.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEC9859726639780001DA288 /* Autocomplete.Cell.swift */; };
 		CECA7FDD265D06C900B3B600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECA7FDC265D06C900B3B600 /* Assets.xcassets */; };
 		CECA7FE4265D06C900B3B600 /* Privacy.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = CECA7FE3265D06C900B3B600 /* Privacy.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		CECA7FEF265D06C900B3B600 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CECA7FEE265D06C900B3B600 /* Assets.xcassets */; };
 		CECA7FF6265D06C900B3B600 /* Privacy.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = CECA7FDA265D06C800B3B600 /* Privacy.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		CECC9E42269C415900F79F4E /* Window.Content.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECC9E41269C415900F79F4E /* Window.Content.swift */; };
 		CECDA7D92664FF1700F87546 /* Array.Autocomplete.Cell.swift in Sources */ = {isa = PBXBuildFile; fileRef = CECDA7D82664FF1700F87546 /* Array.Autocomplete.Cell.swift */; };
@@ -399,7 +396,6 @@
 		CE8E4D452677623B0023839A /* Forget.Option.Destructive.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Forget.Option.Destructive.swift; sourceTree = "<group>"; };
 		CE916EBE267B897100B47737 /* Search.Autocomplete.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Autocomplete.swift; sourceTree = "<group>"; };
 		CE919A87264D4CFC0051EE27 /* Tabs.Item.Footer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tabs.Item.Footer.swift; sourceTree = "<group>"; };
-		CE919A8A264D53A70051EE27 /* Media.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Media.xcassets; sourceTree = "<group>"; };
 		CE919A8C264D575A0051EE27 /* Web.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.swift; sourceTree = "<group>"; };
 		CE919A8E264D577B0051EE27 /* Web.Coordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Web.Coordinator.swift; sourceTree = "<group>"; };
 		CE919A90264D58480051EE27 /* Webview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Webview.swift; sourceTree = "<group>"; };
@@ -470,7 +466,6 @@
 		CECA7FDC265D06C900B3B600 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CECA7FDE265D06C900B3B600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CECA7FE3265D06C900B3B600 /* Privacy.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = Privacy.appex; sourceTree = BUILT_PRODUCTS_DIR; };
-		CECA7FEE265D06C900B3B600 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CECA7FF3265D06C900B3B600 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CECC9E41269C415900F79F4E /* Window.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.Content.swift; sourceTree = "<group>"; };
 		CECDA7D82664FF1700F87546 /* Array.Autocomplete.Cell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.Autocomplete.Cell.swift; sourceTree = "<group>"; };
@@ -607,7 +602,6 @@
 				CE11EF18267A414200A4D3D6 /* Webview.Download.swift */,
 				CE919A90264D58480051EE27 /* Webview.swift */,
 				CEED57DE268F30C700A0048C /* Icons.xcassets */,
-				CE919A8A264D53A70051EE27 /* Media.xcassets */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -765,7 +759,6 @@
 				CEA65F55265D1A9000A35436 /* Trackers.Item.swift */,
 				CEA65F53265D1A6100A35436 /* Trackers.swift */,
 				CEA65F49265D0B4000A35436 /* Window.swift */,
-				CECA7FEE265D06C900B3B600 /* Assets.xcassets */,
 			);
 			path = "watchOS Extension";
 			sourceTree = "<group>";
@@ -1062,7 +1055,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CE919A8B264D53A70051EE27 /* Media.xcassets in Resources */,
 				CEED57DF268F30C700A0048C /* Icons.xcassets in Resources */,
 				CE9C2006264821E1001504A2 /* Assets.xcassets in Resources */,
 			);
@@ -1095,8 +1087,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEA65F52265D192100A35436 /* Media.xcassets in Resources */,
-				CECA7FEF265D06C900B3B600 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

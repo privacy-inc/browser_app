@@ -7,7 +7,7 @@ struct Activity: View {
         Popup(title: "Activity", leading: { }) {
             VStack(spacing: 0) {
                 Chart(values: session.archive.activity.plotter)
-                    .frame(height: 220)
+                    .frame(height: 300)
                     .padding()
                 HStack {
                     session
@@ -17,7 +17,8 @@ struct Activity: View {
                         .map {
                             Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
                         }
-                    Spacer()
+                    Rectangle()
+                        .frame(height: 1)
                     Text("Now")
                 }
                 .font(.footnote)

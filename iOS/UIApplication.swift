@@ -1,7 +1,9 @@
 import WebKit
 
 extension UIApplication {
-    static let dark = shared.windows.map(\.rootViewController?.traitCollection.userInterfaceStyle).first == .dark
+    static var dark: Bool {
+        shared.windows.map(\.rootViewController?.traitCollection.userInterfaceStyle).first == .dark
+    }
     
     var root: UIViewController? {
         guard var root = windows.first?.rootViewController else { return nil }
