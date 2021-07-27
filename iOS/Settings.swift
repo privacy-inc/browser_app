@@ -70,7 +70,7 @@ struct Settings: View {
                     NavigationLink("Default browser", destination: Default(session: $session))
                 }
             }
-            .toggleStyle(SwitchToggleStyle(tint: .accentColor))
+            .toggleStyle(SwitchToggleStyle(tint: .blue))
             .listStyle(GroupedListStyle())
         }
         .onChange(of: engine) {

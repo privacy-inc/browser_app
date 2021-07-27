@@ -19,7 +19,7 @@ extension Tab {
                                     .fill(Color.accentColor)
                                 Label("BOOKMARKS", systemImage: "list.bullet")
                                     .font(.footnote.bold())
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.init(.systemBackground))
                                     .padding(.vertical, 7)
                                     .padding(.horizontal)
                             }
@@ -38,7 +38,7 @@ extension Tab {
                                     .fill(Color.accentColor)
                                 Label("HISTORY", systemImage: "list.bullet")
                                     .font(.footnote.bold())
-                                    .foregroundColor(.white)
+                                    .foregroundColor(.init(.systemBackground))
                                     .padding(.vertical, 7)
                                     .padding(.horizontal)
                             }

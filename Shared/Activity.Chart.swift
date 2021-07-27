@@ -11,7 +11,7 @@ extension Activity {
                     .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
                 ForEach(0 ..< max(values.count - 1, 0), id: \.self) {
                     Dot(y: values[$0], index: $0, radius: 6)
-                        .stroke(Color.primary.opacity(0.2), lineWidth: 1)
+                        .stroke(Color.primary.opacity(0.3), lineWidth: 1)
                 }
                 if !values.isEmpty {
                     Dot(y: values.last!, index: values.count - 1, radius: 12)

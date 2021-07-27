@@ -3,6 +3,16 @@
     {
       "filename" : "splash.pdf",
       "idiom" : "universal"
+    },
+    {
+      "appearances" : [
+        {
+          "appearance" : "luminosity",
+          "value" : "dark"
+        }
+      ],
+      "filename" : "splashDark.pdf",
+      "idiom" : "universal"
     }
   ],
   "info" : {

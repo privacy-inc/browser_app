@@ -10,7 +10,7 @@ struct Trackers: View {
         Popup(title: "Trackers", leading: {
             Image(systemName: "shield.lefthalf.fill")
                 .font(.title2)
-                .foregroundColor(.init(.tertiaryLabel))
+                .foregroundColor(.secondary)
         }) {
             List {
                 Section(header:

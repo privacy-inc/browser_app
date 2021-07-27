@@ -9,21 +9,19 @@ extension Fast.Content {
                 ZStack {
                     RoundedRectangle(cornerRadius: 6)
                         .fill(Color(.systemBackground))
-                    VStack(alignment: .leading) {
-                        if !item.title.isEmpty {
-                            Text(verbatim: item.title)
-                                .lineLimit(3)
-                                .foregroundColor(.primary)
-                        }
-                        Text(verbatim: item.short)
-                            .lineLimit(item.title.isEmpty ? 3 : 1)
+                    Group() {
+                        Text(verbatim: item.title)
+                            .foregroundColor(.primary)
+                        + Text(verbatim: " - " + item.short)
                             .foregroundColor(.secondary)
                     }
+                    .lineLimit(4)
                     .font(.caption2)
                     .fixedSize(horizontal: false, vertical: true)
                     .padding(10)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
+                
             }
         }
     }
