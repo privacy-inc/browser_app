@@ -19,7 +19,8 @@ struct Activity: View {
                     .map {
                         Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
                     }
-                Spacer()
+                Rectangle()
+                    .frame(height: 1)
                 Text("Now")
             }
             .font(.caption2)
