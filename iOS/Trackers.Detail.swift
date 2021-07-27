@@ -7,25 +7,25 @@ extension Trackers {
         
         var body: some View {
             VStack(spacing: 0) {
-                Chart(values: dates.plotter)
-                    .frame(height: 150)
-                    .padding(.horizontal, 40)
-                    .padding(.top, 50)
-                    .padding(.bottom, 30)
+                Activity.Chart(values: dates.plotter)
+                    .frame(height: 300)
+                    .padding()
                 HStack {
                     dates
                         .first
                         .map {
                             Text(verbatim: RelativeDateTimeFormatter().string(from: $0))
                         }
-                    Spacer()
+                    Rectangle()
+                        .frame(height: 1)
                     Text("Now")
                 }
                 .font(.footnote)
                 .foregroundColor(.secondary)
-                .padding(.horizontal, 40)
+                .padding(.horizontal)
                 Spacer()
             }
+            .padding()
             .navigationBarTitle(title, displayMode: .inline)
         }
     }

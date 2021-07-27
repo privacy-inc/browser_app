@@ -16,23 +16,20 @@ struct Trackers: View {
                 Section(header:
                             VStack {
                                 HStack {
-                                    VStack(alignment: .leading) {
-                                        Text(NSNumber(value: trackers.count), formatter: NumberFormatter.decimal)
-                                            .font(.largeTitle.monospacedDigit())
-                                            .foregroundColor(.primary)
-                                        Text("Trackers")
-                                            .font(.footnote)
-                                    }
-                                    VStack(alignment: .leading) {
-                                        Text(NSNumber(value: trackers.map(\.1.count).reduce(0, +)), formatter: NumberFormatter.decimal)
-                                            .font(.largeTitle.monospacedDigit())
-                                            .foregroundColor(.primary)
-                                        Text("Attempts blocked")
-                                            .font(.footnote)
-                                    }
-                                    .padding(.leading)
                                     Spacer()
+                                    Text(NSNumber(value: trackers.count), formatter: NumberFormatter.decimal)
+                                        .foregroundColor(.primary)
+                                        .font(.largeTitle.monospacedDigit())
+                                    + Text("\nTrackers")
+                                        .font(.footnote)
+                                    Text(NSNumber(value: trackers.map(\.1.count).reduce(0, +)), formatter: NumberFormatter.decimal)
+                                        .foregroundColor(.primary)
+                                        .font(.largeTitle.monospacedDigit())
+                                    + Text("\nAttempts blocked")
+                                        .font(.footnote)
                                 }
+                                .multilineTextAlignment(.trailing)
+                                .padding(.trailing)
                                 Picker("Sort", selection: $sort) {
                                     Text(verbatim: "Attempts")
                                         .foregroundColor(.white)
@@ -48,7 +45,16 @@ struct Trackers: View {
                             .padding(.vertical, 20)) {
                     ForEach(0 ..< trackers.count, id: \.self) { index in
                         NavigationLink(destination: Detail(title: trackers[index].name, dates: trackers[index].count)) {
-                            Item(session: $session, name: trackers[index].name, count: trackers[index].count)
+                            switch sort {
+                            case .attempts:
+                                Attempts(name: trackers[index].name, count: trackers[index].count.count)
+                                    .padding(.vertical, 5)
+                                    .multilineTextAlignment(.trailing)
+                                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .trailing)
+                            case .recent:
+                                Recent(name: trackers[index].name, last: trackers[index].count.last ?? .init())
+                                    .padding(.vertical, 5)
+                            }
                         }
                     }
                 }
