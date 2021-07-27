@@ -9,13 +9,13 @@ extension Activity {
                     .stroke(Color.secondary, style: .init(lineWidth: 1, lineCap: .round, lineJoin: .round))
                     .clipShape(Holes(values: values))
                     .frame(maxWidth: .greatestFiniteMagnitude, maxHeight: .greatestFiniteMagnitude)
-                ForEach(0 ..< values.count, id: \.self) {
-                    Dot(y: values[$0], index: $0, radius: $0 == values.count - 1 ? 7 : 3)
-                        .stroke(Color.secondary, lineWidth: 1)
-//                    if $0 == values.count - 1 {
-//                        Dot(y: values.last!, index: values.count - 1, radius: 7)
-//                            .fill(Color.primary)
-//                    }
+                ForEach(0 ..< max(values.count - 1, 0), id: \.self) {
+                    Dot(y: values[$0], index: $0, radius: 6)
+                        .stroke(Color.primary.opacity(0.2), lineWidth: 1)
+                }
+                if !values.isEmpty {
+                    Dot(y: values.last!, index: values.count - 1, radius: 12)
+                        .fill(Color.primary)
                 }
             }
         }
@@ -45,20 +45,15 @@ struct Holes: Shape {
     
     func path(in rect: CGRect) -> Path {
         var path = Rectangle().path(in: rect)
-        let rect = rect.insetBy(dx: 30, dy: 30)
         (0 ..< values.count)
-            .forEach { index in
+            .forEach {
                 path
                     .addPath(
                         .init(
-                            UIBezierPath(cgPath: Circle()
-                                            .path(in: CGRect(
-                                                    x: (Double(rect.maxX / 9) * Double(index)) + Double(10),
-                                                    y: (Double(rect.maxY) - (Double(rect.maxY) * values[index])) + Double(10),
-                                                    width: Double(10),
-                                                    height: Double(10)))
+                            UIBezierPath(cgPath:
+                                            Dot(y: values[$0], index: $0, radius: $0 == values.count - 1 ? 15 : 10)
+                                            .path(in: rect)
                                             .cgPath)
-                                .reversing()
                                 .cgPath))
             }
         return path
