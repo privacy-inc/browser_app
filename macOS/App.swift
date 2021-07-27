@@ -72,8 +72,12 @@ let favicon = Favicon()
     }
     
     func application(_: NSApplication, open: [URL]) {
-        open
-            .forEach(newTabWith(url:))
+        cloud
+            .notifier
+            .notify(queue: .main) {
+                open
+                    .forEach(self.newTabWith(url:))
+            }
     }
     
     @objc override func orderFrontStandardAboutPanel(_ sender: Any?) {
@@ -82,10 +86,14 @@ let favicon = Favicon()
     }
 
     @objc private func handle(_ event: NSAppleEventDescriptor, _: NSAppleEventDescriptor) {
-        event
-            .paramDescriptor(forKeyword: keyDirectObject)
-            .flatMap(\.stringValue?.removingPercentEncoding)
-            .flatMap(URL.init(string:))
-            .map(newTabWith(url:))
+        cloud
+            .notifier
+            .notify(queue: .main) {
+                event
+                    .paramDescriptor(forKeyword: keyDirectObject)
+                    .flatMap(\.stringValue?.removingPercentEncoding)
+                    .flatMap(URL.init(string:))
+                    .map(self.newTabWith(url:))
+            }
     }
 }
