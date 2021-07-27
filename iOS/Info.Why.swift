@@ -4,9 +4,9 @@ extension Info {
     struct Why: View {
         var body: some View {
             Message(
-                title: "Privacy +\nWhy purchasing?",
+                title: "",
                 message: Purchases.why) { }
-                .navigationTitle("Privacy +")
+                .navigationTitle("Why purchasing?")
         }
     }
 }

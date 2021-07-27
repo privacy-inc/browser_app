@@ -6,7 +6,7 @@ extension Info {
         
         var body: some View {
             Message(
-                title: "Privacy\nPlus",
+                title: "Privacy\nPlus\n\n",
                 message: Purchases.froob) {
                 Button {
                     session.modal = nil

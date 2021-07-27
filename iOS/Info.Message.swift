@@ -14,16 +14,15 @@ extension Info {
         
         var body: some View {
             VStack {
-                Text(title)
-                    .font(Font.title.bold())
-                    .fixedSize(horizontal: false, vertical: true)
-                    .padding()
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-                Text(message)
-                    .fixedSize(horizontal: false, vertical: true)
-                    .foregroundColor(.secondary)
-                    .padding(.horizontal)
-                    .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
+                Group {
+                    Text(title)
+                        .font(Font.title.bold())
+                    + Text(message)
+                        .foregroundColor(.secondary)
+                }
+                .fixedSize(horizontal: false, vertical: true)
+                .padding()
+                .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 Spacer()
                 button
             }
