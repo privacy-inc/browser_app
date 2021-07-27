@@ -13,8 +13,9 @@ extension Tabs.Item {
                 + Text(verbatim: " - " + short)
                     .foregroundColor(.secondary)
             }
-            .lineLimit(3)
+            .lineLimit(2)
             .font(.footnote)
+            .padding(.top, 5)
             .padding(.horizontal)
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
         }

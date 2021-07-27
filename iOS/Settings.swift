@@ -13,6 +13,7 @@ struct Settings: View {
     @State private var ads = true
     @State private var screen = true
     @State private var third = true
+    @State private var timers = true
     
     var body: some View {
         Popup(title: "Settings", leading: {
@@ -46,11 +47,9 @@ struct Settings: View {
                 }
                 Section(header: Text("Features")) {
                     Toggle("Force dark mode", isOn: $dark)
-                    Toggle("JavaScript", isOn: $javascript)
                     Toggle("Block pop-ups", isOn: $popups)
                     Toggle("Remove ads", isOn: $ads)
                     Toggle("Remove screen blockers", isOn: $screen)
-                    Toggle("Block third-party scripts", isOn: $third)
                 }
                 Section(header: Text("Security")) {
                     Toggle("Force secure connections", isOn: $http)
@@ -58,6 +57,11 @@ struct Settings: View {
                 Section(header: Text("Privacy")) {
                     Toggle("Anti tracker protection", isOn: $trackers)
                     Toggle("Anti cookies protection", isOn: $cookies)
+                }
+                Section(header: Text("JavaScript")) {
+                    Toggle("Scripts enabled", isOn: $javascript)
+                    Toggle("Stop scripts when loaded", isOn: $timers)
+                    Toggle("Block third-party scripts", isOn: $third)
                 }
                 Section {
                     NavigationLink("Location", destination: Location(session: $session))
@@ -99,6 +103,9 @@ struct Settings: View {
         .onChange(of: third) {
             cloud.third(!$0)
         }
+        .onChange(of: timers) {
+            cloud.timers(!$0)
+        }
         .onAppear {
             engine = session.archive.settings.engine
             dark = session.archive.settings.dark
@@ -110,6 +117,7 @@ struct Settings: View {
             ads = !session.archive.settings.ads
             screen = !session.archive.settings.screen
             third = !session.archive.settings.third
+            timers = !session.archive.settings.timers
         }
     }
 }
