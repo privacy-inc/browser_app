@@ -6,15 +6,14 @@ extension Tabs.Item {
         let id: UUID
         
         var body: some View {
-            VStack(alignment: .leading) {
-                if !title.isEmpty {
-                    Text(verbatim: title)
-                }
-                Text(verbatim: subtitle)
+            HStack(alignment: .top) {
+                Icon(domain: short)
+                Text(verbatim: title)
+                    .foregroundColor(.primary)
+                + Text(verbatim: " - " + short)
                     .foregroundColor(.secondary)
-                Spacer()
             }
-            .lineLimit(1)
+            .lineLimit(3)
             .font(.footnote)
             .padding(.horizontal)
             .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
@@ -29,7 +28,7 @@ extension Tabs.Item {
             ?? ""
         }
         
-        private var subtitle: String {
+        private var short: String {
             session
                 .items[state: id]
                 .browse
