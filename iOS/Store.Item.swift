@@ -25,7 +25,7 @@ extension Store {
                     .fixedSize(horizontal: false, vertical: true)
                     .foregroundColor(.secondary)
                     .padding(.horizontal)
-                if premium {
+                if !premium {
                     Image(systemName: "checkmark.circle.fill")
                         .font(.largeTitle)
                         .foregroundColor(.accentColor)

@@ -12,6 +12,7 @@ extension Tabs.Bar {
                     .font(font)
                     .frame(width: 64)
                     .frame(maxHeight: .greatestFiniteMagnitude)
+                    .foregroundColor(.secondary)
                     .contentShape(Rectangle())
             }
         }
