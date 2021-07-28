@@ -20,6 +20,7 @@ extension Tabs {
                             },
                             .default(.init("History")) {
                                 cloud.forgetBrowse()
+                                favicon.clear()
                                 session.toast = .init(title: "Forgot history", icon: "clock.fill")
                                 closeAll()
                             },
@@ -34,6 +35,7 @@ extension Tabs {
                             .destructive(.init("Everything")) {
                                 Webview.clear()
                                 cloud.forget()
+                                favicon.clear()
                                 session.toast = .init(title: "Forgot everything", icon: "flame.fill")
                                 closeAll()
                             },
