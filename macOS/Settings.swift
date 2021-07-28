@@ -14,6 +14,11 @@ final class Settings: NSWindow {
         center()
         setFrameAutosaveName("Settings")
         
+        let content = NSVisualEffectView()
+        content.state = .active
+        content.material = .sidebar
+        contentView = content
+        
         let bar = NSTitlebarAccessoryViewController()
         bar.view = Title()
         bar.layoutAttribute = .top
