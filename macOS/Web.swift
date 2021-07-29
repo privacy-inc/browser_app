@@ -13,10 +13,11 @@ final class Web: Webview {
         configuration.defaultWebpagePreferences.preferredContentMode = .desktop
         configuration.preferences.setValue(true, forKey: "fullScreenEnabled")
         
+        if settings.dark {
+            configuration.setValue(false, forKey: "drawsBackground")
+        }
+        
         if !NSApp.dark {
-            if settings.dark {
-                configuration.setValue(false, forKey: "drawsBackground")
-            }
             settings.dark = false
         }
         
