@@ -28,6 +28,7 @@ private struct Road: Shape {
     func path(in rect: CGRect) -> Path {
         .init {
             let rect = rect.insetBy(dx: 30, dy: 30)
+            $0.move(to: .init(x: 0, y: rect.maxY))
             if !values.isEmpty {
                 $0.addLines(values.enumerated().map {
                     .init(x: (.init(rect.maxX / 9) * .init($0.0)) + Double(15),
