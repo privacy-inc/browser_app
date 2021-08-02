@@ -2,8 +2,8 @@ import AppKit
 
 extension New {
     final class Cell: CollectionCell<Info> {
-        static let insets = CGFloat(20)
         static let insets2 = insets * 2
+        private static let insets = CGFloat(20)
         private weak var text: CollectionCellText!
         private weak var icon: Icon!
         private weak var separator: Shape!
