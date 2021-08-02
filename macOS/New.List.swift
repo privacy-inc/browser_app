@@ -34,7 +34,7 @@ extension New {
                 .sink { [weak self] (info: [Info], width: CGFloat) in
                     let result = info
                         .reduce(into: (items: Set<CollectionItem<Info>>(), y: New.insets_2)) {
-                            let height = ceil($1.string.height(for: width - Cell.insets2) + Cell.insets2)
+                            let height = ceil($1.string.height(for: width - (Cell.insets2 + Cell.icon)) + Cell.insets2)
                             $0.items.insert(.init(
                                                 info: $1,
                                                 rect: .init(

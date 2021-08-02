@@ -3,6 +3,7 @@ import AppKit
 extension New {
     final class Cell: CollectionCell<Info> {
         static let insets2 = insets * 2
+        static let icon = CGFloat(28)
         private static let insets = CGFloat(20)
         private weak var text: CollectionCellText!
         private weak var icon: Icon!
@@ -27,7 +28,7 @@ extension New {
                     let item = item
                 else { return }
                 frame = item.rect
-                text.frame.size = .init(width: item.rect.width - Self.insets2, height: item.rect.height - Self.insets2)
+                text.frame.size = .init(width: item.rect.width - (Self.insets2 + Self.icon), height: item.rect.height - Self.insets2)
                 text.string = item.info.string
                 icon.frame.size.height = item.rect.height
                 icon.domain.send(item.info.domain)
@@ -50,7 +51,7 @@ extension New {
             
             let text = CollectionCellText()
             text.frame = .init(
-                x: Self.insets + 28,
+                x: Self.insets + Self.icon,
                 y: Self.insets,
                 width: 0,
                 height: 0)
