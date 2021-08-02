@@ -12,7 +12,6 @@ extension Trackers {
         required init?(coder: NSCoder) { nil }
         init(sorted: CurrentValueSubject<Sleuth.Trackers, Never>, show: PassthroughSubject<[Date]?, Never>) {
             super.init()
-            translatesAutoresizingMaskIntoConstraints = false
             
             let info = CurrentValueSubject<[Info], Never>([])
             

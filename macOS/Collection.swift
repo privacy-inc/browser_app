@@ -26,7 +26,7 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
         contentView.postsBoundsChangedNotifications = true
         contentView.postsFrameChangedNotifications = true
         drawsBackground = false
-        addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeInActiveApp, .inVisibleRect], owner: self))
+        addTrackingArea(.init(rect: .zero, options: [.mouseEnteredAndExited, .mouseMoved, .activeAlways, .inVisibleRect], owner: self))
         
         var cells = Set<Cell>()
         let clip = PassthroughSubject<CGRect, Never>()
