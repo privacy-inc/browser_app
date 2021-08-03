@@ -118,10 +118,16 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                     .filter {
                         $0.state != .pressed
                     }
+                    .map {
+                        (cell: $0, state: $0.frame.contains(point)
+                            ? CollectionCellState.highlighted
+                            : .none)
+                    }
+                    .filter {
+                        $0.cell.state != $0.state
+                    }
                     .forEach {
-                        $0.state = $0.frame.contains(point)
-                            ? .highlighted
-                            : .none
+                        $0.cell.state = $0.state
                     }
             }
             .store(in: &subs)
