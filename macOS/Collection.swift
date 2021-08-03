@@ -7,7 +7,6 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
     final let height = PassthroughSubject<CGFloat, Never>()
     final let selected = CurrentValueSubject<Info.ID?, Never>(nil)
     final let highlighted = CurrentValueSubject<Info.ID?, Never>(nil)
-    final let first = PassthroughSubject<Info.ID?, Never>()
     private let select = PassthroughSubject<CGPoint, Never>()
     private let clear = PassthroughSubject<Void, Never>()
     private let highlight = PassthroughSubject<CGPoint, Never>()
@@ -49,11 +48,9 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                     }
             }
             .removeDuplicates()
-            .combineLatest(first
-                            .removeDuplicates(),
-                           selected
+            .combineLatest(selected
                                 .removeDuplicates())
-            .sink { (items: Set<CollectionItem>, first: Info.ID?, selected: Info.ID?) in
+            .sink { (items: Set<CollectionItem>, selected: Info.ID?) in
                 cells
                     .filter {
                         $0.item != nil
@@ -84,7 +81,6 @@ class Collection<Cell, Info>: NSScrollView where Cell : CollectionCell<Info> {
                             } (Cell())
                         cell.state = item.info.id == selected ? .pressed : .none
                         cell.item = item
-                        cell.first = item.info.id == first
                         content.layer!.addSublayer(cell)
                     }
             }

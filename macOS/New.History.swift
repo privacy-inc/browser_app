@@ -10,8 +10,8 @@ extension New {
                 .archive
                 .map(\.browses)
                 .removeDuplicates()
-                .map {
-                    $0
+                .map { browses in
+                    browses
                         .map { browse in
                             .init(
                                 id: browse.id,
@@ -26,7 +26,8 @@ extension New {
                                     $0.append(.make(browse.page.access.short + " - " + RelativeDateTimeFormatter().string(from: browse.date),
                                                     font: .preferredFont(forTextStyle: .callout),
                                                     color: .secondaryLabelColor))
-                                })
+                                },
+                                first: browse == browses.first)
                         }
                 }
                 .sink { [weak self] in

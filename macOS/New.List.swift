@@ -44,7 +44,6 @@ extension New {
                                                     height: height)))
                             $0.y += height + 2
                         }
-                    self?.first.send(info.first?.id)
                     self?.items.send(result.items)
                     self?.height.send(result.y + New.insets_2)
                 }

@@ -8,12 +8,6 @@ extension Trackers {
         private weak var text: CollectionCellText!
         private weak var separator: Shape!
         
-        override var first: Bool {
-            didSet {
-                separator.isHidden = first
-            }
-        }
-        
         override var item: CollectionItem<Info>? {
             didSet {
                 guard
@@ -23,6 +17,7 @@ extension Trackers {
                 frame = item.rect
                 text.frame.size.height = item.rect.height - Self.insets2
                 text.string = item.info.text
+                separator.isHidden = item.info.first
             }
         }
         

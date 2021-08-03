@@ -52,7 +52,8 @@ extension Trackers {
                                                     font: .preferredFont(forTextStyle: .callout),
                                                     color: .secondaryLabelColor))
                                 },
-                                dates: blocked.1)
+                                dates: blocked.1,
+                                first: blocked.0 == list.first?.0)
                         }
                 }
                 .subscribe(info)
@@ -107,7 +108,6 @@ extension Trackers {
                                                     height: height)))
                             $0.y += height + 2
                         }
-                    self?.first.send($0.first?.id)
                     self?.items.send(result.items)
                     self?.height.send(result.y + Self.insets_2)
                 }

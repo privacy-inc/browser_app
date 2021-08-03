@@ -1,7 +1,6 @@
 import AppKit
 
 class CollectionCell<Info>: CALayer where Info : CollectionItemInfo {
-    var first = false
     var item: CollectionItem<Info>?
     
     required init?(coder: NSCoder) { nil }

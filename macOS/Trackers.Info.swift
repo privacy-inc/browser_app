@@ -5,5 +5,6 @@ extension Trackers {
         let id: String
         let text: NSAttributedString
         let dates: [Date]
+        let first: Bool
     }
 }

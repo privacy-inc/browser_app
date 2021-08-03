@@ -9,12 +9,6 @@ extension New {
         private weak var icon: Icon!
         private weak var separator: Shape!
         
-        override var first: Bool {
-            didSet {
-                separator.isHidden = first
-            }
-        }
-        
         override var frame: CGRect {
             didSet {
                 separator.path = .init(rect: .init(x: Self.insets, y: -1, width: frame.width - Self.insets2, height: 0), transform: nil)
@@ -32,6 +26,7 @@ extension New {
                 text.string = item.info.string
                 icon.frame.size.height = item.rect.height
                 icon.domain.send(item.info.domain)
+                separator.isHidden = item.info.first
             }
         }
         

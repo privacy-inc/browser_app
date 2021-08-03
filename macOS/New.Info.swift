@@ -5,6 +5,6 @@ extension New {
         let id: Int
         let domain: String
         let string: NSAttributedString
+        let first: Bool
     }
 }
-

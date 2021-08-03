@@ -32,7 +32,8 @@ extension New {
                                                         font: .preferredFont(forTextStyle: .callout),
                                                         color: .secondaryLabelColor))
                                     }
-                                })
+                                },
+                                first: index == 0)
                         }
                 }
                 .sink { [weak self] in
