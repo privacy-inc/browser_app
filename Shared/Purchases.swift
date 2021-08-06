@@ -20,10 +20,10 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
     
     func load() {
         request?.cancel()
+        error.value = nil
 
         guard products.value.isEmpty else { return }
         loading.value = true
-        error.value = nil
 
         let request = SKProductsRequest(productIdentifiers: .init(Item.allCases.map(\.rawValue)))
         request.delegate = self
