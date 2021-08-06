@@ -34,10 +34,7 @@ extension Store.Item {
             super.update()
             
             switch state {
-            case .pressed:
-                image.contentTintColor = .white
-                text.textColor = .white
-            case .highlighted:
+            case .pressed, .highlighted:
                 image.contentTintColor = .labelColor
                 text.textColor = .labelColor
             default:
