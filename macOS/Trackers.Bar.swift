@@ -49,7 +49,7 @@ extension Trackers {
                     domains.attributedStringValue = .make {
                         $0.append(.make(NumberFormatter
                                             .decimal
-                                            .string(from: NSNumber(value: trackers.count)) ?? "",
+                                            .string(from: .init(value: trackers.count)) ?? "",
                                         font: .monoDigit(style: .title2, weight: .regular),
                                         alignment: .right))
                         $0.linebreak()
@@ -61,7 +61,7 @@ extension Trackers {
                     incidences.attributedStringValue = .make {
                         $0.append(.make(NumberFormatter
                                             .decimal
-                                            .string(from: NSNumber(value: trackers.attempts)) ?? "",
+                                            .string(from: .init(value: trackers.attempts)) ?? "",
                                         font: .monoDigit(style: .title2, weight: .regular),
                                         alignment: .right))
                         $0.linebreak()
