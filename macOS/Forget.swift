@@ -39,12 +39,12 @@ final class Forget: NSPopover {
             }
             .store(in: &subs)
         
-        let activity = Option.Basic(title: "Activity", image: "chart.bar.xaxis")
+        let activity = Option.Basic(title: "Activity", image: "chart.bar.fill")
         activity
             .click
             .sink { [weak self] in
                 cloud.forgetActivity()
-                Toast.show(message: .init(title: "Forgot activity", icon: "chart.bar.xaxis"))
+                Toast.show(message: .init(title: "Forgot activity", icon: "chart.bar.fill"))
                 self?.close()
             }
             .store(in: &subs)

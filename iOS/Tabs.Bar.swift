@@ -26,7 +26,7 @@ extension Tabs {
                             },
                             .default(.init("Activity")) {
                                 cloud.forgetActivity()
-                                session.toast = .init(title: "Forgot activity", icon: "chart.bar.xaxis")
+                                session.toast = .init(title: "Forgot activity", icon: "chart.bar.fill")
                             },
                             .default(.init("Trackers")) {
                                 cloud.forgetBlocked()
@@ -42,7 +42,7 @@ extension Tabs {
                             .cancel()])
                 }
                 
-                Control(image: "chart.bar.xaxis") {
+                Control(image: "chart.bar.fill") {
                     session.modal = .activity
                 }
                 

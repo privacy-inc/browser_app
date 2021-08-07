@@ -50,7 +50,7 @@ final class New: NSView {
         let history = History(session: session, id: id)
         backgroundHistory.addSubview(history)
          
-        let activity = Option(icon: "chart.bar.xaxis")
+        let activity = Option(icon: "chart.bar.fill")
         activity
             .click
             .sink {
