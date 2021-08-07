@@ -24,7 +24,6 @@ extension Trackers {
             addSubview(domains)
             
             let incidences = Text()
-            incidences.alignment = .right
             addSubview(incidences)
             
             icon.centerYAnchor.constraint(equalTo: centerYAnchor).isActive = true
