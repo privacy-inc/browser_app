@@ -34,7 +34,7 @@ final class Menu: NSMenu, NSMenuDelegate {
                     .child("Open Location", #selector(Window.location), "l"),
                     .separator(),
                     .child("Close Window", #selector(Window.close), "W"),
-                    .child("Close Tab", #selector(Window.closeTab), "w"),
+                    .child("Close Tab", #selector(NSWindow.closeTab), "w"),
                     .separator(),
                     .parent("Share") {
                         $0.submenu!.delegate = self

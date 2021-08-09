@@ -89,6 +89,7 @@
 		CE78111F264BFCBE0097FAC2 /* UIApplication.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78111E264BFCBE0097FAC2 /* UIApplication.swift */; };
 		CE781121264C00580097FAC2 /* Search.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781120264C00580097FAC2 /* Search.swift */; };
 		CE781123264C08990097FAC2 /* Tab.New.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE781122264C08990097FAC2 /* Tab.New.swift */; };
+		CE78335B26C17AA9006E7593 /* NSWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE78335A26C17AA9006E7593 /* NSWindow.swift */; };
 		CE7A6B5A269EE5F9002F748C /* Icon.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7A6B59269EE5F9002F748C /* Icon.swift */; };
 		CE7F6512266E30C300E889A9 /* Settings.Location.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE7F6511266E30C300E889A9 /* Settings.Location.swift */; };
 		CE80555A266789E10096D1A5 /* Toast.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE805559266789E10096D1A5 /* Toast.swift */; };
@@ -378,6 +379,7 @@
 		CE78111E264BFCBE0097FAC2 /* UIApplication.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplication.swift; sourceTree = "<group>"; };
 		CE781120264C00580097FAC2 /* Search.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.swift; sourceTree = "<group>"; };
 		CE781122264C08990097FAC2 /* Tab.New.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tab.New.swift; sourceTree = "<group>"; };
+		CE78335A26C17AA9006E7593 /* NSWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSWindow.swift; sourceTree = "<group>"; };
 		CE7A6B59269EE5F9002F748C /* Icon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Icon.swift; sourceTree = "<group>"; };
 		CE7F6511266E30C300E889A9 /* Settings.Location.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.Location.swift; sourceTree = "<group>"; };
 		CE805559266789E10096D1A5 /* Toast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Toast.swift; sourceTree = "<group>"; };
@@ -831,6 +833,7 @@
 				CE676A6C265E65A30042EDC2 /* NSMenuItem.swift */,
 				CEAB2F45266F818F003AEC08 /* NSMutableAttributedString.swift */,
 				CEF97E61266A3A8400550E10 /* NSSavePanel.swift */,
+				CE78335A26C17AA9006E7593 /* NSWindow.swift */,
 				CEF97E6E266A642D00550E10 /* Scroll.swift */,
 				CEAB2F49266F8AEA003AEC08 /* Selectable.swift */,
 				CE2930F12670D2B7003E60F0 /* Separator.swift */,
@@ -1280,6 +1283,7 @@
 				CE80555A266789E10096D1A5 /* Toast.swift in Sources */,
 				CEC9859626637821001DA288 /* Autocomplete.swift in Sources */,
 				CE7082D0269DB2BC00BC7323 /* Bar.Search.swift in Sources */,
+				CE78335B26C17AA9006E7593 /* NSWindow.swift in Sources */,
 				CEF001AC266BEB9E00993CDD /* Settings.Security.swift in Sources */,
 				CE6F0D7726669AAA00538D9A /* NSApplication.swift in Sources */,
 				CE3E858B268DF37500929775 /* Chart.swift in Sources */,

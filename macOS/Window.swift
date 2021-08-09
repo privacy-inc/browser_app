@@ -39,18 +39,22 @@ final class Window: NSWindow {
         super.close()
     }
     
-    @objc func plus() {
-        session
-            .plus
-            .send()
-    }
-    
-    @objc func closeTab() {
+    override func closeTab() {
+        guard session.tab.items.value.count > 1 else {
+            close()
+            return
+        }
         session
             .close
             .send(session
                     .current
                     .value)
+    }
+    
+    @objc func plus() {
+        session
+            .plus
+            .send()
     }
     
     @objc func stop() {
