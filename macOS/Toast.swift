@@ -20,6 +20,8 @@ final class Toast: NSPanel {
         hasShadow = true
         animationBehavior = .alertPanel
         level = .floating
+        isFloatingPanel = true
+        hidesOnDeactivate = false
         
         let content = NSVisualEffectView()
         content.translatesAutoresizingMaskIntoConstraints = false

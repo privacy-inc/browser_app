@@ -1,5 +1,5 @@
 import AppKit
-import Combine
+import Combine 
 
 extension Field.Cell {
     final class Editor: NSTextView {

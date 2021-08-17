@@ -21,7 +21,6 @@ final class Autocomplete: NSPanel {
         self.id = id
         self.session = session
         super.init(contentRect: .zero, styleMask: [.borderless], backing: .buffered, defer: true)
-        isMovable = false
         isOpaque = false
         backgroundColor = .clear
         hasShadow = true

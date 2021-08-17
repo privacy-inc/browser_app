@@ -20,13 +20,13 @@ final class About: NSWindow {
         
         let name = Text()
         name.stringValue = "Privacy"
-        name.font = .preferredFont(forTextStyle: .largeTitle, options: [:])
+        name.font = .preferredFont(forTextStyle: .largeTitle)
         name.textColor = .labelColor
         content.addSubview(name)
         
         let version = Text()
         version.stringValue = Bundle.main.object(forInfoDictionaryKey: "CFBundleVersion") as? String ?? ""
-        version.font = .preferredFont(forTextStyle: .title2, options: [:])
+        version.font = .preferredFont(forTextStyle: .title2)
         version.textColor = .tertiaryLabelColor
         content.addSubview(version)
         
