@@ -25,10 +25,6 @@ extension Search.Bar {
                     self?.becomeFirstResponder()
                 }
                 .store(in: &subs)
-            
-            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { [weak self] in
-                self?.becomeFirstResponder()
-            }
         }
         
         func textFieldDidEndEditing(_: UITextField) {
