@@ -32,10 +32,8 @@ struct Trackers: View {
                                 .padding(.trailing)
                                 Picker("Sort", selection: $sort) {
                                     Text(verbatim: "Attempts")
-                                        .foregroundColor(.white)
                                         .tag(Sleuth.Trackers.attempts)
                                     Text(verbatim: "Recent")
-                                        .foregroundColor(.white)
                                         .tag(Sleuth.Trackers.recent)
                                 }
                                 .labelsHidden()
