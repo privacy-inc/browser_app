@@ -21,7 +21,6 @@ extension Fast.Content {
                     .padding(10)
                     .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
                 }
-                
             }
         }
     }
