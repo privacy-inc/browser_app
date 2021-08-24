@@ -1,7 +1,8 @@
 import SwiftUI
+import Sleuth
 
 struct Trackers: View {
-    @Binding var session: Session
+    let archive: Archive
     let trackers: [(name: String, count: [Date])]
     
     var body: some View {
@@ -33,7 +34,7 @@ struct Trackers: View {
                         .textCase(.none)
                         .padding()) {
                 ForEach(0 ..< trackers.count, id: \.self) {
-                    Item(session: $session, name: trackers[$0].name, count: trackers[$0].count)
+                    Item(name: trackers[$0].name, count: trackers[$0].count)
                 }
             }
         }

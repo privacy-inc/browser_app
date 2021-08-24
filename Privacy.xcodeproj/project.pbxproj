@@ -144,9 +144,7 @@
 		CEA02A9A267F452B006851F4 /* Search.Entry.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA02A99267F452B006851F4 /* Search.Entry.swift */; };
 		CEA65F42265D0A7400A35436 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F41265D0A7400A35436 /* App.swift */; };
 		CEA65F44265D0A9900A35436 /* Sleuth in Frameworks */ = {isa = PBXBuildFile; productRef = CEA65F43265D0A9900A35436 /* Sleuth */; };
-		CEA65F46265D0AC700A35436 /* Session.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F45265D0AC700A35436 /* Session.swift */; };
 		CEA65F48265D0B0800A35436 /* App.Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F47265D0B0800A35436 /* App.Delegate.swift */; };
-		CEA65F4A265D0B4000A35436 /* Window.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F49265D0B4000A35436 /* Window.swift */; };
 		CEA65F4D265D117700A35436 /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CEA65F4C265D117700A35436 /* CloudKit.framework */; };
 		CEA65F4F265D12E500A35436 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEA65F4E265D12E500A35436 /* Activity.swift */; };
 		CEA65F50265D131000A35436 /* Activity.Chart.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE751C1D265A88C500F8589D /* Activity.Chart.swift */; };
@@ -435,9 +433,7 @@
 		CEA02A97267F451B006851F4 /* Search.Content.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Content.swift; sourceTree = "<group>"; };
 		CEA02A99267F452B006851F4 /* Search.Entry.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Search.Entry.swift; sourceTree = "<group>"; };
 		CEA65F41265D0A7400A35436 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; sourceTree = "<group>"; };
-		CEA65F45265D0AC700A35436 /* Session.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Session.swift; sourceTree = "<group>"; };
 		CEA65F47265D0B0800A35436 /* App.Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.Delegate.swift; sourceTree = "<group>"; };
-		CEA65F49265D0B4000A35436 /* Window.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Window.swift; sourceTree = "<group>"; };
 		CEA65F4B265D113D00A35436 /* Privacy.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Privacy.entitlements; sourceTree = "<group>"; };
 		CEA65F4C265D117700A35436 /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = Platforms/WatchOS.platform/Developer/SDKs/WatchOS7.4.sdk/System/Library/Frameworks/CloudKit.framework; sourceTree = DEVELOPER_DIR; };
 		CEA65F4E265D12E500A35436 /* Activity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
@@ -757,10 +753,8 @@
 				CEA65F41265D0A7400A35436 /* App.swift */,
 				CEA65F59265D205C00A35436 /* Forget.Cell.swift */,
 				CEA65F57265D203900A35436 /* Forget.swift */,
-				CEA65F45265D0AC700A35436 /* Session.swift */,
 				CEA65F55265D1A9000A35436 /* Trackers.Item.swift */,
 				CEA65F53265D1A6100A35436 /* Trackers.swift */,
-				CEA65F49265D0B4000A35436 /* Window.swift */,
 			);
 			path = "watchOS Extension";
 			sourceTree = "<group>";
@@ -1222,11 +1216,9 @@
 				CEA65F5A265D205C00A35436 /* Forget.Cell.swift in Sources */,
 				CEA65F4F265D12E500A35436 /* Activity.swift in Sources */,
 				CEA65F48265D0B0800A35436 /* App.Delegate.swift in Sources */,
-				CEA65F46265D0AC700A35436 /* Session.swift in Sources */,
 				CEA65F56265D1A9000A35436 /* Trackers.Item.swift in Sources */,
 				CEA65F42265D0A7400A35436 /* App.swift in Sources */,
 				CEA65F50265D131000A35436 /* Activity.Chart.swift in Sources */,
-				CEA65F4A265D0B4000A35436 /* Window.swift in Sources */,
 				CEA65F51265D131400A35436 /* RelativeDateTimeFormatter.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -1,7 +1,8 @@
 import SwiftUI
+import Sleuth
 
 struct Activity: View {
-    @Binding var session: Session
+    let archive: Archive
     
     var body: some View {
         VStack {
@@ -9,11 +10,10 @@ struct Activity: View {
                 .font(.footnote)
                 .padding([.leading, .top])
                 .frame(maxWidth: .greatestFiniteMagnitude, alignment: .leading)
-            Chart(values: session.archive.activity.plotter)
+            Chart(values: archive.activity.plotter)
                 .padding()
             HStack {
-                session
-                    .archive
+                archive
                     .activity
                     .first
                     .map {

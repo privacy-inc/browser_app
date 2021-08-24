@@ -2,7 +2,6 @@ import SwiftUI
 
 extension Trackers {
     struct Item: View {
-        @Binding var session: Session
         let name: String
         let count: [Date]
         

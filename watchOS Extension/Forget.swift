@@ -2,6 +2,7 @@ import SwiftUI
 
 struct Forget: View {
     @State private var done = false
+    
     var body: some View {
         List {
             if done {
