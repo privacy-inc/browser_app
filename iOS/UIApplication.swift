@@ -1,4 +1,4 @@
-import WebKit
+import UIKit
 
 extension UIApplication {
     static var dark: Bool {
