@@ -44,8 +44,10 @@ final class Purchases: NSObject, SKRequestDelegate, SKProductsRequestDelegate, S
             .forEach { transation in
                 switch transation.transactionState {
                 case .failed:
-                    DispatchQueue.main.async {
-                        self.error.value = NSLocalizedString("There was an error connecting to the App Store, please try again later.", comment: "")
+                    if (transation.error as? SKError)?.code != SKError.paymentCancelled {
+                        DispatchQueue.main.async {
+                            self.error.value = "There was an error connecting to the App Store, please try again later."
+                        }
                     }
                 case .purchased, .restored:
                     DispatchQueue.main.async {
