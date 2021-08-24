@@ -29,15 +29,15 @@ extension Fast {
                     .map {
                         .init(id: $0.id, sites: .history, title: $0.page.title, short: $0.page.access.short)
                     }
-            return completion(.init(entries: [.init(
-                                                sites: items
-                                                    .reduce(into: (Array(repeating: [], count: 2), 1)) {
-                                                        $0.1 = $0.1 == 1 ? 0 : 1
-                                                        $0.0[$0.1].append($1)
-                                                    }
-                                                    .0,
-                                                date: .init())],
-                                    policy: .never))
+            completion(.init(entries: [.init(
+                                        sites: items
+                                            .reduce(into: (Array(repeating: [], count: 2), 1)) {
+                                                $0.1 = $0.1 == 1 ? 0 : 1
+                                                $0.0[$0.1].append($1)
+                                            }
+                                            .0,
+                                        date: .init())],
+                             policy: .never))
         }
     }
 }
