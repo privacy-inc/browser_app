@@ -56,8 +56,12 @@ final class Field: NSTextField, NSTextFieldDelegate {
                         }
                     } ($0)
             }
-            .sink { [weak self] in
-                self?.stringValue = $0
+            .sink { [weak self] (short: String) in
+                self?.stringValue = short
+                
+                if self?.autocomplete.isVisible == true {
+                    self?.autocomplete.end()
+                }
             }
             .store(in: &subs)
         
