@@ -4,7 +4,8 @@ struct Icon: View {
     let domain: String
     @State private var image = UIImage(systemName: "app",
                                        withConfiguration: UIImage
-                                        .SymbolConfiguration(textStyle: .title1))!.withRenderingMode(.alwaysTemplate)
+                                        .SymbolConfiguration(textStyle: .title1))!
+        .withRenderingMode(.alwaysTemplate)
     
     var body: some View {
         Image(uiImage: image)
@@ -14,13 +15,24 @@ struct Icon: View {
             .foregroundColor(.init(.quaternaryLabel))
             .onAppear {
                 favicon.load(domain: domain)
+                update()
             }
-            .onReceive(favicon.icons) { icons in
-                icons[domain]
-                    .flatMap(UIImage.init(data:))
-                    .map {
-                        image = $0
-                    }
+            .onChange(of: domain) {
+                favicon.load(domain: $0)
+                update()
+            }
+            .onReceive(favicon.icons) { _ in
+                update()
+            }
+    }
+    
+    private func update() {
+        favicon
+            .icons
+            .value[domain]
+            .flatMap(UIImage.init(data:))
+            .map {
+                image = $0
             }
     }
 }
