@@ -210,7 +210,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         case .allow:
             print("allow \(decidePolicyFor.request.url!)")
             preferences.allowsContentJavaScript = settings.javascript
-            if #available(macOS 11.3, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
+            if #available(macOS 12, iOS 14.5, *), decidePolicyFor.shouldPerformDownload {
                 decisionHandler(.download, preferences)
             } else {
                 decisionHandler(.allow, preferences)
@@ -243,7 +243,7 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
     }
     
     func webView(_ webView: WKWebView, decidePolicyFor navigationResponse: WKNavigationResponse, decisionHandler: @escaping (WKNavigationResponsePolicy) -> Void) {
-        guard #available(macOS 11.3, iOS 14.5, *), !navigationResponse.canShowMIMEType else {
+        guard #available(macOS 12, iOS 14.5, *), !navigationResponse.canShowMIMEType else {
             decisionHandler(.allow)
             return
         }
