@@ -4,6 +4,7 @@ import Combine
 extension Window {
     final class Content: NSView {
         private var sub: AnyCancellable?
+        private weak var display: NSView?
         
         required init?(coder: NSCoder) { nil }
         init(session: Session) {
@@ -33,19 +34,18 @@ extension Window {
                 .sink { [weak self] in
                     switch $0.state {
                     case .new:
-                        let display = New(session: session, id: $0.id)
-                        self?.display = display
+                        self?.update(display: New(session: session, id: $0.id))
                     case let .browse(browse):
                         let web = (session.tab.items.value[web: $0.id] as? Web) ?? Web(session: session, id: $0.id, browse: browse)
                         if session.tab.items.value[web: $0.id] == nil {
                             session.tab.update($0.id, web: web)
                         }
                         let browser = Browser(web: web)
-                        self?.display = browser
+                        self?.update(display: browser)
                         self?.window?.makeFirstResponder(web)
                     case let .error(browse, error):
                         let display = Error(session: session, id: $0.id, browse: browse, error: error)
-                        self?.display = display
+                        self?.update(display: display)
                         self?.window?.makeFirstResponder(display)
                     }
                 }
@@ -60,19 +60,15 @@ extension Window {
             separator.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
         }
         
-        private weak var display: NSView? {
-            didSet {
-                oldValue?.removeFromSuperview()
-                display
-                    .map {
-                        addSubview($0)
-                        
-                        $0.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 1).isActive = true
-                        $0.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
-                        $0.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
-                        $0.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
-                    }
-            }
+        private func update(display: NSView) {
+            self.display?.removeFromSuperview()
+            addSubview(display)
+            
+            display.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 1).isActive = true
+            display.bottomAnchor.constraint(equalTo: bottomAnchor).isActive = true
+            display.leftAnchor.constraint(equalTo: leftAnchor).isActive = true
+            display.rightAnchor.constraint(equalTo: rightAnchor).isActive = true
+            self.display = display
         }
     }
 }
