@@ -18,6 +18,8 @@ class Webview: WKWebView, WKNavigationDelegate, WKUIDelegate, WKScriptMessageHan
         
         configuration.suppressesIncrementalRendering = false
         configuration.allowsAirPlayForMediaPlayback = true
+#warning("Add a setting for this")
+        configuration.mediaTypesRequiringUserActionForPlayback = .all
         configuration.preferences.javaScriptCanOpenWindowsAutomatically = settings.popups && settings.javascript
         configuration.preferences.isFraudulentWebsiteWarningEnabled = !settings.http
         configuration.defaultWebpagePreferences.allowsContentJavaScript = settings.popups && settings.javascript
